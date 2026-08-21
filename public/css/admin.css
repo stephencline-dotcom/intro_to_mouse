@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+.admin-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.admin-header {
+  text-align: center;
+  margin: 0 auto 24px;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+.admin-header p {
+  margin: 8px 0 0;
+  font-size: 18px;
+}
+
+.settings-panel {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 8px 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.setting-row {
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 4px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.setting-row:last-of-type {
+  border-bottom: none;
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-row h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.setting-row p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #64748b;
+}
+
+.setting-row input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+#settingsStatus {
+  margin: 0;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+}
+
+@media (max-width: 600px) {
+  .admin-page {
+    padding: 16px;
+  }
+
+  .admin-header h1 {
+    font-size: 32px;
+  }
+
+  .settings-panel {
+    padding: 6px 18px;
+  }
+}

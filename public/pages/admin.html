@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hands-On Mouse Teacher Settings</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <main class="admin-page">
+
+    <section class="admin-header">
+      <h1>Teacher Settings</h1>
+      <p>Hands-On Mouse classroom controls</p>
+    </section>
+
+    <section class="settings-panel">
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <h2>Sound</h2>
+          <p>Allow sounds and celebrations during activities.</p>
+        </div>
+
+        <input
+          type="checkbox"
+          id="soundEnabled"
+        >
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <h2>Freeze Screen Feature</h2>
+          <p>Allow the teacher to freeze student screens.</p>
+        </div>
+
+        <input
+          type="checkbox"
+          id="freezeScreenFeatureEnabled"
+        >
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <h2>Training Pause</h2>
+          <p>Allow the teacher to pause student training.</p>
+        </div>
+
+        <input
+          type="checkbox"
+          id="trainingPauseEnabled"
+        >
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <h2>Mouse Practice</h2>
+          <p>Show Mouse Practice on the student homepage.</p>
+        </div>
+
+        <input
+          type="checkbox"
+          id="mousePracticeEnabled"
+        >
+      </div>
+
+      <p id="settingsStatus">Loading settings...</p>
+
+    </section>
+
+  </main>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>
