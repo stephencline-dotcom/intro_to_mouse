@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
-
+const defaultSettings = require("./server/defaultSettings");
+const { normalizeSettings } = require("./server/settings");
+let currentSettings = normalizeSettings(defaultSettings);
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -12,8 +14,17 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Simple health check
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
+app.get("/api/settings", (req, res) => {
+  res.json(currentSettings);
+});
+
+app.put("/api/settings", (req, res) => {
+  currentSettings = normalizeSettings({
+    ...currentSettings,
+    ...req.body
+  });
+
+  res.json(currentSettings);
 });
 
 // Student homepage
