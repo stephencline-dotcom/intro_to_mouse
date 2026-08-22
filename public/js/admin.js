@@ -76,3 +76,9 @@ settingIds.forEach((settingId) => {
 });
 
 loadSettings();
+const teacherLogoutButton = document.getElementById("teacherLogoutButton");
+
+teacherLogoutButton.addEventListener("click", () => {
+  teacherSession.endTeacherSession();
+  window.location.replace("/pages/login.html");
+});
