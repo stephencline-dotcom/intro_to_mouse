@@ -17,6 +17,29 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Simple health check
+// Teacher login
+app.post("/api/teacher-login", (req, res) => {
+  const { password } = req.body;
+
+  if (!password) {
+    return res.status(400).json({
+      success: false,
+      error: "Password is required."
+    });
+  }
+
+  if (password !== process.env.TEACHER_PASSWORD) {
+    return res.status(401).json({
+      success: false,
+      error: "Incorrect password."
+    });
+  }
+
+  res.json({
+    success: true
+  });
+});
+
 app.get("/api/settings", async (req, res) => {
   try {
     const { data, error } = await supabase

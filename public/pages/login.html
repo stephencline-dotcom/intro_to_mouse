@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Login - Hands-On Mouse</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <main class="admin-page">
+
+    <section class="admin-header">
+      <h1>Teacher Login</h1>
+      <p>Hands-On Mouse</p>
+    </section>
+
+    <section class="login-panel">
+
+      <form id="teacherLoginForm">
+
+        <label for="teacherPassword">
+          Teacher Password
+        </label>
+
+        <input
+          type="password"
+          id="teacherPassword"
+          autocomplete="current-password"
+          required
+        >
+
+        <button type="submit">
+          Log In
+        </button>
+
+        <p id="loginStatus"></p>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="../js/shared/teacher-session.js?v=2"></script>
+  <script src="../js/login.js?v=1"></script>
+</body>
+</html>

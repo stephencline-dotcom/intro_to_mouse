@@ -104,3 +104,63 @@ body {
     padding: 6px 18px;
   }
 }
+/* ========================================
+   Teacher Login
+======================================== */
+
+.login-panel {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.login-panel form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-panel label {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.login-panel input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.login-panel input:focus {
+  outline: 3px solid #93c5fd;
+  border-color: #2563eb;
+}
+
+.login-panel button {
+  margin-top: 4px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-panel button:hover {
+  background: #1d4ed8;
+}
+
+#loginStatus {
+  min-height: 20px;
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}

@@ -1,3 +1,5 @@
+const teacherSession = window.HandsOnMouseTeacherSession;
+
 async function loadSettings() {
   const status = document.getElementById("settingsStatus");
 
