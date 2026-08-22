@@ -10,6 +10,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+let freezeScreenArmed = false;
+
 // Parse JSON requests
 app.use(express.json());
 
@@ -37,6 +39,22 @@ app.post("/api/teacher-login", (req, res) => {
 
   res.json({
     success: true
+  });
+});
+
+app.get("/api/classroom-state", (req, res) => {
+  res.json({
+    freezeScreenArmed
+  });
+});
+
+app.put("/api/classroom-state", (req, res) => {
+  if (typeof req.body.freezeScreenArmed === "boolean") {
+    freezeScreenArmed = req.body.freezeScreenArmed;
+  }
+
+  res.json({
+    freezeScreenArmed
   });
 });
 
