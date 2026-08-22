@@ -221,3 +221,148 @@ body {
 #globalFreezeButton:hover {
   filter: brightness(0.95);
 }
+
+/* Return to Homepage */
+
+.admin-home-button {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px 20px;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.admin-home-button:hover {
+  background: #1d4ed8;
+}
+
+#globalTeacherSettingsButton {
+  position: fixed;
+  top: 66px;
+  right: 14px;
+  z-index: 9999;
+
+  min-width: 110px;
+  padding: 10px 14px;
+
+  border-radius: 10px;
+
+  background: #334155;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
+#globalTeacherSettingsButton:hover {
+  background: #1e293b;
+}
+
+.login-home-button {
+  display: block;
+  width: 100%;
+  padding: 12px 18px;
+
+  border-radius: 10px;
+
+  background: #64748b;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.login-home-button:hover {
+  background: #475569;
+}
+
+/* ========================================
+   Classroom Links
+======================================== */
+
+.classroom-links-panel {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 20px;
+  padding: 22px 24px;
+
+  background: white;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.classroom-links-panel h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.classroom-links-help {
+  margin: 0 0 18px;
+  color: #64748b;
+}
+
+.classroom-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 14px 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.classroom-link-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.classroom-link-info span {
+  color: #64748b;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.classroom-link-row button {
+  flex-shrink: 0;
+
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 9px;
+
+  background: #2563eb;
+  color: white;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.classroom-link-row button:hover {
+  background: #1d4ed8;
+}
+
+#copyLinkStatus {
+  min-height: 18px;
+  margin: 8px 0 0;
+
+  text-align: center;
+  color: #16a34a;
+  font-size: 14px;
+}

@@ -78,7 +78,51 @@ settingIds.forEach((settingId) => {
 loadSettings();
 const teacherLogoutButton = document.getElementById("teacherLogoutButton");
 
-teacherLogoutButton.addEventListener("click", () => {
+teacherLogoutButton.addEventListener("click", async () => {
+  try {
+    await fetch("/api/classroom-state", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        freezeScreenArmed: false
+      })
+    });
+  } catch (error) {
+    console.error("Could not release Freeze Screen during logout:", error);
+  }
+
   teacherSession.endTeacherSession();
   window.location.replace("/pages/login.html");
 });
+
+const studentLink = window.location.origin + "/";
+const teacherLoginLink = window.location.origin + "/pages/login.html";
+
+document.getElementById("studentLink").textContent = studentLink;
+document.getElementById("teacherLoginLink").textContent = teacherLoginLink;
+
+async function copyClassroomLink(link, message) {
+  const status = document.getElementById("copyLinkStatus");
+
+  try {
+    await navigator.clipboard.writeText(link);
+    status.textContent = message;
+  } catch (error) {
+    console.error(error);
+    status.textContent = "Could not copy link.";
+  }
+}
+
+document
+  .getElementById("copyStudentLinkButton")
+  .addEventListener("click", () => {
+    copyClassroomLink(studentLink, "Student Link copied!");
+  });
+
+document
+  .getElementById("copyTeacherLinkButton")
+  .addEventListener("click", () => {
+    copyClassroomLink(teacherLoginLink, "Teacher Login Link copied!");
+  });

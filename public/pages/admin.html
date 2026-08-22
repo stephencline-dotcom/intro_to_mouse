@@ -16,6 +16,35 @@
       <p>Hands-On Mouse classroom controls</p>
     </section>
 
+    <section class="classroom-links-panel">
+      <h2>Classroom Links</h2>
+      <p class="classroom-links-help">
+        Use the Student Link on student Chromebooks.
+      </p>
+
+      <div class="classroom-link-row">
+        <div class="classroom-link-info">
+          <strong>Student Link</strong>
+          <span id="studentLink"></span>
+        </div>
+        <button id="copyStudentLinkButton" type="button">
+          Copy Student Link
+        </button>
+      </div>
+
+      <div class="classroom-link-row">
+        <div class="classroom-link-info">
+          <strong>Teacher Login Link</strong>
+          <span id="teacherLoginLink"></span>
+        </div>
+        <button id="copyTeacherLinkButton" type="button">
+          Copy Teacher Link
+        </button>
+      </div>
+
+      <p id="copyLinkStatus"></p>
+    </section>
+
     <section class="settings-panel">
 
       <div class="setting-row">
@@ -67,6 +96,10 @@
       </div>
 
       <p id="settingsStatus">Loading settings...</p>
+      <a class="admin-home-button" href="/">
+        Return to Homepage
+      </a>
+
       <button id="teacherLogoutButton" type="button">
         Log Out
       </button>

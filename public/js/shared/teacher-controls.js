@@ -17,6 +17,15 @@
   button.dataset.armed = "false";
 
   document.body.appendChild(button);
+  if (window.location.pathname !== "/pages/admin.html") {
+    const settingsButton = document.createElement("a");
+    settingsButton.id = "globalTeacherSettingsButton";
+    settingsButton.href = "/pages/admin.html";
+    settingsButton.textContent = "Teacher Settings";
+
+    document.body.appendChild(settingsButton);
+  }
+
 
   function updateButton(isArmed) {
     button.dataset.armed = String(isArmed);
