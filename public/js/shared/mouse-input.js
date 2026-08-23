@@ -67,6 +67,10 @@
     };
   }
 
+  document.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+  });
+
   document.addEventListener("pointermove", onPointerMove);
   document.addEventListener("pointerdown", onPointerDown);
   document.addEventListener("wheel", onWheel, { passive: true });

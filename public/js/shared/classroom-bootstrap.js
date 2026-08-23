@@ -19,7 +19,7 @@
   loadScript("/js/shared/student-lesson-controller.js?v=3");
 
   if (isTeacher) {
-    loadScript("/js/shared/teacher-controls.js?v=3");
+    loadScript("/js/shared/teacher-controls.js?v=4");
   } else {
     loadScript("/js/shared/freeze-screen.js?v=3");
     loadScript("/js/shared/training-pause.js?v=1");

@@ -256,4 +256,5 @@
   });
 
   loadState();
+  setInterval(loadState, 1000);
 })();
