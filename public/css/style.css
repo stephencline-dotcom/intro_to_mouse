@@ -447,3 +447,75 @@ body:has(#globalFreezeButton) {
 #globalLessonModeButton {
   min-width: 116px;
 }
+
+/* ========================================
+   Student Lesson View
+======================================== */
+
+#studentLessonView {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 24px;
+}
+
+.student-lesson-card {
+  padding: 40px;
+  background: white;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.student-lesson-progress {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.student-lesson-card h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.student-lesson-type {
+  margin: 14px 0 0;
+  font-size: 18px;
+  color: #64748b;
+}
+
+/* Student Lesson View - clean override */
+
+#studentLessonView {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 24px;
+}
+
+.student-lesson-card {
+  padding: 40px;
+  background: white;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.student-lesson-progress {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.student-lesson-card h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.student-lesson-type {
+  margin: 14px 0 0;
+  font-size: 18px;
+  color: #64748b;
+}

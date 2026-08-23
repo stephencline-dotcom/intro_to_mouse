@@ -18,5 +18,6 @@
   } else {
     loadScript("/js/shared/freeze-screen.js?v=2");
     loadScript("/js/shared/training-pause.js?v=1");
+    loadScript("/js/shared/student-lesson-controller.js?v=1");
   }
 })();

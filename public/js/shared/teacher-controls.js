@@ -46,7 +46,7 @@
   const controlModeButton = document.createElement("button");
   controlModeButton.id = "globalLessonModeButton";
   controlModeButton.type = "button";
-  controlModeButton.textContent = "Teacher Control";
+  controlModeButton.textContent = "Mode: Teacher Led";
 
   lessonControls.appendChild(backButton);
   lessonControls.appendChild(lessonStepDisplay);
@@ -74,21 +74,40 @@
     pauseButton.textContent = isPaused ? "Paused" : "Pause";
   }
 
+  const activeLesson = window.HandsOnMouseLessons?.week1;
+  const lessonSteps = activeLesson?.steps || [];
+
   let currentStep = 0;
   let currentControlMode = "teacher";
 
   function updateLessonControls(state) {
-    currentStep = state.currentLessonStep ?? 0;
+    const maxStep = Math.max(lessonSteps.length - 1, 0);
+
+    currentStep = Math.min(
+      Math.max(state.currentLessonStep ?? 0, 0),
+      maxStep
+    );
+
     currentControlMode = state.lessonControlMode || "teacher";
 
-    lessonStepDisplay.textContent = `Step ${currentStep + 1}`;
+    const step = lessonSteps[currentStep];
+
+    if (step) {
+      lessonStepDisplay.textContent =
+        `Step ${currentStep + 1} of ${lessonSteps.length} — ${step.title}`;
+    } else {
+      lessonStepDisplay.textContent = "Lesson";
+    }
 
     controlModeButton.textContent =
       currentControlMode === "teacher"
-        ? "Teacher Control"
-        : "Student Control";
+        ? "Mode: Teacher Led"
+        : "Mode: Independent";
 
     backButton.disabled = currentStep <= 0;
+    nextButton.disabled =
+      lessonSteps.length === 0 ||
+      currentStep >= lessonSteps.length - 1;
   }
 
   async function updateLessonState(changes) {
