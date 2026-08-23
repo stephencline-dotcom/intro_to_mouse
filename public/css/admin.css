@@ -496,3 +496,36 @@ body:has(#globalFreezeButton) {
   min-width: 92px;
   padding: 0 14px;
 }
+
+#globalFingerControls {
+  position: fixed;
+  left: 12px;
+  top: 72px;
+  z-index: 10000;
+
+  display: flex;
+  gap: 6px;
+
+  padding: 7px;
+
+  background: white;
+  border-radius: 10px;
+
+  box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+}
+
+#globalFingerControls[hidden] {
+  display: none;
+}
+
+#globalFingerControls button {
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -54,6 +54,34 @@
   lessonControls.appendChild(controlModeButton);
 
   document.body.appendChild(lessonControls);
+
+  const fingerControls = document.createElement("div");
+  fingerControls.id = "globalFingerControls";
+  fingerControls.hidden = true;
+
+  const fingerChoices = [
+    ["thumb", "Thumb"],
+    ["pointer", "Pointer"],
+    ["middle", "Middle"],
+    ["other", "Other Fingers"],
+    [null, "Clear"]
+  ];
+
+  fingerChoices.forEach(([value, label]) => {
+    const fingerButton = document.createElement("button");
+    fingerButton.type = "button";
+    fingerButton.textContent = label;
+
+    fingerButton.addEventListener("click", async () => {
+      await updateLessonState({
+        fingerHighlight: value
+      });
+    });
+
+    fingerControls.appendChild(fingerButton);
+  });
+
+  document.body.appendChild(fingerControls);
   if (window.location.pathname !== "/pages/admin.html") {
     const settingsButton = document.createElement("a");
     settingsButton.id = "globalTeacherSettingsButton";
@@ -108,6 +136,8 @@
     nextButton.disabled =
       lessonSteps.length === 0 ||
       currentStep >= lessonSteps.length - 1;
+
+    fingerControls.hidden = currentStep !== 1;
   }
 
   async function updateLessonState(changes) {
@@ -134,14 +164,16 @@
   backButton.addEventListener("click", () => {
     if (currentStep > 0) {
       updateLessonState({
-        currentLessonStep: currentStep - 1
+        currentLessonStep: currentStep - 1,
+        fingerHighlight: null
       });
     }
   });
 
   nextButton.addEventListener("click", () => {
     updateLessonState({
-      currentLessonStep: currentStep + 1
+      currentLessonStep: currentStep + 1,
+      fingerHighlight: null
     });
   });
 

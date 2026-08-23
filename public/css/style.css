@@ -1123,3 +1123,150 @@ body:has(#globalFreezeButton) {
   opacity: 1;
   visibility: visible;
 }
+
+/* ========================================
+   Lesson Screen: How to Hold the Mouse
+======================================== */
+
+.hold-mouse-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+
+  min-height: 350px;
+  margin-top: 18px;
+}
+
+.hold-mouse-visual {
+  position: relative;
+
+  width: 280px;
+  height: 330px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Step 2 deliberately shows the hand immediately */
+.hold-mouse-hand {
+  opacity: 1;
+  visibility: visible;
+}
+
+.finger-guide {
+  width: 360px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  text-align: left;
+}
+
+.finger-guide-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 12px 16px;
+
+  background: #f8fafc;
+  border-radius: 12px;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.finger-number {
+  flex: 0 0 auto;
+
+  min-width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Step 2 synchronized finger highlighting */
+
+.hold-mouse-hand[data-highlight="thumb"]::before,
+.hold-mouse-hand[data-highlight="pointer"] .highlight-pointer,
+.hold-mouse-hand[data-highlight="middle"] .highlight-middle,
+.hold-mouse-hand[data-highlight="other"]::after,
+.hold-mouse-hand[data-highlight="other"] .highlight-other {
+  background: #fde047;
+  box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.35);
+}
+
+.hold-mouse-hand[data-highlight="pointer"] + .mouse-demo-body .mouse-demo-left {
+  background: #fef08a;
+}
+
+.hold-mouse-hand[data-highlight="middle"] + .mouse-demo-body .mouse-demo-right {
+  background: #fef08a;
+}
+
+#globalFingerControls {
+  position: fixed;
+  left: 12px;
+  top: 72px;
+  z-index: 10000;
+
+  display: flex;
+  gap: 6px;
+
+  padding: 7px;
+
+  background: white;
+  border-radius: 10px;
+
+  box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+}
+
+#globalFingerControls[hidden] {
+  display: none;
+}
+
+#globalFingerControls button {
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Refine Step 2 mouse-button highlights */
+
+/* Remove rectangular button highlight */
+.hold-mouse-hand[data-highlight="pointer"] + .mouse-demo-body .mouse-demo-left,
+.hold-mouse-hand[data-highlight="middle"] + .mouse-demo-body .mouse-demo-right {
+  background: transparent;
+}
+
+/* Highlight only the actual left/right mouse button shape */
+.hold-mouse-hand[data-highlight="pointer"] + .mouse-demo-body .mouse-demo-left {
+  background: rgba(253, 224, 71, 0.55);
+  border-radius: 80px 0 0 0;
+  box-shadow: inset 0 0 0 5px rgba(250, 204, 21, 0.8);
+}
+
+.hold-mouse-hand[data-highlight="middle"] + .mouse-demo-body .mouse-demo-right {
+  background: rgba(253, 224, 71, 0.55);
+  border-radius: 0 80px 0 0;
+  box-shadow: inset 0 0 0 5px rgba(250, 204, 21, 0.8);
+}

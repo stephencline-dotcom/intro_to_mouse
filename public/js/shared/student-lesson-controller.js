@@ -1,9 +1,7 @@
 (() => {
   const teacherSession = window.HandsOnMouseTeacherSession;
-
-  if (teacherSession && teacherSession.isTeacherSession()) {
-    return;
-  }
+  const isTeacher =
+    teacherSession && teacherSession.isTeacherSession();
 
   const lesson = window.HandsOnMouseLessons?.week1;
 
@@ -40,6 +38,71 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "hold-the-mouse") {
+      return `
+        <div class="lesson-screen lesson-screen-hold-mouse">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>How to Hold the Mouse</h1>
+
+            <p class="lesson-instruction">
+              Rest your hand gently on the mouse.
+            </p>
+          </div>
+
+          <div class="hold-mouse-demo">
+
+            <div class="hold-mouse-visual">
+              <div class="mouse-demo-hand hold-mouse-hand">
+                <div class="mouse-demo-palm highlight-palm"></div>
+                <div class="mouse-demo-finger mouse-demo-index highlight-pointer"></div>
+                <div class="mouse-demo-finger mouse-demo-middle highlight-middle"></div>
+                <div class="mouse-demo-finger mouse-demo-pinky highlight-other"></div>
+              </div>
+
+              <div class="mouse-demo-body">
+                <div class="mouse-demo-left"></div>
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+              </div>
+            </div>
+
+            <div class="finger-guide">
+              <div class="finger-guide-item">
+                <span class="finger-number">1</span>
+                <span>Thumb rests on the side</span>
+              </div>
+
+              <div class="finger-guide-item">
+                <span class="finger-number">2</span>
+                <span>Pointer finger rests on the left button</span>
+              </div>
+
+              <div class="finger-guide-item">
+                <span class="finger-number">3</span>
+                <span>Middle finger rests on the right button</span>
+              </div>
+
+              <div class="finger-guide-item">
+                <span class="finger-number">4–5</span>
+                <span>Other fingers rest along the side</span>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="lesson-coaching">
+            Keep your hand relaxed. You do not need to squeeze the mouse.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id === "meet-the-mouse") {
       return `
         <div class="lesson-screen lesson-screen-meet-mouse">
@@ -346,6 +409,16 @@
     );
   }
 
+  function updateFingerHighlight(value) {
+    const hand = document.querySelector(".hold-mouse-hand");
+
+    if (!hand) {
+      return;
+    }
+
+    hand.dataset.highlight = value || "";
+  }
+
   async function syncLessonState() {
     try {
       const response = await fetch("/api/classroom-state", {
@@ -361,7 +434,15 @@
 
       showLessonView();
 
-      if (mode === "teacher") {
+      if (isTeacher) {
+        if (
+          currentMode !== "teacher-view" ||
+          currentDisplayedStep !== (state.currentLessonStep ?? 0)
+        ) {
+          currentMode = "teacher-view";
+          renderStep(state.currentLessonStep ?? 0, "teacher");
+        }
+      } else if (mode === "teacher") {
         if (
           currentMode !== "teacher" ||
           currentDisplayedStep !== (state.currentLessonStep ?? 0)
@@ -375,6 +456,8 @@
           renderStep(getIndependentStep(), "student");
         }
       }
+
+      updateFingerHighlight(state.fingerHighlight);
     } catch (error) {
       console.error("Student lesson controller:", error);
     }
