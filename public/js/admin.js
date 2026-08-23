@@ -86,7 +86,8 @@ teacherLogoutButton.addEventListener("click", async () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        freezeScreenArmed: false
+        freezeScreenArmed: false,
+        trainingPaused: false
       })
     });
   } catch (error) {
