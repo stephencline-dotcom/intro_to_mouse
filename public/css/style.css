@@ -306,3 +306,144 @@ body.student-screen-frozen {
 body.student-training-paused {
   overflow: hidden;
 }
+
+/* ========================================
+   Shared Teacher Lesson Controls
+======================================== */
+
+#globalLessonControls {
+  position: fixed;
+  top: 66px;
+  right: 138px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px;
+
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 12px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
+#globalLessonControls button {
+  padding: 8px 12px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #334155;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+#globalLessonControls button:hover {
+  background: #1e293b;
+}
+
+#globalLessonControls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+#globalLessonStepDisplay {
+  min-width: 58px;
+
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #1f2937;
+}
+
+#globalLessonModeButton {
+  min-width: 120px;
+}
+
+
+/* ========================================
+   Unified Teacher Toolbar
+======================================== */
+
+body:has(#globalFreezeButton) {
+  padding-top: 72px;
+}
+
+#globalLessonControls {
+  position: fixed;
+  top: 8px;
+  left: 12px;
+  right: auto;
+  z-index: 9999;
+
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 6px 8px;
+
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 12px;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+}
+
+#globalPauseButton {
+  position: fixed;
+  top: 8px;
+  right: 254px;
+  z-index: 10000;
+
+  height: 52px;
+  min-width: 92px;
+  padding: 0 14px;
+}
+
+#globalFreezeButton {
+  position: fixed;
+  top: 8px;
+  right: 150px;
+  z-index: 10000;
+
+  height: 52px;
+  min-width: 92px;
+  padding: 0 14px;
+}
+
+#globalTeacherSettingsButton {
+  position: fixed;
+  top: 8px;
+  right: 12px;
+  z-index: 10000;
+
+  height: 52px;
+  min-width: 126px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 12px;
+}
+
+#globalLessonControls button {
+  height: 38px;
+  padding: 0 11px;
+}
+
+#globalLessonStepDisplay {
+  min-width: 54px;
+}
+
+#globalLessonModeButton {
+  min-width: 116px;
+}

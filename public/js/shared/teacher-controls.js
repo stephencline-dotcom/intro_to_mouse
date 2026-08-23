@@ -25,6 +25,35 @@
   pauseButton.dataset.paused = "false";
 
   document.body.appendChild(pauseButton);
+
+  const lessonControls = document.createElement("div");
+  lessonControls.id = "globalLessonControls";
+
+  const backButton = document.createElement("button");
+  backButton.id = "globalLessonBackButton";
+  backButton.type = "button";
+  backButton.textContent = "Back";
+
+  const lessonStepDisplay = document.createElement("span");
+  lessonStepDisplay.id = "globalLessonStepDisplay";
+  lessonStepDisplay.textContent = "Step 1";
+
+  const nextButton = document.createElement("button");
+  nextButton.id = "globalLessonNextButton";
+  nextButton.type = "button";
+  nextButton.textContent = "Next";
+
+  const controlModeButton = document.createElement("button");
+  controlModeButton.id = "globalLessonModeButton";
+  controlModeButton.type = "button";
+  controlModeButton.textContent = "Teacher Control";
+
+  lessonControls.appendChild(backButton);
+  lessonControls.appendChild(lessonStepDisplay);
+  lessonControls.appendChild(nextButton);
+  lessonControls.appendChild(controlModeButton);
+
+  document.body.appendChild(lessonControls);
   if (window.location.pathname !== "/pages/admin.html") {
     const settingsButton = document.createElement("a");
     settingsButton.id = "globalTeacherSettingsButton";
@@ -45,6 +74,67 @@
     pauseButton.textContent = isPaused ? "Paused" : "Pause";
   }
 
+  let currentStep = 0;
+  let currentControlMode = "teacher";
+
+  function updateLessonControls(state) {
+    currentStep = state.currentLessonStep ?? 0;
+    currentControlMode = state.lessonControlMode || "teacher";
+
+    lessonStepDisplay.textContent = `Step ${currentStep + 1}`;
+
+    controlModeButton.textContent =
+      currentControlMode === "teacher"
+        ? "Teacher Control"
+        : "Student Control";
+
+    backButton.disabled = currentStep <= 0;
+  }
+
+  async function updateLessonState(changes) {
+    try {
+      const response = await fetch("/api/classroom-state", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(changes)
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to update lesson state.");
+      }
+
+      const state = await response.json();
+      updateLessonControls(state);
+    } catch (error) {
+      console.error("Teacher Lesson controls:", error);
+    }
+  }
+
+  backButton.addEventListener("click", () => {
+    if (currentStep > 0) {
+      updateLessonState({
+        currentLessonStep: currentStep - 1
+      });
+    }
+  });
+
+  nextButton.addEventListener("click", () => {
+    updateLessonState({
+      currentLessonStep: currentStep + 1
+    });
+  });
+
+  controlModeButton.addEventListener("click", () => {
+    updateLessonState({
+      lessonControlMode:
+        currentControlMode === "teacher"
+          ? "student"
+          : "teacher"
+    });
+  });
+
   async function loadState() {
     try {
       const response = await fetch("/api/classroom-state");
@@ -56,6 +146,7 @@
       const state = await response.json();
       updateButton(state.freezeScreenArmed);
       updatePauseButton(state.trainingPaused);
+      updateLessonControls(state);
     } catch (error) {
       console.error("Teacher Freeze control:", error);
     }

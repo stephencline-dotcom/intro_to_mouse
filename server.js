@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 3000;
 
 let freezeScreenArmed = false;
 let trainingPaused = false;
+let currentLessonStep = 0;
+let lessonControlMode = "teacher";
+
 
 
 // Parse JSON requests
@@ -47,7 +50,9 @@ app.post("/api/teacher-login", (req, res) => {
 app.get("/api/classroom-state", (req, res) => {
   res.json({
     freezeScreenArmed,
-    trainingPaused
+    trainingPaused,
+    currentLessonStep,
+    lessonControlMode
   });
 });
 
@@ -60,9 +65,25 @@ app.put("/api/classroom-state", (req, res) => {
     trainingPaused = req.body.trainingPaused;
   }
 
+  if (
+    Number.isInteger(req.body.currentLessonStep) &&
+    req.body.currentLessonStep >= 0
+  ) {
+    currentLessonStep = req.body.currentLessonStep;
+  }
+
+  if (
+    req.body.lessonControlMode === "teacher" ||
+    req.body.lessonControlMode === "student"
+  ) {
+    lessonControlMode = req.body.lessonControlMode;
+  }
+
   res.json({
     freezeScreenArmed,
-    trainingPaused
+    trainingPaused,
+    currentLessonStep,
+    lessonControlMode
   });
 });
 
