@@ -120,12 +120,56 @@
   }
 
   let removeMeetMouseMovementListener = null;
+  let movementSound = null;
+  let movementSoundStopTimer = null;
+  let soundEnabled = true;
+
 
   function stopStepBehavior() {
     if (removeMeetMouseMovementListener) {
       removeMeetMouseMovementListener();
       removeMeetMouseMovementListener = null;
     }
+  }
+
+  async function loadSoundSetting() {
+    try {
+      const response = await fetch("/api/settings");
+
+      if (!response.ok) {
+        return;
+      }
+
+      const settings = await response.json();
+      soundEnabled = settings.soundEnabled !== false;
+    } catch (error) {
+      console.error("Could not load sound setting:", error);
+    }
+  }
+
+  function startMovementSound() {
+    if (!soundEnabled) {
+      return;
+    }
+
+    if (!movementSound) {
+      movementSound = new Audio("/sounds/swoosh.mp3");
+      movementSound.loop = true;
+      movementSound.volume = 0.35;
+    }
+
+    clearTimeout(movementSoundStopTimer);
+
+    if (movementSound.paused) {
+      movementSound.play().catch(() => {});
+    }
+
+    movementSoundStopTimer = setTimeout(() => {
+      if (movementSound) {
+        movementSound.pause();
+        movementSound.currentTime = 0;
+      }
+    }, 180);
   }
 
   function startMeetMouseBehavior() {
@@ -162,6 +206,8 @@
 
     removeMeetMouseMovementListener = input.subscribe("move", (event) => {
       mouseVisual.classList.add("has-mouse-movement");
+
+      startMovementSound();
 
       pointerX += event.movementX;
       pointerY += event.movementY;
@@ -334,6 +380,7 @@
     }
   }
 
+  loadSoundSetting();
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
