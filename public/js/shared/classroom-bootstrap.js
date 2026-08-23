@@ -13,6 +13,9 @@
     document.body.appendChild(script);
   }
 
+
+  loadScript("/js/shared/mouse-input.js?v=1");
+
   if (isTeacher) {
     loadScript("/js/shared/teacher-controls.js?v=3");
   } else {

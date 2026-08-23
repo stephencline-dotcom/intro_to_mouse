@@ -547,3 +547,579 @@ body:has(#globalFreezeButton) {
   opacity: 0.4;
   cursor: default;
 }
+
+/* ========================================
+   Lesson Screen: Meet the Mouse
+======================================== */
+
+.lesson-screen {
+  width: min(1000px, calc(100% - 32px));
+  margin: 20px auto;
+  padding: 28px 32px;
+
+  background: white;
+  border-radius: 24px;
+
+  text-align: center;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-screen-heading h1 {
+  margin: 4px 0 8px;
+  font-size: 42px;
+}
+
+.lesson-instruction {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.meet-mouse-visuals {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 55px;
+
+  min-height: 300px;
+  margin-top: 18px;
+}
+
+.mouse-demo,
+.pointer-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.mouse-demo-body {
+  position: relative;
+
+  width: 180px;
+  height: 250px;
+
+  border: 6px solid #334155;
+  border-radius: 90px 90px 75px 75px;
+
+  background: #e2e8f0;
+}
+
+.mouse-demo-left,
+.mouse-demo-right {
+  position: absolute;
+  top: 0;
+
+  width: 50%;
+  height: 82px;
+
+  border-bottom: 4px solid #334155;
+}
+
+.mouse-demo-left {
+  left: 0;
+  border-right: 2px solid #334155;
+}
+
+.mouse-demo-right {
+  right: 0;
+  border-left: 2px solid #334155;
+}
+
+.mouse-demo-wheel {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+
+  width: 18px;
+  height: 46px;
+
+  transform: translateX(-50%);
+
+  border-radius: 10px;
+
+  background: #64748b;
+}
+
+.mouse-demo-arrow {
+  font-size: 62px;
+  font-weight: 700;
+}
+
+.pointer-demo-icon {
+  font-size: 120px;
+  line-height: 1;
+  transform: rotate(-45deg);
+}
+
+.lesson-coaching {
+  margin: 6px 0 0;
+
+  font-size: 20px;
+  color: #475569;
+}
+
+.pointer-practice-area {
+  position: relative;
+
+  width: 300px;
+  height: 240px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 18px;
+
+  background: #f8fafc;
+}
+
+.pointer-practice-area .pointer-demo-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  font-size: 72px;
+  line-height: 1;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Meet the Mouse hand demonstration */
+
+.mouse-movement-demo {
+  position: relative;
+  width: 230px;
+  height: 285px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  transition: transform 0.08s ease-out;
+}
+
+.mouse-demo-hand {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 3;
+
+  width: 145px;
+  height: 190px;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+}
+
+.mouse-demo-palm {
+  position: absolute;
+  left: 24px;
+  top: 70px;
+
+  width: 100px;
+  height: 120px;
+
+  border: 4px solid #92400e;
+  border-radius: 48px 48px 38px 38px;
+
+  background: #f5c79a;
+}
+
+.mouse-demo-finger {
+  position: absolute;
+  top: 4px;
+
+  width: 34px;
+  height: 105px;
+
+  border: 4px solid #92400e;
+  border-radius: 20px;
+
+  background: #f5c79a;
+}
+
+.mouse-demo-index {
+  left: 39px;
+}
+
+.mouse-demo-middle {
+  right: 39px;
+}
+
+/* Improved Step 1 hand + mouse visual */
+
+.mouse-movement-demo {
+  width: 250px;
+  height: 300px;
+  will-change: transform;
+}
+
+.mouse-demo-hand {
+  top: 0;
+  width: 175px;
+  height: 220px;
+}
+
+.mouse-demo-palm {
+  left: 37px;
+  top: 85px;
+
+  width: 102px;
+  height: 128px;
+
+  border: 3px solid #9a5b2a;
+  border-radius: 46px 46px 55px 55px;
+
+  background: #f2c38f;
+}
+
+.mouse-demo-finger {
+  top: 10px;
+
+  width: 38px;
+  height: 112px;
+
+  border: 3px solid #9a5b2a;
+  border-radius: 22px 22px 18px 18px;
+
+  background: #f2c38f;
+}
+
+.mouse-demo-index {
+  left: 47px;
+  transform: rotate(-3deg);
+}
+
+.mouse-demo-middle {
+  right: 47px;
+  transform: rotate(3deg);
+}
+
+.mouse-demo-hand::before,
+.mouse-demo-hand::after {
+  content: "";
+  position: absolute;
+
+  top: 58px;
+
+  width: 34px;
+  height: 92px;
+
+  border: 3px solid #9a5b2a;
+  border-radius: 20px;
+
+  background: #f2c38f;
+}
+
+.mouse-demo-hand::before {
+  left: 18px;
+  transform: rotate(-18deg);
+}
+
+.mouse-demo-hand::after {
+  right: 18px;
+  transform: rotate(18deg);
+}
+
+.mouse-demo-body {
+  width: 190px;
+  height: 255px;
+}
+
+/* Fifth finger refinement */
+
+.mouse-demo-pinky {
+  top: 68px;
+  right: 8px;
+
+  width: 30px;
+  height: 78px;
+
+  transform: rotate(22deg);
+}
+
+/* Refine ring and pinky finger placement */
+
+/* Ring finger - the existing right-side pseudo finger */
+.mouse-demo-hand::after {
+  top: 82px;
+  right: 9px;
+
+  width: 32px;
+  height: 90px;
+
+  transform: rotate(14deg);
+
+  border-radius: 18px 18px 22px 22px;
+}
+
+/* Pinky - sits lower and farther down the mouse side */
+.mouse-demo-pinky {
+  top: 108px;
+  right: -5px;
+
+  width: 27px;
+  height: 72px;
+
+  transform: rotate(18deg);
+
+  border-radius: 17px 17px 20px 20px;
+}
+
+/* Final ring + pinky refinement */
+
+.mouse-demo-hand::after {
+  top: 90px;
+  right: 3px;
+
+  width: 31px;
+  height: 88px;
+
+  transform: rotate(20deg);
+
+  border-radius: 18px 18px 24px 24px;
+}
+
+.mouse-demo-pinky {
+  top: 126px;
+  right: -15px;
+
+  width: 25px;
+  height: 62px;
+
+  transform: rotate(24deg);
+
+  border-radius: 16px 16px 21px 21px;
+}
+
+/* Correct ring + pinky: move them UP, then angle outward */
+
+.mouse-demo-hand::after {
+  top: 54px;
+  right: 4px;
+
+  width: 32px;
+  height: 96px;
+
+  transform: rotate(15deg);
+  transform-origin: bottom center;
+
+  border-radius: 19px 19px 23px 23px;
+}
+
+.mouse-demo-pinky {
+  top: 72px;
+  right: -18px;
+
+  width: 27px;
+  height: 82px;
+
+  transform: rotate(22deg);
+  transform-origin: bottom center;
+
+  border-radius: 17px 17px 21px 21px;
+}
+
+/* Position the complete hand correctly on the mouse */
+
+.mouse-demo-hand {
+  top: 48px;
+}
+
+/* Keep index finger centered over left mouse button */
+.mouse-demo-index {
+  left: 47px;
+}
+
+/* Keep middle finger centered over right mouse button */
+.mouse-demo-middle {
+  right: 47px;
+}
+
+/* Step 1 hand positioning refinement */
+
+/* Make the complete hand/mouse demonstration slightly larger */
+.mouse-movement-demo {
+  width: 280px;
+  height: 330px;
+}
+
+/* Keep the mouse itself proportional */
+.mouse-demo-body {
+  width: 210px;
+  height: 275px;
+}
+
+/* Keep the hand centered and palm position intact */
+.mouse-demo-hand {
+  width: 195px;
+  height: 235px;
+  top: 48px;
+}
+
+/* Thumb: move outward to wrap around LEFT side of mouse */
+.mouse-demo-hand::before {
+  top: 76px;
+  left: -2px;
+
+  width: 36px;
+  height: 96px;
+
+  transform: rotate(-24deg);
+  transform-origin: bottom center;
+}
+
+/* Ring finger: move outward along RIGHT side */
+.mouse-demo-hand::after {
+  top: 58px;
+  right: -5px;
+
+  width: 34px;
+  height: 100px;
+
+  transform: rotate(18deg);
+  transform-origin: bottom center;
+}
+
+/* Pinky: farther outside and slightly lower than ring finger */
+.mouse-demo-pinky {
+  top: 78px;
+  right: -28px;
+
+  width: 28px;
+  height: 84px;
+
+  transform: rotate(24deg);
+  transform-origin: bottom center;
+}
+
+/* Preserve the good index/middle placement */
+.mouse-demo-index {
+  left: 47px;
+}
+
+.mouse-demo-middle {
+  right: 47px;
+}
+
+/* Enlarge palm only — preserve current finger positions */
+
+.mouse-demo-palm {
+  left: 20px;
+  top: 78px;
+
+  width: 150px;
+  height: 150px;
+
+  border-radius: 62px 62px 70px 70px;
+}
+
+/* Palm refinement — wider and lower, fingers unchanged */
+
+.mouse-demo-palm {
+  left: 10px;
+  top: 92px;
+
+  width: 170px;
+  height: 150px;
+
+  border-radius: 68px 68px 76px 76px;
+}
+
+/* Pull ring finger + pinky inward so they connect to the palm */
+
+.mouse-demo-hand::after {
+  right: 5px;
+}
+
+.mouse-demo-pinky {
+  right: -14px;
+}
+
+/* Fine-tune ring finger + pinky */
+
+/* Ring finger: slightly higher and angled farther right */
+.mouse-demo-hand::after {
+  top: 48px;
+  right: 5px;
+
+  transform: rotate(23deg);
+  transform-origin: bottom center;
+}
+
+/* Pinky: keep position but increase outward angle */
+.mouse-demo-pinky {
+  right: -14px;
+
+  transform: rotate(32deg);
+  transform-origin: bottom center;
+}
+
+/* Final outer-finger attachment refinement */
+
+/* Ring finger: slightly slimmer */
+.mouse-demo-hand::after {
+  width: 28px;
+  right: 7px;
+}
+
+/* Pinky: pull inward so its base connects with the palm */
+.mouse-demo-pinky {
+  right: -5px;
+  top: 70px;
+
+  width: 25px;
+
+  transform: rotate(30deg);
+  transform-origin: bottom left;
+}
+
+/* Outer fingers: closer together and connected to palm */
+
+/* Ring finger: higher and closer to middle finger */
+.mouse-demo-hand::after {
+  top: 38px;
+  right: 13px;
+
+  width: 28px;
+  height: 100px;
+
+  transform: rotate(19deg);
+  transform-origin: bottom center;
+}
+
+/* Pinky: tuck base inward behind ring finger/palm */
+.mouse-demo-pinky {
+  top: 66px;
+  right: 2px;
+
+  width: 25px;
+  height: 80px;
+
+  transform: rotate(27deg);
+  transform-origin: bottom left;
+
+  z-index: -1;
+}
+
+/* Step 1: hand appears only after student moves mouse */
+
+.mouse-demo-hand {
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+.mouse-movement-demo.has-mouse-movement .mouse-demo-hand {
+  opacity: 1;
+  visibility: visible;
+}
