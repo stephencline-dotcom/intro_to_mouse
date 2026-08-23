@@ -7,6 +7,13 @@
   };
 
   function emit(type, detail) {
+    const freezeArmed =
+      document.documentElement.dataset.freezeArmed === "true";
+
+    if (freezeArmed) {
+      return;
+    }
+
     listeners[type]?.forEach((callback) => {
       callback(detail);
     });

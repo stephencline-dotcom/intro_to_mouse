@@ -1270,3 +1270,436 @@ body:has(#globalFreezeButton) {
   border-radius: 0 80px 0 0;
   box-shadow: inset 0 0 0 5px rgba(250, 204, 21, 0.8);
 }
+
+/* ========================================
+   Step 3 Direction Targets
+======================================== */
+
+.direction-practice-area {
+  width: 420px;
+  height: 330px;
+}
+
+.direction-target {
+  position: absolute;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  color: #334155;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.direction-animal {
+  font-size: 46px;
+  line-height: 1;
+}
+
+.direction-up {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.direction-right {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.direction-down {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.direction-left {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+/* Keep the moving pointer above the animal targets */
+.direction-practice-area .pointer-demo-icon {
+  z-index: 5;
+}
+
+/* Step 3 layout: center mouse, arrow, and pointer start positions */
+
+.lesson-screen-move-mouse .meet-mouse-visuals {
+  display: grid;
+  grid-template-columns: 280px 90px 1fr;
+  align-items: center;
+  justify-content: center;
+
+  gap: 28px;
+
+  width: 100%;
+  margin-top: 20px;
+}
+
+.lesson-screen-move-mouse .mouse-demo {
+  justify-self: center;
+  align-self: center;
+}
+
+.lesson-screen-move-mouse .mouse-movement-demo {
+  margin: 0 auto;
+}
+
+.lesson-screen-move-mouse .mouse-demo-arrow {
+  justify-self: center;
+  align-self: center;
+
+  margin: 0;
+}
+
+.lesson-screen-move-mouse .pointer-demo {
+  justify-self: center;
+  align-self: center;
+}
+
+.lesson-screen-move-mouse .pointer-practice-area {
+  margin: 0 auto;
+}
+
+/* Visually center the Step 3 pointer icon */
+
+.lesson-screen-move-mouse .pointer-demo-icon {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
+}
+
+/* ========================================
+   Step 4 Movement Practice
+======================================== */
+
+.movement-practice-board {
+  position: relative;
+
+  width: 620px;
+  max-width: 100%;
+  height: 420px;
+
+  margin: 24px auto 0;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+}
+
+.movement-practice-board .pointer-demo-icon {
+  position: absolute;
+  z-index: 5;
+
+  font-size: 72px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.practice-target {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.active-practice-target {
+  padding: 8px 12px;
+
+  background: #fef3c7;
+  border-radius: 14px;
+
+  box-shadow: 0 0 0 5px rgba(250, 204, 21, 0.25);
+
+  transform: scale(1.08);
+}
+
+/* Step 4 fit-on-screen refinement */
+
+.lesson-screen-movement-practice {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.lesson-screen-movement-practice .lesson-screen-heading h1 {
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 38px;
+}
+
+.lesson-screen-movement-practice .lesson-instruction {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.movement-practice-board {
+  width: 620px;
+  max-width: 100%;
+  height: 300px;
+
+  margin: 12px auto 0;
+}
+
+.movement-practice-board .direction-animal {
+  font-size: 38px;
+}
+
+.movement-practice-board .direction-target {
+  font-size: 16px;
+}
+
+.movement-practice-board .direction-up {
+  top: 6px;
+}
+
+.movement-practice-board .direction-right {
+  right: 8px;
+}
+
+.movement-practice-board .direction-down {
+  bottom: 6px;
+}
+
+.movement-practice-board .direction-left {
+  left: 8px;
+}
+
+.lesson-screen-movement-practice .lesson-coaching {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+/* Use the large lesson pointer in place of the browser cursor */
+
+.pointer-practice-area,
+.movement-practice-board {
+  cursor: none;
+}
+
+/* ========================================
+   Step 5: Meet the Left Button
+======================================== */
+
+.left-button-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+
+  min-height: 350px;
+  margin-top: 16px;
+}
+
+.left-button-mouse-visual {
+  flex: 0 0 auto;
+}
+
+.left-button-hand {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Highlight pointer/index finger */
+.left-button-finger {
+  background: #fde047;
+  box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.35);
+}
+
+/* Highlight the actual curved left mouse button */
+.left-button-highlight {
+  background: rgba(253, 224, 71, 0.55);
+  border-radius: 80px 0 0 0;
+  box-shadow: inset 0 0 0 5px rgba(250, 204, 21, 0.8);
+}
+
+.left-button-explanation {
+  width: 300px;
+  text-align: left;
+}
+
+.left-button-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 18px;
+
+  background: #fef3c7;
+  border-radius: 14px;
+
+  font-size: 24px;
+}
+
+.left-button-label-dot {
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+  background: #eab308;
+}
+
+.left-button-explanation p {
+  margin: 18px 0 0;
+
+  font-size: 20px;
+  line-height: 1.4;
+  color: #475569;
+}
+
+/* ========================================
+   Lesson Fit-to-Screen Standard
+   All guided lesson screens must fit without scrolling
+======================================== */
+
+#studentLessonView {
+  width: 100%;
+  height: 100vh;
+  max-width: none;
+
+  margin: 0;
+  padding: 8px 16px;
+
+  box-sizing: border-box;
+}
+
+.lesson-screen {
+  width: min(1100px, calc(100% - 16px));
+  height: calc(100vh - 16px);
+  max-height: 760px;
+
+  margin: 0 auto;
+  padding: 14px 28px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-screen .student-lesson-progress {
+  margin: 0 0 3px;
+}
+
+.lesson-screen-heading h1 {
+  margin: 2px 0 5px;
+  font-size: clamp(34px, 5vh, 48px);
+}
+
+.lesson-screen .lesson-instruction {
+  margin: 0;
+  font-size: clamp(20px, 3vh, 26px);
+}
+
+.lesson-screen .lesson-coaching {
+  margin-top: auto;
+  margin-bottom: 2px;
+}
+
+/* Teacher toolbar takes some vertical space */
+body:has(#globalFreezeButton) #studentLessonView {
+  height: calc(100vh - 72px);
+}
+
+body:has(#globalFreezeButton) .lesson-screen {
+  height: calc(100vh - 88px);
+}
+
+/* Step 5 fit refinement */
+
+.lesson-screen-left-button .left-button-demo {
+  flex: 1;
+  min-height: 0;
+
+  margin-top: 6px;
+  gap: 55px;
+}
+
+.lesson-screen-left-button .hold-mouse-visual {
+  transform: scale(0.82);
+  transform-origin: center;
+}
+
+.lesson-screen-left-button .left-button-explanation {
+  width: 300px;
+}
+
+.lesson-screen-left-button .left-button-label {
+  padding: 11px 16px;
+  font-size: 22px;
+}
+
+.lesson-screen-left-button .left-button-explanation p {
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.lesson-screen-left-button .lesson-coaching {
+  font-size: 18px;
+}
+
+/* ========================================
+   Step 6 Left Click interaction
+======================================== */
+
+.left-click-hand {
+  opacity: 1;
+  visibility: visible;
+}
+
+.left-click-demo {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+}
+
+.left-click-demo .hold-mouse-visual {
+  transform: scale(0.82);
+  transform-origin: center;
+}
+
+.left-click-instruction-card {
+  padding: 22px 30px;
+
+  background: #f8fafc;
+  border-radius: 18px;
+
+  text-align: center;
+}
+
+.left-click-instruction-card strong {
+  font-size: 28px;
+}
+
+.left-click-instruction-card p {
+  margin: 8px 0 0;
+  font-size: 19px;
+}
+
+.left-click-pressed {
+  transform: translateY(7px);
+}
+
+.left-click-button-pressed {
+  background: rgba(253, 224, 71, 0.75);
+  border-radius: 80px 0 0 0;
+  box-shadow: inset 0 -6px 0 rgba(202, 138, 4, 0.35);
+}

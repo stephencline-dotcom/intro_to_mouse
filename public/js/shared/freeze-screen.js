@@ -59,6 +59,9 @@
       const state = await response.json();
       const newFreezeArmed = state.freezeScreenArmed === true;
 
+      document.documentElement.dataset.freezeArmed =
+        String(newFreezeArmed);
+
       if (!newFreezeArmed) {
         freezeArmed = false;
         interactionTriggered = false;

@@ -38,6 +38,242 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "left-click") {
+      return `
+        <div class="lesson-screen lesson-screen-left-click">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Left Click</h1>
+
+            <p class="lesson-instruction">
+              Press the left button one time.
+            </p>
+          </div>
+
+          <div class="left-click-demo">
+
+            <div class="hold-mouse-visual">
+
+              <div id="leftClickHand" class="mouse-demo-hand left-click-hand">
+                <div class="mouse-demo-palm"></div>
+                <div id="leftClickFinger" class="mouse-demo-finger mouse-demo-index"></div>
+                <div class="mouse-demo-finger mouse-demo-middle"></div>
+                <div class="mouse-demo-finger mouse-demo-pinky"></div>
+              </div>
+
+              <div class="mouse-demo-body">
+                <div id="leftClickButtonVisual" class="mouse-demo-left"></div>
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+              </div>
+
+            </div>
+
+            <div class="left-click-instruction-card">
+              <strong>Click once</strong>
+              <p>Press down and let go.</p>
+            </div>
+
+          </div>
+
+          <p id="leftClickStatus" class="lesson-coaching">
+            Try one left click.
+          </p>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "left-button") {
+      return `
+        <div class="lesson-screen lesson-screen-left-button">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Meet the Left Button</h1>
+
+            <p class="lesson-instruction">
+              Your pointer finger rests on the left mouse button.
+            </p>
+          </div>
+
+          <div class="left-button-demo">
+
+            <div class="hold-mouse-visual left-button-mouse-visual">
+
+              <div class="mouse-demo-hand left-button-hand">
+                <div class="mouse-demo-palm"></div>
+                <div class="mouse-demo-finger mouse-demo-index left-button-finger"></div>
+                <div class="mouse-demo-finger mouse-demo-middle"></div>
+                <div class="mouse-demo-finger mouse-demo-pinky"></div>
+              </div>
+
+              <div class="mouse-demo-body">
+                <div class="mouse-demo-left left-button-highlight"></div>
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+              </div>
+
+            </div>
+
+            <div class="left-button-explanation">
+              <div class="left-button-label">
+                <span class="left-button-label-dot"></span>
+                <strong>Left Button</strong>
+              </div>
+
+              <p>
+                Use your pointer finger for a left click.
+              </p>
+            </div>
+
+          </div>
+
+          <p class="lesson-coaching">
+            Rest your finger gently. Do not click yet.
+          </p>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "movement-practice") {
+      return `
+        <div class="lesson-screen lesson-screen-movement-practice">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Movement Practice</h1>
+
+            <p id="movementPracticeInstruction" class="lesson-instruction">
+              Move to the cow.
+            </p>
+          </div>
+
+          <div class="movement-practice-board" id="movementPracticeArea">
+
+            <div class="direction-target practice-target direction-up" data-direction="up">
+              <span class="direction-animal">🐄</span>
+              <strong>UP</strong>
+            </div>
+
+            <div class="direction-target practice-target direction-right" data-direction="right">
+              <span class="direction-animal">🐕</span>
+              <strong>RIGHT</strong>
+            </div>
+
+            <div class="direction-target practice-target direction-down" data-direction="down">
+              <span class="direction-animal">🐈</span>
+              <strong>DOWN</strong>
+            </div>
+
+            <div class="direction-target practice-target direction-left" data-direction="left">
+              <span class="direction-animal">🐖</span>
+              <strong>LEFT</strong>
+            </div>
+
+            <div id="movementPracticePointer" class="pointer-demo-icon">➤</div>
+
+          </div>
+
+          <p id="movementPracticeStatus" class="lesson-coaching">
+            Follow the directions.
+          </p>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "move-the-mouse") {
+      return `
+        <div class="lesson-screen lesson-screen-move-mouse">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Move the Mouse</h1>
+
+            <p class="lesson-instruction">
+              Move the mouse up, down, left, and right.
+            </p>
+          </div>
+
+          <div class="meet-mouse-visuals">
+
+            <div class="mouse-demo">
+              <div id="lessonMouseMovement" class="mouse-movement-demo">
+                <div class="mouse-demo-hand">
+                  <div class="mouse-demo-palm"></div>
+                  <div class="mouse-demo-finger mouse-demo-index"></div>
+                  <div class="mouse-demo-finger mouse-demo-middle"></div>
+                  <div class="mouse-demo-finger mouse-demo-pinky"></div>
+                </div>
+
+                <div class="mouse-demo-body">
+                  <div class="mouse-demo-left"></div>
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+                </div>
+              </div>
+
+              <p>Move the Mouse</p>
+            </div>
+
+            <div class="mouse-demo-arrow">
+              →
+            </div>
+
+            <div class="pointer-demo">
+              <div id="pointerPracticeArea" class="pointer-practice-area direction-practice-area">
+
+                <div class="direction-target direction-up">
+                  <span class="direction-animal">🐄</span>
+                  <strong>UP</strong>
+                </div>
+
+                <div class="direction-target direction-right">
+                  <span class="direction-animal">🐕</span>
+                  <strong>RIGHT</strong>
+                </div>
+
+                <div class="direction-target direction-down">
+                  <span class="direction-animal">🐈</span>
+                  <strong>DOWN</strong>
+                </div>
+
+                <div class="direction-target direction-left">
+                  <span class="direction-animal">🐖</span>
+                  <strong>LEFT</strong>
+                </div>
+
+                <div id="lessonDemoPointer" class="pointer-demo-icon">➤</div>
+              </div>
+
+              <p>Move the Pointer</p>
+            </div>
+
+          </div>
+
+          <p class="lesson-coaching">
+            Try moving slowly in every direction.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id === "hold-the-mouse") {
       return `
         <div class="lesson-screen lesson-screen-hold-mouse">
@@ -193,6 +429,16 @@
       removeMeetMouseMovementListener();
       removeMeetMouseMovementListener = null;
     }
+
+    if (removeMovementPracticeListener) {
+      removeMovementPracticeListener();
+      removeMovementPracticeListener = null;
+    }
+
+    if (removeLeftClickListener) {
+      removeLeftClickListener();
+      removeLeftClickListener = null;
+    }
   }
 
   async function loadSoundSetting() {
@@ -245,8 +491,8 @@
       return;
     }
 
-    let pointerX = area.clientWidth / 2;
-    let pointerY = area.clientHeight / 2;
+    let pointerX = 0;
+    let pointerY = 0;
 
     let visualX = 0;
     let visualY = 0;
@@ -255,25 +501,51 @@
     let animationFrame = null;
 
     function positionPointer() {
-      const maxX = Math.max(area.clientWidth - pointer.offsetWidth, 0);
-      const maxY = Math.max(area.clientHeight - pointer.offsetHeight, 0);
+      const tipOffsetX = pointer.offsetWidth * 0.72;
+      const tipOffsetY = pointer.offsetHeight * 0.72;
 
-      pointerX = Math.min(Math.max(pointerX, 0), maxX);
-      pointerY = Math.min(Math.max(pointerY, 0), maxY);
+      const minX = -tipOffsetX;
+      const minY = -tipOffsetY;
+
+      const maxX = area.clientWidth - tipOffsetX;
+      const extraDownReach = 30;
+      const maxY =
+        area.clientHeight - tipOffsetY + extraDownReach;
+
+      pointerX = Math.min(Math.max(pointerX, minX), maxX);
+      pointerY = Math.min(Math.max(pointerY, minY), maxY);
 
       pointer.style.left = `${pointerX}px`;
       pointer.style.top = `${pointerY}px`;
     }
 
-    positionPointer();
+    function centerPointer() {
+      const tipOffsetX = pointer.offsetWidth * 0.72;
+      const tipOffsetY = pointer.offsetHeight * 0.72;
+
+      pointerX = area.clientWidth / 2 - tipOffsetX;
+      pointerY = area.clientHeight / 2 - tipOffsetY;
+
+      positionPointer();
+    }
+
+    centerPointer();
 
     removeMeetMouseMovementListener = input.subscribe("move", (event) => {
       mouseVisual.classList.add("has-mouse-movement");
 
       startMovementSound();
 
-      pointerX += event.movementX;
-      pointerY += event.movementY;
+      const areaRect = area.getBoundingClientRect();
+
+      const tipOffsetX = pointer.offsetWidth * 0.72;
+      const tipOffsetY = pointer.offsetHeight * 0.72;
+
+      pointerX =
+        event.x - areaRect.left - tipOffsetX;
+
+      pointerY =
+        event.y - areaRect.top - tipOffsetY;
 
       positionPointer();
 
@@ -318,6 +590,165 @@
     });
   }
 
+  let removeMovementPracticeListener = null;
+  let removeLeftClickListener = null;
+  let leftClickSound = null;
+
+
+  function startMovementPracticeBehavior() {
+    const input = window.HandsOnMouseInput;
+    const area = document.getElementById("movementPracticeArea");
+    const pointer = document.getElementById("movementPracticePointer");
+    const instruction = document.getElementById("movementPracticeInstruction");
+    const status = document.getElementById("movementPracticeStatus");
+
+    if (!input || !area || !pointer || !instruction || !status) {
+      return;
+    }
+
+    const directions = [
+      { id: "up", label: "cow" },
+      { id: "down", label: "cat" },
+      { id: "left", label: "pig" },
+      { id: "right", label: "dog" }
+    ];
+
+    let directionIndex = 0;
+
+    let pointerX = 0;
+    let pointerY = 0;
+
+    function positionPointer() {
+      const maxX = Math.max(area.clientWidth - pointer.offsetWidth, 0);
+      const maxY = Math.max(area.clientHeight - pointer.offsetHeight, 0);
+
+      pointerX = Math.min(Math.max(pointerX, 0), maxX);
+      pointerY = Math.min(Math.max(pointerY, 0), maxY);
+
+      pointer.style.left = `${pointerX}px`;
+      pointer.style.top = `${pointerY}px`;
+    }
+
+    function centerPointer() {
+      const maxX = Math.max(area.clientWidth - pointer.offsetWidth, 0);
+      const maxY = Math.max(area.clientHeight - pointer.offsetHeight, 0);
+
+      pointerX = maxX / 2;
+      pointerY = maxY / 2;
+
+      positionPointer();
+    }
+
+    function updateInstruction() {
+      const current = directions[directionIndex];
+
+      instruction.textContent =
+        `Move to the ${current.label}.`;
+
+      document.querySelectorAll(".practice-target").forEach((target) => {
+        target.classList.toggle(
+          "active-practice-target",
+          target.dataset.direction === current.id
+        );
+      });
+    }
+
+    function checkTarget() {
+      const current = directions[directionIndex];
+      const target = document.querySelector(
+        `.practice-target[data-direction="${current.id}"]`
+      );
+
+      if (!target) {
+        return;
+      }
+
+      const pointerRect = pointer.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const pointerTipX =
+        pointerRect.left + pointerRect.width * 0.72;
+
+      const pointerTipY =
+        pointerRect.top + pointerRect.height * 0.72;
+
+      const hit =
+        pointerTipX >= targetRect.left &&
+        pointerTipX <= targetRect.right &&
+        pointerTipY >= targetRect.top &&
+        pointerTipY <= targetRect.bottom;
+
+      if (!hit) {
+        return;
+      }
+
+      status.textContent = "Great job!";
+
+      directionIndex += 1;
+
+      if (directionIndex >= directions.length) {
+        status.textContent = "You moved in every direction!";
+        instruction.textContent = "Movement practice complete!";
+        return;
+      }
+
+      updateInstruction();
+    }
+
+    centerPointer();
+    updateInstruction();
+
+    removeMovementPracticeListener = input.subscribe("move", (event) => {
+      const areaRect = area.getBoundingClientRect();
+
+      const tipOffsetX = pointer.offsetWidth * 0.72;
+      const tipOffsetY = pointer.offsetHeight * 0.72;
+
+      pointerX =
+        event.x - areaRect.left - tipOffsetX;
+
+      pointerY =
+        event.y - areaRect.top - tipOffsetY;
+
+      positionPointer();
+      startMovementSound();
+      checkTarget();
+    });
+  }
+
+  function startLeftClickBehavior() {
+    const input = window.HandsOnMouseInput;
+    const finger = document.getElementById("leftClickFinger");
+    const button = document.getElementById("leftClickButtonVisual");
+    const status = document.getElementById("leftClickStatus");
+
+    if (!input || !finger || !button || !status) {
+      return;
+    }
+
+    removeLeftClickListener = input.subscribe("leftDown", () => {
+      finger.classList.add("left-click-pressed");
+      button.classList.add("left-click-button-pressed");
+
+      status.textContent = "Great click!";
+
+      if (soundEnabled) {
+        if (!leftClickSound) {
+          leftClickSound = new Audio("/sounds/mouseclick.mp3");
+          leftClickSound.volume = 0.5;
+        }
+
+        leftClickSound.currentTime = 0;
+        leftClickSound.play().catch(() => {});
+      }
+
+      setTimeout(() => {
+        finger.classList.remove("left-click-pressed");
+        button.classList.remove("left-click-button-pressed");
+      }, 180);
+    });
+  }
+
   function renderStep(stepIndex, mode) {
     const safeIndex = Math.min(
       Math.max(stepIndex, 0),
@@ -359,9 +790,21 @@
       ${independentControls}
     `;
 
-    if (step.id === "meet-the-mouse") {
+    if (
+      step.id === "meet-the-mouse" ||
+      step.id === "move-the-mouse"
+    ) {
       startMeetMouseBehavior();
     }
+
+    if (step.id === "movement-practice") {
+      startMovementPracticeBehavior();
+    }
+
+    if (step.id === "left-click") {
+      startLeftClickBehavior();
+    }
+
 
     if (mode === "student") {
       const backButton = document.getElementById("studentBackButton");
