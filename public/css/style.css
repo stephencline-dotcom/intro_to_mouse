@@ -2192,3 +2192,179 @@ body:has(#globalFreezeButton) .lesson-screen {
     opacity: 1;
   }
 }
+
+/* ========================================
+   Step 9 Mouse Challenge
+======================================== */
+
+.lesson-screen-mouse-challenge {
+  align-items: stretch;
+}
+
+.mouse-challenge-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(760px, 100%);
+  height: 340px;
+
+  margin: 10px auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.mouse-challenge-target {
+  position: absolute;
+
+  width: 105px;
+  height: 105px;
+
+  transform: translate(-50%, -50%);
+
+  border: 7px solid #7c3aed;
+  border-radius: 50%;
+
+  background: #ede9fe;
+  color: #7c3aed;
+
+  font-size: 52px;
+  font-weight: 800;
+
+  cursor: none;
+}
+
+.mouse-challenge-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 5;
+
+  font-size: 72px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.mouse-challenge-progress {
+  margin: 2px 0 4px;
+
+  text-align: center;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  color: #475569;
+}
+
+.lesson-screen-mouse-challenge .lesson-coaching {
+  text-align: center;
+}
+
+/* ========================================
+   Step 10 Lesson Complete
+======================================== */
+
+.lesson-screen-complete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.lesson-complete-content {
+  width: min(760px, 100%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lesson-complete-badge {
+  width: 110px;
+  height: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 6px;
+
+  border-radius: 50%;
+
+  background: #fef3c7;
+  color: #eab308;
+
+  font-size: 70px;
+  line-height: 1;
+
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.lesson-screen-complete h1 {
+  margin: 5px 0 8px;
+
+  font-size: clamp(46px, 7vh, 66px);
+}
+
+.lesson-complete-message {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #475569;
+}
+
+.lesson-complete-skills {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+
+  width: 100%;
+  margin: 28px 0 22px;
+}
+
+.complete-skill {
+  width: 170px;
+  min-height: 130px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 16px;
+
+  background: #f8fafc;
+  border-radius: 18px;
+
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+}
+
+.complete-skill-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.complete-skill strong {
+  font-size: 22px;
+}
+
+.lesson-complete-footer {
+  margin: 0;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  color: #2563eb;
+}

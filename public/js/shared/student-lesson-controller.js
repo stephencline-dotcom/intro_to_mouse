@@ -38,6 +38,102 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "complete") {
+      return `
+        <div class="lesson-screen lesson-screen-complete">
+
+          <div class="lesson-complete-content">
+
+            <div class="lesson-complete-badge">
+              ★
+            </div>
+
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Mouse Master!</h1>
+
+            <p class="lesson-complete-message">
+              You finished your first mouse lesson!
+            </p>
+
+            <div class="lesson-complete-skills">
+
+              <div class="complete-skill">
+                <span class="complete-skill-icon">↔</span>
+                <strong>Move</strong>
+              </div>
+
+              <div class="complete-skill">
+                <span class="complete-skill-icon">➤</span>
+                <strong>Point</strong>
+              </div>
+
+              <div class="complete-skill">
+                <span class="complete-skill-icon">☝</span>
+                <strong>Left Click</strong>
+              </div>
+
+            </div>
+
+            <p class="lesson-complete-footer">
+              Great job using the mouse!
+            </p>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "guided-practice") {
+      return `
+        <div class="lesson-screen lesson-screen-mouse-challenge">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Mouse Challenge</h1>
+
+            <p class="lesson-instruction">
+              Move to each target and left-click once.
+            </p>
+          </div>
+
+          <div id="mouseChallengeArea" class="mouse-challenge-area">
+
+            <button
+              id="mouseChallengeTarget"
+              class="mouse-challenge-target"
+              type="button"
+            >
+              ★
+            </button>
+
+            <div
+              id="mouseChallengePointer"
+              class="pointer-demo-icon"
+            >
+              ➤
+            </div>
+
+          </div>
+
+          <div id="mouseChallengeProgress" class="mouse-challenge-progress">
+            0 of 5
+          </div>
+
+          <p id="mouseChallengeStatus" class="lesson-coaching">
+            Find the first target.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id === "move-and-click") {
       return `
         <div class="lesson-screen lesson-screen-move-and-click">
@@ -560,6 +656,21 @@
       removeMoveClickRightListener();
       removeMoveClickRightListener = null;
     }
+
+    if (removeMouseChallengeMoveListener) {
+      removeMouseChallengeMoveListener();
+      removeMouseChallengeMoveListener = null;
+    }
+
+    if (removeMouseChallengeLeftListener) {
+      removeMouseChallengeLeftListener();
+      removeMouseChallengeLeftListener = null;
+    }
+
+    if (removeMouseChallengeRightListener) {
+      removeMouseChallengeRightListener();
+      removeMouseChallengeRightListener = null;
+    }
   }
 
   function startMovementSound() {
@@ -876,6 +987,189 @@
   let removeMoveClickMoveListener = null;
   let removeMoveClickLeftListener = null;
   let removeMoveClickRightListener = null;
+
+  let removeMouseChallengeMoveListener = null;
+  let removeMouseChallengeLeftListener = null;
+  let removeMouseChallengeRightListener = null;
+
+  function startMouseChallengeBehavior() {
+    const input = window.HandsOnMouseInput;
+    const area = document.getElementById("mouseChallengeArea");
+    const pointer = document.getElementById("mouseChallengePointer");
+    const target = document.getElementById("mouseChallengeTarget");
+    const status = document.getElementById("mouseChallengeStatus");
+    const progress = document.getElementById("mouseChallengeProgress");
+
+    if (!input || !area || !pointer || !target || !status || !progress) {
+      return;
+    }
+
+    const positions = [
+      { x: 18, y: 20 },
+      { x: 80, y: 22 },
+      { x: 22, y: 72 },
+      { x: 76, y: 70 },
+      { x: 50, y: 48 }
+    ];
+
+    let completedTargets = 0;
+    let pendingClickTimer = null;
+    let nextAllowedClickTime = 0;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+    const CLICK_WAIT_TIME = 1000;
+
+    function updateProgress() {
+      progress.textContent =
+        `${completedTargets} of ${positions.length}`;
+    }
+
+    function positionTarget() {
+      if (completedTargets >= positions.length) {
+        return;
+      }
+
+      const position = positions[completedTargets];
+
+      target.style.left = `${position.x}%`;
+      target.style.top = `${position.y}%`;
+    }
+
+    function pointerIsOnTarget() {
+      const pointerRect = pointer.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const pointerTipX =
+        pointerRect.left + pointerRect.width * 0.72;
+
+      const pointerTipY =
+        pointerRect.top + pointerRect.height * 0.72;
+
+      return (
+        pointerTipX >= targetRect.left &&
+        pointerTipX <= targetRect.right &&
+        pointerTipY >= targetRect.top &&
+        pointerTipY <= targetRect.bottom
+      );
+    }
+
+    function resetChallenge() {
+      completedTargets = 0;
+      nextAllowedClickTime = 0;
+
+      if (pendingClickTimer) {
+        clearTimeout(pendingClickTimer);
+        pendingClickTimer = null;
+      }
+
+      updateProgress();
+      positionTarget();
+
+      status.textContent =
+        "Start again. Click once, then wait.";
+
+      showClickWarning();
+    }
+
+    removeMouseChallengeMoveListener =
+      input.subscribe("move", (event) => {
+        const areaRect = area.getBoundingClientRect();
+
+        const tipOffsetX = pointer.offsetWidth * 0.72;
+        const tipOffsetY = pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - tipOffsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - tipOffsetY}px`;
+
+        startMovementSound();
+      });
+
+    removeMouseChallengeRightListener =
+      input.subscribe("rightDown", () => {
+        showWrongButtonWarning();
+      });
+
+    removeMouseChallengeLeftListener =
+      input.subscribe("leftDown", () => {
+        if (completedTargets >= positions.length) {
+          return;
+        }
+
+        if (!pointerIsOnTarget()) {
+          status.textContent =
+            "Move onto the target before you click.";
+          return;
+        }
+
+        const now = Date.now();
+
+        if (
+          pendingClickTimer ||
+          now < nextAllowedClickTime
+        ) {
+          resetChallenge();
+          return;
+        }
+
+        status.textContent = "Wait...";
+
+        pendingClickTimer = setTimeout(() => {
+          pendingClickTimer = null;
+
+          if (soundEnabled) {
+            if (!leftClickSound) {
+              leftClickSound =
+                new Audio("/sounds/mouseclick.mp3");
+              leftClickSound.volume = 0.5;
+            }
+
+            leftClickSound.currentTime = 0;
+            leftClickSound.play().catch(() => {});
+          }
+
+          completedTargets += 1;
+
+          nextAllowedClickTime =
+            Date.now() + CLICK_WAIT_TIME;
+
+          updateProgress();
+
+          if (completedTargets >= positions.length) {
+            status.textContent =
+              "Mouse Challenge complete!";
+
+            target.textContent = "✓";
+
+            if (!isTeacher) {
+              sessionStorage.setItem(
+                "handsOnMouseWeek1Complete",
+                "true"
+              );
+
+              setTimeout(() => {
+                renderStep(
+                  lesson.steps.length - 1,
+                  "teacher"
+                );
+              }, 700);
+            }
+
+            return;
+          }
+
+          status.textContent =
+            "Great! Find the next target.";
+
+          positionTarget();
+        }, DOUBLE_CLICK_WINDOW);
+      });
+
+    positionTarget();
+    updateProgress();
+  }
 
   function startMoveAndClickBehavior() {
     const input = window.HandsOnMouseInput;
@@ -1416,6 +1710,10 @@
       startMoveAndClickBehavior();
     }
 
+    if (step.id === "guided-practice") {
+      startMouseChallengeBehavior();
+    }
+
 
     if (mode === "student") {
       const backButton = document.getElementById("studentBackButton");
@@ -1497,12 +1795,52 @@
           renderStep(state.currentLessonStep ?? 0, "teacher");
         }
       } else if (mode === "teacher") {
+        const sharedStep =
+          state.currentLessonStep ?? 0;
+
+        const week1Complete =
+          sessionStorage.getItem(
+            "handsOnMouseWeek1Complete"
+          ) === "true";
+
+        const challengeStep =
+          lesson.steps.findIndex(
+            step => step.id === "guided-practice"
+          );
+
+        const completeStep =
+          lesson.steps.findIndex(
+            step => step.id === "complete"
+          );
+
         if (
-          currentMode !== "teacher" ||
-          currentDisplayedStep !== (state.currentLessonStep ?? 0)
+          week1Complete &&
+          sharedStep === challengeStep
         ) {
-          currentMode = "teacher";
-          renderStep(state.currentLessonStep ?? 0, "teacher");
+          if (
+            currentMode !== "student-complete" ||
+            currentDisplayedStep !== completeStep
+          ) {
+            currentMode = "student-complete";
+            renderStep(completeStep, "teacher");
+          }
+        } else {
+          if (
+            week1Complete &&
+            sharedStep < challengeStep
+          ) {
+            sessionStorage.removeItem(
+              "handsOnMouseWeek1Complete"
+            );
+          }
+
+          if (
+            currentMode !== "teacher" ||
+            currentDisplayedStep !== sharedStep
+          ) {
+            currentMode = "teacher";
+            renderStep(sharedStep, "teacher");
+          }
         }
       } else {
         if (currentMode !== "student") {
