@@ -3,16 +3,17 @@
   const isTeacher =
     teacherSession && teacherSession.isTeacherSession();
 
-  const lesson = window.HandsOnMouseLessons?.week1;
+  let lesson = window.HandsOnMouseLessons?.week1;
 
   if (!lesson || !Array.isArray(lesson.steps)) {
-    console.error("Student lesson controller: Week 1 lesson definition missing.");
+    console.error("Student lesson controller: lesson definition missing.");
     return;
   }
 
   const INDEPENDENT_STEP_KEY = "handsOnMouseIndependentStep";
 
   let currentDisplayedStep = -1;
+  let currentDisplayedLessonId = "week1";
   let currentMode = null;
 
   function getLessonContainer() {
@@ -38,6 +39,119 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "review-week1") {
+      return `
+        <div class="lesson-screen lesson-screen-review-board">
+
+          <div class="review-board-heading">
+            <span class="review-board-badge">QUICK REVIEW</span>
+            <h1>Show What You Remember!</h1>
+          </div>
+
+          <div class="review-board-grid">
+
+            <section class="review-card review-card-hand">
+
+              <div class="review-card-number">1</div>
+
+              <div class="review-card-visual">
+                <div class="hold-mouse-visual review-hand-visual">
+
+                  <div class="mouse-demo-hand hold-mouse-hand">
+                    <div class="mouse-demo-palm"></div>
+                    <div class="mouse-demo-finger mouse-demo-index highlight-pointer"></div>
+                    <div class="mouse-demo-finger mouse-demo-middle highlight-middle"></div>
+                    <div class="mouse-demo-finger mouse-demo-pinky highlight-other"></div>
+                  </div>
+
+                  <div class="mouse-demo-body">
+                    <div class="mouse-demo-left"></div>
+                    <div class="mouse-demo-right"></div>
+                    <div class="mouse-demo-wheel"></div>
+                  </div>
+
+                </div>
+              </div>
+
+              <h2>Hold the Mouse</h2>
+              <p>Show where your fingers belong.</p>
+
+            </section>
+
+            <section class="review-card review-card-move">
+
+              <div class="review-card-number">2</div>
+
+              <div id="reviewMoveArea" class="review-move-area">
+
+                <div class="review-direction review-up">
+                  <span>🐄</span>
+                  <strong>UP</strong>
+                </div>
+
+                <div class="review-direction review-right">
+                  <span>🐕</span>
+                  <strong>RIGHT</strong>
+                </div>
+
+                <div class="review-direction review-down">
+                  <span>🐈</span>
+                  <strong>DOWN</strong>
+                </div>
+
+                <div class="review-direction review-left">
+                  <span>🐖</span>
+                  <strong>LEFT</strong>
+                </div>
+
+                <div
+                  id="reviewMovePointer"
+                  class="pointer-demo-icon"
+                >
+                  ➤
+                </div>
+
+              </div>
+
+              <h2>Move the Mouse</h2>
+              <p>Move the pointer where I tell you.</p>
+
+            </section>
+
+            <section class="review-card review-card-click">
+
+              <div class="review-card-number">3</div>
+
+              <div id="reviewClickArea" class="review-click-area">
+
+                <button
+                  id="reviewClickTarget"
+                  class="review-click-target"
+                  type="button"
+                >
+                  ★
+                </button>
+
+                <div
+                  id="reviewClickPointer"
+                  class="pointer-demo-icon"
+                >
+                  ➤
+                </div>
+
+              </div>
+
+              <h2>Move & Left Click</h2>
+              <p>Point to the star and click once.</p>
+
+            </section>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "complete") {
       return `
         <div class="lesson-screen lesson-screen-complete">
@@ -1784,77 +1898,164 @@
       const state = await response.json();
       const mode = state.lessonControlMode || "teacher";
 
+      const requestedLessonId =
+        state.activeLesson || "week1";
+
+      const requestedLesson =
+        window.HandsOnMouseLessons?.[requestedLessonId];
+
+      if (
+        requestedLesson &&
+        Array.isArray(requestedLesson.steps)
+      ) {
+        lesson = requestedLesson;
+      }
+
+      const lessonChanged =
+        requestedLessonId !== currentDisplayedLessonId;
+
+      if (isTeacher) {
+        const menu =
+          document.getElementById("teacherLessonMenu");
+
+        if (menu && !menu.hidden) {
+          return;
+        }
+      }
+
       showLessonView();
+
+      const sharedStep =
+        state.currentLessonStep ?? 0;
 
       if (isTeacher) {
         if (
           currentMode !== "teacher-view" ||
-          currentDisplayedStep !== (state.currentLessonStep ?? 0)
+          lessonChanged ||
+          currentDisplayedStep !== sharedStep
         ) {
           currentMode = "teacher-view";
-          renderStep(state.currentLessonStep ?? 0, "teacher");
+          currentDisplayedLessonId = requestedLessonId;
+          renderStep(sharedStep, "teacher");
         }
+
       } else if (mode === "teacher") {
-        const sharedStep =
-          state.currentLessonStep ?? 0;
 
-        const week1Complete =
-          sessionStorage.getItem(
-            "handsOnMouseWeek1Complete"
-          ) === "true";
+        /*
+         * Week 1 has the special behavior where a student
+         * who finishes Step 9 can independently remain on
+         * Step 10 while the teacher stays on Step 9.
+         *
+         * Review lessons should not inherit that behavior.
+         */
+        if (requestedLessonId === "week1") {
+          const week1Complete =
+            sessionStorage.getItem(
+              "handsOnMouseWeek1Complete"
+            ) === "true";
 
-        const challengeStep =
-          lesson.steps.findIndex(
-            step => step.id === "guided-practice"
-          );
+          const challengeStep =
+            lesson.steps.findIndex(
+              step => step.id === "guided-practice"
+            );
 
-        const completeStep =
-          lesson.steps.findIndex(
-            step => step.id === "complete"
-          );
+          const completeStep =
+            lesson.steps.findIndex(
+              step => step.id === "complete"
+            );
 
-        if (
-          week1Complete &&
-          sharedStep === challengeStep
-        ) {
-          if (
-            currentMode !== "student-complete" ||
-            currentDisplayedStep !== completeStep
-          ) {
-            currentMode = "student-complete";
-            renderStep(completeStep, "teacher");
-          }
-        } else {
           if (
             week1Complete &&
-            sharedStep < challengeStep
+            sharedStep === challengeStep
           ) {
-            sessionStorage.removeItem(
-              "handsOnMouseWeek1Complete"
-            );
+            if (
+              currentMode !== "student-complete" ||
+              lessonChanged ||
+              currentDisplayedStep !== completeStep
+            ) {
+              currentMode = "student-complete";
+              currentDisplayedLessonId =
+                requestedLessonId;
+
+              renderStep(
+                completeStep,
+                "teacher"
+              );
+            }
+          } else {
+            if (
+              week1Complete &&
+              sharedStep < challengeStep
+            ) {
+              sessionStorage.removeItem(
+                "handsOnMouseWeek1Complete"
+              );
+            }
+
+            if (
+              currentMode !== "teacher" ||
+              lessonChanged ||
+              currentDisplayedStep !== sharedStep
+            ) {
+              currentMode = "teacher";
+              currentDisplayedLessonId =
+                requestedLessonId;
+
+              renderStep(
+                sharedStep,
+                "teacher"
+              );
+            }
           }
 
+        } else {
+          /*
+           * Review and future lessons simply follow the
+           * teacher's currently selected lesson/step.
+           */
           if (
             currentMode !== "teacher" ||
+            lessonChanged ||
             currentDisplayedStep !== sharedStep
           ) {
             currentMode = "teacher";
-            renderStep(sharedStep, "teacher");
+            currentDisplayedLessonId =
+              requestedLessonId;
+
+            renderStep(
+              sharedStep,
+              "teacher"
+            );
           }
         }
+
       } else {
-        if (currentMode !== "student") {
+        if (
+          currentMode !== "student" ||
+          lessonChanged
+        ) {
           currentMode = "student";
-          renderStep(getIndependentStep(), "student");
+          currentDisplayedLessonId =
+            requestedLessonId;
+
+          renderStep(
+            getIndependentStep(),
+            "student"
+          );
         }
       }
 
-      updateFingerHighlight(state.fingerHighlight);
+      updateFingerHighlight(
+        state.fingerHighlight
+      );
+
     } catch (error) {
-      console.error("Student lesson controller:", error);
+      console.error(
+        "Student lesson controller:",
+        error
+      );
     }
   }
-
 
   async function loadSoundSetting() {
     try {
@@ -1871,6 +2072,14 @@
       soundEnabled = true;
     }
   }
+
+  window.addEventListener(
+    "handsOnMouseLessonSelected",
+    () => {
+      currentDisplayedStep = -1;
+      syncLessonState();
+    }
+  );
 
   loadSoundSetting();
   syncLessonState();

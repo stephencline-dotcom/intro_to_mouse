@@ -54,6 +54,37 @@
   lessonControls.appendChild(controlModeButton);
 
   document.body.appendChild(lessonControls);
+  const homeButton = document.createElement("button");
+  homeButton.type = "button";
+  homeButton.id = "teacherHomeButton";
+  homeButton.textContent = "Home";
+
+  homeButton.addEventListener("click", () => {
+    fingerControls.hidden = true;
+
+    const lessonMenu =
+      window.HandsOnMouseLessonMenu;
+
+    if (lessonMenu) {
+      lessonMenu.show();
+    }
+
+    const lessonView =
+      document.getElementById("studentLessonView");
+
+    if (lessonView) {
+      lessonView.hidden = true;
+    }
+
+    const homePage =
+      document.querySelector(".home-page");
+
+    if (homePage) {
+      homePage.hidden = false;
+    }
+  });
+
+  lessonControls.appendChild(homeButton);
 
   const fingerControls = document.createElement("div");
   fingerControls.id = "globalFingerControls";
@@ -102,21 +133,30 @@
     pauseButton.textContent = isPaused ? "Paused" : "Pause";
   }
 
-  const activeLesson = window.HandsOnMouseLessons?.week1;
-  const lessonSteps = activeLesson?.steps || [];
+  let activeLessonId = "week1";
+  let lessonSteps =
+    window.HandsOnMouseLessons?.week1?.steps || [];
 
   let currentStep = 0;
   let currentControlMode = "teacher";
 
   function updateLessonControls(state) {
-    const maxStep = Math.max(lessonSteps.length - 1, 0);
+    currentControlMode =
+      state.lessonControlMode || "teacher";
+
+    activeLessonId =
+      state.activeLesson || "week1";
+
+    lessonSteps =
+      window.HandsOnMouseLessons?.[activeLessonId]?.steps || [];
+
+    const maxStep =
+      Math.max(lessonSteps.length - 1, 0);
 
     currentStep = Math.min(
       Math.max(state.currentLessonStep ?? 0, 0),
       maxStep
     );
-
-    currentControlMode = state.lessonControlMode || "teacher";
 
     const step = lessonSteps[currentStep];
 
@@ -132,12 +172,29 @@
         ? "Mode: Teacher Led"
         : "Mode: Independent";
 
-    backButton.disabled = currentStep <= 0;
+    backButton.disabled =
+      currentStep <= 0;
+
     nextButton.disabled =
       lessonSteps.length === 0 ||
       currentStep >= lessonSteps.length - 1;
 
-    fingerControls.hidden = currentStep !== 1;
+    const lessonMenu =
+      document.getElementById("teacherLessonMenu");
+
+    const teacherIsOnHome =
+      lessonMenu && !lessonMenu.hidden;
+
+    const showFingerControls =
+      !teacherIsOnHome &&
+      (
+        step?.id === "hold-the-mouse" ||
+        step?.id === "review-week1"
+      );
+
+    fingerControls.hidden =
+      !showFingerControls;
+      !showFingerControls;
   }
 
   async function updateLessonState(changes) {

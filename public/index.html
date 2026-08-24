@@ -9,7 +9,41 @@
 
 <body>
 
-  <main class="home-page">
+  
+<section id="teacherLessonMenu" class="teacher-lesson-menu" hidden>
+
+  <div class="lesson-menu-heading">
+    <h2>Choose a Lesson</h2>
+    <p>Select what you want to teach today.</p>
+  </div>
+
+  <div class="lesson-menu-grid">
+
+    <button
+      class="lesson-menu-card"
+      type="button"
+      data-lesson-id="week1"
+    >
+      <span class="lesson-menu-week">Week 1</span>
+      <strong>Move & Left Click</strong>
+      <span>Learn mouse movement and left clicking.</span>
+    </button>
+
+    <button
+      class="lesson-menu-card"
+      type="button"
+      data-lesson-id="review1"
+    >
+      <span class="lesson-menu-week">Review</span>
+      <strong>Move & Left Click Review</strong>
+      <span>Quick practice and review challenge.</span>
+    </button>
+
+  </div>
+
+</section>
+
+<main class="home-page">
     <section class="hero">
       <h1>Hands-On Mouse</h1>
       <p>Learn to move, click, and scroll with a mouse.</p>
@@ -32,7 +66,7 @@
 
   <script src="js/shared/lessons.js?v=1"></script>
   <script src="js/shared/teacher-session.js?v=2"></script>
-  <script src="js/shared/classroom-bootstrap.js?v=20"></script>
+  <script src="js/shared/classroom-bootstrap.js?v=71"></script>
   <script src="js/app.js"></script>
 
 </body>

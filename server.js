@@ -14,6 +14,8 @@ let freezeScreenArmed = false;
 let trainingPaused = false;
 let currentLessonStep = 0;
 let lessonControlMode = "teacher";
+let activeLesson = "week1";
+
 let fingerHighlight = null;
 
 
@@ -55,6 +57,7 @@ app.get("/api/classroom-state", (req, res) => {
     trainingPaused,
     currentLessonStep,
     lessonControlMode,
+    activeLesson,
     fingerHighlight
   });
 });
@@ -83,6 +86,15 @@ app.put("/api/classroom-state", (req, res) => {
   }
 
   if (
+    req.body.activeLesson === "week1" ||
+    req.body.activeLesson === "review1"
+  ) {
+    activeLesson = req.body.activeLesson;
+    currentLessonStep = 0;
+    fingerHighlight = null;
+  }
+
+  if (
     req.body.fingerHighlight === null ||
     ["thumb", "pointer", "middle", "other"].includes(
       req.body.fingerHighlight
@@ -96,6 +108,7 @@ app.put("/api/classroom-state", (req, res) => {
     trainingPaused,
     currentLessonStep,
     lessonControlMode,
+    activeLesson,
     fingerHighlight
   });
 });

@@ -54,6 +54,18 @@ const mouseLessons = {
         type: "complete"
       }
     ]
+  },
+
+  review1: {
+    id: "review1",
+    title: "Week 1 Review",
+    steps: [
+      {
+        id: "review-week1",
+        title: "Move, Point & Left Click",
+        type: "review"
+      }
+    ]
   }
 };
 
