@@ -38,6 +38,48 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "left-click-practice") {
+      return `
+        <div class="lesson-screen lesson-screen-left-click-practice">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Left-Click Practice</h1>
+
+            <p class="lesson-instruction">
+              Point to the target and left-click.
+            </p>
+          </div>
+
+          <div class="left-click-practice-area">
+
+            <button
+              id="leftClickPracticeTarget"
+              class="left-click-practice-target"
+              type="button"
+            >
+              ★
+            </button>
+
+          </div>
+
+          <div class="click-practice-progress">
+            <span id="clickPracticeDot1" class="click-practice-dot"></span>
+            <span id="clickPracticeDot2" class="click-practice-dot"></span>
+            <span id="clickPracticeDot3" class="click-practice-dot"></span>
+          </div>
+
+          <p id="leftClickPracticeStatus" class="lesson-coaching">
+            Click the star 3 times.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id === "left-click") {
       return `
         <div class="lesson-screen lesson-screen-left-click">
@@ -419,9 +461,14 @@
   }
 
   let removeMeetMouseMovementListener = null;
+  let removeMovementPracticeListener = null;
+  let removeLeftClickListener = null;
+  let removeLeftClickPracticeListener = null;
+  let removeWrongButtonListener = null;
   let movementSound = null;
   let movementSoundStopTimer = null;
   let soundEnabled = true;
+  let leftClickSound = null;
 
 
   function stopStepBehavior() {
@@ -439,20 +486,15 @@
       removeLeftClickListener();
       removeLeftClickListener = null;
     }
-  }
 
-  async function loadSoundSetting() {
-    try {
-      const response = await fetch("/api/settings");
+    if (removeLeftClickPracticeListener) {
+      removeLeftClickPracticeListener();
+      removeLeftClickPracticeListener = null;
+    }
 
-      if (!response.ok) {
-        return;
-      }
-
-      const settings = await response.json();
-      soundEnabled = settings.soundEnabled !== false;
-    } catch (error) {
-      console.error("Could not load sound setting:", error);
+    if (removeWrongButtonListener) {
+      removeWrongButtonListener();
+      removeWrongButtonListener = null;
     }
   }
 
@@ -508,6 +550,7 @@
       const minY = -tipOffsetY;
 
       const maxX = area.clientWidth - tipOffsetX;
+
       const extraDownReach = 30;
       const maxY =
         area.clientHeight - tipOffsetY + extraDownReach;
@@ -531,76 +574,79 @@
 
     centerPointer();
 
-    removeMeetMouseMovementListener = input.subscribe("move", (event) => {
-      mouseVisual.classList.add("has-mouse-movement");
+    removeMeetMouseMovementListener =
+      input.subscribe("move", (event) => {
+        mouseVisual.classList.add("has-mouse-movement");
 
-      startMovementSound();
+        startMovementSound();
 
-      const areaRect = area.getBoundingClientRect();
+        const areaRect = area.getBoundingClientRect();
 
-      const tipOffsetX = pointer.offsetWidth * 0.72;
-      const tipOffsetY = pointer.offsetHeight * 0.72;
+        const tipOffsetX = pointer.offsetWidth * 0.72;
+        const tipOffsetY = pointer.offsetHeight * 0.72;
 
-      pointerX =
-        event.x - areaRect.left - tipOffsetX;
+        pointerX =
+          event.x - areaRect.left - tipOffsetX;
 
-      pointerY =
-        event.y - areaRect.top - tipOffsetY;
+        pointerY =
+          event.y - areaRect.top - tipOffsetY;
 
-      positionPointer();
+        positionPointer();
 
-      targetVisualX += event.movementX * 0.45;
-      targetVisualY += event.movementY * 0.45;
+        targetVisualX += event.movementX * 0.7;
+        targetVisualY += event.movementY * 0.7;
 
-      targetVisualX = Math.max(
-        -55,
-        Math.min(55, targetVisualX)
-      );
+        targetVisualX = Math.max(
+          -80,
+          Math.min(80, targetVisualX)
+        );
 
-      targetVisualY = Math.max(
-        -35,
-        Math.min(35, targetVisualY)
-      );
+        targetVisualY = Math.max(
+          -55,
+          Math.min(55, targetVisualY)
+        );
 
-      if (!animationFrame) {
-        const animateVisualMouse = () => {
-          visualX += (targetVisualX - visualX) * 0.22;
-          visualY += (targetVisualY - visualY) * 0.22;
+        if (!animationFrame) {
+          const animateVisualMouse = () => {
+            visualX +=
+              (targetVisualX - visualX) * 0.16;
 
-          mouseVisual.style.transform =
-            `translate3d(${visualX}px, ${visualY}px, 0)`;
+            visualY +=
+              (targetVisualY - visualY) * 0.16;
 
-          const stillMoving =
-            Math.abs(targetVisualX - visualX) > 0.2 ||
-            Math.abs(targetVisualY - visualY) > 0.2;
+            mouseVisual.style.transform =
+              `translate3d(${visualX}px, ${visualY}px, 0)`;
 
-          if (stillMoving) {
-            animationFrame = requestAnimationFrame(
+            const stillMoving =
+              Math.abs(targetVisualX - visualX) > 0.2 ||
+              Math.abs(targetVisualY - visualY) > 0.2;
+
+            if (stillMoving) {
+              animationFrame =
+                requestAnimationFrame(
+                  animateVisualMouse
+                );
+            } else {
+              animationFrame = null;
+            }
+          };
+
+          animationFrame =
+            requestAnimationFrame(
               animateVisualMouse
             );
-          } else {
-            animationFrame = null;
-          }
-        };
-
-        animationFrame = requestAnimationFrame(
-          animateVisualMouse
-        );
-      }
-    });
+        }
+      });
   }
-
-  let removeMovementPracticeListener = null;
-  let removeLeftClickListener = null;
-  let leftClickSound = null;
-
 
   function startMovementPracticeBehavior() {
     const input = window.HandsOnMouseInput;
     const area = document.getElementById("movementPracticeArea");
     const pointer = document.getElementById("movementPracticePointer");
-    const instruction = document.getElementById("movementPracticeInstruction");
-    const status = document.getElementById("movementPracticeStatus");
+    const instruction =
+      document.getElementById("movementPracticeInstruction");
+    const status =
+      document.getElementById("movementPracticeStatus");
 
     if (!input || !area || !pointer || !instruction || !status) {
       return;
@@ -614,27 +660,32 @@
     ];
 
     let directionIndex = 0;
-
     let pointerX = 0;
     let pointerY = 0;
 
     function positionPointer() {
-      const maxX = Math.max(area.clientWidth - pointer.offsetWidth, 0);
-      const maxY = Math.max(area.clientHeight - pointer.offsetHeight, 0);
+      const tipOffsetX = pointer.offsetWidth * 0.72;
+      const tipOffsetY = pointer.offsetHeight * 0.72;
 
-      pointerX = Math.min(Math.max(pointerX, 0), maxX);
-      pointerY = Math.min(Math.max(pointerY, 0), maxY);
+      const minX = -tipOffsetX;
+      const minY = -tipOffsetY;
+
+      const maxX = area.clientWidth - tipOffsetX;
+      const maxY = area.clientHeight - tipOffsetY;
+
+      pointerX = Math.min(Math.max(pointerX, minX), maxX);
+      pointerY = Math.min(Math.max(pointerY, minY), maxY);
 
       pointer.style.left = `${pointerX}px`;
       pointer.style.top = `${pointerY}px`;
     }
 
     function centerPointer() {
-      const maxX = Math.max(area.clientWidth - pointer.offsetWidth, 0);
-      const maxY = Math.max(area.clientHeight - pointer.offsetHeight, 0);
+      const tipOffsetX = pointer.offsetWidth * 0.72;
+      const tipOffsetY = pointer.offsetHeight * 0.72;
 
-      pointerX = maxX / 2;
-      pointerY = maxY / 2;
+      pointerX = area.clientWidth / 2 - tipOffsetX;
+      pointerY = area.clientHeight / 2 - tipOffsetY;
 
       positionPointer();
     }
@@ -645,16 +696,23 @@
       instruction.textContent =
         `Move to the ${current.label}.`;
 
-      document.querySelectorAll(".practice-target").forEach((target) => {
-        target.classList.toggle(
-          "active-practice-target",
-          target.dataset.direction === current.id
-        );
-      });
+      document
+        .querySelectorAll(".practice-target")
+        .forEach((target) => {
+          target.classList.toggle(
+            "active-practice-target",
+            target.dataset.direction === current.id
+          );
+        });
     }
 
     function checkTarget() {
+      if (directionIndex >= directions.length) {
+        return;
+      }
+
       const current = directions[directionIndex];
+
       const target = document.querySelector(
         `.practice-target[data-direction="${current.id}"]`
       );
@@ -682,38 +740,273 @@
         return;
       }
 
-      status.textContent = "Great job!";
-
       directionIndex += 1;
 
       if (directionIndex >= directions.length) {
-        status.textContent = "You moved in every direction!";
-        instruction.textContent = "Movement practice complete!";
+        status.textContent =
+          "You moved in every direction!";
+
+        instruction.textContent =
+          "Movement practice complete!";
+
+        document
+          .querySelectorAll(".practice-target")
+          .forEach((target) => {
+            target.classList.remove(
+              "active-practice-target"
+            );
+          });
+
         return;
       }
 
+      status.textContent = "Great job!";
       updateInstruction();
     }
 
     centerPointer();
     updateInstruction();
 
-    removeMovementPracticeListener = input.subscribe("move", (event) => {
-      const areaRect = area.getBoundingClientRect();
+    removeMovementPracticeListener =
+      input.subscribe("move", (event) => {
+        const areaRect = area.getBoundingClientRect();
 
-      const tipOffsetX = pointer.offsetWidth * 0.72;
-      const tipOffsetY = pointer.offsetHeight * 0.72;
+        const tipOffsetX = pointer.offsetWidth * 0.72;
+        const tipOffsetY = pointer.offsetHeight * 0.72;
 
-      pointerX =
-        event.x - areaRect.left - tipOffsetX;
+        pointerX =
+          event.x - areaRect.left - tipOffsetX;
 
-      pointerY =
-        event.y - areaRect.top - tipOffsetY;
+        pointerY =
+          event.y - areaRect.top - tipOffsetY;
 
-      positionPointer();
-      startMovementSound();
-      checkTarget();
-    });
+        positionPointer();
+        startMovementSound();
+        checkTarget();
+      });
+  }
+
+  function startLeftClickPracticeBehavior() {
+    const input = window.HandsOnMouseInput;
+    const target = document.getElementById("leftClickPracticeTarget");
+    const status = document.getElementById("leftClickPracticeStatus");
+
+    if (!input || !target || !status) {
+      return;
+    }
+
+    let correctClicks = 0;
+    let pendingClickTimer = null;
+    let nextAllowedClickTime = 0;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+    const CLICK_WAIT_TIME = 1000;
+
+    function updateProgress() {
+      for (let i = 1; i <= 3; i += 1) {
+        const dot = document.getElementById(
+          `clickPracticeDot${i}`
+        );
+
+        if (dot) {
+          dot.classList.toggle(
+            "complete",
+            i <= correctClicks
+          );
+        }
+      }
+    }
+
+    function resetForFastClick() {
+      correctClicks = 0;
+      nextAllowedClickTime = 0;
+
+      if (pendingClickTimer) {
+        clearTimeout(pendingClickTimer);
+        pendingClickTimer = null;
+      }
+
+      updateProgress();
+
+      status.textContent =
+        "Too fast! Start again. Click once, then wait.";
+
+      target.classList.remove("clicked");
+      target.classList.remove("clicked-too-fast");
+
+      requestAnimationFrame(() => {
+        target.classList.add("clicked-too-fast");
+      });
+
+      showClickWarning();
+    }
+
+    removeWrongButtonListener =
+      input.subscribe("rightDown", () => {
+        showWrongButtonWarning();
+      });
+
+    removeLeftClickPracticeListener =
+      input.subscribe("leftDown", (event) => {
+        if (correctClicks >= 3) {
+          return;
+        }
+
+        const targetRect = target.getBoundingClientRect();
+
+        const hit =
+          event.x >= targetRect.left &&
+          event.x <= targetRect.right &&
+          event.y >= targetRect.top &&
+          event.y <= targetRect.bottom;
+
+        if (!hit) {
+          status.textContent = "Point to the star first.";
+          return;
+        }
+
+        const now = Date.now();
+
+        /*
+         * If a second click arrives while the first click
+         * is still waiting to be confirmed, treat both as
+         * a double-click mistake.
+         */
+        if (pendingClickTimer) {
+          resetForFastClick();
+          return;
+        }
+
+        /*
+         * Even after a click is confirmed, require the
+         * student to wait before beginning another click.
+         */
+        if (now < nextAllowedClickTime) {
+          resetForFastClick();
+          return;
+        }
+
+        status.textContent = "Wait...";
+
+        pendingClickTimer = setTimeout(() => {
+          pendingClickTimer = null;
+
+          correctClicks += 1;
+
+          nextAllowedClickTime =
+            Date.now() + CLICK_WAIT_TIME;
+
+          target.classList.remove("clicked-too-fast");
+          target.classList.remove("clicked");
+
+          requestAnimationFrame(() => {
+            target.classList.add("clicked");
+          });
+
+          if (soundEnabled) {
+            if (!leftClickSound) {
+              leftClickSound =
+                new Audio("/sounds/mouseclick.mp3");
+              leftClickSound.volume = 0.5;
+            }
+
+            leftClickSound.currentTime = 0;
+            leftClickSound.play().catch(() => {});
+          }
+
+          updateProgress();
+
+          if (correctClicks >= 3) {
+            status.textContent =
+              "Click practice complete!";
+            target.textContent = "✓";
+          } else {
+            status.textContent =
+              "Great click! Wait... then click again.";
+          }
+        }, DOUBLE_CLICK_WINDOW);
+      });
+
+    updateProgress();
+  }
+
+  let wrongButtonWarningTimer = null;
+
+  function showWrongButtonWarning() {
+    const hand =
+      document.querySelector(".left-click-hand") ||
+      document.querySelector(".hold-mouse-hand");
+
+    const middleFinger =
+      hand?.querySelector(".mouse-demo-middle");
+
+    const mouseBody =
+      hand?.nextElementSibling;
+
+    const rightButton =
+      mouseBody?.querySelector(".mouse-demo-right");
+
+    let warning =
+      document.getElementById("wrongButtonWarning");
+
+    if (!warning) {
+      warning = document.createElement("div");
+      warning.id = "wrongButtonWarning";
+
+      warning.innerHTML = `
+        <div class="wrong-button-warning-card">
+
+          <div class="wrong-button-warning-visual">
+            <div class="wrong-warning-hand-wrap">
+
+              <div class="mouse-demo-hand wrong-warning-hand">
+                <div class="mouse-demo-palm"></div>
+                <div class="mouse-demo-finger mouse-demo-index"></div>
+                <div class="mouse-demo-finger mouse-demo-middle wrong-warning-middle"></div>
+                <div class="mouse-demo-finger mouse-demo-pinky"></div>
+              </div>
+
+              <div class="mouse-demo-body wrong-warning-mouse">
+                <div class="mouse-demo-left"></div>
+                <div class="mouse-demo-right wrong-warning-right-button"></div>
+                <div class="mouse-demo-wheel"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="wrong-button-warning-message">
+            <strong>Wrong Button!</strong>
+            <span>Use your pointer finger on the LEFT button.</span>
+          </div>
+
+        </div>
+      `;
+
+      document.body.appendChild(warning);
+    }
+
+    hand?.classList.add("wrong-button-hand-pop");
+    middleFinger?.classList.add("wrong-button-finger");
+    rightButton?.classList.add("wrong-button-mouse-button");
+    warning.classList.add("show");
+
+    if (soundEnabled) {
+      const mistakeSound =
+        new Audio("/sounds/wrongclick.mp3");
+
+      mistakeSound.volume = 0.6;
+      mistakeSound.play().catch(() => {});
+    }
+
+    clearTimeout(wrongButtonWarningTimer);
+
+    wrongButtonWarningTimer = setTimeout(() => {
+      hand?.classList.remove("wrong-button-hand-pop");
+      middleFinger?.classList.remove("wrong-button-finger");
+      rightButton?.classList.remove("wrong-button-mouse-button");
+      warning.classList.remove("show");
+    }, 1100);
   }
 
   function startLeftClickBehavior() {
@@ -725,6 +1018,11 @@
     if (!input || !finger || !button || !status) {
       return;
     }
+
+    removeWrongButtonListener =
+      input.subscribe("rightDown", () => {
+        showWrongButtonWarning();
+      });
 
     removeLeftClickListener = input.subscribe("leftDown", () => {
       finger.classList.add("left-click-pressed");
@@ -803,6 +1101,10 @@
 
     if (step.id === "left-click") {
       startLeftClickBehavior();
+    }
+
+    if (step.id === "left-click-practice") {
+      startLeftClickPracticeBehavior();
     }
 
 
@@ -903,6 +1205,23 @@
       updateFingerHighlight(state.fingerHighlight);
     } catch (error) {
       console.error("Student lesson controller:", error);
+    }
+  }
+
+
+  async function loadSoundSetting() {
+    try {
+      const response = await fetch("/api/settings");
+
+      if (!response.ok) {
+        throw new Error("Unable to load sound setting.");
+      }
+
+      const settings = await response.json();
+      soundEnabled = settings.soundEnabled !== false;
+    } catch (error) {
+      console.error("Could not load sound setting:", error);
+      soundEnabled = true;
     }
   }
 

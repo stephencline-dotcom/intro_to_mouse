@@ -1703,3 +1703,322 @@ body:has(#globalFreezeButton) .lesson-screen {
   border-radius: 80px 0 0 0;
   box-shadow: inset 0 -6px 0 rgba(202, 138, 4, 0.35);
 }
+
+/* ========================================
+   Step 7 Left-Click Practice
+======================================== */
+
+.lesson-screen-left-click-practice {
+  align-items: stretch;
+}
+
+.left-click-practice-area {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-click-practice-target {
+  width: 180px;
+  height: 180px;
+
+  border: 8px solid #1d4ed8;
+  border-radius: 50%;
+
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  font-size: 92px;
+  font-weight: 800;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
+}
+
+.left-click-practice-target.clicked {
+  transform: scale(0.9);
+  background: #fef08a;
+}
+
+.click-practice-progress {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+
+  margin: 4px 0 8px;
+}
+
+.click-practice-dot {
+  width: 22px;
+  height: 22px;
+
+  border: 3px solid #94a3b8;
+  border-radius: 50%;
+
+  background: white;
+}
+
+.click-practice-dot.complete {
+  border-color: #16a34a;
+  background: #22c55e;
+}
+
+.lesson-screen-left-click-practice .lesson-coaching {
+  text-align: center;
+}
+
+/* Step 7 click-too-fast feedback */
+
+.left-click-practice-target.clicked-too-fast {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #dc2626;
+
+  animation: click-too-fast-shake 0.28s ease;
+}
+
+@keyframes click-too-fast-shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-8px); }
+  50%  { transform: translateX(8px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* ========================================
+   Click Too Fast Warning
+======================================== */
+
+#clickTooFastWarning {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.28);
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.15s ease,
+    visibility 0.15s ease;
+}
+
+#clickTooFastWarning.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.click-warning-card {
+  min-width: 360px;
+  padding: 28px 36px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  border: 5px solid #dc2626;
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+
+  animation: click-warning-pop 0.22s ease;
+}
+
+.click-warning-card strong {
+  color: #dc2626;
+  font-size: 36px;
+}
+
+.click-warning-card span {
+  color: #334155;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+@keyframes click-warning-pop {
+  0% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   Wrong Mouse Button Warning
+======================================== */
+
+.wrong-button-hand-pop {
+  animation: wrong-button-hand-pop 0.28s ease;
+}
+
+.wrong-button-finger {
+  background: #f87171 !important;
+  box-shadow: 0 0 0 7px rgba(220, 38, 38, 0.32) !important;
+}
+
+.wrong-button-mouse-button {
+  background: rgba(248, 113, 113, 0.7) !important;
+  border-radius: 0 80px 0 0;
+  box-shadow: inset 0 0 0 5px rgba(220, 38, 38, 0.75) !important;
+}
+
+#wrongButtonWarning {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.15s ease,
+    visibility 0.15s ease;
+}
+
+#wrongButtonWarning.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wrong-button-warning-card {
+  min-width: 400px;
+  padding: 26px 34px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  border: 5px solid #dc2626;
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+.wrong-button-warning-card strong {
+  color: #dc2626;
+  font-size: 34px;
+}
+
+.wrong-button-warning-card span {
+  color: #334155;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+@keyframes wrong-button-hand-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ========================================
+   Wrong Button Warning Hand Visual
+======================================== */
+
+.wrong-button-warning-card {
+  min-width: 650px;
+
+  flex-direction: row;
+  justify-content: center;
+  gap: 34px;
+}
+
+.wrong-button-warning-visual {
+  width: 230px;
+  height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrong-warning-hand-wrap {
+  position: relative;
+
+  width: 210px;
+  height: 270px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  transform: scale(0.72);
+  transform-origin: center;
+}
+
+.wrong-warning-hand {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* The incorrect middle finger */
+.wrong-warning-middle {
+  background: #f87171 !important;
+
+  box-shadow:
+    0 0 0 7px rgba(220, 38, 38, 0.35),
+    0 0 22px rgba(220, 38, 38, 0.65) !important;
+}
+
+/* Show which physical button that finger pressed */
+.wrong-warning-right-button {
+  background: rgba(248, 113, 113, 0.72) !important;
+  border-radius: 0 80px 0 0;
+
+  box-shadow:
+    inset 0 0 0 5px rgba(220, 38, 38, 0.75) !important;
+}
+
+.wrong-button-warning-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  max-width: 330px;
+
+  text-align: center;
+}
+
+.wrong-button-warning-message strong {
+  color: #dc2626;
+  font-size: 36px;
+}
+
+.wrong-button-warning-message span {
+  color: #334155;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.35;
+}

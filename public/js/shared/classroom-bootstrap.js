@@ -16,7 +16,7 @@
 
   loadScript("/js/shared/mouse-input.js?v=2");
 
-  loadScript("/js/shared/student-lesson-controller.js?v=3");
+  loadScript("/js/shared/student-lesson-controller.js?v=10");
 
   if (isTeacher) {
     loadScript("/js/shared/teacher-controls.js?v=4");
