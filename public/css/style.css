@@ -2022,3 +2022,173 @@ body:has(#globalFreezeButton) .lesson-screen {
   font-weight: 700;
   line-height: 1.35;
 }
+
+/* ========================================
+   Step 8 Move & Click
+======================================== */
+
+.lesson-screen-move-and-click {
+  align-items: stretch;
+}
+
+.move-click-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(720px, 100%);
+  height: 340px;
+
+  margin: 10px auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.move-click-target {
+  position: absolute;
+
+  width: 120px;
+  height: 120px;
+
+  transform: translate(-50%, -50%);
+
+  border: 7px solid #1d4ed8;
+  border-radius: 50%;
+
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  font-size: 60px;
+  font-weight: 800;
+
+  cursor: none;
+}
+
+.move-click-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 5;
+
+  font-size: 72px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Keep the Slow Down warning above all lesson content */
+
+#clickTooFastWarning {
+  z-index: 30000;
+}
+
+#clickTooFastWarning.show {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========================================
+   Slow Down Popup - guaranteed overlay
+======================================== */
+
+#clickTooFastWarning {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 50000 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  margin: 0 !important;
+  padding: 24px !important;
+
+  box-sizing: border-box;
+
+  background: rgba(15, 23, 42, 0.32);
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.15s ease,
+    visibility 0.15s ease;
+}
+
+#clickTooFastWarning.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.click-too-fast-popup-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+
+  min-width: 560px;
+  max-width: 760px;
+
+  padding: 28px 38px;
+
+  background: white;
+
+  border: 5px solid #dc2626;
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.3);
+
+  animation: slow-down-popup 0.22s ease;
+}
+
+.click-too-fast-icon {
+  flex: 0 0 auto;
+
+  font-size: 82px;
+  line-height: 1;
+}
+
+.click-too-fast-message {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  text-align: left;
+}
+
+.click-too-fast-message strong {
+  color: #dc2626;
+  font-size: 38px;
+}
+
+.click-too-fast-message span {
+  color: #334155;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+@keyframes slow-down-popup {
+  from {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

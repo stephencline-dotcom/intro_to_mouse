@@ -38,6 +38,55 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "move-and-click") {
+      return `
+        <div class="lesson-screen lesson-screen-move-and-click">
+
+          <div class="lesson-screen-heading">
+            <p class="student-lesson-progress">
+              Step ${safeIndex + 1} of ${lesson.steps.length}
+            </p>
+
+            <h1>Move & Click</h1>
+
+            <p class="lesson-instruction">
+              Move to the target. Then left-click once.
+            </p>
+          </div>
+
+          <div id="moveClickArea" class="move-click-area">
+
+            <button
+              id="moveClickTarget"
+              class="move-click-target"
+              type="button"
+            >
+              ★
+            </button>
+
+            <div
+              id="moveClickPointer"
+              class="pointer-demo-icon"
+            >
+              ➤
+            </div>
+
+          </div>
+
+          <div class="click-practice-progress">
+            <span id="moveClickDot1" class="click-practice-dot"></span>
+            <span id="moveClickDot2" class="click-practice-dot"></span>
+            <span id="moveClickDot3" class="click-practice-dot"></span>
+          </div>
+
+          <p id="moveClickStatus" class="lesson-coaching">
+            Find the target.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id === "left-click-practice") {
       return `
         <div class="lesson-screen lesson-screen-left-click-practice">
@@ -496,6 +545,21 @@
       removeWrongButtonListener();
       removeWrongButtonListener = null;
     }
+
+    if (removeMoveClickMoveListener) {
+      removeMoveClickMoveListener();
+      removeMoveClickMoveListener = null;
+    }
+
+    if (removeMoveClickLeftListener) {
+      removeMoveClickLeftListener();
+      removeMoveClickLeftListener = null;
+    }
+
+    if (removeMoveClickRightListener) {
+      removeMoveClickRightListener();
+      removeMoveClickRightListener = null;
+    }
   }
 
   function startMovementSound() {
@@ -784,6 +848,247 @@
         startMovementSound();
         checkTarget();
       });
+  }
+
+  function attachLeftClickCoaching({
+    input,
+    onWrongButton,
+    onFastClick
+  }) {
+    const cleanup = [];
+
+    if (input && typeof onWrongButton === "function") {
+      cleanup.push(
+        input.subscribe("rightDown", () => {
+          showWrongButtonWarning();
+          onWrongButton();
+        })
+      );
+    }
+
+    return () => {
+      cleanup.forEach((removeListener) => {
+        removeListener();
+      });
+    };
+  }
+
+  let removeMoveClickMoveListener = null;
+  let removeMoveClickLeftListener = null;
+  let removeMoveClickRightListener = null;
+
+  function startMoveAndClickBehavior() {
+    const input = window.HandsOnMouseInput;
+    const area = document.getElementById("moveClickArea");
+    const pointer = document.getElementById("moveClickPointer");
+    const target = document.getElementById("moveClickTarget");
+    const status = document.getElementById("moveClickStatus");
+
+    if (!input || !area || !pointer || !target || !status) {
+      return;
+    }
+
+    const positions = [
+      { x: 20, y: 25 },
+      { x: 78, y: 28 },
+      { x: 50, y: 72 }
+    ];
+
+    let completedTargets = 0;
+    let pendingClickTimer = null;
+    let nextAllowedClickTime = 0;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+    const CLICK_WAIT_TIME = 1000;
+
+    function updateProgress() {
+      for (let i = 1; i <= 3; i += 1) {
+        const dot = document.getElementById(`moveClickDot${i}`);
+
+        if (dot) {
+          dot.classList.toggle(
+            "complete",
+            i <= completedTargets
+          );
+        }
+      }
+    }
+
+    function positionTarget() {
+      if (completedTargets >= positions.length) {
+        return;
+      }
+
+      const position = positions[completedTargets];
+
+      target.style.left = `${position.x}%`;
+      target.style.top = `${position.y}%`;
+    }
+
+    function pointerIsOnTarget() {
+      const pointerRect = pointer.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const pointerTipX =
+        pointerRect.left + pointerRect.width * 0.72;
+
+      const pointerTipY =
+        pointerRect.top + pointerRect.height * 0.72;
+
+      return (
+        pointerTipX >= targetRect.left &&
+        pointerTipX <= targetRect.right &&
+        pointerTipY >= targetRect.top &&
+        pointerTipY <= targetRect.bottom
+      );
+    }
+
+    function resetForFastClick() {
+      completedTargets = 0;
+      nextAllowedClickTime = 0;
+
+      if (pendingClickTimer) {
+        clearTimeout(pendingClickTimer);
+        pendingClickTimer = null;
+      }
+
+      updateProgress();
+      positionTarget();
+
+      status.textContent =
+        "Start again. Click once, then wait.";
+
+      showClickWarning();
+    }
+
+    removeMoveClickMoveListener =
+      input.subscribe("move", (event) => {
+        const areaRect = area.getBoundingClientRect();
+
+        const tipOffsetX = pointer.offsetWidth * 0.72;
+        const tipOffsetY = pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - tipOffsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - tipOffsetY}px`;
+
+        startMovementSound();
+      });
+
+    removeMoveClickRightListener =
+      input.subscribe("rightDown", () => {
+        showWrongButtonWarning();
+      });
+
+    removeMoveClickLeftListener =
+      input.subscribe("leftDown", () => {
+        if (completedTargets >= positions.length) {
+          return;
+        }
+
+        if (!pointerIsOnTarget()) {
+          status.textContent =
+            "Move onto the target before you click.";
+          return;
+        }
+
+        const now = Date.now();
+
+        if (
+          pendingClickTimer ||
+          now < nextAllowedClickTime
+        ) {
+          resetForFastClick();
+          return;
+        }
+
+        status.textContent = "Wait...";
+
+        pendingClickTimer = setTimeout(() => {
+          pendingClickTimer = null;
+
+          if (soundEnabled) {
+            if (!leftClickSound) {
+              leftClickSound =
+                new Audio("/sounds/mouseclick.mp3");
+              leftClickSound.volume = 0.5;
+            }
+
+            leftClickSound.currentTime = 0;
+            leftClickSound.play().catch(() => {});
+          }
+
+          completedTargets += 1;
+
+          nextAllowedClickTime =
+            Date.now() + CLICK_WAIT_TIME;
+
+          updateProgress();
+
+          if (completedTargets >= positions.length) {
+            status.textContent =
+              "Move & Click complete!";
+
+            target.textContent = "✓";
+            return;
+          }
+
+          status.textContent =
+            "Great click! Find the next target.";
+
+          positionTarget();
+        }, DOUBLE_CLICK_WINDOW);
+      });
+
+    positionTarget();
+    updateProgress();
+  }
+
+  let clickWarningTimer = null;
+
+  function showClickWarning() {
+    let warning =
+      document.getElementById("clickTooFastWarning");
+
+    if (!warning) {
+      warning = document.createElement("div");
+      warning.id = "clickTooFastWarning";
+
+      warning.innerHTML = `
+        <div class="click-too-fast-popup-card">
+          <div class="click-too-fast-icon">✋</div>
+
+          <div class="click-too-fast-message">
+            <strong>Slow Down!</strong>
+            <span>Click once, then wait.</span>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(warning);
+    }
+
+    warning.classList.remove("show");
+
+    void warning.offsetWidth;
+
+    warning.classList.add("show");
+
+    if (soundEnabled) {
+      const mistakeSound =
+        new Audio("/sounds/mistake.mp3");
+
+      mistakeSound.volume = 0.6;
+      mistakeSound.play().catch(() => {});
+    }
+
+    clearTimeout(clickWarningTimer);
+
+    clickWarningTimer = setTimeout(() => {
+      warning.classList.remove("show");
+    }, 1400);
   }
 
   function startLeftClickPracticeBehavior() {
@@ -1105,6 +1410,10 @@
 
     if (step.id === "left-click-practice") {
       startLeftClickPracticeBehavior();
+    }
+
+    if (step.id === "move-and-click") {
+      startMoveAndClickBehavior();
     }
 
 
