@@ -2777,3 +2777,1600 @@ body:has(#globalFreezeButton) .lesson-screen {
 
   pointer-events: none;
 }
+
+/* Review Card 3 completion */
+
+.review-click-target {
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.review-click-complete {
+  background: #dcfce7 !important;
+  border-color: #16a34a !important;
+  color: #16a34a !important;
+}
+
+.review-card-click.review-card-complete {
+  opacity: 1;
+  border-color: #22c55e;
+
+  box-shadow:
+    0 0 0 5px rgba(34, 197, 94, 0.16);
+}
+
+/* Review teacher release */
+
+.review-card-move {
+  opacity: 0.45;
+
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.review-card-move.review-card-ready {
+  opacity: 1;
+  border-color: #60a5fa;
+
+  box-shadow:
+    0 0 0 5px rgba(59, 130, 246, 0.15);
+}
+
+#reviewStartMovementButton {
+  position: fixed;
+  left: 12px;
+  top: 128px;
+  z-index: 10000;
+
+  padding: 9px 13px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: #2563eb;
+  color: white;
+
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#reviewStartMovementButton[hidden] {
+  display: none;
+}
+
+#reviewStartMovementButton:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+/* ========================================
+   Review Board Progression - final states
+======================================== */
+
+/* Start on Card 1 */
+.lesson-screen-review-board .review-card-hand {
+  opacity: 1;
+}
+
+.lesson-screen-review-board .review-card-move,
+.lesson-screen-review-board .review-card-click {
+  opacity: 0.38;
+}
+
+/* Teacher releases students to Card 2 */
+.review-board-movement-released .review-card-hand {
+  opacity: 0.55;
+}
+
+.lesson-screen-review-board
+.review-card-move.review-card-ready {
+  opacity: 1;
+  border-color: #60a5fa;
+
+  box-shadow:
+    0 0 0 5px rgba(59, 130, 246, 0.15);
+}
+
+/* Student finishes Card 2 */
+.lesson-screen-review-board
+.review-card-move.review-card-complete {
+  opacity: 0.55;
+  border-color: #22c55e;
+}
+
+/* Card 3 then becomes active */
+.lesson-screen-review-board
+.review-card-click.review-card-ready {
+  opacity: 1;
+  border-color: #60a5fa;
+
+  box-shadow:
+    0 0 0 5px rgba(59, 130, 246, 0.15);
+}
+
+.review-move-instruction {
+  margin: 8px 0 0 !important;
+
+  padding: 8px 14px;
+
+  border-radius: 12px;
+
+  background: #fef3c7;
+  color: #92400e;
+
+  font-size: 19px !important;
+  font-weight: 900 !important;
+
+  text-align: center;
+}
+
+/* Strong active glow for Review Card 2 */
+
+.review-card-move .review-direction-active {
+  opacity: 1 !important;
+
+  background: #fef08a !important;
+
+  box-shadow:
+    0 0 0 5px rgba(250, 204, 21, 0.45),
+    0 0 24px rgba(250, 204, 21, 0.8) !important;
+
+  transform: scale(1.18) !important;
+
+  z-index: 10;
+}
+
+.review-card-move .review-direction-active span {
+  filter:
+    drop-shadow(0 0 6px rgba(250, 204, 21, 0.9));
+}
+
+.review-card-move .review-direction-complete {
+  opacity: 0.28 !important;
+}
+
+/* ========================================
+   Week 1 Review Complete
+======================================== */
+
+#reviewCompletePopup {
+  position: fixed;
+  inset: 0;
+  z-index: 50000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(15, 23, 42, 0.32);
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease;
+}
+
+#reviewCompletePopup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.review-complete-popup-card {
+  width: min(680px, calc(100vw - 48px));
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  padding: 32px 40px;
+
+  border: 5px solid #2563eb;
+  border-radius: 26px;
+
+  background: white;
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.3);
+
+  animation: review-complete-pop 0.28s ease;
+}
+
+.review-complete-star {
+  flex: 0 0 110px;
+  width: 110px;
+  height: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fef3c7;
+  color: #eab308;
+
+  font-size: 72px;
+  line-height: 1;
+}
+
+.review-complete-popup-message {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-complete-popup-message strong {
+  color: #1d4ed8;
+
+  font-size: 38px;
+  line-height: 1.1;
+}
+
+.review-complete-popup-message span {
+  color: #334155;
+
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+@keyframes review-complete-pop {
+  from {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   Quick Activities Hub
+======================================== */
+
+.review-activities-hub {
+  padding: 18px 26px;
+}
+
+.review-activities-heading {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.review-activities-heading > span {
+  display: inline-block;
+
+  padding: 6px 18px;
+  margin-bottom: 7px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+  color: #0369a1;
+
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.review-activities-heading h1 {
+  margin: 0 0 4px;
+
+  font-size: clamp(34px, 5vh, 48px);
+}
+
+.review-activities-heading p {
+  margin: 0;
+
+  font-size: 18px;
+  color: #64748b;
+}
+
+.review-activities-grid {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.review-activity-card {
+  position: relative;
+
+  min-height: 0;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  border: 4px solid #dbe3ed;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.review-activity-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #60a5fa;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.review-activity-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.review-activity-card strong {
+  font-size: 21px;
+  color: #1e293b;
+}
+
+.review-activity-description {
+  max-width: 210px;
+
+  text-align: center;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #64748b;
+}
+
+.review-activity-complete {
+  opacity: 0.5;
+
+  border-color: #86efac;
+}
+
+.review-activity-check {
+  margin-top: 5px;
+
+  color: #15803d;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.review-activities-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 50000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.32);
+}
+
+.review-activities-celebration[hidden] {
+  display: none;
+}
+
+.review-activities-celebration-card {
+  width: min(560px, calc(100vw - 50px));
+
+  padding: 32px 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 5px solid #22c55e;
+  border-radius: 26px;
+
+  background: white;
+
+  text-align: center;
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.3);
+}
+
+.review-celebration-icon {
+  font-size: 76px;
+  color: #eab308;
+}
+
+.review-activities-celebration-card h2 {
+  margin: 8px 0 5px;
+
+  font-size: 36px;
+  color: #15803d;
+}
+
+.review-activities-celebration-card p {
+  margin: 0 0 18px;
+
+  font-size: 20px;
+}
+
+#resetReviewActivitiesButton {
+  padding: 12px 20px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .review-activities-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+}
+
+#reviewActivitiesButton {
+  position: fixed;
+  left: 12px;
+  top: 178px;
+  z-index: 10000;
+
+  padding: 9px 13px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: #16a34a;
+  color: white;
+
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#reviewActivitiesButton[hidden] {
+  display: none;
+}
+
+#reviewActivitiesButton:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+/* ========================================
+   Compact Review Teacher Controls
+======================================== */
+
+#reviewStartMovementButton,
+#reviewActivitiesButton {
+  position: fixed;
+
+  left: 12px;
+
+  width: auto;
+  min-width: 0;
+
+  padding: 6px 9px;
+
+  border: 0;
+  border-radius: 7px;
+
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.14);
+}
+
+#reviewStartMovementButton {
+  top: 118px;
+}
+
+#reviewActivitiesButton {
+  top: 151px;
+}
+
+/* ========================================
+   Quick Activity 1: Bullseye Click
+======================================== */
+
+.bullseye-activity-screen {
+  align-items: stretch;
+}
+
+.quick-activity-heading {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.quick-activity-heading > span {
+  display: inline-block;
+
+  padding: 5px 15px;
+  margin-bottom: 5px;
+
+  border-radius: 999px;
+
+  background: #fee2e2;
+  color: #b91c1c;
+
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.quick-activity-heading h1 {
+  margin: 0 0 3px;
+
+  font-size: clamp(34px, 5vh, 46px);
+}
+
+.quick-activity-heading p {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #64748b;
+}
+
+.bullseye-activity-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(820px, 100%);
+  height: 390px;
+
+  margin: 8px auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc 0%,
+      #eef2f7 100%
+    );
+
+  cursor: none;
+}
+
+.bullseye-real-target {
+  position: absolute;
+
+  width: 120px;
+  height: 120px;
+
+  transform: translate(-50%, -50%);
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 5px solid #334155;
+  border-radius: 50%;
+
+  background: white;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.22);
+
+  cursor: none;
+}
+
+.bullseye-ring,
+.bullseye-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+}
+
+.bullseye-ring.ring-1 {
+  width: 100%;
+  height: 100%;
+
+  background: #f8fafc;
+}
+
+.bullseye-ring.ring-2 {
+  width: 78%;
+  height: 78%;
+
+  background: #ef4444;
+}
+
+.bullseye-ring.ring-3 {
+  width: 56%;
+  height: 56%;
+
+  background: #f8fafc;
+}
+
+.bullseye-ring.ring-4 {
+  width: 34%;
+  height: 34%;
+
+  background: #ef4444;
+}
+
+.bullseye-center {
+  width: 14%;
+  height: 14%;
+
+  background: #111827;
+}
+
+.bullseye-activity-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.bullseye-hit {
+  animation: bullseye-hit 0.28s ease;
+}
+
+.bullseye-finished {
+  border-color: #16a34a;
+
+  box-shadow:
+    0 0 0 7px rgba(34, 197, 94, 0.2),
+    0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.quick-activity-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  min-height: 34px;
+}
+
+.quick-activity-footer strong {
+  font-size: 20px;
+  color: #2563eb;
+}
+
+.quick-activity-footer span {
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #475569;
+}
+
+@keyframes bullseye-hit {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.88);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+/* ========================================
+   Quick Activity 2: Wait for It
+======================================== */
+
+.wait-activity-screen {
+  align-items: stretch;
+}
+
+.wait-activity-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(820px, 100%);
+  height: 390px;
+
+  margin: 8px auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.wait-activity-target {
+  position: absolute;
+
+  width: 125px;
+  height: 125px;
+
+  transform: translate(-50%, -50%);
+
+  border: 5px solid #94a3b8;
+  border-radius: 50%;
+
+  font-size: 66px;
+
+  cursor: none;
+
+  transition:
+    opacity 0.18s ease,
+    filter 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.wait-activity-target.waiting {
+  opacity: 0.25;
+
+  filter: grayscale(1);
+
+  background: #e2e8f0;
+}
+
+.wait-activity-target.ready {
+  opacity: 1;
+
+  filter: none;
+
+  background: #fef3c7;
+
+  border-color: #eab308;
+
+  box-shadow:
+    0 0 0 7px rgba(250, 204, 21, 0.25),
+    0 0 28px rgba(250, 204, 21, 0.65);
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+}
+
+.wait-activity-target.wait-finished {
+  opacity: 1;
+
+  background: #dcfce7;
+  border-color: #16a34a;
+
+  color: #16a34a;
+}
+
+.wait-activity-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+
+/* Quick Activity 3: Corner Hunt */
+
+.corner-hunt-screen {
+  align-items: stretch;
+}
+
+.corner-hunt-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(820px, 100%);
+  height: 390px;
+
+  margin: 8px auto;
+
+  overflow: hidden;
+
+  border: 3px solid #86a96b;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #dbeafe 0%,
+      #e0f2fe 48%,
+      #bbd39a 49%,
+      #86a96b 100%
+    );
+
+  cursor: none;
+}
+
+.corner-hunt-sky,
+.corner-hunt-ground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.corner-tree {
+  position: absolute;
+  z-index: 3;
+
+  font-size: 78px;
+  line-height: 1;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+.tree-a {
+  left: 1%;
+  top: 7%;
+}
+
+.tree-b {
+  left: 21%;
+  top: 13%;
+}
+
+.tree-c {
+  right: 20%;
+  top: 9%;
+}
+
+.tree-d {
+  right: 1%;
+  top: 6%;
+}
+
+.tree-e {
+  left: 2%;
+  bottom: 2%;
+}
+
+.tree-f {
+  left: 27%;
+  bottom: 0;
+}
+
+.tree-g {
+  right: 25%;
+  bottom: 1%;
+}
+
+.tree-h {
+  right: 1%;
+  bottom: 2%;
+}
+
+.corner-hunt-deer {
+  position: absolute;
+  z-index: 4;
+
+  width: 92px;
+  height: 92px;
+
+  transform: translate(-50%, -50%);
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  font-size: 67px;
+  line-height: 1;
+
+  cursor: none;
+
+  filter:
+    drop-shadow(
+      0 4px 3px rgba(0, 0, 0, 0.2)
+    );
+}
+
+.corner-hunt-cover-tree {
+  position: absolute;
+  z-index: 5;
+
+  transform: translate(-50%, -50%);
+
+  font-size: 82px;
+  line-height: 1;
+
+  pointer-events: none;
+
+  filter:
+    drop-shadow(
+      0 3px 3px rgba(0, 0, 0, 0.15)
+    );
+}
+
+.corner-hunt-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 20;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.corner-deer-enter {
+  animation: corner-deer-enter 0.28s ease;
+}
+
+.corner-deer-found {
+  animation: corner-deer-found 0.32s ease;
+}
+
+@keyframes corner-deer-enter {
+  from {
+    transform:
+      translate(-50%, -50%)
+      scale(0.75);
+
+    opacity: 0;
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+
+    opacity: 1;
+  }
+}
+
+@keyframes corner-deer-found {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.22);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+
+/* Quick Activity 4: Color Match */
+
+.color-match-screen {
+  align-items: stretch;
+}
+
+.color-match-clue-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 48px;
+  margin: 3px 0 5px;
+
+  font-size: 21px;
+  font-weight: 800;
+
+  color: #475569;
+}
+
+.color-match-clue {
+  padding: 6px 16px;
+
+  border-radius: 12px;
+
+  font-size: 27px;
+  font-weight: 900;
+
+  background: #f1f5f9;
+}
+
+.clue-red {
+  color: #dc2626;
+}
+
+.clue-blue {
+  color: #2563eb;
+}
+
+.clue-green {
+  color: #16a34a;
+}
+
+.clue-yellow {
+  color: #ca8a04;
+}
+
+.color-match-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(820px, 100%);
+  height: 355px;
+
+  margin: 5px auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.color-match-target {
+  position: absolute;
+
+  width: 112px;
+  height: 112px;
+
+  transform: translate(-50%, -50%);
+
+  padding: 0;
+
+  border: 6px solid rgba(15, 23, 42, 0.18);
+  border-radius: 50%;
+
+  cursor: none;
+
+  box-shadow:
+    0 7px 16px rgba(0, 0, 0, 0.14);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.color-red {
+  background: #ef4444;
+}
+
+.color-blue {
+  background: #3b82f6;
+}
+
+.color-green {
+  background: #22c55e;
+}
+
+.color-yellow {
+  background: #facc15;
+}
+
+.color-match-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.color-match-correct {
+  box-shadow:
+    0 0 0 8px rgba(34, 197, 94, 0.25),
+    0 7px 16px rgba(0, 0, 0, 0.14);
+
+  animation:
+    color-match-success 0.3s ease;
+}
+
+.color-match-wrong {
+  box-shadow:
+    0 0 0 8px rgba(220, 38, 38, 0.22),
+    0 7px 16px rgba(0, 0, 0, 0.14);
+
+  animation:
+    color-match-wrong 0.28s ease;
+}
+
+@keyframes color-match-success {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.13);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+@keyframes color-match-wrong {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      translateX(0);
+  }
+
+  25% {
+    transform:
+      translate(-50%, -50%)
+      translateX(-8px);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      translateX(8px);
+  }
+
+  75% {
+    transform:
+      translate(-50%, -50%)
+      translateX(-5px);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      translateX(0);
+  }
+}
+
+
+/* Quick Activity 5: Mouse Sprint */
+
+.mouse-sprint-screen {
+  align-items: stretch;
+}
+
+.mouse-sprint-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(840px, 100%);
+  height: 370px;
+
+  margin: 8px auto;
+
+  overflow: hidden;
+
+  border: 3px solid #cbd5e1;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f1f5f9 0%,
+      #e2e8f0 66%,
+      #d6c7a3 67%,
+      #c3ae82 100%
+    );
+
+  cursor: none;
+}
+
+.mouse-sprint-wall {
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(148, 163, 184, 0.15) 0,
+      rgba(148, 163, 184, 0.15) 2px,
+      transparent 2px,
+      transparent 42px
+    );
+
+  pointer-events: none;
+}
+
+.mouse-hole {
+  position: absolute;
+
+  right: 18px;
+  bottom: 42px;
+
+  z-index: 2;
+
+  font-size: 82px;
+  line-height: 1;
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+.mouse-sprint-mouse {
+  position: absolute;
+
+  left: 15px;
+  top: 58%;
+
+  z-index: 6;
+
+  width: 86px;
+  height: 72px;
+
+  transform:
+    translateY(-50%);
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  font-size: 58px;
+  line-height: 1;
+
+  cursor: none;
+
+  filter:
+    drop-shadow(
+      0 4px 3px rgba(0, 0, 0, 0.2)
+    );
+}
+
+.mouse-sprint-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 20;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.mouse-sprint-caught {
+  animation:
+    mouse-sprint-caught 0.38s ease;
+}
+
+.mouse-sprint-escaped {
+  animation:
+    mouse-sprint-escaped 0.35s ease;
+}
+
+@keyframes mouse-sprint-caught {
+  0% {
+    transform:
+      translateY(-50%)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translateY(-50%)
+      scale(1.24)
+      rotate(-8deg);
+  }
+
+  100% {
+    transform:
+      translateY(-50%)
+      scale(1);
+  }
+}
+
+@keyframes mouse-sprint-escaped {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* Mouse Sprint custom mouse image */
+
+.mouse-sprint-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+
+/* ========================================
+   Quick Activity 6: Bubble Pop
+======================================== */
+
+.bubble-pop-screen {
+  align-items: stretch;
+}
+
+.bubble-pop-area {
+  position: relative;
+
+  flex: 1;
+  min-height: 0;
+
+  width: min(840px, 100%);
+  height: 370px;
+
+  margin: 8px auto;
+
+  overflow: hidden;
+
+  border: 3px solid #93c5fd;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #dbeafe 0%,
+      #e0f2fe 58%,
+      #dcfce7 59%,
+      #bbf7d0 100%
+    );
+
+  cursor: none;
+}
+
+.bubble-cloud {
+  position: absolute;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 100px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.cloud-one {
+  left: 7%;
+  top: 2%;
+}
+
+.cloud-two {
+  right: 8%;
+  top: 12%;
+}
+
+.floating-bubble {
+  position: absolute;
+  z-index: 5;
+
+  width: 78px;
+  height: 78px;
+
+  transform: translate(-50%, -50%);
+
+  border:
+    3px solid rgba(255, 255, 255, 0.9);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 255, 255, 0.95) 0 8%,
+      rgba(191, 219, 254, 0.72) 18%,
+      rgba(147, 197, 253, 0.35) 55%,
+      rgba(96, 165, 250, 0.25) 100%
+    );
+
+  box-shadow:
+    inset -8px -8px 14px
+      rgba(59, 130, 246, 0.12),
+    0 5px 12px
+      rgba(30, 64, 175, 0.12);
+
+  cursor: none;
+
+  transition:
+    opacity 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.floating-bubble::after {
+  content: "";
+
+  position: absolute;
+  left: 18%;
+  top: 15%;
+
+  width: 18px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.8);
+
+  transform: rotate(-35deg);
+}
+
+.bubble-pop-active {
+  box-shadow:
+    0 0 0 7px
+      rgba(250, 204, 21, 0.4),
+    0 0 28px
+      rgba(250, 204, 21, 0.85),
+    inset -8px -8px 14px
+      rgba(59, 130, 246, 0.12);
+
+  animation:
+    bubble-target-glow 0.8s
+    ease-in-out infinite alternate;
+}
+
+.bubble-pop-popped {
+  animation:
+    bubble-pop-burst 0.28s ease;
+}
+
+.bubble-pop-wrong {
+  animation:
+    bubble-wrong 0.28s ease;
+}
+
+.bubble-pop-area .pointer-demo-icon {
+  position: absolute;
+  z-index: 20;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes bubble-target-glow {
+  from {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      scale(1.1);
+  }
+}
+
+@keyframes bubble-pop-burst {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.45);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.1);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-wrong {
+  0% {
+    transform:
+      translate(-50%, -50%);
+  }
+
+  25% {
+    transform:
+      translate(-58%, -50%);
+  }
+
+  50% {
+    transform:
+      translate(-42%, -50%);
+  }
+
+  75% {
+    transform:
+      translate(-55%, -50%);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%);
+  }
+}
+
+/* Make the active Bubble Pop target easier to distinguish */
+
+.bubble-pop-active {
+  z-index: 8 !important;
+}
+
+.floating-bubble:not(.bubble-pop-active) {
+  z-index: 5;
+}
+
+.bubble-pop-active {
+  box-shadow:
+    0 0 0 9px rgba(250, 204, 21, 0.55),
+    0 0 34px rgba(250, 204, 21, 0.95),
+    inset -8px -8px 14px rgba(59, 130, 246, 0.12) !important;
+}

@@ -15,6 +15,10 @@ let trainingPaused = false;
 let currentLessonStep = 0;
 let lessonControlMode = "teacher";
 let activeLesson = "week1";
+let reviewMovementReleased = false;
+let reviewActivitiesReleased = false;
+
+
 
 let fingerHighlight = null;
 
@@ -58,6 +62,8 @@ app.get("/api/classroom-state", (req, res) => {
     currentLessonStep,
     lessonControlMode,
     activeLesson,
+    reviewMovementReleased,
+    reviewActivitiesReleased,
     fingerHighlight
   });
 });
@@ -92,6 +98,18 @@ app.put("/api/classroom-state", (req, res) => {
     activeLesson = req.body.activeLesson;
     currentLessonStep = 0;
     fingerHighlight = null;
+    reviewMovementReleased = false;
+    reviewActivitiesReleased = false;
+  }
+
+  if (typeof req.body.reviewMovementReleased === "boolean") {
+    reviewMovementReleased =
+      req.body.reviewMovementReleased;
+  }
+
+  if (typeof req.body.reviewActivitiesReleased === "boolean") {
+    reviewActivitiesReleased =
+      req.body.reviewActivitiesReleased;
   }
 
   if (
@@ -109,6 +127,8 @@ app.put("/api/classroom-state", (req, res) => {
     currentLessonStep,
     lessonControlMode,
     activeLesson,
+    reviewMovementReleased,
+    reviewActivitiesReleased,
     fingerHighlight
   });
 });

@@ -113,6 +113,43 @@
   });
 
   document.body.appendChild(fingerControls);
+
+  const reviewStartButton =
+    document.createElement("button");
+
+  reviewStartButton.type = "button";
+  reviewStartButton.id = "reviewStartMovementButton";
+  reviewStartButton.textContent = "Start Movement";
+  reviewStartButton.hidden = true;
+
+  reviewStartButton.addEventListener("click", async () => {
+    await updateLessonState({
+      reviewMovementReleased: true
+    });
+  });
+
+  document.body.appendChild(reviewStartButton);
+
+  const reviewActivitiesButton =
+    document.createElement("button");
+
+  reviewActivitiesButton.type = "button";
+  reviewActivitiesButton.id = "reviewActivitiesButton";
+  reviewActivitiesButton.textContent =
+    "Quick Activities";
+
+  reviewActivitiesButton.hidden = true;
+
+  reviewActivitiesButton.addEventListener(
+    "click",
+    async () => {
+      await updateLessonState({
+        reviewActivitiesReleased: true
+      });
+    }
+  );
+
+  document.body.appendChild(reviewActivitiesButton);
   if (window.location.pathname !== "/pages/admin.html") {
     const settingsButton = document.createElement("a");
     settingsButton.id = "globalTeacherSettingsButton";
@@ -194,6 +231,47 @@
 
     fingerControls.hidden =
       !showFingerControls;
+
+
+    const showReviewStartButton =
+      !teacherIsOnHome &&
+      step?.id === "review-week1";
+
+    reviewStartButton.hidden =
+      !showReviewStartButton;
+
+    if (showReviewStartButton) {
+      const released =
+        state.reviewMovementReleased === true;
+
+      reviewStartButton.disabled = released;
+
+      reviewStartButton.textContent =
+        released
+          ? "Movement Started"
+          : "Start Movement";
+    }
+
+
+    const showActivitiesButton =
+      !teacherIsOnHome &&
+      step?.id === "review-week1";
+
+    reviewActivitiesButton.hidden =
+      !showActivitiesButton;
+
+    if (showActivitiesButton) {
+      const activitiesReleased =
+        state.reviewActivitiesReleased === true;
+
+      reviewActivitiesButton.disabled =
+        activitiesReleased;
+
+      reviewActivitiesButton.textContent =
+        activitiesReleased
+          ? "Activities Open"
+          : "Quick Activities";
+    }
       !showFingerControls;
   }
 

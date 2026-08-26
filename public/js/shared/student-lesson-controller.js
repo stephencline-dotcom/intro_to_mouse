@@ -16,6 +16,114 @@
   let currentDisplayedLessonId = "week1";
   let currentMode = null;
 
+  const REVIEW_ACTIVITY_KEY =
+    "handsOnMouseReviewActivitiesComplete";
+
+  const REVIEW_ACTIVITIES = [
+    {
+      id: "bullseye",
+      title: "Bullseye Click",
+      icon: "🎯",
+      description: "Move to the target and click once."
+    },
+    {
+      id: "wait-for-it",
+      title: "Wait for It",
+      icon: "⏳",
+      description: "Wait until it is ready, then click."
+    },
+    {
+      id: "corner-hunt",
+      title: "Corner Hunt",
+      icon: "🦌",
+      description: "Find the deer hiding in the woods."
+    },
+    {
+      id: "color-match",
+      title: "Color Match",
+      icon: "🎨",
+      description: "Find and click the matching color."
+    },
+    {
+      id: "mouse-sprint",
+      title: "Mouse Sprint",
+      icon: "🐭",
+      description: "Catch the mouse before it escapes."
+    },
+    {
+      id: "bubble-pop",
+      title: "Bubble Pop",
+      icon: "🫧",
+      description: "Track the glowing bubble and pop it."
+    }
+  ];
+
+  function getCompletedReviewActivities() {
+    try {
+      const saved =
+        JSON.parse(
+          sessionStorage.getItem(
+            REVIEW_ACTIVITY_KEY
+          ) || "[]"
+        );
+
+      return Array.isArray(saved)
+        ? saved
+        : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCompletedReviewActivities(completed) {
+    sessionStorage.setItem(
+      REVIEW_ACTIVITY_KEY,
+      JSON.stringify(completed)
+    );
+  }
+
+  function getPointerTip(pointer) {
+    if (!pointer) {
+      return null;
+    }
+
+    const rect =
+      pointer.getBoundingClientRect();
+
+    /*
+     * Hotspot is the visible point of the ➤ cursor.
+     * All lessons and games should use this same point.
+     */
+    return {
+      /*
+       * The visible cursor is the ➤ glyph.
+       * Its clickable hotspot should be the pointed tip:
+       * near the far-right edge and vertically centered.
+       */
+      x: rect.left + rect.width * 0.90,
+      y: rect.top + rect.height * 0.50
+    };
+  }
+
+  function pointerTipHitsElement(pointer, element) {
+    const tip =
+      getPointerTip(pointer);
+
+    if (!tip || !element) {
+      return false;
+    }
+
+    const rect =
+      element.getBoundingClientRect();
+
+    return (
+      tip.x >= rect.left &&
+      tip.x <= rect.right &&
+      tip.y >= rect.top &&
+      tip.y <= rect.bottom
+    );
+  }
+
   function getLessonContainer() {
     let container = document.getElementById("studentLessonView");
 
@@ -27,6 +135,2322 @@
 
     return container;
   }
+
+  function showReviewActivitiesHub() {
+    currentMode = "review-activities";
+
+    const reviewPopup =
+      document.getElementById("reviewCompletePopup");
+
+    if (reviewPopup) {
+      reviewPopup.classList.remove("show");
+      reviewPopup.remove();
+    }
+
+    const homePage =
+      document.querySelector(".home-page");
+
+    if (homePage) {
+      homePage.hidden = true;
+    }
+
+    const container =
+      getLessonContainer();
+
+    container.hidden = false;
+
+    const completed =
+      getCompletedReviewActivities();
+
+    const cards =
+      REVIEW_ACTIVITIES.map((activity) => {
+        const isComplete =
+          completed.includes(activity.id);
+
+        return `
+          <button
+            type="button"
+            class="review-activity-card ${
+              isComplete
+                ? "review-activity-complete"
+                : ""
+            }"
+            data-review-activity="${activity.id}"
+          >
+            <span class="review-activity-icon">
+              ${activity.icon}
+            </span>
+
+            <strong>${activity.title}</strong>
+
+            <span class="review-activity-description">
+              ${activity.description}
+            </span>
+
+            ${
+              isComplete
+                ? '<span class="review-activity-check">✓ Complete</span>'
+                : ""
+            }
+          </button>
+        `;
+      }).join("");
+
+    container.innerHTML = `
+      <div class="lesson-screen review-activities-hub">
+
+        <div class="review-activities-heading">
+          <span>QUICK ACTIVITIES</span>
+          <h1>Practice Your Mouse Skills</h1>
+          <p>
+            Pick any activity. You can do them in any order.
+          </p>
+        </div>
+
+        <div class="review-activities-grid">
+          ${cards}
+        </div>
+
+        <div
+          id="reviewActivitiesCelebration"
+          class="review-activities-celebration"
+          ${
+            completed.length === REVIEW_ACTIVITIES.length
+              ? ""
+              : "hidden"
+          }
+        >
+          <div class="review-activities-celebration-card">
+            <div class="review-celebration-icon">★</div>
+
+            <h2>Mouse Practice Complete!</h2>
+
+            <p>
+              You finished all six activities.
+            </p>
+
+            <button
+              type="button"
+              id="resetReviewActivitiesButton"
+            >
+              Try Them All Again
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    container
+      .querySelectorAll("[data-review-activity]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          const activityId =
+            button.dataset.reviewActivity;
+
+          window.dispatchEvent(
+            new CustomEvent(
+              "handsOnMouseReviewActivitySelected",
+              {
+                detail: {
+                  activityId
+                }
+              }
+            )
+          );
+        });
+      });
+
+    const resetButton =
+      document.getElementById(
+        "resetReviewActivitiesButton"
+      );
+
+    resetButton?.addEventListener("click", () => {
+      saveCompletedReviewActivities([]);
+      showReviewActivitiesHub();
+    });
+  }
+
+  let removeBullseyeMoveListener = null;
+  let removeBullseyeLeftListener = null;
+  let removeBullseyeRightListener = null;
+
+  let removeWaitMoveListener = null;
+  let removeWaitLeftListener = null;
+  let removeWaitRightListener = null;
+
+  let removeCornerHuntMoveListener = null;
+  let removeCornerHuntLeftListener = null;
+  let removeCornerHuntRightListener = null;
+
+  let removeColorMatchMoveListener = null;
+  let removeColorMatchLeftListener = null;
+  let removeColorMatchRightListener = null;
+
+  let removeMouseSprintMoveListener = null;
+  let removeMouseSprintLeftListener = null;
+  let removeMouseSprintRightListener = null;
+
+  let removeBubblePopMoveListener = null;
+  let removeBubblePopLeftListener = null;
+  let removeBubblePopRightListener = null;
+
+  function showBubblePopActivity() {
+    const container = getLessonContainer();
+
+    stopStepBehavior();
+    currentMode = "review-activity";
+
+    container.hidden = false;
+
+    container.innerHTML = `
+      <div class="lesson-screen bubble-pop-screen">
+
+        <div class="quick-activity-heading">
+          <span>QUICK ACTIVITY</span>
+          <h1>Bubble Pop</h1>
+          <p>Follow the glowing bubble and left-click it once.</p>
+        </div>
+
+        <div
+          id="bubblePopArea"
+          class="bubble-pop-area"
+        >
+          <div class="bubble-cloud cloud-one">☁</div>
+          <div class="bubble-cloud cloud-two">☁</div>
+
+          <button class="floating-bubble" data-bubble="0" type="button"></button>
+          <button class="floating-bubble" data-bubble="1" type="button"></button>
+          <button class="floating-bubble" data-bubble="2" type="button"></button>
+          <button class="floating-bubble" data-bubble="3" type="button"></button>
+          <button class="floating-bubble" data-bubble="4" type="button"></button>
+          <button class="floating-bubble" data-bubble="5" type="button"></button>
+
+          <div
+            id="bubblePopPointer"
+            class="pointer-demo-icon"
+          >
+            ➤
+          </div>
+        </div>
+
+        <div class="quick-activity-footer">
+          <strong id="bubblePopProgress">0 of 8</strong>
+          <span id="bubblePopStatus">
+            Find the glowing bubble.
+          </span>
+        </div>
+
+      </div>
+    `;
+
+    startBubblePopBehavior();
+  }
+
+  function startBubblePopBehavior() {
+    const input = window.HandsOnMouseInput;
+    const area = document.getElementById("bubblePopArea");
+    const pointer = document.getElementById("bubblePopPointer");
+    const progress = document.getElementById("bubblePopProgress");
+    const status = document.getElementById("bubblePopStatus");
+
+    const bubbles = Array.from(
+      document.querySelectorAll(".floating-bubble")
+    );
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !progress ||
+      !status ||
+      bubbles.length === 0
+    ) {
+      return;
+    }
+
+    let completed = 0;
+    let activeBubbleIndex = 0;
+    let pendingSuccessTimer = null;
+    let activityFinished = false;
+    let animationFrame = null;
+    let lastTime = 0;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+
+    const bubbleState = bubbles.map((bubble, index) => ({
+      element: bubble,
+      x: 15 + ((index * 14) % 70),
+      y: 20 + ((index * 19) % 60),
+      vx: (index % 2 === 0 ? 1 : -1) * (0.008 + index * 0.001),
+      vy: (index % 3 === 0 ? 1 : -1) * (0.006 + index * 0.0008)
+    }));
+
+    function updateProgress() {
+      progress.textContent = `${completed} of 8`;
+    }
+
+    function chooseNextBubble() {
+      bubbles.forEach((bubble) => {
+        bubble.classList.remove("bubble-pop-active");
+        bubble.classList.remove("bubble-pop-popped");
+      });
+
+      let nextIndex = activeBubbleIndex;
+
+      while (
+        bubbles.length > 1 &&
+        nextIndex === activeBubbleIndex
+      ) {
+        nextIndex =
+          Math.floor(Math.random() * bubbles.length);
+      }
+
+      activeBubbleIndex = nextIndex;
+
+      bubbles[activeBubbleIndex].classList.add(
+        "bubble-pop-active"
+      );
+
+      status.textContent =
+        "Find the glowing bubble.";
+    }
+
+    function animate(timestamp) {
+      if (activityFinished) {
+        return;
+      }
+
+      if (!lastTime) {
+        lastTime = timestamp;
+      }
+
+      const delta =
+        Math.min(timestamp - lastTime, 40);
+
+      lastTime = timestamp;
+
+      bubbleState.forEach((state) => {
+        state.x += state.vx * delta;
+        state.y += state.vy * delta;
+
+        if (state.x <= 7) {
+          state.x = 7;
+          state.vx = Math.abs(state.vx);
+        }
+
+        if (state.x >= 93) {
+          state.x = 93;
+          state.vx = -Math.abs(state.vx);
+        }
+
+        if (state.y <= 12) {
+          state.y = 12;
+          state.vy = Math.abs(state.vy);
+        }
+
+        if (state.y >= 88) {
+          state.y = 88;
+          state.vy = -Math.abs(state.vy);
+        }
+
+        state.element.style.left =
+          `${state.x}%`;
+
+        state.element.style.top =
+          `${state.y}%`;
+      });
+
+      animationFrame =
+        requestAnimationFrame(animate);
+    }
+
+    function pointerBubble() {
+      const activeBubble =
+        bubbles[activeBubbleIndex];
+
+      /*
+       * Always give priority to the glowing target.
+       * This prevents an overlapping non-target bubble
+       * from stealing the click.
+       */
+      if (
+        activeBubble &&
+        pointerTipHitsElement(
+          pointer,
+          activeBubble
+        )
+      ) {
+        return activeBubble;
+      }
+
+      return bubbles.find((bubble, index) => {
+        if (index === activeBubbleIndex) {
+          return false;
+        }
+
+        return pointerTipHitsElement(
+          pointer,
+          bubble
+        );
+      });
+    }
+
+    removeBubblePopMoveListener =
+      input.subscribe("move", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.72;
+
+        const offsetY =
+          pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        // No movement sound in Quick Activities.
+      });
+
+    removeBubblePopRightListener =
+      input.subscribe("rightDown", () => {
+        if (!activityFinished) {
+          showWrongButtonWarning();
+        }
+      });
+
+    removeBubblePopLeftListener =
+      input.subscribe("leftDown", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        /*
+         * Second click inside the confirmation window:
+         * cancel the pending success completely.
+         */
+        if (pendingSuccessTimer) {
+          clearTimeout(pendingSuccessTimer);
+          pendingSuccessTimer = null;
+
+          showClickWarning();
+
+          status.textContent =
+            "Too fast! Click once, then wait.";
+
+          return;
+        }
+
+        const clicked =
+          pointerBubble();
+
+        if (!clicked) {
+          return;
+        }
+
+        const clickedIndex =
+          Number(clicked.dataset.bubble);
+
+        if (clickedIndex !== activeBubbleIndex) {
+          clicked.classList.remove(
+            "bubble-pop-wrong"
+          );
+
+          void clicked.offsetWidth;
+
+          clicked.classList.add(
+            "bubble-pop-wrong"
+          );
+
+          status.textContent =
+            "Look for the glowing bubble.";
+
+          return;
+        }
+
+        status.textContent = "Wait...";
+
+        /*
+         * Delay credit so the first half of a
+         * double-click never counts.
+         */
+        pendingSuccessTimer =
+          setTimeout(() => {
+            pendingSuccessTimer = null;
+
+            completed += 1;
+
+            clicked.classList.remove(
+              "bubble-pop-active"
+            );
+
+            clicked.classList.add(
+              "bubble-pop-popped"
+            );
+
+            updateProgress();
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio("/sounds/mouseclick.mp3");
+
+                leftClickSound.volume = 0.5;
+              }
+
+              leftClickSound.currentTime = 0;
+              leftClickSound.play().catch(() => {});
+            }
+
+            if (completed >= 8) {
+              activityFinished = true;
+
+              if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+              }
+
+              progress.textContent =
+                "8 of 8 ✓";
+
+              status.textContent =
+                "Bubble Pop complete!";
+
+              setTimeout(() => {
+                window
+                  .HandsOnMouseReviewActivities
+                  ?.complete("bubble-pop");
+              }, 1100);
+
+              return;
+            }
+
+            setTimeout(
+              chooseNextBubble,
+              280
+            );
+
+          }, DOUBLE_CLICK_WINDOW);
+      });
+
+    bubbles[activeBubbleIndex].classList.add(
+      "bubble-pop-active"
+    );
+
+    updateProgress();
+
+    animationFrame =
+      requestAnimationFrame(animate);
+  }
+
+  function showMouseSprintActivity() {
+    const container = getLessonContainer();
+
+    stopStepBehavior();
+    currentMode = "review-activity";
+
+    container.hidden = false;
+
+    container.innerHTML = `
+      <div class="lesson-screen mouse-sprint-screen">
+
+        <div class="quick-activity-heading">
+          <span>QUICK ACTIVITY</span>
+          <h1>Mouse Sprint</h1>
+          <p>Catch the mouse before it reaches the hole!</p>
+        </div>
+
+        <div
+          id="mouseSprintArea"
+          class="mouse-sprint-area"
+        >
+          <div class="mouse-sprint-wall"></div>
+
+          <div class="mouse-hole">
+            🕳️
+          </div>
+
+          <button
+            id="mouseSprintMouse"
+            class="mouse-sprint-mouse"
+            type="button"
+            aria-label="Running mouse"
+          >
+            <img
+              src="/images/mouse.png"
+              alt=""
+              class="mouse-sprint-image"
+              draggable="false"
+            >
+          </button>
+
+          <div
+            id="mouseSprintPointer"
+            class="pointer-demo-icon"
+          >
+            ➤
+          </div>
+        </div>
+
+        <div class="quick-activity-footer">
+          <strong id="mouseSprintProgress">0 of 5</strong>
+          <span id="mouseSprintStatus">
+            Get ready...
+          </span>
+        </div>
+
+      </div>
+    `;
+
+    startMouseSprintBehavior();
+  }
+
+  function startMouseSprintBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("mouseSprintArea");
+
+    const mouse =
+      document.getElementById("mouseSprintMouse");
+
+    const pointer =
+      document.getElementById("mouseSprintPointer");
+
+    const progress =
+      document.getElementById("mouseSprintProgress");
+
+    const status =
+      document.getElementById("mouseSprintStatus");
+
+    if (
+      !input ||
+      !area ||
+      !mouse ||
+      !pointer ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    let completed = 0;
+    let activityFinished = false;
+    let running = false;
+    let animationFrame = null;
+    let pendingSuccessTimer = null;
+
+    let mouseX = 0;
+    let mouseYPercent = 58;
+    let lastFrameTime = 0;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+
+    function updateProgress() {
+      progress.textContent =
+        `${completed} of 5`;
+    }
+
+    function stopMouseAnimation() {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+
+      running = false;
+    }
+
+    function mouseEscaped() {
+      stopMouseAnimation();
+
+      status.textContent =
+        "It escaped! Try again.";
+
+      mouse.classList.add(
+        "mouse-sprint-escaped"
+      );
+
+      setTimeout(() => {
+        mouse.classList.remove(
+          "mouse-sprint-escaped"
+        );
+
+        startRound();
+      }, 850);
+    }
+
+    function animateMouse(timestamp) {
+      if (!running || activityFinished) {
+        return;
+      }
+
+      if (!lastFrameTime) {
+        lastFrameTime = timestamp;
+      }
+
+      const delta =
+        Math.min(
+          timestamp - lastFrameTime,
+          40
+        );
+
+      lastFrameTime = timestamp;
+
+      /*
+       * Slightly faster as students progress.
+       */
+      const speed =
+        0.16 + completed * 0.018;
+
+      mouseX += delta * speed;
+
+      mouse.style.left =
+        `${mouseX}px`;
+
+      if (
+        mouseX >=
+        area.clientWidth - 100
+      ) {
+        mouseEscaped();
+        return;
+      }
+
+      animationFrame =
+        requestAnimationFrame(
+          animateMouse
+        );
+    }
+
+    function startRound() {
+      if (activityFinished) {
+        return;
+      }
+
+      stopMouseAnimation();
+
+      if (pendingSuccessTimer) {
+        clearTimeout(
+          pendingSuccessTimer
+        );
+
+        pendingSuccessTimer = null;
+      }
+
+      mouseX = 15;
+
+      mouseYPercent =
+        32 + Math.random() * 42;
+
+      mouse.style.left =
+        `${mouseX}px`;
+
+      mouse.style.top =
+        `${mouseYPercent}%`;
+
+      status.textContent =
+        "Catch the mouse!";
+
+      lastFrameTime = 0;
+      running = true;
+
+      animationFrame =
+        requestAnimationFrame(
+          animateMouse
+        );
+    }
+
+    function pointerIsOnMouse() {
+      const pointerRect =
+        pointer.getBoundingClientRect();
+
+      const mouseRect =
+        mouse.getBoundingClientRect();
+
+      const tipX =
+        pointerRect.left +
+        pointerRect.width * 0.72;
+
+      const tipY =
+        pointerRect.top +
+        pointerRect.height * 0.72;
+
+      return (
+        tipX >= mouseRect.left &&
+        tipX <= mouseRect.right &&
+        tipY >= mouseRect.top &&
+        tipY <= mouseRect.bottom
+      );
+    }
+
+    removeMouseSprintMoveListener =
+      input.subscribe("move", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= areaRect.left &&
+          event.x <= areaRect.right &&
+          event.y >= areaRect.top &&
+          event.y <= areaRect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.72;
+
+        const offsetY =
+          pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - offsetY}px`;
+
+        // No movement sound in Quick Activities.
+      });
+
+    removeMouseSprintRightListener =
+      input.subscribe("rightDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        showWrongButtonWarning();
+      });
+
+    removeMouseSprintLeftListener =
+      input.subscribe("leftDown", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        /*
+         * Check for the second half of a double-click
+         * BEFORE checking whether the mouse is running.
+         * The first click temporarily freezes the mouse.
+         */
+        if (pendingSuccessTimer) {
+          clearTimeout(pendingSuccessTimer);
+          pendingSuccessTimer = null;
+
+          showClickWarning();
+
+          status.textContent =
+            "Too fast! Click once, then wait.";
+
+          setTimeout(() => {
+            startRound();
+          }, 1200);
+
+          return;
+        }
+
+        if (!running) {
+          return;
+        }
+
+        /*
+         * Only the visible black cursor tip counts.
+         * Overlapping with the back of the cursor does not.
+         */
+        if (!pointerIsOnMouse()) {
+          status.textContent =
+            "Miss! Keep tracking the mouse.";
+          return;
+        }
+
+        /*
+         * Freeze the mouse while we verify
+         * that this was a controlled single click.
+         */
+        stopMouseAnimation();
+
+        status.textContent =
+          "Wait...";
+
+        pendingSuccessTimer =
+          setTimeout(() => {
+            pendingSuccessTimer = null;
+
+            completed += 1;
+
+            updateProgress();
+
+            mouse.classList.add(
+              "mouse-sprint-caught"
+            );
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio(
+                    "/sounds/mouseclick.mp3"
+                  );
+
+                leftClickSound.volume = 0.5;
+              }
+
+              leftClickSound.currentTime = 0;
+              leftClickSound
+                .play()
+                .catch(() => {});
+            }
+
+            if (completed >= 5) {
+              activityFinished = true;
+
+              progress.textContent =
+                "5 of 5 ✓";
+
+              status.textContent =
+                "Mouse Sprint complete!";
+
+              setTimeout(() => {
+                window
+                  .HandsOnMouseReviewActivities
+                  ?.complete("mouse-sprint");
+              }, 1100);
+
+              return;
+            }
+
+            status.textContent =
+              "Nice catch!";
+
+            setTimeout(() => {
+              mouse.classList.remove(
+                "mouse-sprint-caught"
+              );
+
+              startRound();
+            }, 650);
+
+          }, DOUBLE_CLICK_WINDOW);
+      });
+
+    updateProgress();
+
+    setTimeout(
+      startRound,
+      700
+    );
+  }
+
+  function showColorMatchActivity() {
+    const container = getLessonContainer();
+
+    stopStepBehavior();
+    currentMode = "review-activity";
+
+    container.hidden = false;
+
+    container.innerHTML = `
+      <div class="lesson-screen color-match-screen">
+
+        <div class="quick-activity-heading">
+          <span>QUICK ACTIVITY</span>
+          <h1>Color Match</h1>
+          <p>Find the color that matches the clue.</p>
+        </div>
+
+        <div class="color-match-clue-wrap">
+          <span>Find</span>
+
+          <strong
+            id="colorMatchClue"
+            class="color-match-clue"
+          >
+            BLUE
+          </strong>
+        </div>
+
+        <div
+          id="colorMatchArea"
+          class="color-match-area"
+        >
+          <button
+            class="color-match-target"
+            data-color="red"
+            type="button"
+            aria-label="Red"
+          ></button>
+
+          <button
+            class="color-match-target"
+            data-color="blue"
+            type="button"
+            aria-label="Blue"
+          ></button>
+
+          <button
+            class="color-match-target"
+            data-color="green"
+            type="button"
+            aria-label="Green"
+          ></button>
+
+          <button
+            class="color-match-target"
+            data-color="yellow"
+            type="button"
+            aria-label="Yellow"
+          ></button>
+
+          <div
+            id="colorMatchPointer"
+            class="pointer-demo-icon"
+          >
+            ➤
+          </div>
+        </div>
+
+        <div class="quick-activity-footer">
+          <strong id="colorMatchProgress">0 of 5</strong>
+          <span id="colorMatchStatus">
+            Find the matching color.
+          </span>
+        </div>
+
+      </div>
+    `;
+
+    startColorMatchBehavior();
+  }
+
+  function startColorMatchBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("colorMatchArea");
+
+    const pointer =
+      document.getElementById("colorMatchPointer");
+
+    const clue =
+      document.getElementById("colorMatchClue");
+
+    const progress =
+      document.getElementById("colorMatchProgress");
+
+    const status =
+      document.getElementById("colorMatchStatus");
+
+    const targets =
+      Array.from(
+        document.querySelectorAll(
+          ".color-match-target"
+        )
+      );
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !clue ||
+      !progress ||
+      !status ||
+      targets.length !== 4
+    ) {
+      return;
+    }
+
+    const COLORS = [
+      "red",
+      "blue",
+      "green",
+      "yellow"
+    ];
+
+    const DISPLAY_NAMES = {
+      red: "RED",
+      blue: "BLUE",
+      green: "GREEN",
+      yellow: "YELLOW"
+    };
+
+    const TARGET_POSITIONS = [
+      { x: 22, y: 30 },
+      { x: 76, y: 30 },
+      { x: 22, y: 72 },
+      { x: 76, y: 72 }
+    ];
+
+    let completed = 0;
+    let currentColor = null;
+    let roundStartedAt = 0;
+    let pendingSuccessTimer = null;
+    let activityFinished = false;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+
+    const wrongColorSound =
+      new Audio("/sounds/mistake.mp3");
+
+    wrongColorSound.preload = "auto";
+    wrongColorSound.volume = 0.55;
+
+    function shuffle(array) {
+      const copy = [...array];
+
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j =
+          Math.floor(Math.random() * (i + 1));
+
+        [copy[i], copy[j]] =
+          [copy[j], copy[i]];
+      }
+
+      return copy;
+    }
+
+    function updateProgress() {
+      progress.textContent =
+        `${completed} of 5`;
+    }
+
+    function layoutTargets() {
+      const shuffledColors =
+        shuffle(COLORS);
+
+      targets.forEach((target, index) => {
+        const color =
+          shuffledColors[index];
+
+        const position =
+          TARGET_POSITIONS[index];
+
+        target.dataset.color = color;
+
+        target.className =
+          `color-match-target color-${color}`;
+
+        target.style.left =
+          `${position.x}%`;
+
+        target.style.top =
+          `${position.y}%`;
+      });
+    }
+
+    function beginRound() {
+      if (activityFinished) {
+        return;
+      }
+
+      pendingSuccessTimer = null;
+
+      const previousColor =
+        currentColor;
+
+      const available =
+        COLORS.filter(
+          color => color !== previousColor
+        );
+
+      currentColor =
+        available[
+          Math.floor(
+            Math.random() * available.length
+          )
+        ];
+
+      clue.textContent =
+        DISPLAY_NAMES[currentColor];
+
+      clue.className =
+        `color-match-clue clue-${currentColor}`;
+
+      layoutTargets();
+
+      targets.forEach((target) => {
+        target.classList.remove(
+          "color-match-correct"
+        );
+
+        target.classList.remove(
+          "color-match-wrong"
+        );
+      });
+
+      status.textContent =
+        "Find the matching color.";
+
+      roundStartedAt =
+        performance.now();
+    }
+
+    function pointerTarget() {
+      const pointerRect =
+        pointer.getBoundingClientRect();
+
+      const tipX =
+        pointerRect.left +
+        pointerRect.width * 0.72;
+
+      const tipY =
+        pointerRect.top +
+        pointerRect.height * 0.72;
+
+      return targets.find((target) => {
+        const rect =
+          target.getBoundingClientRect();
+
+        return (
+          tipX >= rect.left &&
+          tipX <= rect.right &&
+          tipY >= rect.top &&
+          tipY <= rect.bottom
+        );
+      });
+    }
+
+    function handleWrongColor(target) {
+      target.classList.remove(
+        "color-match-wrong"
+      );
+
+      void target.offsetWidth;
+
+      target.classList.add(
+        "color-match-wrong"
+      );
+
+      status.textContent =
+        "Not that color. Try again.";
+
+      if (soundEnabled) {
+        wrongColorSound.pause();
+        wrongColorSound.currentTime = 0;
+        wrongColorSound.play().catch(() => {});
+      }
+    }
+
+    removeColorMatchMoveListener =
+      input.subscribe("move", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= areaRect.left &&
+          event.x <= areaRect.right &&
+          event.y >= areaRect.top &&
+          event.y <= areaRect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.72;
+
+        const offsetY =
+          pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - offsetY}px`;
+
+        // No movement sound in Quick Activities.
+      });
+
+    removeColorMatchRightListener =
+      input.subscribe("rightDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        // Warning = no credit.
+        showWrongButtonWarning();
+      });
+
+    removeColorMatchLeftListener =
+      input.subscribe("leftDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        /*
+         * Second click inside confirmation window:
+         * cancel the first click completely.
+         */
+        if (pendingSuccessTimer) {
+          clearTimeout(
+            pendingSuccessTimer
+          );
+
+          pendingSuccessTimer = null;
+
+          showClickWarning();
+
+          status.textContent =
+            "Too fast! Click once, then wait.";
+
+          return;
+        }
+
+        const target =
+          pointerTarget();
+
+        if (!target) {
+          return;
+        }
+
+        if (
+          target.dataset.color !==
+          currentColor
+        ) {
+          handleWrongColor(target);
+          return;
+        }
+
+        /*
+         * Correct target found.
+         * Delay success so double-click cannot
+         * earn credit.
+         */
+        const reactionSeconds =
+          (
+            performance.now() -
+            roundStartedAt
+          ) / 1000;
+
+        status.textContent = "Wait...";
+
+        pendingSuccessTimer =
+          setTimeout(() => {
+            pendingSuccessTimer = null;
+
+            completed += 1;
+
+            target.classList.add(
+              "color-match-correct"
+            );
+
+            updateProgress();
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio(
+                    "/sounds/mouseclick.mp3"
+                  );
+
+                leftClickSound.volume = 0.5;
+              }
+
+              leftClickSound.currentTime = 0;
+              leftClickSound
+                .play()
+                .catch(() => {});
+            }
+
+            if (completed >= 5) {
+              activityFinished = true;
+
+              progress.textContent =
+                "5 of 5 ✓";
+
+              status.textContent =
+                `Great! ${reactionSeconds.toFixed(1)} seconds.`;
+
+              setTimeout(() => {
+                window
+                  .HandsOnMouseReviewActivities
+                  ?.complete("color-match");
+              }, 1100);
+
+              return;
+            }
+
+            status.textContent =
+              `Nice! ${reactionSeconds.toFixed(1)} seconds.`;
+
+            setTimeout(
+              beginRound,
+              750
+            );
+
+          }, DOUBLE_CLICK_WINDOW);
+      });
+
+    updateProgress();
+    beginRound();
+  }
+
+  function showCornerHuntActivity() {
+    const container = getLessonContainer();
+
+    stopStepBehavior();
+    currentMode = "review-activity";
+
+    container.hidden = false;
+
+    container.innerHTML = `
+      <div class="lesson-screen corner-hunt-screen">
+
+        <div class="quick-activity-heading">
+          <span>QUICK ACTIVITY</span>
+          <h1>Corner Hunt</h1>
+          <p>Find the deer hiding in the woods and left-click it once.</p>
+        </div>
+
+        <div
+          id="cornerHuntArea"
+          class="corner-hunt-area"
+        >
+          <div class="corner-hunt-sky"></div>
+          <div class="corner-hunt-ground"></div>
+
+          <span class="corner-tree tree-a">🌲</span>
+          <span class="corner-tree tree-b">🌳</span>
+          <span class="corner-tree tree-c">🌲</span>
+          <span class="corner-tree tree-d">🌳</span>
+          <span class="corner-tree tree-e">🌲</span>
+          <span class="corner-tree tree-f">🌳</span>
+          <span class="corner-tree tree-g">🌲</span>
+          <span class="corner-tree tree-h">🌳</span>
+
+          <button
+            id="cornerHuntDeer"
+            class="corner-hunt-deer"
+            type="button"
+            aria-label="Hidden deer"
+          >
+            🦌
+          </button>
+
+          <span
+            id="cornerHuntCoverTree"
+            class="corner-hunt-cover-tree"
+          >
+            🌲
+          </span>
+
+          <div
+            id="cornerHuntPointer"
+            class="pointer-demo-icon"
+          >
+            ➤
+          </div>
+        </div>
+
+        <div class="quick-activity-footer">
+          <strong id="cornerHuntProgress">0 of 5</strong>
+          <span id="cornerHuntStatus">
+            Find the deer!
+          </span>
+        </div>
+
+      </div>
+    `;
+
+    startCornerHuntBehavior();
+  }
+
+  function startCornerHuntBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("cornerHuntArea");
+
+    const deer =
+      document.getElementById("cornerHuntDeer");
+
+    const coverTree =
+      document.getElementById("cornerHuntCoverTree");
+
+    const pointer =
+      document.getElementById("cornerHuntPointer");
+
+    const progress =
+      document.getElementById("cornerHuntProgress");
+
+    const status =
+      document.getElementById("cornerHuntStatus");
+
+    if (
+      !input ||
+      !area ||
+      !deer ||
+      !coverTree ||
+      !pointer ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const hidingSpots = [
+      {
+        deerX: 14,
+        deerY: 23,
+        treeX: 11,
+        treeY: 21
+      },
+      {
+        deerX: 84,
+        deerY: 25,
+        treeX: 88,
+        treeY: 22
+      },
+      {
+        deerX: 16,
+        deerY: 76,
+        treeX: 12,
+        treeY: 73
+      },
+      {
+        deerX: 84,
+        deerY: 74,
+        treeX: 88,
+        treeY: 72
+      },
+      {
+        deerX: 72,
+        deerY: 48,
+        treeX: 76,
+        treeY: 47
+      }
+    ];
+
+    let completed = 0;
+    let pendingSuccessTimer = null;
+    let activityFinished = false;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+
+    function updateProgress() {
+      progress.textContent =
+        `${completed} of ${hidingSpots.length}`;
+    }
+
+    function positionDeer() {
+      if (completed >= hidingSpots.length) {
+        return;
+      }
+
+      const spot = hidingSpots[completed];
+
+      deer.style.left = `${spot.deerX}%`;
+      deer.style.top = `${spot.deerY}%`;
+
+      coverTree.style.left = `${spot.treeX}%`;
+      coverTree.style.top = `${spot.treeY}%`;
+
+      deer.classList.remove("corner-deer-found");
+
+      void deer.offsetWidth;
+
+      deer.classList.add("corner-deer-enter");
+    }
+
+    function pointerIsOnDeer() {
+      const pointerRect =
+        pointer.getBoundingClientRect();
+
+      const deerRect =
+        deer.getBoundingClientRect();
+
+      const tipX =
+        pointerRect.left +
+        pointerRect.width * 0.72;
+
+      const tipY =
+        pointerRect.top +
+        pointerRect.height * 0.72;
+
+      return (
+        tipX >= deerRect.left &&
+        tipX <= deerRect.right &&
+        tipY >= deerRect.top &&
+        tipY <= deerRect.bottom
+      );
+    }
+
+    removeCornerHuntMoveListener =
+      input.subscribe("move", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= areaRect.left &&
+          event.x <= areaRect.right &&
+          event.y >= areaRect.top &&
+          event.y <= areaRect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.72;
+
+        const offsetY =
+          pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - offsetY}px`;
+
+        // Intentionally NO movement sound in Quick Activities.
+      });
+
+    removeCornerHuntRightListener =
+      input.subscribe("rightDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        // Warning = no success.
+        showWrongButtonWarning();
+      });
+
+    removeCornerHuntLeftListener =
+      input.subscribe("leftDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        if (!pointerIsOnDeer()) {
+          status.textContent =
+            "Keep looking for the deer.";
+          return;
+        }
+
+        /*
+         * Never award the first click immediately.
+         * This prevents the first half of a double-click
+         * from receiving credit.
+         */
+        if (pendingSuccessTimer) {
+          clearTimeout(pendingSuccessTimer);
+          pendingSuccessTimer = null;
+
+          showClickWarning();
+
+          status.textContent =
+            "Too fast! Click once, then wait.";
+
+          return;
+        }
+
+        status.textContent = "Wait...";
+
+        pendingSuccessTimer =
+          setTimeout(() => {
+            pendingSuccessTimer = null;
+
+            completed += 1;
+
+            updateProgress();
+
+            deer.classList.remove(
+              "corner-deer-enter"
+            );
+
+            deer.classList.add(
+              "corner-deer-found"
+            );
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio(
+                    "/sounds/mouseclick.mp3"
+                  );
+
+                leftClickSound.volume = 0.5;
+              }
+
+              leftClickSound.currentTime = 0;
+              leftClickSound
+                .play()
+                .catch(() => {});
+            }
+
+            if (
+              completed >= hidingSpots.length
+            ) {
+              activityFinished = true;
+
+              progress.textContent =
+                "5 of 5 ✓";
+
+              status.textContent =
+                "Corner Hunt complete!";
+
+              deer.textContent = "✓";
+
+              coverTree.style.display = "none";
+
+              setTimeout(() => {
+                window
+                  .HandsOnMouseReviewActivities
+                  ?.complete("corner-hunt");
+              }, 1100);
+
+              return;
+            }
+
+            status.textContent =
+              "Great! Find the deer again.";
+
+            setTimeout(() => {
+              positionDeer();
+            }, 450);
+
+          }, DOUBLE_CLICK_WINDOW);
+      });
+
+    updateProgress();
+    positionDeer();
+  }
+
+  function showWaitForItActivity() {
+    const container = getLessonContainer();
+
+    stopStepBehavior();
+    currentMode = "review-activity";
+
+    container.hidden = false;
+
+    container.innerHTML = `
+      <div class="lesson-screen wait-activity-screen">
+
+        <div class="quick-activity-heading">
+          <span>QUICK ACTIVITY</span>
+          <h1>Wait for It</h1>
+          <p>Wait until the light turns bright. Then click!</p>
+        </div>
+
+        <div
+          id="waitActivityArea"
+          class="wait-activity-area"
+        >
+          <button
+            id="waitActivityTarget"
+            class="wait-activity-target waiting"
+            type="button"
+          >
+            💡
+          </button>
+
+          <div
+            id="waitActivityPointer"
+            class="pointer-demo-icon"
+          >
+            ➤
+          </div>
+        </div>
+
+        <div class="quick-activity-footer">
+          <strong id="waitProgress">0 of 5</strong>
+          <span id="waitStatus">Wait...</span>
+        </div>
+
+      </div>
+    `;
+
+    startWaitForItBehavior();
+  }
+
+  function startWaitForItBehavior() {
+    const input = window.HandsOnMouseInput;
+    const area =
+      document.getElementById("waitActivityArea");
+    const target =
+      document.getElementById("waitActivityTarget");
+    const pointer =
+      document.getElementById("waitActivityPointer");
+    const progress =
+      document.getElementById("waitProgress");
+    const status =
+      document.getElementById("waitStatus");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !pointer ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const positions = [
+      { x: 20, y: 25 },
+      { x: 76, y: 28 },
+      { x: 48, y: 52 },
+      { x: 24, y: 74 },
+      { x: 74, y: 72 }
+    ];
+
+    let completed = 0;
+    let ready = false;
+    let readyTime = 0;
+    let readyTimer = null;
+    let pendingSuccessTimer = null;
+    let activityFinished = false;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+
+    function updateProgress() {
+      progress.textContent =
+        `${completed} of ${positions.length}`;
+    }
+
+    function positionTarget() {
+      const position = positions[completed];
+
+      target.style.left = `${position.x}%`;
+      target.style.top = `${position.y}%`;
+    }
+
+    function beginRound() {
+      if (activityFinished) {
+        return;
+      }
+
+      clearTimeout(readyTimer);
+
+      ready = false;
+
+      target.classList.remove("ready");
+      target.classList.add("waiting");
+
+      status.textContent = "Wait...";
+
+      positionTarget();
+
+      const waitTime =
+        1500 + Math.random() * 1500;
+
+      readyTimer = setTimeout(() => {
+        ready = true;
+        readyTime = performance.now();
+
+        target.classList.remove("waiting");
+        target.classList.add("ready");
+
+        status.textContent = "GO! Click the light!";
+      }, waitTime);
+    }
+
+    function pointerIsOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    removeWaitMoveListener =
+      input.subscribe("move", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= areaRect.left &&
+          event.x <= areaRect.right &&
+          event.y >= areaRect.top &&
+          event.y <= areaRect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.72;
+
+        const offsetY =
+          pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - offsetY}px`;
+      });
+
+    removeWaitRightListener =
+      input.subscribe("rightDown", () => {
+        if (!activityFinished) {
+          showWrongButtonWarning();
+        }
+      });
+
+    removeWaitLeftListener =
+      input.subscribe("leftDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        /*
+         * If a second click arrives before the first
+         * click has been confirmed, cancel the success.
+         * Neither click gets credit.
+         */
+        if (pendingSuccessTimer) {
+          clearTimeout(pendingSuccessTimer);
+          pendingSuccessTimer = null;
+
+          ready = false;
+
+          showClickWarning();
+
+          status.textContent =
+            "Too fast! Wait for the light, then click once.";
+
+          setTimeout(beginRound, 1200);
+          return;
+        }
+
+        /*
+         * Clicking before GO is also a mistake.
+         */
+        if (!ready) {
+          clearTimeout(readyTimer);
+          readyTimer = null;
+
+          showClickWarning();
+
+          status.textContent =
+            "Too soon! Wait for the bright light.";
+
+          setTimeout(beginRound, 1200);
+          return;
+        }
+
+        if (!pointerIsOnTarget()) {
+          return;
+        }
+
+        const reactionSeconds =
+          (performance.now() - readyTime) / 1000;
+
+        /*
+         * Do not award credit yet.
+         * Wait briefly to make sure this was a
+         * controlled single click.
+         */
+        status.textContent = "Wait...";
+
+        pendingSuccessTimer =
+          setTimeout(() => {
+            pendingSuccessTimer = null;
+
+            completed += 1;
+            ready = false;
+
+            updateProgress();
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio("/sounds/mouseclick.mp3");
+
+                leftClickSound.volume = 0.5;
+              }
+
+              leftClickSound.currentTime = 0;
+              leftClickSound.play().catch(() => {});
+            }
+
+            if (completed >= positions.length) {
+              activityFinished = true;
+
+              target.textContent = "✓";
+              target.classList.remove("ready");
+              target.classList.add("wait-finished");
+
+              progress.textContent = "5 of 5 ✓";
+
+              status.textContent =
+                `Great! ${reactionSeconds.toFixed(1)} seconds.`;
+
+              setTimeout(() => {
+                window
+                  .HandsOnMouseReviewActivities
+                  ?.complete("wait-for-it");
+              }, 1200);
+
+              return;
+            }
+
+            status.textContent =
+              `Nice! ${reactionSeconds.toFixed(1)} seconds.`;
+
+            setTimeout(beginRound, 900);
+          }, DOUBLE_CLICK_WINDOW);
+      });
+
+    updateProgress();
+    beginRound();
+  }
+
+  function showBullseyeActivity() {
+    const container = getLessonContainer();
+
+    stopStepBehavior();
+    currentMode = "review-activity";
+
+    container.hidden = false;
+
+    container.innerHTML = `
+      <div class="lesson-screen bullseye-activity-screen">
+
+        <div class="quick-activity-heading">
+          <span>QUICK ACTIVITY</span>
+          <h1>Bullseye Click</h1>
+          <p>Move to the target and left-click once.</p>
+        </div>
+
+        <div
+          id="bullseyeActivityArea"
+          class="bullseye-activity-area"
+        >
+          <button
+            id="bullseyeActivityTarget"
+            class="bullseye-real-target"
+            type="button"
+            aria-label="Bullseye target"
+          >
+            <span class="bullseye-ring ring-1"></span>
+            <span class="bullseye-ring ring-2"></span>
+            <span class="bullseye-ring ring-3"></span>
+            <span class="bullseye-ring ring-4"></span>
+            <span class="bullseye-center"></span>
+          </button>
+
+          <div
+            id="bullseyeActivityPointer"
+            class="pointer-demo-icon"
+          >
+            ➤
+          </div>
+        </div>
+
+        <div class="quick-activity-footer">
+          <strong id="bullseyeProgress">0 of 5</strong>
+          <span id="bullseyeStatus">
+            Find the first target.
+          </span>
+        </div>
+
+      </div>
+    `;
+
+    startBullseyeActivityBehavior();
+  }
+
+  function startBullseyeActivityBehavior() {
+    const input = window.HandsOnMouseInput;
+    const area =
+      document.getElementById("bullseyeActivityArea");
+    const target =
+      document.getElementById("bullseyeActivityTarget");
+    const pointer =
+      document.getElementById("bullseyeActivityPointer");
+    const progress =
+      document.getElementById("bullseyeProgress");
+    const status =
+      document.getElementById("bullseyeStatus");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !pointer ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const positions = [
+      { x: 18, y: 24 },
+      { x: 78, y: 26 },
+      { x: 50, y: 52 },
+      { x: 22, y: 76 },
+      { x: 76, y: 74 }
+    ];
+
+    let completed = 0;
+    let pendingClickTimer = null;
+    let activityFinished = false;
+
+    const DOUBLE_CLICK_WINDOW = 450;
+
+    const bullseyeHitSound =
+      new Audio("/sounds/arrow.mp3");
+
+    bullseyeHitSound.preload = "auto";
+    bullseyeHitSound.volume = 0.6;
+
+    const bullseyeMissSound =
+      new Audio("/sounds/swish.mp3");
+
+    bullseyeMissSound.preload = "auto";
+    bullseyeMissSound.volume = 0.55;
+
+    function updateProgress() {
+      progress.textContent =
+        `${completed} of ${positions.length}`;
+    }
+
+    function positionTarget() {
+      if (completed >= positions.length) {
+        return;
+      }
+
+      const position = positions[completed];
+
+      target.style.left = `${position.x}%`;
+      target.style.top = `${position.y}%`;
+    }
+
+    function pointerIsOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    removeBullseyeMoveListener =
+      input.subscribe("move", (event) => {
+        if (activityFinished) {
+          return;
+        }
+
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const insideArea =
+          event.x >= areaRect.left &&
+          event.x <= areaRect.right &&
+          event.y >= areaRect.top &&
+          event.y <= areaRect.bottom;
+
+        if (!insideArea) {
+          return;
+        }
+
+        const tipOffsetX =
+          pointer.offsetWidth * 0.72;
+
+        const tipOffsetY =
+          pointer.offsetHeight * 0.72;
+
+        pointer.style.left =
+          `${event.x - areaRect.left - tipOffsetX}px`;
+
+        pointer.style.top =
+          `${event.y - areaRect.top - tipOffsetY}px`;
+
+      });
+
+    removeBullseyeRightListener =
+      input.subscribe("rightDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        showWrongButtonWarning();
+      });
+
+    removeBullseyeLeftListener =
+      input.subscribe("leftDown", () => {
+        if (activityFinished) {
+          return;
+        }
+
+        if (!pointerIsOnTarget()) {
+          if (soundEnabled) {
+            bullseyeMissSound.pause();
+            bullseyeMissSound.currentTime = 0;
+            bullseyeMissSound.play().catch(() => {});
+          }
+
+          status.textContent =
+            "Miss! Aim for the bullseye.";
+
+          return;
+        }
+
+        /*
+         * Do not immediately give credit.
+         * Wait briefly to make sure this was not
+         * the first half of a double-click.
+         */
+        if (pendingClickTimer) {
+          clearTimeout(pendingClickTimer);
+          pendingClickTimer = null;
+
+          showClickWarning();
+
+          target.classList.remove(
+            "bullseye-hit"
+          );
+
+          return;
+        }
+
+        if (soundEnabled) {
+          bullseyeHitSound.pause();
+          bullseyeHitSound.currentTime = 0.08;
+          bullseyeHitSound.play().catch(() => {});
+        }
+
+        status.textContent = "Wait...";
+
+        pendingClickTimer =
+          setTimeout(() => {
+            pendingClickTimer = null;
+
+            completed += 1;
+            updateProgress();
+
+            target.classList.remove(
+              "bullseye-hit"
+            );
+
+            void target.offsetWidth;
+
+            target.classList.add(
+              "bullseye-hit"
+            );
+
+
+            if (
+              completed >= positions.length
+            ) {
+              activityFinished = true;
+
+              status.textContent =
+                "Bullseye Click complete!";
+
+              progress.textContent =
+                "5 of 5 ✓";
+
+              target.classList.add(
+                "bullseye-finished"
+              );
+
+              setTimeout(() => {
+                window
+                  .HandsOnMouseReviewActivities
+                  ?.complete("bullseye");
+              }, 900);
+
+              return;
+            }
+
+            status.textContent =
+              "Great! Find the next target.";
+
+            positionTarget();
+          }, DOUBLE_CLICK_WINDOW);
+      });
+
+    positionTarget();
+    updateProgress();
+  }
+
+  function markReviewActivityComplete(activityId) {
+    const completed =
+      getCompletedReviewActivities();
+
+    if (!completed.includes(activityId)) {
+      completed.push(activityId);
+      saveCompletedReviewActivities(completed);
+    }
+
+    showReviewActivitiesHub();
+  }
+
+  window.HandsOnMouseReviewActivities = {
+    showHub: showReviewActivitiesHub,
+    complete: markReviewActivityComplete
+  };
+
+
+  window.addEventListener(
+    "handsOnMouseReviewActivitySelected",
+    (event) => {
+      const activityId =
+        event.detail?.activityId;
+
+      if (activityId === "bullseye") {
+        showBullseyeActivity();
+      }
+
+      if (activityId === "wait-for-it") {
+        showWaitForItActivity();
+      }
+
+      if (activityId === "corner-hunt") {
+        showCornerHuntActivity();
+      }
+
+      if (activityId === "color-match") {
+        showColorMatchActivity();
+      }
+
+      if (activityId === "mouse-sprint") {
+        showMouseSprintActivity();
+      }
+
+      if (activityId === "bubble-pop") {
+        showBubblePopActivity();
+      }
+
+      if (activityId === "target-trail") {
+        showTargetTrailActivity();
+      }
+    }
+  );
 
   function showLessonView() {
     const homePage = document.querySelector(".home-page");
@@ -114,7 +2538,10 @@
               </div>
 
               <h2>Move the Mouse</h2>
-              <p>Move the pointer where I tell you.</p>
+
+              <p>
+                Move to the glowing animal.
+              </p>
 
             </section>
 
@@ -720,6 +3147,9 @@
   }
 
   let removeMeetMouseMovementListener = null;
+  let removeReviewMoveListener = null;
+  let removeReviewLeftClickListener = null;
+  let removeReviewRightClickListener = null;
   let removeMovementPracticeListener = null;
   let removeLeftClickListener = null;
   let removeLeftClickPracticeListener = null;
@@ -734,6 +3164,21 @@
     if (removeMeetMouseMovementListener) {
       removeMeetMouseMovementListener();
       removeMeetMouseMovementListener = null;
+    }
+
+    if (removeReviewMoveListener) {
+      removeReviewMoveListener();
+      removeReviewMoveListener = null;
+    }
+
+    if (removeReviewLeftClickListener) {
+      removeReviewLeftClickListener();
+      removeReviewLeftClickListener = null;
+    }
+
+    if (removeReviewRightClickListener) {
+      removeReviewRightClickListener();
+      removeReviewRightClickListener = null;
     }
 
     if (removeMovementPracticeListener) {
@@ -785,6 +3230,96 @@
       removeMouseChallengeRightListener();
       removeMouseChallengeRightListener = null;
     }
+    if (removeBullseyeMoveListener) {
+      removeBullseyeMoveListener();
+      removeBullseyeMoveListener = null;
+    }
+
+    if (removeBullseyeLeftListener) {
+      removeBullseyeLeftListener();
+      removeBullseyeLeftListener = null;
+    }
+
+    if (removeBullseyeRightListener) {
+      removeBullseyeRightListener();
+      removeBullseyeRightListener = null;
+    }
+
+    if (removeWaitMoveListener) {
+      removeWaitMoveListener();
+      removeWaitMoveListener = null;
+    }
+
+    if (removeWaitLeftListener) {
+      removeWaitLeftListener();
+      removeWaitLeftListener = null;
+    }
+
+    if (removeWaitRightListener) {
+      removeWaitRightListener();
+      removeWaitRightListener = null;
+    }
+
+    if (removeCornerHuntMoveListener) {
+      removeCornerHuntMoveListener();
+      removeCornerHuntMoveListener = null;
+    }
+
+    if (removeCornerHuntLeftListener) {
+      removeCornerHuntLeftListener();
+      removeCornerHuntLeftListener = null;
+    }
+
+    if (removeCornerHuntRightListener) {
+      removeCornerHuntRightListener();
+      removeCornerHuntRightListener = null;
+    }
+
+    if (removeColorMatchMoveListener) {
+      removeColorMatchMoveListener();
+      removeColorMatchMoveListener = null;
+    }
+
+    if (removeColorMatchLeftListener) {
+      removeColorMatchLeftListener();
+      removeColorMatchLeftListener = null;
+    }
+
+    if (removeColorMatchRightListener) {
+      removeColorMatchRightListener();
+      removeColorMatchRightListener = null;
+    }
+
+    if (removeMouseSprintMoveListener) {
+      removeMouseSprintMoveListener();
+      removeMouseSprintMoveListener = null;
+    }
+
+    if (removeMouseSprintLeftListener) {
+      removeMouseSprintLeftListener();
+      removeMouseSprintLeftListener = null;
+    }
+
+    if (removeMouseSprintRightListener) {
+      removeMouseSprintRightListener();
+      removeMouseSprintRightListener = null;
+    }
+
+    if (removeBubblePopMoveListener) {
+      removeBubblePopMoveListener();
+      removeBubblePopMoveListener = null;
+    }
+
+    if (removeBubblePopLeftListener) {
+      removeBubblePopLeftListener();
+      removeBubblePopLeftListener = null;
+    }
+
+    if (removeBubblePopRightListener) {
+      removeBubblePopRightListener();
+      removeBubblePopRightListener = null;
+    }
+
   }
 
   function startMovementSound() {
@@ -810,6 +3345,338 @@
         movementSound.currentTime = 0;
       }
     }, 180);
+  }
+
+  function syncReviewBoardState(state) {
+    const reviewStep =
+      lesson?.steps?.[currentDisplayedStep];
+
+    if (
+      lesson?.id !== "review1" ||
+      reviewStep?.id !== "review-week1"
+    ) {
+      return;
+    }
+
+    const released =
+      state.reviewMovementReleased === true;
+
+    const board =
+      document.querySelector(".lesson-screen-review-board");
+
+    const handCard =
+      document.querySelector(".review-card-hand");
+
+    const moveCard =
+      document.querySelector(".review-card-move");
+
+    const clickCard =
+      document.querySelector(".review-card-click");
+
+    if (!board || !handCard || !moveCard || !clickCard) {
+      return;
+    }
+
+    board.classList.toggle(
+      "review-board-movement-released",
+      released
+    );
+
+    if (!released) {
+      moveCard.classList.remove("review-card-ready");
+      return;
+    }
+
+    moveCard.classList.add("review-card-ready");
+
+    if (removeReviewMoveListener) {
+      return;
+    }
+
+    const input = window.HandsOnMouseInput;
+    const area =
+      document.getElementById("reviewMoveArea");
+
+    const pointer =
+      document.getElementById("reviewMovePointer");
+
+    if (!input || !area || !pointer) {
+      return;
+    }
+
+    const directions = [
+      { className: "review-up" },
+      { className: "review-down" },
+      { className: "review-left" },
+      { className: "review-right" }
+    ];
+
+    let directionIndex = 0;
+
+    function currentTarget() {
+      if (directionIndex >= directions.length) {
+        return null;
+      }
+
+      return area.querySelector(
+        `.${directions[directionIndex].className}`
+      );
+    }
+
+    function highlightCurrentTarget() {
+      area
+        .querySelectorAll(".review-direction")
+        .forEach((target) => {
+          target.classList.remove(
+            "review-direction-active"
+          );
+        });
+
+      currentTarget()?.classList.add(
+        "review-direction-active"
+      );
+
+    }
+
+    function pointerReachedCurrentTarget() {
+      const target = currentTarget();
+
+      if (!target) {
+        return;
+      }
+
+      const pointerRect =
+        pointer.getBoundingClientRect();
+
+      const targetRect =
+        target.getBoundingClientRect();
+
+      const tipX =
+        pointerRect.left +
+        pointerRect.width * 0.72;
+
+      const tipY =
+        pointerRect.top +
+        pointerRect.height * 0.72;
+
+      const hit =
+        tipX >= targetRect.left &&
+        tipX <= targetRect.right &&
+        tipY >= targetRect.top &&
+        tipY <= targetRect.bottom;
+
+      if (!hit) {
+        return;
+      }
+
+      target.classList.remove(
+        "review-direction-active"
+      );
+
+      target.classList.add(
+        "review-direction-complete"
+      );
+
+      directionIndex += 1;
+
+      if (directionIndex >= directions.length) {
+        moveCard.classList.remove(
+          "review-card-ready"
+        );
+
+        moveCard.classList.add(
+          "review-card-complete"
+        );
+
+        clickCard.classList.add(
+          "review-card-ready"
+        );
+
+        return;
+      }
+
+      highlightCurrentTarget();
+    }
+
+    highlightCurrentTarget();
+
+    removeReviewMoveListener =
+      input.subscribe("move", (event) => {
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const insideArea =
+          event.x >= areaRect.left &&
+          event.x <= areaRect.right &&
+          event.y >= areaRect.top &&
+          event.y <= areaRect.bottom;
+
+        if (insideArea) {
+          const tipOffsetX =
+            pointer.offsetWidth * 0.72;
+
+          const tipOffsetY =
+            pointer.offsetHeight * 0.72;
+
+          pointer.style.left =
+            `${event.x - areaRect.left - tipOffsetX}px`;
+
+          pointer.style.top =
+            `${event.y - areaRect.top - tipOffsetY}px`;
+
+          startMovementSound();
+          pointerReachedCurrentTarget();
+        }
+
+        const clickCard =
+          document.querySelector(".review-card-click");
+
+        const clickReady =
+          clickCard?.classList.contains("review-card-ready");
+
+        if (clickReady) {
+          const clickArea =
+            document.getElementById("reviewClickArea");
+
+          const clickPointer =
+            document.getElementById("reviewClickPointer");
+
+          if (clickArea && clickPointer) {
+            const clickRect =
+              clickArea.getBoundingClientRect();
+
+            const insideClickArea =
+              event.x >= clickRect.left &&
+              event.x <= clickRect.right &&
+              event.y >= clickRect.top &&
+              event.y <= clickRect.bottom;
+
+            if (insideClickArea) {
+              const clickTipOffsetX =
+                clickPointer.offsetWidth * 0.72;
+
+              const clickTipOffsetY =
+                clickPointer.offsetHeight * 0.72;
+
+              clickPointer.style.left =
+                `${event.x - clickRect.left - clickTipOffsetX}px`;
+
+              clickPointer.style.top =
+                `${event.y - clickRect.top - clickTipOffsetY}px`;
+
+              startMovementSound();
+            }
+          }
+        }
+      });
+
+    if (!removeReviewRightClickListener) {
+      removeReviewRightClickListener =
+        input.subscribe("rightDown", () => {
+          const clickCard =
+            document.querySelector(".review-card-click");
+
+          if (
+            !clickCard?.classList.contains("review-card-ready") ||
+            clickCard.classList.contains("review-card-complete")
+          ) {
+            return;
+          }
+
+          showWrongButtonWarning();
+        });
+    }
+
+    if (!removeReviewLeftClickListener) {
+      let pendingReviewClickTimer = null;
+
+      removeReviewLeftClickListener =
+        input.subscribe("leftDown", () => {
+          const clickCard =
+            document.querySelector(".review-card-click");
+
+          if (
+            !clickCard?.classList.contains("review-card-ready") ||
+            clickCard.classList.contains("review-card-complete")
+          ) {
+            return;
+          }
+
+          const clickPointer =
+            document.getElementById("reviewClickPointer");
+
+          const clickTarget =
+            document.getElementById("reviewClickTarget");
+
+          if (!clickPointer || !clickTarget) {
+            return;
+          }
+
+          const pointerRect =
+            clickPointer.getBoundingClientRect();
+
+          const targetRect =
+            clickTarget.getBoundingClientRect();
+
+          const pointerTipX =
+            pointerRect.left +
+            pointerRect.width * 0.72;
+
+          const pointerTipY =
+            pointerRect.top +
+            pointerRect.height * 0.72;
+
+          const hit =
+            pointerTipX >= targetRect.left &&
+            pointerTipX <= targetRect.right &&
+            pointerTipY >= targetRect.top &&
+            pointerTipY <= targetRect.bottom;
+
+          if (!hit) {
+            return;
+          }
+
+          if (pendingReviewClickTimer) {
+            clearTimeout(pendingReviewClickTimer);
+            pendingReviewClickTimer = null;
+
+            showClickWarning();
+            return;
+          }
+
+          pendingReviewClickTimer =
+            setTimeout(() => {
+              pendingReviewClickTimer = null;
+
+              clickTarget.textContent = "✓";
+
+              clickTarget.classList.add(
+                "review-click-complete"
+              );
+
+              clickCard.classList.add(
+                "review-card-complete"
+              );
+
+              setTimeout(() => {
+                showReviewCompletePopup();
+              }, 500);
+
+              if (soundEnabled) {
+                if (!leftClickSound) {
+                  leftClickSound =
+                    new Audio("/sounds/mouseclick.mp3");
+
+                  leftClickSound.volume = 0.5;
+                }
+
+                leftClickSound.currentTime = 0;
+                leftClickSound.play().catch(() => {});
+              }
+            }, 450);
+        });
+    }
+
   }
 
   function startMeetMouseBehavior() {
@@ -1456,6 +4323,39 @@
 
   let clickWarningTimer = null;
 
+  function showReviewCompletePopup() {
+    let popup =
+      document.getElementById("reviewCompletePopup");
+
+    if (!popup) {
+      popup = document.createElement("div");
+      popup.id = "reviewCompletePopup";
+
+      popup.innerHTML = `
+        <div class="review-complete-popup-card">
+
+          <div class="review-complete-star">
+            ★
+          </div>
+
+          <div class="review-complete-popup-message">
+            <strong>Great Review!</strong>
+
+            <span>
+              Let's do some quick activities to help us
+              get even better with our mouse.
+            </span>
+          </div>
+
+        </div>
+      `;
+
+      document.body.appendChild(popup);
+    }
+
+    popup.classList.add("show");
+  }
+
   function showClickWarning() {
     let warning =
       document.getElementById("clickTooFastWarning");
@@ -1898,6 +4798,25 @@
       const state = await response.json();
       const mode = state.lessonControlMode || "teacher";
 
+
+      if (
+        state.activeLesson === "review1" &&
+        state.reviewActivitiesReleased === true
+      ) {
+        /*
+         * Once a student opens an activity, leave that
+         * activity alone until it finishes and returns
+         * itself to the hub.
+         */
+        if (currentMode !== "review-activity") {
+          stopStepBehavior();
+          currentMode = "review-activities";
+          showReviewActivitiesHub();
+        }
+
+        return;
+      }
+
       const requestedLessonId =
         state.activeLesson || "week1";
 
@@ -2048,6 +4967,8 @@
       updateFingerHighlight(
         state.fingerHighlight
       );
+
+      syncReviewBoardState(state);
 
     } catch (error) {
       console.error(
