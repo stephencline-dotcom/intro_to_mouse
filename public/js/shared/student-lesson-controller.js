@@ -124,6 +124,849 @@
     );
   }
 
+  let week3DemoSounds = [];
+
+  function playWeek3DemoSound(src, volume = 0.5) {
+    if (!soundEnabled) {
+      return;
+    }
+
+    const sound = new Audio(src);
+    sound.preload = "auto";
+    sound.volume = volume;
+    sound.currentTime = 0;
+
+    week3DemoSounds.push(sound);
+
+    sound.addEventListener(
+      "ended",
+      () => {
+        week3DemoSounds =
+          week3DemoSounds.filter(
+            item => item !== sound
+          );
+      },
+      { once: true }
+    );
+
+    sound.play().catch(() => {});
+  }
+
+  function stopWeek3DemoSounds() {
+    week3DemoSounds.forEach((sound) => {
+      try {
+        sound.pause();
+        sound.currentTime = 0;
+      } catch {}
+    });
+
+    week3DemoSounds = [];
+  }
+
+  let dragReviewAnimationTimers = [];
+
+  function stopDragQuickReviewAnimation() {
+    dragReviewAnimationTimers.forEach((timer) => {
+      clearTimeout(timer);
+    });
+
+    dragReviewAnimationTimers = [];
+  }
+
+  let meetDragAnimationTimers = [];
+  let meetDragActiveSounds = [];
+
+  function stopMeetDragAnimation() {
+    meetDragAnimationTimers.forEach((timer) => {
+      clearTimeout(timer);
+    });
+
+    meetDragAnimationTimers = [];
+
+    meetDragActiveSounds.forEach((sound) => {
+      try {
+        sound.pause();
+        sound.currentTime = 0;
+      } catch {}
+    });
+
+    meetDragActiveSounds = [];
+  }
+
+  /*
+   * Week 3 Step 2:
+   * stop demo audio/animation the instant a navigation
+   * button is clicked instead of waiting for classroom sync.
+   */
+  function week3ImmediateNavigationStop(event) {
+    if (
+      !document.querySelector(
+        ".lesson-screen-meet-drag"
+      )
+    ) {
+      return;
+    }
+
+    const control =
+      event.target.closest(
+        "button, a"
+      );
+
+    if (!control) {
+      return;
+    }
+
+    const label =
+      (control.textContent || "")
+        .trim()
+        .toLowerCase();
+
+    const isNavigation =
+      label === "next" ||
+      label === "back" ||
+      label === "home" ||
+      label.includes("next") ||
+      label.includes("back to home");
+
+    if (!isNavigation) {
+      return;
+    }
+
+    stopMeetDragAnimation();
+    stopWeek3DemoSounds();
+  }
+
+  document.addEventListener(
+    "click",
+    week3ImmediateNavigationStop,
+    true
+  );
+
+
+
+  let removePressHoldMoveListener = null;
+  let removePressHoldLeftDownListener = null;
+  let removePressHoldLeftUpListener = null;
+  let removePressHoldRightListener = null;
+  let pressHoldSuccessTimer = null;
+
+  function startPressHoldBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("pressHoldArea");
+
+    const target =
+      document.getElementById("pressHoldTarget");
+
+    const pointer =
+      document.getElementById("pressHoldPointer");
+
+    const hand =
+      document.getElementById("pressHoldHand");
+
+    const finger =
+      document.getElementById("pressHoldFinger");
+
+    const leftButton =
+      document.getElementById("pressHoldLeftButton");
+
+    const status =
+      document.getElementById("pressHoldStatus");
+
+    const handMessage =
+      document.getElementById("pressHoldHandMessage");
+
+    const meterFill =
+      document.getElementById("pressHoldMeterFill");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !pointer ||
+      !hand ||
+      !finger ||
+      !leftButton ||
+      !status ||
+      !handMessage ||
+      !meterFill
+    ) {
+      return;
+    }
+
+    let holding = false;
+    let completed = false;
+
+    const HOLD_TIME = 1100;
+
+    function pointerOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    function clearHoldVisuals() {
+      holding = false;
+
+      hand.classList.remove(
+        "press-hold-hand-down"
+      );
+
+      finger.classList.remove(
+        "press-hold-finger-down"
+      );
+
+      leftButton.classList.remove(
+        "press-hold-button-down"
+      );
+
+      target.classList.remove(
+        "press-hold-target-held"
+      );
+
+      meterFill.classList.remove(
+        "press-hold-meter-running"
+      );
+
+      meterFill.style.width = "0%";
+    }
+
+    function cancelPendingSuccess() {
+      if (pressHoldSuccessTimer) {
+        clearTimeout(
+          pressHoldSuccessTimer
+        );
+
+        pressHoldSuccessTimer = null;
+      }
+    }
+
+    removePressHoldMoveListener =
+      input.subscribe("move", (event) => {
+        if (completed) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        // No movement sound here.
+      });
+
+    removePressHoldRightListener =
+      input.subscribe("rightDown", () => {
+        if (completed) {
+          return;
+        }
+
+        cancelPendingSuccess();
+        clearHoldVisuals();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    removePressHoldLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (completed) {
+          return;
+        }
+
+        if (!pointerOnTarget()) {
+          status.textContent =
+            "Move the pointer onto the star first.";
+
+          return;
+        }
+
+        cancelPendingSuccess();
+
+        holding = true;
+
+        hand.classList.add(
+          "press-hold-hand-down"
+        );
+
+        finger.classList.add(
+          "press-hold-finger-down"
+        );
+
+        leftButton.classList.add(
+          "press-hold-button-down"
+        );
+
+        /*
+         * Physical click sound happens immediately
+         * when the student presses the button.
+         * Holding long enough is still required
+         * before success is awarded.
+         */
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio("/sounds/mouseclick.mp3");
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime = 0.12;
+          leftClickSound.play().catch(() => {});
+        }
+
+        target.classList.add(
+          "press-hold-target-held"
+        );
+
+        meterFill.style.width = "0%";
+
+        void meterFill.offsetWidth;
+
+        meterFill.classList.add(
+          "press-hold-meter-running"
+        );
+
+        status.textContent =
+          "KEEP HOLDING!";
+
+        handMessage.textContent =
+          "Keep your pointer finger DOWN.";
+
+        pressHoldSuccessTimer =
+          setTimeout(() => {
+            pressHoldSuccessTimer = null;
+
+            if (!holding) {
+              return;
+            }
+
+            completed = true;
+
+            meterFill.classList.remove(
+              "press-hold-meter-running"
+            );
+
+            meterFill.style.width = "100%";
+
+            target.classList.add(
+              "press-hold-target-complete"
+            );
+
+            status.textContent =
+              "Great holding! ✓";
+
+            handMessage.textContent =
+              "Perfect! You kept the button down.";
+
+            if (soundEnabled) {
+              const happySound =
+                new Audio("/sounds/correct.mp3");
+
+              happySound.preload = "auto";
+              happySound.volume = 0.6;
+              happySound.currentTime = 0;
+              happySound.play().catch(() => {});
+            }
+
+          }, HOLD_TIME);
+      });
+
+    removePressHoldLeftUpListener =
+      input.subscribe("leftUp", () => {
+        if (completed) {
+          clearHoldVisuals();
+
+          target.classList.add(
+            "press-hold-target-complete"
+          );
+
+          return;
+        }
+
+        if (!holding) {
+          return;
+        }
+
+        cancelPendingSuccess();
+        clearHoldVisuals();
+
+        status.textContent =
+          "Keep holding a little longer.";
+
+        handMessage.textContent =
+          "Don't let go yet!";
+      });
+  }
+
+  function startMeetDragAnimation() {
+    stopMeetDragAnimation();
+
+    if (pressHoldSuccessTimer) {
+      clearTimeout(pressHoldSuccessTimer);
+      pressHoldSuccessTimer = null;
+    }
+
+    if (removePressHoldMoveListener) {
+      removePressHoldMoveListener();
+      removePressHoldMoveListener = null;
+    }
+
+    if (removePressHoldLeftDownListener) {
+      removePressHoldLeftDownListener();
+      removePressHoldLeftDownListener = null;
+    }
+
+    if (removePressHoldLeftUpListener) {
+      removePressHoldLeftUpListener();
+      removePressHoldLeftUpListener = null;
+    }
+
+    if (removePressHoldRightListener) {
+      removePressHoldRightListener();
+      removePressHoldRightListener = null;
+    }
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-meet-drag"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    const pointer =
+      document.getElementById(
+        "meetDragPointer"
+      );
+
+    const object =
+      document.getElementById(
+        "meetDragObject"
+      );
+
+    const hand =
+      document.getElementById(
+        "meetDragHand"
+      );
+
+    const finger =
+      document.getElementById(
+        "meetDragFinger"
+      );
+
+    const leftButton =
+      document.getElementById(
+        "meetDragLeftButton"
+      );
+
+    const message =
+      document.getElementById(
+        "meetDragHandMessage"
+      );
+
+    const stepItems =
+      Array.from(
+        screen.querySelectorAll(
+          "[data-drag-demo-step]"
+        )
+      );
+
+    if (
+      !pointer ||
+      !object ||
+      !hand ||
+      !finger ||
+      !leftButton ||
+      !message
+    ) {
+      return;
+    }
+
+    function setActiveStep(name) {
+      stepItems.forEach((item) => {
+        item.classList.toggle(
+          "meet-drag-step-active",
+          item.dataset.dragDemoStep === name
+        );
+      });
+    }
+
+    function playSwish() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      playWeek3DemoSound(
+        "/sounds/swish.mp3",
+        0.45
+      );
+    }
+
+    function playClick() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      playWeek3DemoSound(
+        "/sounds/mouseclick.mp3",
+        0.5
+      );
+    }
+
+    function resetDemo() {
+      pointer.className =
+        "meet-drag-pointer";
+
+      object.className =
+        "meet-drag-object";
+
+      hand.classList.remove(
+        "meet-drag-hand-held"
+      );
+
+      finger.classList.remove(
+        "meet-drag-finger-held"
+      );
+
+      leftButton.classList.remove(
+        "meet-drag-button-held"
+      );
+
+      message.textContent =
+        "Watch what the hand does.";
+
+      setActiveStep("point");
+
+      void pointer.offsetWidth;
+      void object.offsetWidth;
+
+      pointer.classList.add(
+        "meet-drag-pointer-point"
+      );
+
+      message.textContent =
+        "POINT to the object.";
+
+      playSwish();
+
+      meetDragAnimationTimers.push(
+        setTimeout(pressAndHold, 1800)
+      );
+    }
+
+    function pressAndHold() {
+      setActiveStep("hold");
+
+      hand.classList.add(
+        "meet-drag-hand-held"
+      );
+
+      finger.classList.add(
+        "meet-drag-finger-held"
+      );
+
+      leftButton.classList.add(
+        "meet-drag-button-held"
+      );
+
+      object.classList.add(
+        "meet-drag-object-held"
+      );
+
+      message.textContent =
+        "PRESS and KEEP HOLDING.";
+
+      playClick();
+
+      meetDragAnimationTimers.push(
+        setTimeout(moveWhileHolding, 1500)
+      );
+    }
+
+    function moveWhileHolding() {
+      setActiveStep("move");
+
+      pointer.classList.add(
+        "meet-drag-pointer-move"
+      );
+
+      object.classList.add(
+        "meet-drag-object-move"
+      );
+
+      message.textContent =
+        "Keep holding while you MOVE.";
+
+      playSwish();
+
+      meetDragAnimationTimers.push(
+        setTimeout(releaseObject, 2100)
+      );
+    }
+
+    function releaseObject() {
+      setActiveStep("release");
+
+      hand.classList.remove(
+        "meet-drag-hand-held"
+      );
+
+      finger.classList.remove(
+        "meet-drag-finger-held"
+      );
+
+      leftButton.classList.remove(
+        "meet-drag-button-held"
+      );
+
+      object.classList.remove(
+        "meet-drag-object-held"
+      );
+
+      object.classList.add(
+        "meet-drag-object-dropped"
+      );
+
+      message.textContent =
+        "LET GO when you get there.";
+
+      meetDragAnimationTimers.push(
+        setTimeout(resetDemo, 2600)
+      );
+    }
+
+    resetDemo();
+  }
+
+  function startDragQuickReviewAnimation() {
+    stopDragQuickReviewAnimation();
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-drag-review"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    const cards =
+      Array.from(
+        screen.querySelectorAll(
+          ".drag-review-card"
+        )
+      );
+
+    if (cards.length !== 3) {
+      return;
+    }
+
+    const moveDemo =
+      screen.querySelector(
+        ".drag-review-move-demo"
+      );
+
+    const clickDemo =
+      screen.querySelector(
+        ".drag-review-click-demo"
+      );
+
+    const clickHand =
+      screen.querySelector(
+        ".drag-review-click-hand"
+      );
+
+    const clickFinger =
+      screen.querySelector(
+        ".drag-review-pointer-finger"
+      );
+
+    const leftButton =
+      screen.querySelector(
+        ".drag-review-left-button"
+      );
+
+    function clearStates() {
+      cards.forEach((card) => {
+        card.classList.remove(
+          "drag-review-active",
+          "drag-review-done"
+        );
+      });
+
+      moveDemo?.classList.remove(
+        "drag-review-move-playing"
+      );
+
+      clickDemo?.classList.remove(
+        "drag-review-click-playing"
+      );
+
+      clickHand?.classList.remove(
+        "drag-review-hand-click"
+      );
+
+      clickFinger?.classList.remove(
+        "drag-review-finger-click"
+      );
+
+      leftButton?.classList.remove(
+        "drag-review-button-click"
+      );
+    }
+
+    function playSwish() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      playWeek3DemoSound(
+        "/sounds/swish.mp3",
+        0.5
+      );
+    }
+
+    function playClick() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      playWeek3DemoSound(
+        "/sounds/mouseclick.mp3",
+        0.5
+      );
+    }
+
+    function showCard1() {
+      clearStates();
+
+      cards[0].classList.add(
+        "drag-review-active"
+      );
+
+      dragReviewAnimationTimers.push(
+        setTimeout(showCard2, 2200)
+      );
+    }
+
+    function showCard2() {
+      cards[0].classList.remove(
+        "drag-review-active"
+      );
+
+      cards[0].classList.add(
+        "drag-review-done"
+      );
+
+      cards[1].classList.add(
+        "drag-review-active"
+      );
+
+      moveDemo?.classList.add(
+        "drag-review-move-playing"
+      );
+
+      playSwish();
+
+      dragReviewAnimationTimers.push(
+        setTimeout(showCard3, 2600)
+      );
+    }
+
+    function showCard3() {
+      cards[1].classList.remove(
+        "drag-review-active"
+      );
+
+      cards[1].classList.add(
+        "drag-review-done"
+      );
+
+      cards[2].classList.add(
+        "drag-review-active"
+      );
+
+      clickDemo?.classList.add(
+        "drag-review-click-playing"
+      );
+
+      /*
+       * Give the hand a moment to appear,
+       * then visibly press the left button.
+       */
+      dragReviewAnimationTimers.push(
+        setTimeout(() => {
+          clickHand?.classList.add(
+            "drag-review-hand-click"
+          );
+
+          clickFinger?.classList.add(
+            "drag-review-finger-click"
+          );
+
+          leftButton?.classList.add(
+            "drag-review-button-click"
+          );
+
+          playClick();
+        }, 600)
+      );
+
+      dragReviewAnimationTimers.push(
+        setTimeout(() => {
+          clickHand?.classList.remove(
+            "drag-review-hand-click"
+          );
+
+          clickFinger?.classList.remove(
+            "drag-review-finger-click"
+          );
+
+          leftButton?.classList.remove(
+            "drag-review-button-click"
+          );
+        }, 1050)
+      );
+
+      /*
+       * Pause on Card 3, then loop the
+       * short review again.
+       */
+      dragReviewAnimationTimers.push(
+        setTimeout(showCard1, 3300)
+      );
+    }
+
+    showCard1();
+  }
+
   function getLessonContainer() {
     let container = document.getElementById("studentLessonView");
 
@@ -2497,6 +3340,425 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "press-and-hold") {
+      return `
+        <div class="lesson-screen lesson-screen-press-hold">
+
+          <div class="press-hold-heading">
+            <span class="drag-review-badge">
+              PRACTICE
+            </span>
+
+            <h1>Press & Hold</h1>
+
+            <p>
+              Press the left button and KEEP holding it down.
+            </p>
+          </div>
+
+          <div class="press-hold-layout">
+
+            <div class="press-hold-hand-side">
+
+              <div class="hold-mouse-visual press-hold-hand-visual">
+
+                <div
+                  id="pressHoldHand"
+                  class="mouse-demo-hand hold-mouse-hand press-hold-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    id="pressHoldFinger"
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-index
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-middle
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-pinky
+                    "
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+                  <div
+                    id="pressHoldLeftButton"
+                    class="mouse-demo-left"
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+                </div>
+
+              </div>
+
+              <div
+                id="pressHoldHandMessage"
+                class="press-hold-hand-message"
+              >
+                Your pointer finger presses the left button.
+              </div>
+
+            </div>
+
+            <div class="press-hold-practice-side">
+
+              <div
+                id="pressHoldArea"
+                class="press-hold-area"
+              >
+                <div
+                  id="pressHoldTarget"
+                  class="press-hold-target"
+                >
+                  ★
+                </div>
+
+                <div
+                  id="pressHoldPointer"
+                  class="press-hold-pointer"
+                >
+                  ➤
+                </div>
+
+                <div
+                  id="pressHoldStatus"
+                  class="press-hold-status"
+                >
+                  Move to the star.
+                </div>
+
+                <div class="press-hold-meter">
+                  <div
+                    id="pressHoldMeterFill"
+                    class="press-hold-meter-fill"
+                  ></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "meet-click-drag") {
+      return `
+        <div class="lesson-screen lesson-screen-meet-drag">
+
+          <div class="meet-drag-heading">
+            <span class="drag-review-badge">
+              NEW SKILL
+            </span>
+
+            <h1>Meet Click & Drag</h1>
+
+            <p>
+              Press, hold, move, then let go.
+            </p>
+          </div>
+
+          <div class="meet-drag-stage">
+
+            <div class="meet-drag-hand-side">
+
+              <div class="hold-mouse-visual meet-drag-hand-visual">
+
+                <div
+                  id="meetDragHand"
+                  class="mouse-demo-hand hold-mouse-hand meet-drag-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    id="meetDragFinger"
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-index
+                      meet-drag-index
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-middle
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-pinky
+                    "
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+                  <div
+                    id="meetDragLeftButton"
+                    class="
+                      mouse-demo-left
+                      meet-drag-left-button
+                    "
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+                </div>
+
+              </div>
+
+              <div
+                id="meetDragHandMessage"
+                class="meet-drag-hand-message"
+              >
+                Get ready...
+              </div>
+
+            </div>
+
+            <div class="meet-drag-demo-side">
+
+              <div
+                id="meetDragArea"
+                class="meet-drag-area"
+              >
+                <div
+                  id="meetDragObject"
+                  class="meet-drag-object"
+                >
+                  ★
+                </div>
+
+                <div
+                  id="meetDragDestination"
+                  class="meet-drag-destination"
+                >
+                  DROP HERE
+                </div>
+
+                <div
+                  id="meetDragPointer"
+                  class="meet-drag-pointer"
+                >
+                  ➤
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="meet-drag-steps">
+
+            <div
+              class="meet-drag-step"
+              data-drag-demo-step="point"
+            >
+              <strong>1</strong>
+              <span>POINT</span>
+            </div>
+
+            <div
+              class="meet-drag-step"
+              data-drag-demo-step="hold"
+            >
+              <strong>2</strong>
+              <span>PRESS & HOLD</span>
+            </div>
+
+            <div
+              class="meet-drag-step"
+              data-drag-demo-step="move"
+            >
+              <strong>3</strong>
+              <span>MOVE</span>
+            </div>
+
+            <div
+              class="meet-drag-step"
+              data-drag-demo-step="release"
+            >
+              <strong>4</strong>
+              <span>LET GO</span>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "drag-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-drag-review">
+
+          <div class="drag-review-heading">
+            <span class="drag-review-badge">
+              QUICK REVIEW
+            </span>
+
+            <h1>Remember Your Mouse Skills</h1>
+
+            <p>
+              Before we learn something new, let's remember the basics.
+            </p>
+          </div>
+
+          <div class="drag-review-grid">
+
+            <section class="drag-review-card">
+
+              <div class="drag-review-number">
+                1
+              </div>
+
+              <div class="drag-review-visual drag-review-hand">
+
+                <div class="hold-mouse-visual">
+
+                  <div class="mouse-demo-hand hold-mouse-hand">
+                    <div class="mouse-demo-palm"></div>
+
+                    <div class="
+                      mouse-demo-finger
+                      mouse-demo-index
+                    "></div>
+
+                    <div class="
+                      mouse-demo-finger
+                      mouse-demo-middle
+                    "></div>
+
+                    <div class="
+                      mouse-demo-finger
+                      mouse-demo-pinky
+                    "></div>
+                  </div>
+
+                  <div class="mouse-demo-body">
+                    <div class="mouse-demo-left"></div>
+                    <div class="mouse-demo-right"></div>
+                    <div class="mouse-demo-wheel"></div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <h2>Hold the Mouse</h2>
+
+              <p>
+                Rest your hand gently on the mouse.
+              </p>
+
+            </section>
+
+            <section class="drag-review-card">
+
+              <div class="drag-review-number">
+                2
+              </div>
+
+              <div class="drag-review-move-demo">
+
+                <div class="drag-review-move-arrow">
+                  ↔
+                </div>
+
+                <div class="drag-review-big-pointer">
+                  ➤
+                </div>
+
+              </div>
+
+              <h2>Move the Mouse</h2>
+
+              <p>
+                Move the mouse to move the pointer.
+              </p>
+
+            </section>
+
+            <section class="drag-review-card">
+
+              <div class="drag-review-number">
+                3
+              </div>
+
+              <div class="drag-review-click-demo">
+
+                <div class="hold-mouse-visual">
+
+                  <div class="
+                    mouse-demo-hand
+                    drag-review-click-hand
+                  ">
+                    <div class="mouse-demo-palm"></div>
+
+                    <div class="
+                      mouse-demo-finger
+                      mouse-demo-index
+                      drag-review-pointer-finger
+                    "></div>
+
+                    <div class="
+                      mouse-demo-finger
+                      mouse-demo-middle
+                    "></div>
+
+                    <div class="
+                      mouse-demo-finger
+                      mouse-demo-pinky
+                    "></div>
+                  </div>
+
+                  <div class="mouse-demo-body">
+                    <div class="
+                      mouse-demo-left
+                      drag-review-left-button
+                    "></div>
+
+                    <div class="mouse-demo-right"></div>
+                    <div class="mouse-demo-wheel"></div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <h2>Left Click</h2>
+
+              <p>
+                Click once with your pointer finger.
+              </p>
+
+            </section>
+
+          </div>
+
+          <p class="drag-review-footer">
+            Great! Now let's learn a new mouse skill.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id === "review-week1") {
       return `
         <div class="lesson-screen lesson-screen-review-board">
@@ -3199,6 +4461,10 @@
 
 
   function stopStepBehavior() {
+    stopWeek3DemoSounds();
+
+    stopDragQuickReviewAnimation();
+
     if (removeMeetMouseMovementListener) {
       removeMeetMouseMovementListener();
       removeMeetMouseMovementListener = null;
@@ -4738,6 +6004,18 @@
       ${getStepContent(step, safeIndex)}
       ${independentControls}
     `;
+
+    if (step.id === "drag-quick-review") {
+      startDragQuickReviewAnimation();
+    }
+
+    if (step.id === "meet-click-drag") {
+      startMeetDragAnimation();
+    }
+
+    if (step.id === "press-and-hold") {
+      startPressHoldBehavior();
+    }
 
     if (
       step.id === "meet-the-mouse" ||

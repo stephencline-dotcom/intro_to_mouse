@@ -4422,3 +4422,1700 @@ body:has(#globalFreezeButton) .lesson-screen {
   opacity: 1;
   visibility: visible;
 }
+
+/* ========================================
+   Week 3 Step 1: Quick Review
+======================================== */
+
+.lesson-screen-drag-review {
+  padding: 16px 24px;
+}
+
+.drag-review-heading {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.drag-review-badge {
+  display: inline-block;
+
+  padding: 6px 18px;
+  margin-bottom: 8px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+  color: #0369a1;
+
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.drag-review-heading h1 {
+  margin: 0 0 5px;
+
+  font-size: clamp(36px, 5vh, 48px);
+}
+
+.drag-review-heading p {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #64748b;
+}
+
+.drag-review-grid {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.drag-review-card {
+  position: relative;
+
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+
+  border: 4px solid #dbe3ed;
+  border-radius: 24px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+.drag-review-number {
+  position: absolute;
+
+  top: 13px;
+  left: 13px;
+
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #38bdf8;
+  color: #082f49;
+
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.drag-review-card h2 {
+  margin: 8px 0 4px;
+
+  font-size: 24px;
+}
+
+.drag-review-card p {
+  margin: 0;
+
+  max-width: 240px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+
+  color: #475569;
+}
+
+.drag-review-hand,
+.drag-review-click-demo {
+  height: 200px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: scale(0.57);
+  transform-origin: center;
+}
+
+.drag-review-move-demo {
+  height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+}
+
+.drag-review-move-arrow {
+  font-size: 74px;
+  line-height: 1;
+
+  color: #2563eb;
+}
+
+.drag-review-big-pointer {
+  font-size: 68px;
+  line-height: 1;
+}
+
+.drag-review-pointer-finger {
+  background: #bfdbfe !important;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(37, 99, 235, 0.22);
+}
+
+.drag-review-left-button {
+  background:
+    rgba(96, 165, 250, 0.55) !important;
+}
+
+.drag-review-footer {
+  margin: 12px 0 0;
+
+  text-align: center;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  color: #2563eb;
+}
+
+
+/* ========================================
+   Week 3 Quick Review Animation
+======================================== */
+
+.drag-review-card {
+  opacity: 0.38;
+
+  transform: scale(0.96);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.drag-review-card.drag-review-active {
+  opacity: 1;
+
+  transform: scale(1);
+
+  border-color: #3b82f6;
+
+  box-shadow:
+    0 0 0 5px rgba(59, 130, 246, 0.15),
+    0 10px 24px rgba(0, 0, 0, 0.10);
+}
+
+.drag-review-card.drag-review-done {
+  opacity: 0.58;
+
+  transform: scale(0.97);
+}
+
+
+/* ----------------------------------------
+   Card 2 - mouse movement
+---------------------------------------- */
+
+.drag-review-big-pointer {
+  position: relative;
+}
+
+.drag-review-move-playing
+.drag-review-big-pointer {
+  animation:
+    drag-review-pointer-move
+    1.8s ease-in-out
+    1;
+}
+
+.drag-review-move-playing
+.drag-review-move-arrow {
+  animation:
+    drag-review-arrow-glow
+    1.8s ease-in-out
+    1;
+}
+
+@keyframes drag-review-pointer-move {
+  0% {
+    transform: translateX(-70px);
+  }
+
+  45% {
+    transform: translateX(70px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drag-review-arrow-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+
+/* ----------------------------------------
+   Card 3 - hand appears and clicks
+---------------------------------------- */
+
+.drag-review-click-demo {
+  opacity: 0;
+
+  transform:
+    scale(0.57)
+    translateY(18px);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.drag-review-card.drag-review-active
+.drag-review-click-demo {
+  opacity: 1;
+
+  transform:
+    scale(0.57)
+    translateY(0);
+}
+
+.drag-review-click-hand {
+  transition:
+    transform 0.16s ease;
+}
+
+.drag-review-hand-click {
+  transform: translateY(5px);
+}
+
+.drag-review-pointer-finger {
+  transition:
+    transform 0.14s ease,
+    background 0.14s ease,
+    box-shadow 0.14s ease;
+}
+
+.drag-review-finger-click {
+  transform: translateY(10px);
+
+  background: #60a5fa !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(37, 99, 235, 0.28);
+}
+
+.drag-review-left-button {
+  transition:
+    transform 0.14s ease,
+    background 0.14s ease,
+    box-shadow 0.14s ease;
+}
+
+.drag-review-button-click {
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+
+  background:
+    #3b82f6 !important;
+
+  box-shadow:
+    inset 0 4px 7px
+    rgba(30, 64, 175, 0.32);
+}
+
+/* Week 3 Quick Review - fit Card 1 and Card 3 text cleanly */
+
+.lesson-screen-drag-review .drag-review-card {
+  padding:
+    14px 16px 16px;
+}
+
+.lesson-screen-drag-review
+.drag-review-hand,
+.lesson-screen-drag-review
+.drag-review-click-demo {
+  height: 165px;
+
+  transform: scale(0.50);
+  transform-origin: center;
+}
+
+.lesson-screen-drag-review
+.drag-review-card h2 {
+  margin: 2px 0 4px;
+
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.lesson-screen-drag-review
+.drag-review-card p {
+  max-width: 250px;
+
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.lesson-screen-drag-review
+.drag-review-click-demo {
+  margin-bottom: -4px;
+}
+
+/* Preserve the Card 3 appearance animation at the smaller scale */
+
+.drag-review-click-demo {
+  transform:
+    scale(0.50)
+    translateY(18px);
+}
+
+.drag-review-card.drag-review-active
+.drag-review-click-demo {
+  transform:
+    scale(0.50)
+    translateY(0);
+}
+
+
+/* ========================================
+   Week 3 Step 2: Meet Click & Drag
+======================================== */
+
+.lesson-screen-meet-drag {
+  padding: 14px 24px 18px;
+}
+
+.meet-drag-heading {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.meet-drag-heading h1 {
+  margin: 0 0 4px;
+  font-size: clamp(34px, 5vh, 46px);
+}
+
+.meet-drag-heading p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.meet-drag-stage {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 26px;
+
+  align-items: center;
+}
+
+.meet-drag-hand-side,
+.meet-drag-demo-side {
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.meet-drag-hand-visual {
+  height: 270px;
+
+  transform: scale(0.66);
+  transform-origin: center;
+}
+
+.meet-drag-hand-message {
+  margin-top: -15px;
+
+  padding: 8px 15px;
+
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  font-size: 19px;
+  font-weight: 900;
+
+  text-align: center;
+}
+
+.meet-drag-area {
+  position: relative;
+
+  width: 100%;
+  max-width: 660px;
+  height: 300px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+}
+
+.meet-drag-object {
+  position: absolute;
+
+  left: 18%;
+  top: 50%;
+
+  width: 105px;
+  height: 105px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #2563eb;
+  border-radius: 18px;
+
+  background: #dbeafe;
+  color: #2563eb;
+
+  font-size: 55px;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.meet-drag-destination {
+  position: absolute;
+
+  right: 8%;
+  top: 50%;
+
+  width: 155px;
+  height: 145px;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px dashed #22c55e;
+  border-radius: 20px;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.meet-drag-pointer {
+  position: absolute;
+
+  left: 5%;
+  top: 64%;
+
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    left 1.1s ease,
+    top 1.1s ease;
+}
+
+.meet-drag-pointer-point {
+  left: 18%;
+  top: 50%;
+}
+
+.meet-drag-pointer-move {
+  left: 78%;
+  top: 50%;
+}
+
+.meet-drag-object-held {
+  box-shadow:
+    0 0 0 7px rgba(37, 99, 235, 0.18),
+    0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.meet-drag-object-move {
+  animation:
+    meet-drag-object-travel
+    1.8s ease forwards;
+}
+
+.meet-drag-object-dropped {
+  left: 78%;
+  top: 50%;
+
+  border-color: #16a34a;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+@keyframes meet-drag-object-travel {
+  from {
+    left: 18%;
+    top: 50%;
+  }
+
+  to {
+    left: 78%;
+    top: 50%;
+  }
+}
+
+.meet-drag-index,
+.meet-drag-left-button,
+.meet-drag-hand {
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.meet-drag-finger-held {
+  transform: translateY(10px);
+
+  background: #60a5fa !important;
+
+  box-shadow:
+    0 0 0 7px rgba(37, 99, 235, 0.25);
+}
+
+.meet-drag-button-held {
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+
+  background: #3b82f6 !important;
+
+  box-shadow:
+    inset 0 4px 7px
+    rgba(30, 64, 175, 0.32);
+}
+
+.meet-drag-hand-held {
+  transform: translateY(4px);
+}
+
+.meet-drag-steps {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.meet-drag-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 8px 10px;
+
+  border-radius: 12px;
+
+  background: #f1f5f9;
+  color: #64748b;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.meet-drag-step strong {
+  width: 29px;
+  height: 29px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #cbd5e1;
+  color: #334155;
+}
+
+.meet-drag-step-active {
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+.meet-drag-step-active strong {
+  background: #2563eb;
+  color: white;
+}
+
+
+/* ========================================
+   Week 3 Step 2 final layout fixes
+======================================== */
+
+/* Keep the demo area away from the heading text */
+.lesson-screen-meet-drag .meet-drag-stage {
+  padding-top: 14px;
+}
+
+.lesson-screen-meet-drag .meet-drag-area {
+  height: 245px;
+  margin-top: 8px;
+}
+
+/* Make sure the Week 1-style hand stays over the mouse */
+.lesson-screen-meet-drag .meet-drag-hand-visual {
+  position: relative;
+  height: 235px;
+
+  transform: scale(0.60);
+  transform-origin: center;
+}
+
+.lesson-screen-meet-drag .meet-drag-hand {
+  z-index: 5;
+}
+
+/* Keep draggable star above the destination box */
+.lesson-screen-meet-drag .meet-drag-object {
+  z-index: 6;
+}
+
+.lesson-screen-meet-drag .meet-drag-destination {
+  z-index: 2;
+
+  right: 7%;
+  top: 50%;
+
+  width: 155px;
+  height: 135px;
+}
+
+/*
+ * Destination center is about 81% across the demo area.
+ * Use that same endpoint for BOTH pointer and star.
+ */
+.lesson-screen-meet-drag .meet-drag-pointer-move {
+  left: 81%;
+  top: 50%;
+}
+
+.lesson-screen-meet-drag .meet-drag-object-dropped {
+  left: 81% !important;
+  top: 50% !important;
+
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Make the travel animation finish at that exact same point */
+@keyframes meet-drag-object-travel {
+  from {
+    left: 18%;
+    top: 50%;
+  }
+
+  to {
+    left: 81%;
+    top: 50%;
+  }
+}
+
+/* Keep the four teaching labels comfortably below the demo */
+.lesson-screen-meet-drag .meet-drag-steps {
+  margin-top: 6px;
+}
+
+/* ========================================
+   Week 3 Step 2 - hand directly on mouse
+======================================== */
+
+/*
+ * Override the Week 1 positioning for this smaller demo.
+ * Palm stays below the mouse and the pointer finger
+ * reaches straight upward onto the left mouse button.
+ */
+
+.lesson-screen-meet-drag .meet-drag-hand {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 55% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  z-index: 8 !important;
+}
+
+/* Pointer finger goes straight UP onto left button */
+.lesson-screen-meet-drag .meet-drag-index {
+  left: 34% !important;
+  top: -31% !important;
+
+  transform: rotate(0deg) !important;
+
+  z-index: 10 !important;
+}
+
+/* Middle finger rests on right side */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-middle {
+  left: 55% !important;
+  top: -25% !important;
+
+  transform: rotate(2deg) !important;
+}
+
+/*
+ * During PRESS & HOLD:
+ * finger presses DOWN vertically rather than
+ * shifting sideways.
+ */
+.lesson-screen-meet-drag
+.meet-drag-finger-held {
+  transform:
+    translateY(10px)
+    rotate(0deg) !important;
+}
+
+/* Keep whole hand stationary during the click */
+.lesson-screen-meet-drag
+.meet-drag-hand-held {
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+
+/* ========================================
+   Week 3 Step 2 - restore intact hand
+======================================== */
+
+/*
+ * Keep the original hand construction intact.
+ * Move the WHOLE hand over the mouse instead of
+ * repositioning individual fingers.
+ */
+
+.lesson-screen-meet-drag .meet-drag-hand {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 58% !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.92) !important;
+
+  z-index: 8 !important;
+}
+
+/*
+ * Restore the original finger positions.
+ * These overrides undo the Step 2 rules that
+ * pulled the fingers away from the palm.
+ */
+
+.lesson-screen-meet-drag .meet-drag-index {
+  left: unset !important;
+  top: unset !important;
+  transform: none !important;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-middle {
+  left: unset !important;
+  top: unset !important;
+  transform: none !important;
+}
+
+/*
+ * Press animation:
+ * keep the whole hand together and only move
+ * the pointer finger using its existing position.
+ */
+
+.lesson-screen-meet-drag
+.meet-drag-hand-held {
+  transform:
+    translate(-50%, -50%)
+    scale(0.92) !important;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-finger-held {
+  transform:
+    translateY(9px) !important;
+}
+
+/* ========================================
+   Week 3 Step 2 - FINAL Week 1 hand reset
+   Reuse the proven Week 1 hand geometry.
+======================================== */
+
+/*
+ * Step 2 wrapper only controls size.
+ * It does NOT reposition individual hand pieces.
+ */
+.lesson-screen-meet-drag .meet-drag-hand-visual {
+  position: relative;
+
+  width: 280px;
+  height: 330px;
+
+  transform: scale(0.62);
+  transform-origin: center;
+}
+
+/*
+ * Restore the exact Week 1 hand geometry.
+ */
+.lesson-screen-meet-drag .meet-drag-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform: translateX(-50%) !important;
+}
+
+/* Palm — Week 1 geometry */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 78px !important;
+
+  width: 150px !important;
+  height: 150px !important;
+}
+
+/* Pointer finger — Week 1 geometry */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform: rotate(-3deg) !important;
+}
+
+/* Middle finger — Week 1 geometry */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-middle {
+  left: auto !important;
+  right: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform: rotate(3deg) !important;
+}
+
+/* Thumb — Week 1 geometry */
+.lesson-screen-meet-drag
+.meet-drag-hand::before {
+  top: 76px !important;
+  left: -2px !important;
+  right: auto !important;
+
+  width: 36px !important;
+  height: 96px !important;
+
+  transform: rotate(-24deg) !important;
+  transform-origin: bottom center !important;
+}
+
+/* Ring finger — Week 1 geometry */
+.lesson-screen-meet-drag
+.meet-drag-hand::after {
+  top: 58px !important;
+  right: -5px !important;
+  left: auto !important;
+
+  width: 34px !important;
+  height: 100px !important;
+
+  transform: rotate(18deg) !important;
+  transform-origin: bottom center !important;
+}
+
+/* Pinky — Week 1 geometry */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-pinky {
+  top: 78px !important;
+  right: -28px !important;
+  left: auto !important;
+
+  width: 28px !important;
+  height: 84px !important;
+
+  transform: rotate(24deg) !important;
+  transform-origin: bottom center !important;
+}
+
+/*
+ * Mouse uses the same Week 1 proportions.
+ */
+.lesson-screen-meet-drag
+.meet-drag-hand-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+/*
+ * PRESS & HOLD:
+ * Do NOT move the whole hand.
+ * Only depress the pointer finger and left button.
+ */
+.lesson-screen-meet-drag
+.meet-drag-hand-held {
+  transform: translateX(-50%) !important;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-finger-held {
+  transform:
+    translateY(9px)
+    rotate(-3deg) !important;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-button-held {
+  transform:
+    translateY(5px)
+    scaleY(0.88) !important;
+
+  background: #3b82f6 !important;
+
+  box-shadow:
+    inset 0 4px 7px
+    rgba(30, 64, 175, 0.32) !important;
+}
+
+/* ========================================
+   Week 3 Step 2 - final hand refinements
+======================================== */
+
+/* Make the palm/circle larger */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-palm {
+  left: 3px !important;
+  top: 72px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+
+  border-radius:
+    68px 68px 76px 76px !important;
+}
+
+/* Move ring finger slightly farther right */
+.lesson-screen-meet-drag
+.meet-drag-hand::after {
+  right: -13px !important;
+}
+
+/* Move pinky slightly farther right */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-pinky {
+  right: -37px !important;
+}
+
+/* Week 3 Step 2 - attach ring and pinky to palm */
+
+/* Ring finger: pull inward so its base meets the palm */
+.lesson-screen-meet-drag
+.meet-drag-hand::after {
+  right: 3px !important;
+  top: 64px !important;
+
+  transform: rotate(16deg) !important;
+}
+
+/* Pinky: pull inward beside the ring finger */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-pinky {
+  right: -12px !important;
+  top: 84px !important;
+
+  transform: rotate(20deg) !important;
+}
+
+/* Week 3 Step 2 - final palm position */
+
+/* Move palm slightly down and right only */
+.lesson-screen-meet-drag
+.meet-drag-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+}
+
+
+/* ========================================
+   Week 3 Step 3: Press & Hold
+======================================== */
+
+.lesson-screen-press-hold {
+  padding: 14px 24px 18px;
+}
+
+.press-hold-heading {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.press-hold-heading h1 {
+  margin: 0 0 4px;
+
+  font-size: clamp(34px, 5vh, 46px);
+}
+
+.press-hold-heading p {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  color: #475569;
+}
+
+.press-hold-layout {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+
+  gap: 28px;
+
+  align-items: center;
+}
+
+.press-hold-hand-side,
+.press-hold-practice-side {
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.press-hold-hand-visual {
+  position: relative;
+
+  width: 280px;
+  height: 330px;
+
+  transform: scale(0.62);
+  transform-origin: center;
+}
+
+.press-hold-hand-message {
+  margin-top: -18px;
+
+  padding: 8px 16px;
+
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  font-size: 18px;
+  font-weight: 900;
+
+  text-align: center;
+}
+
+.press-hold-area {
+  position: relative;
+
+  width: 100%;
+  max-width: 650px;
+  height: 300px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.press-hold-target {
+  position: absolute;
+
+  left: 50%;
+  top: 42%;
+
+  width: 140px;
+  height: 140px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 6px solid #2563eb;
+  border-radius: 22px;
+
+  background: #dbeafe;
+  color: #2563eb;
+
+  font-size: 70px;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.14);
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.press-hold-pointer {
+  position: absolute;
+  z-index: 10;
+
+  left: 15%;
+  top: 65%;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.press-hold-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 42px;
+
+  transform: translateX(-50%);
+
+  width: 90%;
+
+  text-align: center;
+
+  font-size: 21px;
+  font-weight: 900;
+
+  color: #334155;
+}
+
+.press-hold-meter {
+  position: absolute;
+
+  left: 20%;
+  right: 20%;
+  bottom: 18px;
+
+  height: 14px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e2e8f0;
+}
+
+.press-hold-meter-fill {
+  width: 0%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: #22c55e;
+}
+
+.press-hold-meter-running {
+  width: 100% !important;
+
+  transition:
+    width 1.1s linear;
+}
+
+.press-hold-target-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.06);
+
+  box-shadow:
+    0 0 0 8px rgba(37, 99, 235, 0.18),
+    0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+.press-hold-target-complete {
+  border-color: #16a34a !important;
+
+  background: #dcfce7 !important;
+  color: #15803d !important;
+
+  box-shadow:
+    0 0 0 8px rgba(34, 197, 94, 0.16) !important;
+}
+
+/*
+ * Only the pointer finger and left button move.
+ * The hand itself stays together.
+ */
+
+.press-hold-finger-down {
+  transform:
+    translateY(9px)
+    rotate(-3deg) !important;
+
+  background: #60a5fa !important;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(37, 99, 235, 0.25);
+}
+
+.press-hold-button-down {
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+
+  background: #3b82f6 !important;
+
+  box-shadow:
+    inset 0 4px 7px
+    rgba(30, 64, 175, 0.32);
+}
+
+
+/* ========================================
+   Week 3 Step 2 bottom label visibility
+======================================== */
+
+/* Make a little more room beneath the demo */
+.lesson-screen-meet-drag .meet-drag-stage {
+  flex: 0 1 auto;
+}
+
+/* Pull the POINT / HOLD / MOVE / LET GO row upward */
+.lesson-screen-meet-drag .meet-drag-steps {
+  position: relative;
+
+  z-index: 20;
+
+  margin-top: -2px;
+  margin-bottom: 8px;
+}
+
+/* Slightly compact the labels so all four fit cleanly */
+.lesson-screen-meet-drag .meet-drag-step {
+  min-height: 42px;
+
+  padding: 6px 8px;
+
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+
+/* ========================================
+   Week 3 layout cleanup
+======================================== */
+
+/* ---------- Step 2 ---------- */
+
+/*
+ * Reduce the demo stage just enough to give
+ * the four sequence labels their own clear row.
+ */
+.lesson-screen-meet-drag .meet-drag-stage {
+  max-height: 400px;
+  margin-bottom: 8px;
+}
+
+/* Make the gray demo box a little shorter */
+.lesson-screen-meet-drag .meet-drag-area {
+  height: 220px !important;
+}
+
+/* Keep POINT / PRESS & HOLD / MOVE / LET GO fully visible */
+.lesson-screen-meet-drag .meet-drag-steps {
+  position: relative;
+  z-index: 50;
+
+  flex-shrink: 0;
+
+  margin: 10px 0 6px !important;
+  padding: 0 4px;
+}
+
+.lesson-screen-meet-drag .meet-drag-step {
+  height: 44px;
+  min-height: 44px;
+
+  padding: 5px 7px !important;
+
+  overflow: visible;
+
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+.lesson-screen-meet-drag .meet-drag-step strong {
+  flex: 0 0 27px;
+
+  width: 27px;
+  height: 27px;
+}
+
+/* ---------- Step 3 ---------- */
+
+/*
+ * Give the hand/message column enough width,
+ * and keep the message from falling below the lesson card.
+ */
+.lesson-screen-press-hold .press-hold-layout {
+  grid-template-columns:
+    minmax(300px, 0.85fr)
+    minmax(0, 1.15fr);
+
+  gap: 18px;
+}
+
+.lesson-screen-press-hold
+.press-hold-hand-side {
+  min-width: 0;
+  overflow: visible;
+}
+
+.lesson-screen-press-hold
+.press-hold-hand-visual {
+  height: 270px !important;
+  margin-bottom: -12px;
+}
+
+.lesson-screen-press-hold
+.press-hold-hand-message {
+  position: relative;
+
+  z-index: 20;
+
+  width: min(290px, 95%);
+
+  margin: 0 auto 8px !important;
+  padding: 7px 10px !important;
+
+  box-sizing: border-box;
+
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+
+/* ========================================
+   Week 3 Step 2 - coaching text visibility
+======================================== */
+
+/*
+ * Keep the left coaching message INSIDE the Step 2 stage,
+ * above the POINT / PRESS & HOLD / MOVE / LET GO row.
+ */
+.lesson-screen-meet-drag
+.meet-drag-hand-side {
+  position: relative;
+
+  min-height: 300px;
+
+  padding-bottom: 58px;
+
+  box-sizing: border-box;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-hand-message {
+  position: absolute;
+
+  left: 50%;
+  bottom: 8px;
+
+  transform: translateX(-50%);
+
+  z-index: 60;
+
+  width: min(330px, 94%);
+
+  margin: 0 !important;
+  padding: 8px 12px !important;
+
+  box-sizing: border-box;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  border-radius: 12px;
+
+  font-size: 16px !important;
+  line-height: 1.18 !important;
+  font-weight: 900;
+
+  text-align: center;
+
+  white-space: normal;
+}
+
+/*
+ * Give the four sequence boxes their own row.
+ * They should never cover the coaching message above.
+ */
+.lesson-screen-meet-drag
+.meet-drag-steps {
+  position: relative;
+
+  z-index: 40;
+
+  flex-shrink: 0;
+
+  margin: 8px 0 4px !important;
+
+  height: 48px;
+  min-height: 48px;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-step {
+  height: 42px !important;
+  min-height: 42px !important;
+
+  box-sizing: border-box;
+
+  overflow: visible !important;
+}
+
+/*
+ * Slightly shorten the main Step 2 demo so all content
+ * fits without overlapping the bottom row.
+ */
+.lesson-screen-meet-drag
+.meet-drag-stage {
+  max-height: 370px !important;
+
+  margin-bottom: 2px !important;
+}
+
+.lesson-screen-meet-drag
+.meet-drag-area {
+  height: 215px !important;
+}
+
+
+/* ========================================
+   Week 3 Step 2 - move coaching words above hand
+======================================== */
+
+.lesson-screen-meet-drag
+.meet-drag-hand-side {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  min-height: 300px;
+
+  padding-top: 54px;
+  padding-bottom: 0;
+
+  box-sizing: border-box;
+}
+
+/* Coaching message sits above the hand */
+.lesson-screen-meet-drag
+.meet-drag-hand-message {
+  position: absolute;
+
+  left: 50%;
+  top: 4px;
+  bottom: auto;
+
+  transform: translateX(-50%);
+
+  z-index: 60;
+
+  width: min(330px, 94%);
+
+  margin: 0 !important;
+  padding: 8px 12px !important;
+
+  box-sizing: border-box;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  border-radius: 12px;
+
+  font-size: 16px !important;
+  line-height: 1.18 !important;
+  font-weight: 900;
+
+  text-align: center;
+  white-space: normal;
+}
+
+/* Keep the hand centered beneath the message */
+.lesson-screen-meet-drag
+.meet-drag-hand-visual {
+  margin-top: 4px;
+}
+
+/* Keep bottom sequence row separate */
+.lesson-screen-meet-drag
+.meet-drag-steps {
+  margin-top: 6px !important;
+}
+
+/* ========================================
+   Week 3 Step 2 - final vertical spacing
+======================================== */
+
+/* Give the heading its own protected space */
+.lesson-screen-meet-drag
+.meet-drag-heading {
+  position: relative;
+  z-index: 80;
+
+  margin-bottom: 54px !important;
+}
+
+/* Coaching message sits below heading, not on top of it */
+.lesson-screen-meet-drag
+.meet-drag-hand-side {
+  position: relative;
+
+  min-height: 285px;
+
+  padding-top: 34px !important;
+}
+
+/* Move coaching bar lower than title/subtitle */
+.lesson-screen-meet-drag
+.meet-drag-hand-message {
+  top: 0 !important;
+  bottom: auto !important;
+
+  width: min(320px, 92%);
+
+  font-size: 15px !important;
+  line-height: 1.15 !important;
+
+  padding: 7px 10px !important;
+}
+
+/* Pull the hand upward */
+.lesson-screen-meet-drag
+.meet-drag-hand-visual {
+  margin-top: -22px !important;
+
+  transform: scale(0.58) !important;
+  transform-origin: center top !important;
+}
+
+/* Keep the numbered row safely below */
+.lesson-screen-meet-drag
+.meet-drag-steps {
+  margin-top: -8px !important;
+
+  position: relative;
+  z-index: 70;
+}
+
+/* Week 3 Step 2 - pull drag demo box back up */
+
+.lesson-screen-meet-drag
+.meet-drag-demo-side {
+  align-self: start;
+
+  transform: translateY(-42px);
+}
+
+.lesson-screen-meet-drag
+.meet-drag-area {
+  margin-top: 0 !important;
+}

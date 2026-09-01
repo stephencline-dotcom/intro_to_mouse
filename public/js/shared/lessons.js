@@ -66,6 +66,58 @@ const mouseLessons = {
         type: "review"
       }
     ]
+  },
+
+  week3: {
+    id: "week3",
+    title: "Click & Drag",
+    steps: [
+      {
+        id: "drag-quick-review",
+        title: "Quick Review",
+        type: "review"
+      },
+      {
+        id: "meet-click-drag",
+        title: "Meet Click & Drag",
+        type: "learn"
+      },
+      {
+        id: "press-and-hold",
+        title: "Press & Hold",
+        type: "learn"
+      },
+      {
+        id: "hold-and-move",
+        title: "Hold & Move",
+        type: "practice"
+      },
+      {
+        id: "let-go",
+        title: "Let Go",
+        type: "practice"
+      },
+      {
+        id: "drag-practice",
+        title: "Drag Practice",
+        type: "practice"
+      },
+      {
+        id: "drag-and-drop",
+        title: "Drag & Drop",
+        type: "practice"
+      },
+      {
+        id: "drag-challenge",
+        title: "Click & Drag Challenge",
+        type: "practice"
+      },
+      {
+        id: "drag-complete",
+        title: "Dragging Master!",
+        type: "complete"
+      }
+    ]
   }
 };
 
