@@ -11,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 let freezeScreenArmed = false;
+let freezeCycle = 0;
+let freezeUnlockVersion = 0;
 let trainingPaused = false;
 let currentLessonStep = 0;
 let lessonControlMode = "teacher";
@@ -58,6 +60,8 @@ app.post("/api/teacher-login", (req, res) => {
 app.get("/api/classroom-state", (req, res) => {
   res.json({
     freezeScreenArmed,
+    freezeCycle,
+    freezeUnlockVersion,
     trainingPaused,
     currentLessonStep,
     lessonControlMode,
@@ -70,7 +74,29 @@ app.get("/api/classroom-state", (req, res) => {
 
 app.put("/api/classroom-state", (req, res) => {
   if (typeof req.body.freezeScreenArmed === "boolean") {
+    const wasArmed = freezeScreenArmed;
     freezeScreenArmed = req.body.freezeScreenArmed;
+
+    /*
+     * Every new Freeze ON starts a fresh cycle.
+     * Any Chromebook released during an earlier
+     * freeze must freeze again.
+     */
+    if (freezeScreenArmed && !wasArmed) {
+      freezeCycle += 1;
+    }
+  }
+
+  /*
+   * UNLOCK ALL
+   *
+   * Release Unlocked only sets freezeScreenArmed=false.
+   * This separate version change tells already-frozen
+   * student screens to remove their overlays.
+   */
+  if (req.body.unlockAllFrozenStudents === true) {
+    freezeScreenArmed = false;
+    freezeUnlockVersion += 1;
   }
 
   if (typeof req.body.trainingPaused === "boolean") {
@@ -124,6 +150,8 @@ app.put("/api/classroom-state", (req, res) => {
 
   res.json({
     freezeScreenArmed,
+    freezeCycle,
+    freezeUnlockVersion,
     trainingPaused,
     currentLessonStep,
     lessonControlMode,
@@ -131,6 +159,29 @@ app.put("/api/classroom-state", (req, res) => {
     reviewMovementReleased,
     reviewActivitiesReleased,
     fingerHighlight
+  });
+});
+
+app.post("/api/release-freeze-screen", (req, res) => {
+  const { password } = req.body;
+
+  if (!password) {
+    return res.status(400).json({
+      success: false,
+      error: "Teacher password is required."
+    });
+  }
+
+  if (password !== process.env.TEACHER_PASSWORD) {
+    return res.status(401).json({
+      success: false,
+      error: "Incorrect teacher password."
+    });
+  }
+
+  res.json({
+    success: true,
+    freezeCycle
   });
 });
 

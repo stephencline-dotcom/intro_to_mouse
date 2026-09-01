@@ -18,6 +18,36 @@
 
   document.body.appendChild(button);
 
+  const releaseUnlockedButton =
+    document.createElement("button");
+
+  releaseUnlockedButton.id =
+    "globalReleaseUnlockedButton";
+
+  releaseUnlockedButton.type = "button";
+  releaseUnlockedButton.textContent =
+    "Release Unlocked";
+
+  document.body.appendChild(
+    releaseUnlockedButton
+  );
+
+
+  const unlockAllButton =
+    document.createElement("button");
+
+  unlockAllButton.id =
+    "globalUnlockAllButton";
+
+  unlockAllButton.type = "button";
+  unlockAllButton.textContent =
+    "Unlock All";
+
+  document.body.appendChild(
+    unlockAllButton
+  );
+
+
   const pauseButton = document.createElement("button");
   pauseButton.id = "globalPauseButton";
   pauseButton.type = "button";
@@ -161,8 +191,18 @@
 
 
   function updateButton(isArmed) {
-    button.dataset.armed = String(isArmed);
-    button.textContent = isArmed ? "Frozen" : "Freeze";
+    button.dataset.armed =
+      String(isArmed);
+
+    button.textContent =
+      isArmed
+        ? "Freeze Armed"
+        : "Freeze";
+
+    button.disabled = isArmed;
+
+    releaseUnlockedButton.disabled =
+      !isArmed;
   }
 
   function updatePauseButton(isPaused) {
@@ -338,30 +378,116 @@
     }
   }
 
+  // FREEZE
   button.addEventListener("click", async () => {
-    const currentlyArmed = button.dataset.armed === "true";
-
     try {
-      const response = await fetch("/api/classroom-state", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          freezeScreenArmed: !currentlyArmed
-        })
-      });
+      const response = await fetch(
+        "/api/classroom-state",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            freezeScreenArmed: true
+          })
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Unable to update classroom state.");
+        throw new Error("Unable to arm Freeze.");
       }
 
       const state = await response.json();
-      updateButton(state.freezeScreenArmed);
+
+      updateButton(
+        state.freezeScreenArmed
+      );
     } catch (error) {
-      console.error("Teacher Freeze control:", error);
+      console.error(
+        "Teacher Freeze control:",
+        error
+      );
     }
   });
+
+
+  // RELEASE UNLOCKED
+  releaseUnlockedButton.addEventListener(
+    "click",
+    async () => {
+      try {
+        const response = await fetch(
+          "/api/classroom-state",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              freezeScreenArmed: false
+            })
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Unable to release unlocked students."
+          );
+        }
+
+        const state = await response.json();
+
+        updateButton(
+          state.freezeScreenArmed
+        );
+      } catch (error) {
+        console.error(
+          "Teacher Release Unlocked:",
+          error
+        );
+      }
+    }
+  );
+
+
+  // UNLOCK ALL
+  unlockAllButton.addEventListener(
+    "click",
+    async () => {
+      try {
+        const response = await fetch(
+          "/api/classroom-state",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              unlockAllFrozenStudents: true
+            })
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Unable to unlock all students."
+          );
+        }
+
+        const state = await response.json();
+
+        updateButton(
+          state.freezeScreenArmed
+        );
+      } catch (error) {
+        console.error(
+          "Teacher Unlock All:",
+          error
+        );
+      }
+    }
+  );
 
 
   pauseButton.addEventListener("click", async () => {
