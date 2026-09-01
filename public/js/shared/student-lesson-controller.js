@@ -296,6 +296,34 @@
   let removeBubblePopLeftListener = null;
   let removeBubblePopRightListener = null;
 
+  function renderMouseHandReference() {
+    return `
+      <div
+        class="mouse-hand-reference"
+        role="img"
+        aria-label="Keep your hand resting correctly on the mouse"
+      >
+        <div
+          class="hold-mouse-visual mouse-hand-reference-visual"
+          aria-hidden="true"
+        >
+          <div class="mouse-demo-hand left-click-hand">
+            <div class="mouse-demo-palm"></div>
+            <div class="mouse-demo-finger mouse-demo-index"></div>
+            <div class="mouse-demo-finger mouse-demo-middle"></div>
+            <div class="mouse-demo-finger mouse-demo-pinky"></div>
+          </div>
+
+          <div class="mouse-demo-body">
+            <div class="mouse-demo-left"></div>
+            <div class="mouse-demo-right"></div>
+            <div class="mouse-demo-wheel"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function showBubblePopActivity() {
     const container = getLessonContainer();
 
@@ -306,6 +334,7 @@
 
     container.innerHTML = `
       <div class="lesson-screen bubble-pop-screen">
+        ${renderMouseHandReference()}
 
         <div class="quick-activity-heading">
           <span>QUICK ACTIVITY</span>
@@ -672,6 +701,7 @@
 
     container.innerHTML = `
       <div class="lesson-screen mouse-sprint-screen">
+        ${renderMouseHandReference()}
 
         <div class="quick-activity-heading">
           <span>QUICK ACTIVITY</span>
@@ -1072,6 +1102,7 @@
 
     container.innerHTML = `
       <div class="lesson-screen color-match-screen">
+        ${renderMouseHandReference()}
 
         <div class="quick-activity-heading">
           <span>QUICK ACTIVITY</span>
@@ -1519,6 +1550,7 @@
 
     container.innerHTML = `
       <div class="lesson-screen corner-hunt-screen">
+        ${renderMouseHandReference()}
 
         <div class="quick-activity-heading">
           <span>QUICK ACTIVITY</span>
@@ -1854,6 +1886,7 @@
 
     container.innerHTML = `
       <div class="lesson-screen wait-activity-screen">
+        ${renderMouseHandReference()}
 
         <div class="quick-activity-heading">
           <span>QUICK ACTIVITY</span>
@@ -2140,6 +2173,7 @@
 
     container.innerHTML = `
       <div class="lesson-screen bullseye-activity-screen">
+        ${renderMouseHandReference()}
 
         <div class="quick-activity-heading">
           <span>QUICK ACTIVITY</span>
@@ -2631,6 +2665,7 @@
     if (step.id === "guided-practice") {
       return `
         <div class="lesson-screen lesson-screen-mouse-challenge">
+          ${renderMouseHandReference()}
 
           <div class="lesson-screen-heading">
             <p class="student-lesson-progress">
@@ -2678,6 +2713,7 @@
     if (step.id === "move-and-click") {
       return `
         <div class="lesson-screen lesson-screen-move-and-click">
+          ${renderMouseHandReference()}
 
           <div class="lesson-screen-heading">
             <p class="student-lesson-progress">
@@ -2727,6 +2763,7 @@
     if (step.id === "left-click-practice") {
       return `
         <div class="lesson-screen lesson-screen-left-click-practice">
+          ${renderMouseHandReference()}
 
           <div class="lesson-screen-heading">
             <p class="student-lesson-progress">
@@ -2875,6 +2912,7 @@
     if (step.id === "movement-practice") {
       return `
         <div class="lesson-screen lesson-screen-movement-practice">
+          ${renderMouseHandReference()}
 
           <div class="lesson-screen-heading">
             <p class="student-lesson-progress">

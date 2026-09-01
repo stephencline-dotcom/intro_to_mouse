@@ -4374,3 +4374,51 @@ body:has(#globalFreezeButton) .lesson-screen {
     0 0 34px rgba(250, 204, 21, 0.95),
     inset -8px -8px 14px rgba(59, 130, 246, 0.12) !important;
 }
+
+
+/* Hand position reference for lesson steps and quick activities */
+.bubble-pop-screen,
+.mouse-sprint-screen,
+.color-match-screen,
+.corner-hunt-screen,
+.wait-activity-screen,
+.bullseye-activity-screen,
+.lesson-screen-movement-practice,
+.lesson-screen-left-click-practice,
+.lesson-screen-move-and-click,
+.lesson-screen-mouse-challenge {
+  position: relative;
+}
+
+.mouse-hand-reference {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  z-index: 8;
+
+  width: 108px;
+  height: 122px;
+
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+
+  border: 2px solid #cbd5e1;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+}
+
+.mouse-hand-reference-visual {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+
+  transform: scale(0.34);
+  transform-origin: top left;
+}
+
+.mouse-hand-reference .left-click-hand {
+  opacity: 1;
+  visibility: visible;
+}
