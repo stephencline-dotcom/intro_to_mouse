@@ -9250,3 +9250,327 @@ body:has(#globalFreezeButton) .lesson-screen {
   }
 }
 
+
+/* ========================================
+   Teacher controls - compact top-right strip
+======================================== */
+
+/* Pause */
+#globalPauseButton {
+  position: fixed !important;
+
+  top: 12px !important;
+  right: 455px !important;
+
+  width: auto !important;
+  height: 48px !important;
+
+  padding: 0 18px !important;
+
+  border-radius: 12px !important;
+
+  font-size: 16px !important;
+  font-weight: 800 !important;
+
+  z-index: 20000 !important;
+}
+
+/* Freeze */
+#globalFreezeButton {
+  position: fixed !important;
+
+  top: 12px !important;
+  right: 345px !important;
+
+  width: auto !important;
+  height: 48px !important;
+
+  padding: 0 18px !important;
+
+  border-radius: 12px !important;
+
+  font-size: 16px !important;
+  font-weight: 800 !important;
+
+  z-index: 20000 !important;
+}
+
+/* Release Unlocked */
+#globalReleaseUnlockedButton {
+  position: fixed !important;
+
+  top: 12px !important;
+  right: 193px !important;
+  left: auto !important;
+
+  width: auto !important;
+  height: 48px !important;
+
+  padding: 0 14px !important;
+
+  border-radius: 12px !important;
+
+  font-size: 14px !important;
+  font-weight: 800 !important;
+
+  z-index: 20000 !important;
+
+  box-shadow:
+    0 3px 9px
+    rgba(0, 0, 0, 0.13) !important;
+}
+
+/* Unlock All */
+#globalUnlockAllButton {
+  position: fixed !important;
+
+  top: 12px !important;
+  right: 83px !important;
+  left: auto !important;
+
+  width: auto !important;
+  height: 48px !important;
+
+  padding: 0 14px !important;
+
+  border-radius: 12px !important;
+
+  font-size: 14px !important;
+  font-weight: 800 !important;
+
+  z-index: 20000 !important;
+
+  box-shadow:
+    0 3px 9px
+    rgba(0, 0, 0, 0.13) !important;
+}
+
+/* Teacher Settings */
+#teacherSettingsButton,
+.teacher-settings-button {
+  position: fixed !important;
+
+  top: 12px !important;
+  right: 8px !important;
+
+  height: 48px !important;
+
+  padding: 0 14px !important;
+
+  border-radius: 12px !important;
+
+  font-size: 14px !important;
+  font-weight: 800 !important;
+
+  z-index: 20000 !important;
+}
+
+/* Disabled Release should still look intentional */
+#globalReleaseUnlockedButton:disabled {
+  opacity: 0.48 !important;
+}
+
+
+/* ========================================
+   Teacher controls - compact unobtrusive bar
+======================================== */
+
+#globalPauseButton,
+#globalFreezeButton,
+#globalReleaseUnlockedButton,
+#globalUnlockAllButton,
+#teacherSettingsButton,
+.teacher-settings-button {
+  height: 36px !important;
+
+  padding: 0 11px !important;
+
+  border-radius: 9px !important;
+
+  font-size: 12px !important;
+  line-height: 36px !important;
+  font-weight: 800 !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+
+  top: 8px !important;
+
+  box-shadow:
+    0 2px 6px
+    rgba(0, 0, 0, 0.10) !important;
+}
+
+
+/* Teacher Settings - far right */
+#teacherSettingsButton,
+.teacher-settings-button {
+  right: 8px !important;
+}
+
+
+/* Unlock All */
+#globalUnlockAllButton {
+  right: 132px !important;
+  left: auto !important;
+}
+
+
+/* Release Unlocked */
+#globalReleaseUnlockedButton {
+  right: 224px !important;
+  left: auto !important;
+
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+
+/* Freeze */
+#globalFreezeButton {
+  right: 365px !important;
+  left: auto !important;
+}
+
+
+/* Pause */
+#globalPauseButton {
+  right: 440px !important;
+  left: auto !important;
+}
+
+
+/* Disabled Release should look subdued */
+#globalReleaseUnlockedButton:disabled {
+  opacity: 0.42 !important;
+}
+
+
+/* Keep all controls above lesson content */
+#globalPauseButton,
+#globalFreezeButton,
+#globalReleaseUnlockedButton,
+#globalUnlockAllButton,
+#teacherSettingsButton,
+.teacher-settings-button {
+  z-index: 20000 !important;
+}
+
+
+/* Teacher controls - give Unlock All more room from Settings */
+
+#globalUnlockAllButton {
+  right: 190px !important;
+}
+
+
+/* ========================================
+   Teacher controls - guaranteed spacing
+======================================== */
+
+/* Settings */
+#teacherSettingsButton,
+.teacher-settings-button {
+  right: 12px !important;
+}
+
+/* Unlock All - clear of Settings */
+#globalUnlockAllButton {
+  right: 220px !important;
+  left: auto !important;
+}
+
+/* Release Unlocked - clear of Unlock All */
+#globalReleaseUnlockedButton {
+  right: 360px !important;
+  left: auto !important;
+}
+
+/* Freeze - clear of Release Unlocked */
+#globalFreezeButton {
+  right: 555px !important;
+  left: auto !important;
+}
+
+/* Pause - clear of Freeze */
+#globalPauseButton {
+  right: 655px !important;
+  left: auto !important;
+}
+
+/* Consistent small gap and sizing */
+#globalPauseButton,
+#globalFreezeButton,
+#globalReleaseUnlockedButton,
+#globalUnlockAllButton,
+#teacherSettingsButton,
+.teacher-settings-button {
+  top: 10px !important;
+
+  height: 38px !important;
+
+  box-sizing: border-box !important;
+
+  white-space: nowrap !important;
+
+  margin: 0 !important;
+
+  z-index: 20000 !important;
+}
+
+
+/* ========================================
+   Teacher controls - compact right-side group
+======================================== */
+
+#globalPauseButton,
+#globalFreezeButton,
+#globalReleaseUnlockedButton,
+#globalUnlockAllButton,
+#teacherSettingsButton,
+.teacher-settings-button {
+  top: 8px !important;
+
+  height: 34px !important;
+
+  padding: 0 9px !important;
+
+  font-size: 11px !important;
+  line-height: 34px !important;
+
+  border-radius: 8px !important;
+
+  white-space: nowrap !important;
+
+  box-shadow:
+    0 2px 5px
+    rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Right edge */
+#teacherSettingsButton,
+.teacher-settings-button {
+  right: 8px !important;
+}
+
+/* Tight, even spacing moving left */
+#globalUnlockAllButton {
+  right: 145px !important;
+  left: auto !important;
+}
+
+#globalReleaseUnlockedButton {
+  right: 245px !important;
+  left: auto !important;
+}
+
+#globalFreezeButton {
+  right: 385px !important;
+  left: auto !important;
+}
+
+#globalPauseButton {
+  right: 455px !important;
+  left: auto !important;
+}
+

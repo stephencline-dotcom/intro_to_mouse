@@ -196,7 +196,7 @@
 
     button.textContent =
       isArmed
-        ? "Freeze Armed"
+        ? "Frozen"
         : "Freeze";
 
     button.disabled = isArmed;
