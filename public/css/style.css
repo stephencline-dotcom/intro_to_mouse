@@ -9574,3 +9574,104 @@ body:has(#globalFreezeButton) .lesson-screen {
   left: auto !important;
 }
 
+
+/* ========================================
+   Week 1 Step 4 - completion celebration
+======================================== */
+
+.movement-practice-celebration {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 30000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+
+  background:
+    rgba(255, 255, 255, 0.22);
+
+  animation:
+    movement-celebration-in
+    0.22s ease-out;
+}
+
+.movement-practice-celebration-card {
+  min-width: 320px;
+
+  padding: 24px 30px;
+
+  border: 4px solid #facc15;
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf2,
+      #fefce8
+    );
+
+  text-align: center;
+
+  box-shadow:
+    0 14px 32px
+    rgba(0, 0, 0, 0.16);
+}
+
+.movement-practice-celebration-stars {
+  margin-bottom: 4px;
+
+  color: #f59e0b;
+
+  font-size: 30px;
+  letter-spacing: 7px;
+}
+
+.movement-practice-celebration-card strong {
+  display: block;
+
+  color: #1d4ed8;
+
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.movement-practice-celebration-card span {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #475569;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.movement-practice-celebration-out {
+  opacity: 0;
+
+  transition:
+    opacity
+    0.4s ease;
+}
+
+@keyframes movement-celebration-in {
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+}
+

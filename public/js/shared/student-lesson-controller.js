@@ -7046,6 +7046,18 @@
 
 
   function stopStepBehavior() {
+    /*
+     * Remove the Week 1 Step 4 completion card
+     * whenever the teacher/student leaves the step.
+     */
+    document
+      .querySelectorAll(
+        ".movement-practice-celebration"
+      )
+      .forEach((celebration) => {
+        celebration.remove();
+      });
+
 
     if (removeDragChallengeMoveListener) {
       removeDragChallengeMoveListener();
@@ -7911,6 +7923,53 @@
             );
           });
 
+        /*
+         * Small completion celebration for Week 1 Step 4.
+         */
+        const celebration =
+          document.createElement("div");
+
+        celebration.className =
+          "movement-practice-celebration";
+
+        celebration.innerHTML = `
+          <div class="movement-practice-celebration-card">
+            <div class="movement-practice-celebration-stars">
+              ✦ ★ ✦
+            </div>
+
+            <strong>
+              Great Job!
+            </strong>
+
+            <span>
+              You finished Movement Practice!
+            </span>
+          </div>
+        `;
+
+        document.body.appendChild(
+          celebration
+        );
+
+        if (soundEnabled) {
+          const correctSound =
+            new Audio("/sounds/correct.mp3");
+
+          correctSound.volume = 0.6;
+          correctSound.currentTime = 0;
+
+          correctSound
+            .play()
+            .catch(() => {});
+        }
+
+        /*
+         * Leave the completion card on screen.
+         * It will disappear naturally when the teacher
+         * advances to the next lesson step and the
+         * current step is re-rendered.
+         */
         return;
       }
 
