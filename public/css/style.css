@@ -6258,3 +6258,533 @@ body:has(#globalFreezeButton) .lesson-screen {
   opacity: 0.45;
 }
 
+
+
+/* ========================================
+   Week 3 Step 4: Hold & Move
+======================================== */
+
+.lesson-screen-hold-move {
+  padding: 14px 24px 18px;
+}
+
+.hold-move-heading {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.hold-move-heading h1 {
+  margin: 0 0 4px;
+
+  font-size:
+    clamp(34px, 5vh, 46px);
+}
+
+.hold-move-heading p {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  color: #475569;
+}
+
+.hold-move-layout {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(290px, 0.8fr)
+    minmax(0, 1.2fr);
+
+  gap: 24px;
+
+  align-items: center;
+}
+
+.hold-move-hand-side {
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hold-move-hand-message {
+  position: relative;
+  z-index: 20;
+
+  width: min(310px, 94%);
+
+  margin-bottom: 5px;
+  padding: 7px 10px;
+
+  box-sizing: border-box;
+
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  text-align: center;
+
+  font-size: 16px;
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.hold-move-hand-visual {
+  position: relative;
+
+  width: 280px;
+  height: 290px;
+
+  transform: scale(0.60);
+  transform-origin: center top;
+}
+
+.hold-move-practice-side {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hold-move-area {
+  position: relative;
+
+  width: 100%;
+  max-width: 680px;
+  height: 285px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.hold-move-target {
+  position: absolute;
+
+  left: 18%;
+  top: 50%;
+
+  width: 115px;
+  height: 115px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 6;
+
+  border: 5px solid #2563eb;
+  border-radius: 20px;
+
+  background: #dbeafe;
+  color: #2563eb;
+
+  font-size: 58px;
+
+  box-shadow:
+    0 7px 16px
+    rgba(0, 0, 0, 0.14);
+}
+
+.hold-move-destination {
+  position: absolute;
+
+  left: 80%;
+  top: 50%;
+
+  width: 155px;
+  height: 145px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2;
+
+  border: 5px dashed #22c55e;
+  border-radius: 20px;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.hold-move-pointer {
+  position: absolute;
+
+  left: 5%;
+  top: 68%;
+
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.hold-move-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10px;
+
+  transform: translateX(-50%);
+
+  z-index: 20;
+
+  width: 90%;
+
+  text-align: center;
+
+  font-size: 18px;
+  font-weight: 900;
+
+  color: #334155;
+}
+
+.hold-move-target-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.06);
+
+  box-shadow:
+    0 0 0 7px
+    rgba(37, 99, 235, 0.18),
+    0 7px 16px
+    rgba(0, 0, 0, 0.14);
+}
+
+.hold-move-complete {
+  border-color:
+    #16a34a !important;
+
+  background:
+    #dcfce7 !important;
+
+  color:
+    #15803d !important;
+}
+
+.hold-move-destination-complete {
+  border-style: solid;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(34, 197, 94, 0.15);
+}
+
+/* Finger stays visibly DOWN throughout drag */
+
+.hold-move-finger-down {
+  transform:
+    translateY(9px)
+    rotate(-3deg) !important;
+
+  background:
+    #60a5fa !important;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(37, 99, 235, 0.25);
+}
+
+.hold-move-button-down {
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+
+  background:
+    #3b82f6 !important;
+
+  box-shadow:
+    inset 0 4px 7px
+    rgba(30, 64, 175, 0.32);
+}
+
+/*
+ * Don't move the whole hand during the drag.
+ * Only the pointer finger/button stays depressed.
+ */
+.hold-move-hand-down {
+  transform: none;
+}
+
+/* ========================================
+   Week 3 Step 4 - match Step 3 hand
+======================================== */
+
+/* Use the same wrapper sizing as Step 3 */
+.lesson-screen-hold-move
+.hold-move-hand-visual {
+  position: relative;
+
+  width: 280px;
+  height: 330px;
+
+  transform: scale(0.62) !important;
+  transform-origin: center;
+}
+
+/* Whole hand placement */
+.lesson-screen-hold-move
+.hold-move-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+/* Palm */
+.lesson-screen-hold-move
+.hold-move-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+
+  border-radius:
+    68px 68px 76px 76px !important;
+}
+
+/* Pointer finger */
+.lesson-screen-hold-move
+.hold-move-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform:
+    rotate(-3deg) !important;
+}
+
+/* Middle finger */
+.lesson-screen-hold-move
+.hold-move-hand
+.mouse-demo-middle {
+  left: auto !important;
+  right: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform:
+    rotate(3deg) !important;
+}
+
+/* Thumb */
+.lesson-screen-hold-move
+.hold-move-hand::before {
+  top: 76px !important;
+  left: -2px !important;
+  right: auto !important;
+
+  width: 36px !important;
+  height: 96px !important;
+
+  transform:
+    rotate(-24deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+/* Ring finger */
+.lesson-screen-hold-move
+.hold-move-hand::after {
+  top: 64px !important;
+  right: 3px !important;
+  left: auto !important;
+
+  width: 34px !important;
+  height: 100px !important;
+
+  transform:
+    rotate(16deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+/* Pinky */
+.lesson-screen-hold-move
+.hold-move-hand
+.mouse-demo-pinky {
+  top: 84px !important;
+  right: -12px !important;
+  left: auto !important;
+
+  width: 28px !important;
+  height: 84px !important;
+
+  transform:
+    rotate(20deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+/* Same mouse size/proportion as Step 3 */
+.lesson-screen-hold-move
+.hold-move-hand-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+/* During drag, keep whole hand stationary */
+.lesson-screen-hold-move
+.hold-move-hand-down {
+  transform:
+    translateX(-50%) !important;
+}
+
+/* Only pointer finger presses down */
+.lesson-screen-hold-move
+.hold-move-finger-down {
+  transform:
+    translateY(9px)
+    rotate(-3deg) !important;
+}
+
+/* Week 3 Step 3 - move hand/mouse upward */
+
+.lesson-screen-press-hold
+.press-hold-hand-visual {
+  transform:
+    translateY(-45px)
+    scale(0.62) !important;
+
+  transform-origin: center;
+}
+
+/* Pull the coaching message up with it */
+.lesson-screen-press-hold
+.press-hold-hand-message {
+  transform: translateY(-35px);
+}
+
+/* ========================================
+   Week 3 Step 3 - hand higher ON mouse
+======================================== */
+
+/* Undo previous whole hand/mouse movement */
+.lesson-screen-press-hold
+.press-hold-hand-visual {
+  transform: scale(0.62) !important;
+  transform-origin: center;
+}
+
+/* Undo previous message movement */
+.lesson-screen-press-hold
+.press-hold-hand-message {
+  transform: none !important;
+}
+
+/*
+ * Move ONLY the hand upward.
+ * Mouse stays exactly where it is.
+ */
+.lesson-screen-press-hold
+.press-hold-hand {
+  transform:
+    translateY(-32px) !important;
+}
+
+/*
+ * When pressing/holding, keep that same raised
+ * hand position. Do not let the whole hand jump.
+ */
+.lesson-screen-press-hold
+.press-hold-hand-down {
+  transform:
+    translateY(-32px) !important;
+}
+
+/* Week 3 Step 3 - center raised hand over mouse */
+
+/* Keep current height, move ONLY horizontally */
+.lesson-screen-press-hold
+.press-hold-hand {
+  transform:
+    translateX(-52px)
+    translateY(-32px) !important;
+}
+
+/* Preserve same position while holding */
+.lesson-screen-press-hold
+.press-hold-hand-down {
+  transform:
+    translateX(-52px)
+    translateY(-32px) !important;
+}
+
+/* Week 3 Step 3 - move raised hand farther left */
+
+.lesson-screen-press-hold
+.press-hold-hand {
+  transform:
+    translateX(-78px)
+    translateY(-32px) !important;
+}
+
+.lesson-screen-press-hold
+.press-hold-hand-down {
+  transform:
+    translateX(-78px)
+    translateY(-32px) !important;
+}
+
+/* Week 3 Step 3 - final hand centering adjustment */
+
+.lesson-screen-press-hold
+.press-hold-hand {
+  transform:
+    translateX(-100px)
+    translateY(-32px) !important;
+}
+
+.lesson-screen-press-hold
+.press-hold-hand-down {
+  transform:
+    translateX(-100px)
+    translateY(-32px) !important;
+}

@@ -174,7 +174,6 @@
   }
 
   let meetDragAnimationTimers = [];
-  let meetDragActiveSounds = [];
 
   function stopMeetDragAnimation() {
     meetDragAnimationTimers.forEach((timer) => {
@@ -182,15 +181,6 @@
     });
 
     meetDragAnimationTimers = [];
-
-    meetDragActiveSounds.forEach((sound) => {
-      try {
-        sound.pause();
-        sound.currentTime = 0;
-      } catch {}
-    });
-
-    meetDragActiveSounds = [];
   }
 
   /*
@@ -198,57 +188,308 @@
    * stop demo audio/animation the instant a navigation
    * button is clicked instead of waiting for classroom sync.
    */
-  function week3ImmediateNavigationStop(event) {
-    if (
-      !document.querySelector(
-        ".lesson-screen-meet-drag"
-      )
-    ) {
-      return;
-    }
-
-    const control =
-      event.target.closest(
-        "button, a"
-      );
-
-    if (!control) {
-      return;
-    }
-
-    const label =
-      (control.textContent || "")
-        .trim()
-        .toLowerCase();
-
-    const isNavigation =
-      label === "next" ||
-      label === "back" ||
-      label === "home" ||
-      label.includes("next") ||
-      label.includes("back to home");
-
-    if (!isNavigation) {
-      return;
-    }
-
-    stopMeetDragAnimation();
-    stopWeek3DemoSounds();
-  }
-
-  document.addEventListener(
-    "click",
-    week3ImmediateNavigationStop,
-    true
-  );
-
 
 
   let removePressHoldMoveListener = null;
   let removePressHoldLeftDownListener = null;
   let removePressHoldLeftUpListener = null;
   let removePressHoldRightListener = null;
+  let pressHoldNativeReleaseHandler = null;
   let pressHoldSuccessTimer = null;
+
+  let removeHoldMoveMoveListener = null;
+  let removeHoldMoveLeftDownListener = null;
+  let removeHoldMoveLeftUpListener = null;
+  let removeHoldMoveRightListener = null;
+
+  function startHoldMoveBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("holdMoveArea");
+
+    const target =
+      document.getElementById("holdMoveTarget");
+
+    const destination =
+      document.getElementById("holdMoveDestination");
+
+    const pointer =
+      document.getElementById("holdMovePointer");
+
+    const hand =
+      document.getElementById("holdMoveHand");
+
+    const finger =
+      document.getElementById("holdMoveFinger");
+
+    const leftButton =
+      document.getElementById("holdMoveLeftButton");
+
+    const status =
+      document.getElementById("holdMoveStatus");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !destination ||
+      !pointer ||
+      !hand ||
+      !finger ||
+      !leftButton ||
+      !status
+    ) {
+      return;
+    }
+
+    let dragging = false;
+    let completed = false;
+
+    function pointerOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    function targetReachedDestination() {
+      const targetRect =
+        target.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        targetRect.left +
+        targetRect.width / 2;
+
+      const centerY =
+        targetRect.top +
+        targetRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function showHeldHand() {
+      finger.classList.add(
+        "hold-move-finger-down"
+      );
+
+      leftButton.classList.add(
+        "hold-move-button-down"
+      );
+
+      hand.classList.add(
+        "hold-move-hand-down"
+      );
+    }
+
+    function releaseHeldHand() {
+      finger.classList.remove(
+        "hold-move-finger-down"
+      );
+
+      leftButton.classList.remove(
+        "hold-move-button-down"
+      );
+
+      hand.classList.remove(
+        "hold-move-hand-down"
+      );
+    }
+
+    removeHoldMoveMoveListener =
+      input.subscribe("move", (event) => {
+        if (completed) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        /*
+         * Position the visual pointer so its TIP
+         * corresponds to the real mouse position.
+         */
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        const pointerLeft =
+          event.x - rect.left - offsetX;
+
+        const pointerTop =
+          event.y - rect.top - offsetY;
+
+        pointer.style.left =
+          `${pointerLeft}px`;
+
+        pointer.style.top =
+          `${pointerTop}px`;
+
+        /*
+         * While the real left button remains held,
+         * the star follows the cursor tip.
+         */
+        if (dragging) {
+          target.style.left =
+            `${event.x - rect.left}px`;
+
+          target.style.top =
+            `${event.y - rect.top}px`;
+
+          status.textContent =
+            "KEEP HOLDING and MOVE!";
+
+          if (targetReachedDestination()) {
+            completed = true;
+
+            target.classList.add(
+              "hold-move-complete"
+            );
+
+            destination.classList.add(
+              "hold-move-destination-complete"
+            );
+
+            status.textContent =
+              "Great! You moved it while holding! ✓";
+
+            if (soundEnabled) {
+              const correctSound =
+                new Audio(
+                  "/sounds/correct.mp3"
+                );
+
+              correctSound.preload = "auto";
+              correctSound.volume = 0.6;
+              correctSound.play().catch(() => {});
+            }
+          }
+        }
+      });
+
+
+    removeHoldMoveRightListener =
+      input.subscribe("rightDown", () => {
+        if (completed) {
+          return;
+        }
+
+        dragging = false;
+        releaseHeldHand();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+
+    removeHoldMoveLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (completed) {
+          return;
+        }
+
+        if (!pointerOnTarget()) {
+          status.textContent =
+            "Move onto the star first.";
+
+          return;
+        }
+
+        dragging = true;
+
+        showHeldHand();
+
+        target.classList.add(
+          "hold-move-target-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — now MOVE!";
+
+        /*
+         * Physical click sound immediately when
+         * the finger presses the button.
+         */
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+
+          /*
+           * Skip the tiny silence at the start of
+           * the MP3, matching Step 3.
+           */
+          leftClickSound.currentTime = 0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+
+    removeHoldMoveLeftUpListener =
+      input.subscribe("leftUp", () => {
+        if (!dragging) {
+          return;
+        }
+
+        dragging = false;
+
+        releaseHeldHand();
+
+        target.classList.remove(
+          "hold-move-target-held"
+        );
+
+        if (completed) {
+          status.textContent =
+            "Great! You moved it while holding! ✓";
+
+          return;
+        }
+
+        /*
+         * Step 4 teaches HOLD + MOVE.
+         * Releasing before reaching the destination
+         * means they need to try again.
+         */
+        status.textContent =
+          "Oops! Keep holding while you move.";
+
+        target.style.left = "18%";
+        target.style.top = "50%";
+      });
+  }
 
   function startPressHoldBehavior() {
     const input = window.HandsOnMouseInput;
@@ -342,6 +583,59 @@
         pressHoldSuccessTimer = null;
       }
     }
+
+    function handlePressHoldRelease() {
+      if (completed) {
+        clearHoldVisuals();
+
+        target.classList.add(
+          "press-hold-target-complete"
+        );
+
+        return;
+      }
+
+      if (!holding) {
+        return;
+      }
+
+      /*
+       * The student physically let go before
+       * the full hold time finished.
+       * Cancel success immediately.
+       */
+      cancelPendingSuccess();
+      clearHoldVisuals();
+
+      status.textContent =
+        "Keep holding a little longer.";
+
+      handMessage.textContent =
+        "Don't let go yet!";
+    }
+
+    /*
+     * Listen directly for the real mouse release too.
+     * This prevents a quick click from accidentally
+     * continuing the hold timer.
+     */
+    pressHoldNativeReleaseHandler =
+      (event) => {
+        if (
+          event.type === "mouseup" &&
+          event.button !== 0
+        ) {
+          return;
+        }
+
+        handlePressHoldRelease();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      pressHoldNativeReleaseHandler,
+      true
+    );
 
     removePressHoldMoveListener =
       input.subscribe("move", (event) => {
@@ -499,58 +793,12 @@
 
     removePressHoldLeftUpListener =
       input.subscribe("leftUp", () => {
-        if (completed) {
-          clearHoldVisuals();
-
-          target.classList.add(
-            "press-hold-target-complete"
-          );
-
-          return;
-        }
-
-        if (!holding) {
-          return;
-        }
-
-        cancelPendingSuccess();
-        clearHoldVisuals();
-
-        status.textContent =
-          "Keep holding a little longer.";
-
-        handMessage.textContent =
-          "Don't let go yet!";
+        handlePressHoldRelease();
       });
   }
 
   function startMeetDragAnimation() {
     stopMeetDragAnimation();
-
-    if (pressHoldSuccessTimer) {
-      clearTimeout(pressHoldSuccessTimer);
-      pressHoldSuccessTimer = null;
-    }
-
-    if (removePressHoldMoveListener) {
-      removePressHoldMoveListener();
-      removePressHoldMoveListener = null;
-    }
-
-    if (removePressHoldLeftDownListener) {
-      removePressHoldLeftDownListener();
-      removePressHoldLeftDownListener = null;
-    }
-
-    if (removePressHoldLeftUpListener) {
-      removePressHoldLeftUpListener();
-      removePressHoldLeftUpListener = null;
-    }
-
-    if (removePressHoldRightListener) {
-      removePressHoldRightListener();
-      removePressHoldRightListener = null;
-    }
 
     const screen =
       document.querySelector(
@@ -619,10 +867,6 @@
     }
 
     function playSwish() {
-      if (!soundEnabled) {
-        return;
-      }
-
       playWeek3DemoSound(
         "/sounds/swish.mp3",
         0.45
@@ -630,10 +874,6 @@
     }
 
     function playClick() {
-      if (!soundEnabled) {
-        return;
-      }
-
       playWeek3DemoSound(
         "/sounds/mouseclick.mp3",
         0.5
@@ -660,7 +900,7 @@
       );
 
       message.textContent =
-        "Watch what the hand does.";
+        "POINT to the object.";
 
       setActiveStep("point");
 
@@ -671,13 +911,13 @@
         "meet-drag-pointer-point"
       );
 
-      message.textContent =
-        "POINT to the object.";
-
       playSwish();
 
       meetDragAnimationTimers.push(
-        setTimeout(pressAndHold, 1800)
+        setTimeout(
+          pressAndHold,
+          1800
+        )
       );
     }
 
@@ -706,7 +946,10 @@
       playClick();
 
       meetDragAnimationTimers.push(
-        setTimeout(moveWhileHolding, 1500)
+        setTimeout(
+          moveWhileHolding,
+          1500
+        )
       );
     }
 
@@ -727,7 +970,10 @@
       playSwish();
 
       meetDragAnimationTimers.push(
-        setTimeout(releaseObject, 2100)
+        setTimeout(
+          releaseObject,
+          2100
+        )
       );
     }
 
@@ -758,7 +1004,10 @@
         "LET GO when you get there.";
 
       meetDragAnimationTimers.push(
-        setTimeout(resetDemo, 2600)
+        setTimeout(
+          resetDemo,
+          2600
+        )
       );
     }
 
@@ -843,10 +1092,6 @@
     }
 
     function playSwish() {
-      if (!soundEnabled) {
-        return;
-      }
-
       playWeek3DemoSound(
         "/sounds/swish.mp3",
         0.5
@@ -854,10 +1099,6 @@
     }
 
     function playClick() {
-      if (!soundEnabled) {
-        return;
-      }
-
       playWeek3DemoSound(
         "/sounds/mouseclick.mp3",
         0.5
@@ -966,6 +1207,57 @@
 
     showCard1();
   }
+
+  function week3ImmediateNavigationStop(event) {
+    const step1Active =
+      document.querySelector(
+        ".lesson-screen-drag-review"
+      );
+
+    const step2Active =
+      document.querySelector(
+        ".lesson-screen-meet-drag"
+      );
+
+    if (!step1Active && !step2Active) {
+      return;
+    }
+
+    const control =
+      event.target.closest("button, a");
+
+    if (!control) {
+      return;
+    }
+
+    const label =
+      (control.textContent || "")
+        .trim()
+        .toLowerCase();
+
+    const isNavigation =
+      label.includes("next") ||
+      label.includes("back") ||
+      label === "home";
+
+    if (!isNavigation) {
+      return;
+    }
+
+    /*
+     * Stop the sound BEFORE the lesson-state
+     * request/navigation happens.
+     */
+    stopWeek3DemoSounds();
+    stopDragQuickReviewAnimation();
+    stopMeetDragAnimation();
+  }
+
+  document.addEventListener(
+    "click",
+    week3ImmediateNavigationStop,
+    true
+  );
 
   function getLessonContainer() {
     let container = document.getElementById("studentLessonView");
@@ -3340,6 +3632,122 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "hold-and-move") {
+      return `
+        <div class="lesson-screen lesson-screen-hold-move">
+
+          <div class="hold-move-heading">
+            <span class="drag-review-badge">
+              PRACTICE
+            </span>
+
+            <h1>Hold & Move</h1>
+
+            <p>
+              Keep the left button DOWN while you move.
+            </p>
+          </div>
+
+          <div class="hold-move-layout">
+
+            <div class="hold-move-hand-side">
+
+              <div class="hold-move-hand-message">
+                Keep your pointer finger DOWN!
+              </div>
+
+              <div class="hold-mouse-visual hold-move-hand-visual">
+
+                <div
+                  id="holdMoveHand"
+                  class="mouse-demo-hand hold-mouse-hand hold-move-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    id="holdMoveFinger"
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-index
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-middle
+                    "
+                  ></div>
+
+                  <div
+                    class="
+                      mouse-demo-finger
+                      mouse-demo-pinky
+                    "
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+
+                  <div
+                    id="holdMoveLeftButton"
+                    class="mouse-demo-left"
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="hold-move-practice-side">
+
+              <div
+                id="holdMoveArea"
+                class="hold-move-area"
+              >
+
+                <div
+                  id="holdMoveTarget"
+                  class="hold-move-target"
+                >
+                  ★
+                </div>
+
+                <div
+                  id="holdMoveDestination"
+                  class="hold-move-destination"
+                >
+                  MOVE HERE
+                </div>
+
+                <div
+                  id="holdMovePointer"
+                  class="hold-move-pointer"
+                >
+                  ➤
+                </div>
+
+                <div
+                  id="holdMoveStatus"
+                  class="hold-move-status"
+                >
+                  Move to the star.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "press-and-hold") {
       return `
         <div class="lesson-screen lesson-screen-press-hold">
@@ -6015,6 +6423,10 @@
 
     if (step.id === "press-and-hold") {
       startPressHoldBehavior();
+    }
+
+    if (step.id === "hold-and-move") {
+      startHoldMoveBehavior();
     }
 
     if (
