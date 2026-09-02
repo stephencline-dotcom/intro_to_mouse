@@ -8448,3 +8448,805 @@ body:has(#globalFreezeButton) .lesson-screen {
 .drag-drop-corner-reference {
   left: 115px !important;
 }
+
+
+/* ========================================
+   Week 3 Step 8: Drag Challenge
+======================================== */
+
+.lesson-screen-drag-challenge {
+  padding: 12px 22px 16px;
+}
+
+.drag-challenge-heading {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.drag-challenge-heading h1 {
+  margin: 0 0 3px;
+
+  font-size:
+    clamp(32px, 4.8vh, 45px);
+}
+
+.drag-challenge-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.drag-challenge-progress {
+  margin: 5px 0;
+
+  text-align: center;
+
+  font-size: 17px;
+  font-weight: 900;
+
+  color: #475569;
+}
+
+.drag-challenge-progress strong {
+  color: #2563eb;
+}
+
+.drag-challenge-area {
+  position: relative;
+
+  width: min(100%, 980px);
+  height: 410px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eef6ff
+    );
+
+  cursor: none;
+}
+
+.drag-challenge-target {
+  position: absolute;
+
+  left: 18%;
+  top: 30%;
+
+  z-index: 10;
+
+  width: 100px;
+  height: 100px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #2563eb;
+  border-radius: 22px;
+
+  background: white;
+
+  font-size: 55px;
+
+  box-shadow:
+    0 7px 16px
+    rgba(0, 0, 0, 0.14);
+}
+
+.drag-challenge-target-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  box-shadow:
+    0 0 0 7px
+    rgba(37, 99, 235, 0.18);
+}
+
+/* Yellow means ready to release */
+
+.drag-challenge-target-ready {
+  border-color: #f59e0b !important;
+
+  background: #fef3c7 !important;
+}
+
+.drag-challenge-destination {
+  position: absolute;
+
+  left: 80%;
+  top: 68%;
+
+  width: 175px;
+  height: 145px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  border: 5px dashed #22c55e;
+  border-radius: 22px;
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 12px
+    rgba(0, 0, 0, 0.08);
+}
+
+.drag-challenge-destination-icon {
+  font-size: 54px;
+  line-height: 1;
+}
+
+.drag-challenge-destination-ready {
+  border-color: #f59e0b !important;
+
+  background: #fef3c7 !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(245, 158, 11, 0.18);
+}
+
+/* Green only after release */
+
+.drag-challenge-target-complete {
+  border-color: #16a34a !important;
+
+  background: #dcfce7 !important;
+}
+
+.drag-challenge-destination-complete {
+  border-color: #16a34a !important;
+  border-style: solid !important;
+
+  background: #bbf7d0 !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(34, 197, 94, 0.17);
+}
+
+.drag-challenge-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 88%;
+
+  z-index: 50;
+
+  font-size: 64px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.drag-challenge-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 60;
+
+  width: 72%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.drag-challenge-finished::after {
+  content: "🏆";
+
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-size: 95px;
+
+  animation:
+    drag-challenge-win
+    0.45s ease-out;
+}
+
+@keyframes drag-challenge-win {
+  from {
+    transform:
+      translate(-50%, -50%)
+      scale(0.3);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 3 Step 8 - visible fishbowl and toy box
+======================================== */
+
+/* Fishbowl */
+
+.drag-challenge-destination[data-scene="fishbowl"] {
+  border-color: #38bdf8 !important;
+  background: #f0f9ff !important;
+  color: #0369a1 !important;
+}
+
+.challenge-fishbowl {
+  position: relative;
+
+  width: 112px;
+  height: 82px;
+
+  overflow: hidden;
+
+  border: 5px solid #7dd3fc;
+  border-top: 7px solid #38bdf8;
+
+  border-radius:
+    10px 10px 48px 48px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #f0f9ff 0 25%,
+      #bae6fd 25% 100%
+    );
+}
+
+.challenge-fishbowl-water {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 68%;
+
+  background:
+    linear-gradient(
+      #7dd3fc,
+      #38bdf8
+    );
+
+  opacity: 0.55;
+}
+
+.challenge-bubble {
+  position: absolute;
+
+  z-index: 2;
+
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.challenge-bubble-one {
+  width: 7px;
+  height: 7px;
+
+  left: 25px;
+  top: 39px;
+}
+
+.challenge-bubble-two {
+  width: 5px;
+  height: 5px;
+
+  right: 25px;
+  top: 50px;
+}
+
+
+/* Toy box */
+
+.drag-challenge-destination[data-scene="toybox"] {
+  border-color: #d97706 !important;
+  background: #fff7ed !important;
+  color: #92400e !important;
+}
+
+.challenge-toybox {
+  position: relative;
+
+  width: 125px;
+  height: 82px;
+
+  margin-top: 4px;
+}
+
+.challenge-toybox-lid {
+  position: absolute;
+
+  left: 3px;
+  top: 3px;
+
+  width: 119px;
+  height: 20px;
+
+  box-sizing: border-box;
+
+  border: 5px solid #92400e;
+  border-radius: 8px 8px 4px 4px;
+
+  background: #fbbf24;
+
+  transform: rotate(-5deg);
+  transform-origin: left bottom;
+
+  z-index: 3;
+}
+
+.challenge-toybox-body {
+  position: absolute;
+
+  left: 9px;
+  bottom: 2px;
+
+  width: 107px;
+  height: 62px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #92400e;
+
+  border-radius:
+    5px 5px 18px 18px;
+
+  background:
+    linear-gradient(
+      #f59e0b,
+      #ea580c
+    );
+}
+
+.challenge-toybox-body span {
+  padding: 3px 10px;
+
+  border-radius: 7px;
+
+  background: #fff7ed;
+
+  color: #92400e;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+
+/* Keep destination movement active */
+
+.drag-challenge-drift-a {
+  animation:
+    drag-challenge-drift-a
+    7s ease-in-out
+    infinite alternate;
+}
+
+.drag-challenge-drift-b {
+  animation:
+    drag-challenge-drift-b
+    8s ease-in-out
+    infinite alternate;
+}
+
+.drag-challenge-drift-c {
+  animation:
+    drag-challenge-drift-c
+    7.5s ease-in-out
+    infinite alternate;
+}
+
+.drag-challenge-drift-d {
+  animation:
+    drag-challenge-drift-d
+    8.5s ease-in-out
+    infinite alternate;
+}
+
+
+
+/* ========================================
+   Week 3 Step 9: Dragging Master
+======================================== */
+
+.lesson-screen-drag-complete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.drag-complete-card {
+  width: min(850px, 92%);
+
+  padding: 28px 30px 24px;
+
+  box-sizing: border-box;
+
+  border: 4px solid #facc15;
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf2 0%,
+      #fefce8 100%
+    );
+
+  text-align: center;
+
+  box-shadow:
+    0 16px 35px
+    rgba(0, 0, 0, 0.12);
+
+  animation:
+    drag-complete-pop
+    0.45s ease-out;
+}
+
+.drag-complete-trophy {
+  font-size: 86px;
+  line-height: 1;
+
+  animation:
+    drag-complete-bounce
+    0.8s ease-in-out
+    2;
+}
+
+.drag-complete-stars {
+  margin-top: 4px;
+
+  color: #f59e0b;
+
+  font-size: 28px;
+  letter-spacing: 8px;
+}
+
+.drag-complete-card h1 {
+  margin: 8px 0 6px;
+
+  color: #1d4ed8;
+
+  font-size:
+    clamp(42px, 6vh, 58px);
+}
+
+.drag-complete-message {
+  margin: 0 0 22px;
+
+  color: #475569;
+
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.drag-complete-steps {
+  display: grid;
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin: 0 auto 22px;
+}
+
+.drag-complete-steps div {
+  padding: 12px 8px;
+
+  border-radius: 16px;
+
+  background: white;
+
+  box-shadow:
+    0 5px 12px
+    rgba(0, 0, 0, 0.08);
+}
+
+.drag-complete-steps strong {
+  width: 36px;
+  height: 36px;
+
+  margin: 0 auto 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 18px;
+}
+
+.drag-complete-steps span {
+  color: #1e3a8a;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.drag-complete-footer {
+  color: #15803d;
+
+  font-size: 24px;
+  font-weight: 1000;
+}
+
+@keyframes drag-complete-pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes drag-complete-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+/* ========================================
+   Week 3 Step 9 - recap illustrations
+======================================== */
+
+.drag-complete-steps > div {
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drag-recap-picture {
+  position: relative;
+
+  width: 100px;
+  height: 62px;
+
+  margin: 2px auto 7px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* 1 - POINT */
+
+.recap-point .recap-star {
+  color: #2563eb;
+
+  font-size: 40px;
+}
+
+.recap-point .recap-pointer {
+  position: absolute;
+
+  left: 7px;
+  bottom: 3px;
+
+  color: #1f2937;
+
+  font-size: 35px;
+
+  transform: rotate(-20deg);
+}
+
+
+/* 2 + 3 - MINI MOUSE */
+
+.recap-mini-mouse {
+  position: relative;
+
+  width: 48px;
+  height: 58px;
+
+  display: block;
+
+  box-sizing: border-box;
+
+  border: 4px solid #334155;
+  border-radius: 22px 22px 25px 25px;
+
+  background: #e2e8f0;
+}
+
+.recap-mini-mouse::after {
+  content: "";
+
+  position: absolute;
+
+  left: -1px;
+  right: -1px;
+  top: 20px;
+
+  border-top: 3px solid #334155;
+}
+
+.recap-left-button {
+  position: absolute;
+
+  left: 2px;
+  top: 2px;
+
+  width: 19px;
+  height: 18px;
+
+  border-radius: 12px 2px 2px 2px;
+
+  background: #60a5fa;
+}
+
+.recap-finger {
+  position: absolute;
+
+  left: 24px;
+  top: -4px;
+
+  font-size: 34px;
+
+  transform: rotate(-12deg);
+}
+
+
+/* 3 - HOLD */
+
+.recap-hold .recap-left-button {
+  background: #2563eb;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(37, 99, 235, 0.20);
+}
+
+.recap-hold-ring {
+  position: absolute;
+
+  width: 65px;
+  height: 65px;
+
+  border: 4px solid #60a5fa;
+  border-radius: 50%;
+
+  animation:
+    recap-hold-pulse
+    1.3s ease-in-out
+    infinite;
+}
+
+
+/* 4 - MOVE */
+
+.recap-move span {
+  color: #2563eb;
+
+  font-size: 40px;
+}
+
+.recap-move b {
+  margin-left: 7px;
+
+  color: #3b82f6;
+
+  font-size: 37px;
+}
+
+
+/* 5 - LET GO */
+
+.recap-release {
+  align-items: flex-start;
+}
+
+.recap-release span {
+  position: absolute;
+
+  left: 35px;
+  top: 8px;
+
+  z-index: 2;
+
+  color: #2563eb;
+
+  font-size: 37px;
+}
+
+.recap-release i {
+  position: absolute;
+
+  left: 23px;
+  bottom: 0;
+
+  width: 58px;
+  height: 38px;
+
+  box-sizing: border-box;
+
+  border: 4px dashed #22c55e;
+  border-radius: 10px;
+
+  background: #dcfce7;
+}
+
+
+/* Keep labels aligned */
+
+.drag-complete-steps > div > span:last-child {
+  margin-top: auto;
+}
+
+
+@keyframes recap-hold-pulse {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+

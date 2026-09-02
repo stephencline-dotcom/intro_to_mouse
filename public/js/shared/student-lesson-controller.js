@@ -197,6 +197,11 @@
   let pressHoldNativeReleaseHandler = null;
   let pressHoldSuccessTimer = null;
 
+  let removeDragChallengeMoveListener = null;
+  let removeDragChallengeLeftDownListener = null;
+  let removeDragChallengeRightListener = null;
+  let dragChallengeNativeReleaseHandler = null;
+
   let removeDragDropMoveListener = null;
   let removeDragDropLeftDownListener = null;
   let removeDragDropRightListener = null;
@@ -217,6 +222,469 @@
   let removeHoldMoveLeftDownListener = null;
   let removeHoldMoveLeftUpListener = null;
   let removeHoldMoveRightListener = null;
+
+  function startDragCompleteBehavior() {
+    if (!soundEnabled) {
+      return;
+    }
+
+    const sound =
+      new Audio("/sounds/correct.mp3");
+
+    sound.preload = "auto";
+    sound.volume = 0.65;
+    sound.currentTime = 0;
+
+    sound.play().catch(() => {});
+  }
+
+  function startDragChallengeBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("dragChallengeArea");
+
+    const target =
+      document.getElementById("dragChallengeTarget");
+
+    const destination =
+      document.getElementById("dragChallengeDestination");
+
+    const pointer =
+      document.getElementById("dragChallengePointer");
+
+    const status =
+      document.getElementById("dragChallengeStatus");
+
+    const progress =
+      document.getElementById("dragChallengeProgress");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !destination ||
+      !pointer ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        object: "⭐",
+        scene: "night-sky",
+        destination: "🌙",
+        label: "NIGHT SKY",
+        objectLeft: 18,
+        objectTop: 30,
+        destinationLeft: 80,
+        destinationTop: 68
+      },
+      {
+        object: "🍎",
+        scene: "basket",
+        destination: "🧺",
+        label: "BASKET",
+        objectLeft: 20,
+        objectTop: 70,
+        destinationLeft: 78,
+        destinationTop: 28
+      },
+      {
+        object: "🐟",
+        scene: "fishbowl",
+        destination: "",
+        label: "FISHBOWL",
+        objectLeft: 25,
+        objectTop: 25,
+        destinationLeft: 76,
+        destinationTop: 72
+      },
+      {
+        object: "🧸",
+        scene: "toybox",
+        destination: "",
+        label: "TOY BOX",
+        objectLeft: 18,
+        objectTop: 72,
+        destinationLeft: 82,
+        destinationTop: 35
+      }
+    ];
+
+    let roundIndex = 0;
+    let dragging = false;
+    let finished = false;
+
+    function pointerOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    function targetInsideDestination() {
+      const targetRect =
+        target.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        targetRect.left +
+        targetRect.width / 2;
+
+      const centerY =
+        targetRect.top +
+        targetRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function clearReady() {
+      target.classList.remove(
+        "drag-challenge-target-ready"
+      );
+
+      destination.classList.remove(
+        "drag-challenge-destination-ready"
+      );
+    }
+
+    function loadRound() {
+      const round = rounds[roundIndex];
+
+      dragging = false;
+      clearReady();
+
+      target.className =
+        "drag-challenge-target";
+
+      destination.className =
+        "drag-challenge-destination";
+
+      target.textContent =
+        round.object;
+
+      destination.dataset.scene =
+        round.scene;
+
+      const destinationVisual =
+        round.scene === "fishbowl"
+          ? `
+              <div class="challenge-fishbowl">
+                <span class="challenge-fishbowl-water"></span>
+                <span class="challenge-bubble challenge-bubble-one"></span>
+                <span class="challenge-bubble challenge-bubble-two"></span>
+              </div>
+            `
+          : round.scene === "toybox"
+            ? `
+                <div class="challenge-toybox">
+                  <span class="challenge-toybox-lid"></span>
+                  <span class="challenge-toybox-body">
+                    <span>TOYS</span>
+                  </span>
+                </div>
+              `
+            : `
+                <div class="drag-challenge-destination-icon">
+                  ${round.destination}
+                </div>
+              `;
+
+      destination.innerHTML = `
+        ${destinationVisual}
+
+        <strong>
+          ${round.label}
+        </strong>
+      `;
+
+      target.style.left =
+        `${round.objectLeft}%`;
+
+      target.style.top =
+        `${round.objectTop}%`;
+
+      destination.style.left =
+        `${round.destinationLeft}%`;
+
+      destination.style.top =
+        `${round.destinationTop}%`;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        "Drag it to the matching place!";
+    }
+
+    function finishRound() {
+      dragging = false;
+
+      clearReady();
+
+      target.classList.remove(
+        "drag-challenge-target-held"
+      );
+
+      target.classList.add(
+        "drag-challenge-target-complete"
+      );
+
+      destination.classList.add(
+        "drag-challenge-destination-complete"
+      );
+
+      status.textContent =
+        "Great drag! ✓";
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio(
+            "/sounds/correct.mp3"
+          );
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        correctSound
+          .play()
+          .catch(() => {});
+      }
+
+      setTimeout(() => {
+        roundIndex += 1;
+
+        if (roundIndex >= rounds.length) {
+          finished = true;
+
+          progress.textContent =
+            "4 of 4 ✓";
+
+          status.textContent =
+            "Challenge complete!";
+
+          area.classList.add(
+            "drag-challenge-finished"
+          );
+
+          /*
+           * Remember that THIS student finished
+           * the Week 3 challenge.
+           *
+           * This mirrors the proven Week 1
+           * challenge-completion behavior.
+           */
+          if (!isTeacher) {
+            /*
+             * Do NOT render Step 9 directly here.
+             *
+             * Wait for the celebration, then set the
+             * completion flag and let syncLessonState()
+             * perform the one and only transition.
+             */
+            setTimeout(() => {
+              sessionStorage.setItem(
+                "handsOnMouseWeek3Complete",
+                "true"
+              );
+
+              syncLessonState();
+            }, 1500);
+          }
+
+          return;
+        }
+
+        loadRound();
+      }, 750);
+    }
+
+    function finishRelease() {
+      if (!dragging || finished) {
+        return;
+      }
+
+      if (targetInsideDestination()) {
+        finishRound();
+        return;
+      }
+
+      dragging = false;
+
+      target.classList.remove(
+        "drag-challenge-target-held"
+      );
+
+      clearReady();
+
+      const round = rounds[roundIndex];
+
+      target.style.left =
+        `${round.objectLeft}%`;
+
+      target.style.top =
+        `${round.objectTop}%`;
+
+      status.textContent =
+        "Almost! Try again.";
+    }
+
+    removeDragChallengeMoveListener =
+      input.subscribe("move", event => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!dragging) {
+          return;
+        }
+
+        target.style.left =
+          `${event.x - rect.left}px`;
+
+        target.style.top =
+          `${event.y - rect.top}px`;
+
+        if (targetInsideDestination()) {
+          target.classList.add(
+            "drag-challenge-target-ready"
+          );
+
+          destination.classList.add(
+            "drag-challenge-destination-ready"
+          );
+
+          status.textContent =
+            "LET GO!";
+        } else {
+          clearReady();
+
+          status.textContent =
+            "Keep holding...";
+        }
+      });
+
+    removeDragChallengeLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (finished || dragging) {
+          return;
+        }
+
+        if (!pointerOnTarget()) {
+          status.textContent =
+            "Click the object first.";
+
+          return;
+        }
+
+        dragging = true;
+
+        target.classList.add(
+          "drag-challenge-target-held"
+        );
+
+        status.textContent =
+          "Keep holding and move!";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime = 0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    removeDragChallengeRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        dragging = false;
+
+        clearReady();
+
+        target.classList.remove(
+          "drag-challenge-target-held"
+        );
+
+        const round = rounds[roundIndex];
+
+        target.style.left =
+          `${round.objectLeft}%`;
+
+        target.style.top =
+          `${round.objectTop}%`;
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    dragChallengeNativeReleaseHandler =
+      event => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishRelease();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      dragChallengeNativeReleaseHandler,
+      true
+    );
+
+    loadRound();
+  }
 
   function startDragDropBehavior() {
     const input = window.HandsOnMouseInput;
@@ -4777,6 +5245,169 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "drag-complete") {
+      return `
+        <div class="lesson-screen lesson-screen-drag-complete">
+
+          <div class="drag-complete-card">
+
+            <div class="drag-complete-trophy">
+              🏆
+            </div>
+
+            <div class="drag-complete-stars">
+              ✦ ★ ✦
+            </div>
+
+            <h1>Dragging Master!</h1>
+
+            <p class="drag-complete-message">
+              You learned how to click and drag!
+            </p>
+
+            <div class="drag-complete-steps">
+
+              <div>
+                <strong>1</strong>
+
+                <div class="drag-recap-picture recap-point">
+                  <span class="recap-star">★</span>
+                  <span class="recap-pointer">➤</span>
+                </div>
+
+                <span>POINT</span>
+              </div>
+
+              <div>
+                <strong>2</strong>
+
+                <div class="drag-recap-picture recap-press">
+                  <span class="recap-mini-mouse">
+                    <i class="recap-left-button"></i>
+                  </span>
+                  <span class="recap-finger">☝</span>
+                </div>
+
+                <span>PRESS</span>
+              </div>
+
+              <div>
+                <strong>3</strong>
+
+                <div class="drag-recap-picture recap-hold">
+                  <span class="recap-mini-mouse">
+                    <i class="recap-left-button"></i>
+                  </span>
+                  <span class="recap-hold-ring"></span>
+                </div>
+
+                <span>HOLD</span>
+              </div>
+
+              <div>
+                <strong>4</strong>
+
+                <div class="drag-recap-picture recap-move">
+                  <span>★</span>
+                  <b>→</b>
+                </div>
+
+                <span>MOVE</span>
+              </div>
+
+              <div>
+                <strong>5</strong>
+
+                <div class="drag-recap-picture recap-release">
+                  <span>★</span>
+                  <i></i>
+                </div>
+
+                <span>LET GO</span>
+              </div>
+
+            </div>
+
+            <div class="drag-complete-footer">
+              Great work!
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "drag-challenge") {
+      return `
+        <div class="lesson-screen lesson-screen-drag-challenge">
+
+          <div class="drag-challenge-heading">
+
+            <span class="drag-review-badge">
+              CHALLENGE
+            </span>
+
+            <h1>Click & Drag Challenge</h1>
+
+            <p>
+              Show what you can do!
+            </p>
+
+          </div>
+
+          <div class="drag-challenge-progress">
+            Round
+            <strong id="dragChallengeProgress">
+              1 of 4
+            </strong>
+          </div>
+
+          <div
+            id="dragChallengeArea"
+            class="drag-challenge-area"
+          >
+
+            <div
+              id="dragChallengeTarget"
+              class="drag-challenge-target"
+            >
+              ⭐
+            </div>
+
+            <div
+              id="dragChallengeDestination"
+              class="drag-challenge-destination"
+            >
+              <div class="drag-challenge-destination-icon">
+                🌙
+              </div>
+
+              <strong>
+                NIGHT SKY
+              </strong>
+            </div>
+
+            <div
+              id="dragChallengePointer"
+              class="drag-challenge-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="dragChallengeStatus"
+              class="drag-challenge-status"
+            >
+              Drag it to the matching place!
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "drag-and-drop") {
       return `
         <div class="lesson-screen lesson-screen-drag-drop">
@@ -6415,6 +7046,32 @@
 
 
   function stopStepBehavior() {
+
+    if (removeDragChallengeMoveListener) {
+      removeDragChallengeMoveListener();
+      removeDragChallengeMoveListener = null;
+    }
+
+    if (removeDragChallengeLeftDownListener) {
+      removeDragChallengeLeftDownListener();
+      removeDragChallengeLeftDownListener = null;
+    }
+
+    if (removeDragChallengeRightListener) {
+      removeDragChallengeRightListener();
+      removeDragChallengeRightListener = null;
+    }
+
+    if (dragChallengeNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        dragChallengeNativeReleaseHandler,
+        true
+      );
+
+      dragChallengeNativeReleaseHandler = null;
+    }
+
 
     if (removeDragDropMoveListener) {
       removeDragDropMoveListener();
@@ -8070,6 +8727,14 @@
       startDragDropBehavior();
     }
 
+    if (step.id === "drag-challenge") {
+      startDragChallengeBehavior();
+    }
+
+    if (step.id === "drag-complete") {
+      startDragCompleteBehavior();
+    }
+
     if (
       step.id === "meet-the-mouse" ||
       step.id === "move-the-mouse"
@@ -8296,10 +8961,89 @@
             }
           }
 
+        } else if (requestedLessonId === "week3") {
+
+          /*
+           * Week 3 mirrors Week 1:
+           *
+           * A student who completes the Drag Challenge
+           * may move to Dragging Master while the teacher
+           * remains on the challenge screen.
+           */
+          const week3Complete =
+            sessionStorage.getItem(
+              "handsOnMouseWeek3Complete"
+            ) === "true";
+
+          const challengeStep =
+            lesson.steps.findIndex(
+              step =>
+                step.id === "drag-challenge"
+            );
+
+          const completeStep =
+            lesson.steps.findIndex(
+              step =>
+                step.id === "drag-complete"
+            );
+
+          if (
+            week3Complete &&
+            sharedStep === challengeStep
+          ) {
+            if (
+              currentMode !== "student-complete" ||
+              lessonChanged ||
+              currentDisplayedStep !== completeStep
+            ) {
+              currentMode =
+                "student-complete";
+
+              currentDisplayedLessonId =
+                requestedLessonId;
+
+              renderStep(
+                completeStep,
+                "teacher"
+              );
+            }
+          } else {
+
+            /*
+             * If the teacher moves backward before
+             * the challenge, reset the student's
+             * completion flag for a fresh run.
+             */
+            if (
+              week3Complete &&
+              sharedStep < challengeStep
+            ) {
+              sessionStorage.removeItem(
+                "handsOnMouseWeek3Complete"
+              );
+            }
+
+            if (
+              currentMode !== "teacher" ||
+              lessonChanged ||
+              currentDisplayedStep !== sharedStep
+            ) {
+              currentMode = "teacher";
+
+              currentDisplayedLessonId =
+                requestedLessonId;
+
+              renderStep(
+                sharedStep,
+                "teacher"
+              );
+            }
+          }
+
         } else {
           /*
-           * Review and future lessons simply follow the
-           * teacher's currently selected lesson/step.
+           * Other teacher-led lessons simply follow
+           * the teacher's currently selected step.
            */
           if (
             currentMode !== "teacher" ||
