@@ -197,10 +197,319 @@
   let pressHoldNativeReleaseHandler = null;
   let pressHoldSuccessTimer = null;
 
+  let removeLetGoMoveListener = null;
+  let removeLetGoLeftDownListener = null;
+  let removeLetGoLeftUpListener = null;
+  let removeLetGoRightListener = null;
+  let letGoNativeReleaseHandler = null;
+
   let removeHoldMoveMoveListener = null;
   let removeHoldMoveLeftDownListener = null;
   let removeHoldMoveLeftUpListener = null;
   let removeHoldMoveRightListener = null;
+
+  function startLetGoBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area = document.getElementById("letGoArea");
+    const target = document.getElementById("letGoTarget");
+    const destination = document.getElementById("letGoDestination");
+    const pointer = document.getElementById("letGoPointer");
+    const finger = document.getElementById("letGoFinger");
+    const leftButton = document.getElementById("letGoLeftButton");
+    const status = document.getElementById("letGoStatus");
+    const handMessage = document.getElementById("letGoHandMessage");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !destination ||
+      !pointer ||
+      !finger ||
+      !leftButton ||
+      !status ||
+      !handMessage
+    ) {
+      return;
+    }
+
+    let dragging = false;
+    let completed = false;
+
+    function pointerOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    function targetInsideDestination() {
+      const targetRect =
+        target.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        targetRect.left +
+        targetRect.width / 2;
+
+      const centerY =
+        targetRect.top +
+        targetRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function pressHand() {
+      finger.classList.add(
+        "let-go-finger-down"
+      );
+
+      leftButton.classList.add(
+        "let-go-button-down"
+      );
+    }
+
+    function releaseHand() {
+      finger.classList.remove(
+        "let-go-finger-down"
+      );
+
+      leftButton.classList.remove(
+        "let-go-button-down"
+      );
+    }
+
+    function resetStar() {
+      target.style.left = "18%";
+      target.style.top = "50%";
+
+      target.classList.remove(
+        "let-go-target-held",
+        "let-go-target-ready"
+      );
+
+      destination.classList.remove(
+        "let-go-destination-ready"
+      );
+    }
+
+    function finishRelease() {
+      if (!dragging || completed) {
+        return;
+      }
+
+      dragging = false;
+      releaseHand();
+
+      target.classList.remove(
+        "let-go-target-held"
+      );
+
+      if (targetInsideDestination()) {
+        completed = true;
+
+        target.classList.add(
+          "let-go-complete"
+        );
+
+        destination.classList.add(
+          "let-go-destination-complete"
+        );
+
+        status.textContent =
+          "Perfect! You let go in the box! ✓";
+
+        handMessage.textContent =
+          "Great! Your pointer finger came UP.";
+
+        /*
+         * Success sound happens ONLY after the
+         * physical left mouse button is released
+         * inside the destination.
+         */
+        if (soundEnabled) {
+          const correctSound =
+            new Audio("/sounds/correct.mp3");
+
+          correctSound.preload = "auto";
+          correctSound.volume = 0.6;
+          correctSound.currentTime = 0;
+
+          correctSound
+            .play()
+            .catch(() => {});
+        }
+
+        return;
+      }
+
+      status.textContent =
+        "Let go inside the green box.";
+
+      handMessage.textContent =
+        "Hold all the way to the box.";
+
+      resetStar();
+    }
+
+    removeLetGoMoveListener =
+      input.subscribe("move", (event) => {
+        if (completed) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!dragging) {
+          return;
+        }
+
+        target.style.left =
+          `${event.x - rect.left}px`;
+
+        target.style.top =
+          `${event.y - rect.top}px`;
+
+        if (targetInsideDestination()) {
+          target.classList.add(
+            "let-go-target-ready"
+          );
+
+          destination.classList.add(
+            "let-go-destination-ready"
+          );
+
+          status.textContent =
+            "You're there — LET GO!";
+
+          handMessage.textContent =
+            "Now lift your pointer finger!";
+        } else {
+          target.classList.remove(
+            "let-go-target-ready"
+          );
+
+          destination.classList.remove(
+            "let-go-destination-ready"
+          );
+
+          status.textContent =
+            "Keep holding and move to the box.";
+
+          handMessage.textContent =
+            "Keep your pointer finger DOWN.";
+        }
+      });
+
+    removeLetGoRightListener =
+      input.subscribe("rightDown", () => {
+        if (completed) {
+          return;
+        }
+
+        dragging = false;
+        releaseHand();
+        resetStar();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    removeLetGoLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (completed) {
+          return;
+        }
+
+        if (!pointerOnTarget()) {
+          status.textContent =
+            "Move onto the star first.";
+          return;
+        }
+
+        dragging = true;
+        pressHand();
+
+        target.classList.add(
+          "let-go-target-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — move to the box.";
+
+        handMessage.textContent =
+          "Keep your pointer finger DOWN.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio("/sounds/mouseclick.mp3");
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime = 0.12;
+          leftClickSound.play().catch(() => {});
+        }
+      });
+
+    letGoNativeReleaseHandler =
+      (event) => {
+        /*
+         * Step 5 completes ONLY when the student
+         * physically releases the real LEFT button.
+         */
+        if (event.button !== 0) {
+          return;
+        }
+
+        if (!dragging || completed) {
+          return;
+        }
+
+        finishRelease();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      letGoNativeReleaseHandler,
+      true
+    );
+  }
 
   function startHoldMoveBehavior() {
     const input = window.HandsOnMouseInput;
@@ -3632,6 +3941,112 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "let-go") {
+      return `
+        <div class="lesson-screen lesson-screen-let-go">
+
+          <div class="let-go-heading">
+            <span class="drag-review-badge">
+              PRACTICE
+            </span>
+
+            <h1>Let Go</h1>
+
+            <p>
+              Drag the star into the box, then LET GO.
+            </p>
+          </div>
+
+          <div class="let-go-layout">
+
+            <div class="let-go-hand-side">
+
+              <div
+                id="letGoHandMessage"
+                class="let-go-hand-message"
+              >
+                Keep holding until you reach the box.
+              </div>
+
+              <div class="hold-mouse-visual let-go-hand-visual">
+
+                <div
+                  class="mouse-demo-hand hold-mouse-hand let-go-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    id="letGoFinger"
+                    class="mouse-demo-finger mouse-demo-index"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-middle"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-pinky"
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+                  <div
+                    id="letGoLeftButton"
+                    class="mouse-demo-left"
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="let-go-practice-side">
+
+              <div
+                id="letGoArea"
+                class="let-go-area"
+              >
+
+                <div
+                  id="letGoTarget"
+                  class="let-go-target"
+                >
+                  ★
+                </div>
+
+                <div
+                  id="letGoDestination"
+                  class="let-go-destination"
+                >
+                  DROP HERE
+                </div>
+
+                <div
+                  id="letGoPointer"
+                  class="let-go-pointer"
+                >
+                  ➤
+                </div>
+
+                <div
+                  id="letGoStatus"
+                  class="let-go-status"
+                >
+                  Move to the star.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "hold-and-move") {
       return `
         <div class="lesson-screen lesson-screen-hold-move">
@@ -4869,6 +5284,37 @@
 
 
   function stopStepBehavior() {
+
+    if (removeLetGoMoveListener) {
+      removeLetGoMoveListener();
+      removeLetGoMoveListener = null;
+    }
+
+    if (removeLetGoLeftDownListener) {
+      removeLetGoLeftDownListener();
+      removeLetGoLeftDownListener = null;
+    }
+
+    if (removeLetGoLeftUpListener) {
+      removeLetGoLeftUpListener();
+      removeLetGoLeftUpListener = null;
+    }
+
+    if (removeLetGoRightListener) {
+      removeLetGoRightListener();
+      removeLetGoRightListener = null;
+    }
+
+    if (letGoNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        letGoNativeReleaseHandler,
+        true
+      );
+
+      letGoNativeReleaseHandler = null;
+    }
+
     stopWeek3DemoSounds();
 
     stopDragQuickReviewAnimation();
@@ -6427,6 +6873,10 @@
 
     if (step.id === "hold-and-move") {
       startHoldMoveBehavior();
+    }
+
+    if (step.id === "let-go") {
+      startLetGoBehavior();
     }
 
     if (

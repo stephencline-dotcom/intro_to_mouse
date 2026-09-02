@@ -6788,3 +6788,407 @@ body:has(#globalFreezeButton) .lesson-screen {
     translateX(-100px)
     translateY(-32px) !important;
 }
+
+/* ========================================
+   Week 3 Step 5: Let Go
+======================================== */
+
+.lesson-screen-let-go {
+  padding: 14px 24px 18px;
+}
+
+.let-go-heading {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.let-go-heading h1 {
+  margin: 0 0 4px;
+  font-size: clamp(34px, 5vh, 46px);
+}
+
+.let-go-heading p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.let-go-layout {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns:
+    minmax(290px, 0.8fr)
+    minmax(0, 1.2fr);
+
+  gap: 24px;
+  align-items: center;
+}
+
+.let-go-hand-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.let-go-hand-message {
+  width: min(310px, 94%);
+
+  margin-bottom: 5px;
+  padding: 7px 10px;
+
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.let-go-hand-visual {
+  position: relative;
+
+  width: 280px;
+  height: 330px;
+
+  transform: scale(0.62);
+  transform-origin: center;
+}
+
+.let-go-practice-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.let-go-area {
+  position: relative;
+
+  width: 100%;
+  max-width: 680px;
+  height: 285px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+  cursor: none;
+}
+
+.let-go-target {
+  position: absolute;
+
+  left: 18%;
+  top: 50%;
+
+  z-index: 6;
+
+  width: 115px;
+  height: 115px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #2563eb;
+  border-radius: 20px;
+
+  background: #dbeafe;
+  color: #2563eb;
+
+  font-size: 58px;
+}
+
+.let-go-destination {
+  position: absolute;
+
+  left: 80%;
+  top: 50%;
+
+  width: 160px;
+  height: 150px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px dashed #22c55e;
+  border-radius: 20px;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.let-go-pointer {
+  position: absolute;
+
+  left: 5%;
+  top: 68%;
+
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.let-go-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10px;
+
+  transform: translateX(-50%);
+
+  width: 90%;
+
+  text-align: center;
+
+  font-size: 18px;
+  font-weight: 900;
+
+  color: #334155;
+}
+
+.let-go-target-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.06);
+}
+
+.let-go-target-ready {
+  border-color: #16a34a;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(34, 197, 94, 0.18);
+}
+
+.let-go-destination-ready {
+  background: #bbf7d0;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(34, 197, 94, 0.16);
+}
+
+.let-go-complete {
+  border-color: #16a34a !important;
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.let-go-destination-complete {
+  border-style: solid;
+  background: #bbf7d0;
+}
+
+/* Match the hand geometry from Steps 3 and 4 */
+
+.lesson-screen-let-go
+.let-go-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+
+  border-radius:
+    68px 68px 76px 76px !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform:
+    rotate(-3deg) !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand
+.mouse-demo-middle {
+  left: auto !important;
+  right: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform:
+    rotate(3deg) !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand::before {
+  top: 76px !important;
+  left: -2px !important;
+  right: auto !important;
+
+  width: 36px !important;
+  height: 96px !important;
+
+  transform:
+    rotate(-24deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand::after {
+  top: 64px !important;
+  right: 3px !important;
+  left: auto !important;
+
+  width: 34px !important;
+  height: 100px !important;
+
+  transform:
+    rotate(16deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand
+.mouse-demo-pinky {
+  top: 84px !important;
+  right: -12px !important;
+  left: auto !important;
+
+  width: 28px !important;
+  height: 84px !important;
+
+  transform:
+    rotate(20deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+.lesson-screen-let-go
+.let-go-hand-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+/* Keep finger visibly held until release */
+
+.let-go-finger-down {
+  transform:
+    translateY(9px)
+    rotate(-3deg) !important;
+
+  background: #60a5fa !important;
+}
+
+.let-go-button-down {
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+
+  background: #3b82f6 !important;
+}
+
+
+
+/* ========================================
+   Week 3 Step 5 - ready is NOT success
+======================================== */
+
+/*
+ * While the student is still HOLDING inside
+ * the destination, use yellow.
+ * Green is reserved for actual release success.
+ */
+
+.lesson-screen-let-go
+.let-go-target-ready {
+  border-color: #f59e0b !important;
+
+  background: #fef3c7 !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(245, 158, 11, 0.20) !important;
+}
+
+.lesson-screen-let-go
+.let-go-destination-ready {
+  border-color: #f59e0b !important;
+
+  background: #fef3c7 !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(245, 158, 11, 0.18) !important;
+}
+
+/*
+ * ONLY the completed state is green.
+ */
+.lesson-screen-let-go
+.let-go-complete {
+  border-color: #16a34a !important;
+
+  background: #dcfce7 !important;
+  color: #15803d !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(34, 197, 94, 0.20) !important;
+}
+
+.lesson-screen-let-go
+.let-go-destination-complete {
+  border-color: #16a34a !important;
+  border-style: solid !important;
+
+  background: #bbf7d0 !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(34, 197, 94, 0.18) !important;
+}
