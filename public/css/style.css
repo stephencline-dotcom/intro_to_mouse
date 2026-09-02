@@ -7192,3 +7192,1259 @@ body:has(#globalFreezeButton) .lesson-screen {
     0 0 0 8px
     rgba(34, 197, 94, 0.18) !important;
 }
+
+
+/* ========================================
+   Week 3 Step 6: Drag Practice
+======================================== */
+
+.lesson-screen-drag-practice {
+  padding: 14px 24px 18px;
+}
+
+.drag-practice-heading {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.drag-practice-heading h1 {
+  margin: 0 0 4px;
+  font-size: clamp(34px, 5vh, 46px);
+}
+
+.drag-practice-heading p {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.drag-practice-layout {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+  grid-template-columns:
+    minmax(290px, 0.8fr)
+    minmax(0, 1.2fr);
+
+  gap: 24px;
+  align-items: center;
+}
+
+.drag-practice-hand-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.drag-practice-hand-message {
+  width: min(315px, 94%);
+
+  margin-bottom: 5px;
+  padding: 7px 10px;
+
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.drag-practice-hand-visual {
+  position: relative;
+
+  width: 280px;
+  height: 330px;
+
+  transform: scale(0.62);
+  transform-origin: center;
+}
+
+.drag-practice-side {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drag-practice-progress {
+  margin-bottom: 5px;
+
+  font-size: 16px;
+  font-weight: 800;
+  color: #475569;
+}
+
+.drag-practice-progress strong {
+  color: #2563eb;
+}
+
+.drag-practice-area {
+  position: relative;
+
+  width: 100%;
+  max-width: 680px;
+  height: 285px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+  cursor: none;
+}
+
+.drag-practice-target {
+  position: absolute;
+
+  left: 18%;
+  top: 50%;
+
+  z-index: 6;
+
+  width: 115px;
+  height: 115px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #2563eb;
+  border-radius: 20px;
+
+  background: #dbeafe;
+
+  font-size: 58px;
+}
+
+.drag-practice-destination {
+  position: absolute;
+
+  left: 80%;
+  top: 50%;
+
+  width: 165px;
+  height: 150px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  border: 5px dashed #22c55e;
+  border-radius: 20px;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.drag-practice-destination-icon {
+  font-size: 50px;
+  line-height: 1;
+}
+
+.drag-practice-pointer {
+  position: absolute;
+
+  left: 5%;
+  top: 68%;
+
+  z-index: 10;
+
+  font-size: 68px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.drag-practice-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10px;
+
+  transform: translateX(-50%);
+
+  width: 90%;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+
+  color: #334155;
+}
+
+.drag-practice-target-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.06);
+}
+
+/* Yellow means ready to release, not success */
+
+.drag-practice-target-ready {
+  border-color: #f59e0b !important;
+  background: #fef3c7 !important;
+}
+
+.drag-practice-destination-ready {
+  border-color: #f59e0b !important;
+  background: #fef3c7 !important;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(245, 158, 11, 0.18);
+}
+
+/* Green only after physical release */
+
+.drag-practice-target-complete {
+  border-color: #16a34a !important;
+  background: #dcfce7 !important;
+}
+
+.drag-practice-destination-complete {
+  border-color: #16a34a !important;
+  border-style: solid !important;
+  background: #bbf7d0 !important;
+}
+
+/* Same hand geometry as Steps 3-5 */
+
+.lesson-screen-drag-practice
+.drag-practice-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+
+  border-radius:
+    68px 68px 76px 76px !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform: rotate(-3deg) !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand
+.mouse-demo-middle {
+  left: auto !important;
+  right: 47px !important;
+  top: 10px !important;
+
+  width: 38px !important;
+  height: 112px !important;
+
+  transform: rotate(3deg) !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand::before {
+  top: 76px !important;
+  left: -2px !important;
+
+  width: 36px !important;
+  height: 96px !important;
+
+  transform:
+    rotate(-24deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand::after {
+  top: 64px !important;
+  right: 3px !important;
+
+  width: 34px !important;
+  height: 100px !important;
+
+  transform:
+    rotate(16deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand
+.mouse-demo-pinky {
+  top: 84px !important;
+  right: -12px !important;
+
+  width: 28px !important;
+  height: 84px !important;
+
+  transform:
+    rotate(20deg) !important;
+
+  transform-origin:
+    bottom center !important;
+}
+
+.lesson-screen-drag-practice
+.drag-practice-hand-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+.drag-practice-finger-down {
+  transform:
+    translateY(9px)
+    rotate(-3deg) !important;
+
+  background: #60a5fa !important;
+}
+
+.drag-practice-button-down {
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+
+  background: #3b82f6 !important;
+}
+
+/* ========================================
+   Week 3 Step 6 - visual destinations
+======================================== */
+
+.drag-practice-destination {
+  overflow: hidden;
+}
+
+.drag-practice-destination-icon {
+  position: relative;
+
+  width: 100%;
+  height: 100px;
+
+  display: block;
+
+  font-size: 0;
+}
+
+/* ---------- STAR -> SKY ---------- */
+
+.drag-practice-destination[data-scene="sky"] {
+  border-color: #60a5fa;
+
+  background:
+    linear-gradient(
+      #7dd3fc 0%,
+      #bae6fd 68%,
+      #e0f2fe 100%
+    );
+
+  color: #075985;
+}
+
+.drag-sky-sun {
+  position: absolute;
+
+  right: 8px;
+  top: 2px;
+
+  font-size: 36px;
+  line-height: 1;
+}
+
+.drag-sky-cloud {
+  position: absolute;
+
+  color: white;
+
+  font-size: 39px;
+  line-height: 1;
+
+  text-shadow:
+    0 2px 2px
+    rgba(0, 0, 0, 0.08);
+}
+
+.drag-cloud-one {
+  left: 5px;
+  top: 17px;
+}
+
+.drag-cloud-two {
+  right: 22px;
+  bottom: 4px;
+
+  font-size: 31px;
+}
+
+
+/* ---------- APPLE -> BASKET ---------- */
+
+.drag-practice-destination[data-scene="basket"] {
+  border-color: #b45309;
+
+  background: #fef3c7;
+
+  color: #92400e;
+}
+
+.drag-basket-handle {
+  position: absolute;
+
+  left: 50%;
+  top: 4px;
+
+  width: 84px;
+  height: 55px;
+
+  transform: translateX(-50%);
+
+  border: 8px solid #92400e;
+  border-bottom: 0;
+  border-radius:
+    50px 50px 0 0;
+}
+
+.drag-basket-body {
+  position: absolute;
+
+  left: 50%;
+  bottom: 4px;
+
+  width: 112px;
+  height: 66px;
+
+  transform: translateX(-50%);
+
+  border: 5px solid #92400e;
+  border-radius:
+    8px 8px 24px 24px;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #d97706 0 12px,
+      #f59e0b 12px 22px
+    );
+}
+
+
+/* ---------- FISH -> FISHBOWL ---------- */
+
+.drag-practice-destination[data-scene="fishbowl"] {
+  border-color: #38bdf8;
+
+  background: #f0f9ff;
+
+  color: #0369a1;
+}
+
+.drag-practice-destination[data-scene="fishbowl"]
+.drag-practice-destination-icon {
+  width: 125px;
+  height: 95px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border:
+    5px solid #7dd3fc;
+  border-top:
+    7px solid #38bdf8;
+
+  border-radius:
+    12px 12px 52px 52px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0 24%,
+      #bae6fd 24% 100%
+    );
+}
+
+.drag-fishbowl-water {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 70%;
+
+  background:
+    linear-gradient(
+      #7dd3fc,
+      #38bdf8
+    );
+
+  opacity: 0.55;
+}
+
+.drag-fishbowl-bubble {
+  position: absolute;
+
+  z-index: 2;
+
+  width: 8px;
+  height: 8px;
+
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.drag-fishbowl-bubble.bubble-one {
+  left: 27px;
+  top: 43px;
+}
+
+.drag-fishbowl-bubble.bubble-two {
+  right: 25px;
+  top: 57px;
+
+  width: 6px;
+  height: 6px;
+}
+
+.drag-fishbowl-plant {
+  position: absolute;
+
+  z-index: 2;
+
+  left: 49px;
+  bottom: 0;
+
+  color: #15803d;
+
+  font-size: 30px;
+}
+
+
+/* Ready state stays yellow rather than looking completed */
+
+.drag-practice-destination-ready {
+  outline:
+    6px solid
+    rgba(245, 158, 11, 0.28);
+}
+
+/* Completed destination becomes clearly green */
+
+.drag-practice-destination-complete {
+  outline:
+    7px solid
+    rgba(34, 197, 94, 0.25);
+}
+
+
+/* ========================================
+   Week 3 Step 6 - night sky + clean fishbowl
+======================================== */
+
+/* STAR -> NIGHT SKY */
+.drag-practice-destination[data-scene="sky"] {
+  border-color: #6366f1 !important;
+
+  background:
+    linear-gradient(
+      #172554 0%,
+      #1e3a8a 55%,
+      #312e81 100%
+    ) !important;
+
+  color: white !important;
+}
+
+/* Turn the existing sun into a moon */
+.drag-practice-destination[data-scene="sky"]
+.drag-sky-sun {
+  font-size: 0;
+}
+
+.drag-practice-destination[data-scene="sky"]
+.drag-sky-sun::after {
+  content: "☾";
+
+  font-size: 42px;
+  line-height: 1;
+
+  color: #fef3c7;
+}
+
+/* Clouds become softer nighttime clouds */
+.drag-practice-destination[data-scene="sky"]
+.drag-sky-cloud {
+  color: #dbeafe;
+
+  opacity: 0.85;
+}
+
+/* Add little stars throughout the sky */
+.drag-practice-destination[data-scene="sky"]
+.drag-practice-destination-icon::after {
+  content: "✦  ·  ✧   ·  ✦";
+
+  position: absolute;
+
+  left: 16px;
+  top: 5px;
+
+  color: #fef9c3;
+
+  font-size: 19px;
+  letter-spacing: 7px;
+}
+
+
+/* FISH -> FISHBOWL */
+
+/* Remove the purple Aquarius/plant symbol */
+.drag-practice-destination[data-scene="fishbowl"]
+.drag-fishbowl-plant {
+  display: none !important;
+}
+
+
+
+/* ========================================
+   Week 3 Step 7: Drag & Drop
+======================================== */
+
+.lesson-screen-drag-drop {
+  padding: 12px 22px 16px;
+}
+
+.drag-drop-heading {
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.drag-drop-heading h1 {
+  margin: 0 0 3px;
+
+  font-size:
+    clamp(32px, 4.7vh, 44px);
+}
+
+.drag-drop-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.drag-drop-progress {
+  margin: 5px 0;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.drag-drop-progress strong {
+  color: #2563eb;
+}
+
+.drag-drop-area {
+  position: relative;
+
+  width: min(100%, 1000px);
+  height: 400px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+
+/* ---------- Objects ---------- */
+
+.drag-drop-object {
+  position: absolute;
+
+  z-index: 10;
+
+  width: 86px;
+  height: 86px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #60a5fa;
+  border-radius: 18px;
+
+  background: white;
+
+  font-size: 48px;
+
+  box-shadow:
+    0 6px 13px
+    rgba(0, 0, 0, 0.12);
+}
+
+.drag-drop-object-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.07);
+
+  border-color: #2563eb;
+}
+
+.drag-drop-object-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+}
+
+.drag-drop-object-complete {
+  z-index: 30;
+
+  border-color: #16a34a;
+
+  background: #dcfce7;
+
+  pointer-events: none;
+}
+
+
+/* ---------- Destinations ---------- */
+
+.drag-drop-destination {
+  position: absolute;
+
+  right: 6%;
+
+  width: 185px;
+  height: 105px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  transform: translateY(-50%);
+
+  border: 4px dashed #94a3b8;
+  border-radius: 18px;
+
+  background: white;
+
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.drag-drop-destination strong {
+  position: relative;
+  z-index: 3;
+}
+
+.drag-drop-pencil-cup {
+  top: 25%;
+}
+
+.drag-drop-bookshelf {
+  top: 50%;
+}
+
+.drag-drop-toybox {
+  top: 75%;
+}
+
+
+/* Pencil cup */
+
+.drag-pencil-cup {
+  position: relative;
+
+  width: 62px;
+  height: 55px;
+
+  border: 4px solid #2563eb;
+  border-radius: 6px 6px 15px 15px;
+
+  background: #bfdbfe;
+}
+
+.drag-pencil-cup span {
+  position: absolute;
+
+  bottom: 35px;
+
+  width: 6px;
+  height: 42px;
+
+  border-radius: 3px;
+
+  background: #f59e0b;
+}
+
+.drag-pencil-cup span:nth-child(1) {
+  left: 12px;
+  transform: rotate(-7deg);
+}
+
+.drag-pencil-cup span:nth-child(2) {
+  left: 27px;
+}
+
+.drag-pencil-cup span:nth-child(3) {
+  right: 10px;
+  transform: rotate(7deg);
+}
+
+
+/* Bookshelf */
+
+.drag-bookshelf {
+  width: 95px;
+  height: 52px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  gap: 4px;
+
+  border-bottom:
+    7px solid #92400e;
+}
+
+.drag-bookshelf span {
+  width: 19px;
+
+  border-radius: 3px 3px 0 0;
+}
+
+.drag-bookshelf span:nth-child(1) {
+  height: 41px;
+  background: #ef4444;
+}
+
+.drag-bookshelf span:nth-child(2) {
+  height: 48px;
+  background: #3b82f6;
+}
+
+.drag-bookshelf span:nth-child(3) {
+  height: 36px;
+  background: #22c55e;
+}
+
+
+/* Toy box */
+
+.drag-toybox {
+  width: 105px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #b45309;
+  border-radius: 5px 5px 15px 15px;
+
+  background: #f59e0b;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+
+/* ---------- Ready vs complete ---------- */
+
+.drag-drop-destination-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(245, 158, 11, 0.18);
+}
+
+.drag-drop-destination-complete {
+  border-color: #16a34a;
+  border-style: solid;
+
+  background: #dcfce7;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(34, 197, 94, 0.14);
+}
+
+
+/* ---------- Pointer ---------- */
+
+.drag-drop-pointer {
+  position: absolute;
+
+  left: 3%;
+  top: 88%;
+
+  z-index: 50;
+
+  font-size: 62px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.drag-drop-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 8px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 60;
+
+  width: 60%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+
+/* ========================================
+   Week 3 Step 7 - completed objects stay out of the way
+======================================== */
+
+/*
+ * Once an object has been successfully dropped,
+ * make it a small completed badge instead of
+ * covering the destination picture.
+ */
+.lesson-screen-drag-drop
+.drag-drop-object-complete {
+  width: 42px !important;
+  height: 42px !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1) !important;
+
+  border: 3px solid #16a34a !important;
+  border-radius: 50% !important;
+
+  background: #dcfce7 !important;
+
+  font-size: 25px !important;
+
+  box-shadow:
+    0 3px 8px
+    rgba(0, 0, 0, 0.12) !important;
+
+  z-index: 25 !important;
+}
+
+/*
+ * Put the completed badge in the upper-right
+ * portion of its destination instead of directly
+ * over the destination picture.
+ */
+.lesson-screen-drag-drop
+.drag-drop-destination-complete {
+  position: absolute;
+}
+
+/* Keep destination artwork clearly visible */
+.lesson-screen-drag-drop
+.drag-drop-destination-complete
+> div {
+  position: relative;
+  z-index: 5;
+}
+
+/* Completed destination remains green but unobstructed */
+.lesson-screen-drag-drop
+.drag-drop-destination-complete {
+  background: #dcfce7 !important;
+
+  border-color: #16a34a !important;
+  border-style: solid !important;
+}
+
+/* ========================================
+   Week 3 Step 7 - small hand reference
+======================================== */
+
+.lesson-screen-drag-drop
+.drag-drop-corner-reference {
+  position: absolute;
+
+  left: 10px;
+  bottom: 8px;
+
+  z-index: 20;
+
+  width: 105px;
+  height: 115px;
+
+  pointer-events: none;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-label {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform: translateX(-50%);
+
+  width: 105px;
+
+  text-align: center;
+
+  color: #1d4ed8;
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-visual {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 280px;
+  height: 330px;
+
+  transform:
+    translateX(-50%)
+    scale(0.28);
+
+  transform-origin: top center;
+}
+
+/* Use the same good hand geometry */
+.lesson-screen-drag-drop
+.drag-drop-reference-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 19px !important;
+
+  width: 38px !important;
+  height: 103px !important;
+
+  transform:
+    rotate(-3deg) !important;
+
+  background: #60a5fa !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-hand
+.mouse-demo-middle {
+  left: auto !important;
+  right: 47px !important;
+  top: 10px !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-hand::before {
+  top: 76px !important;
+  left: -2px !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-hand::after {
+  top: 64px !important;
+  right: 3px !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-hand
+.mouse-demo-pinky {
+  top: 84px !important;
+  right: -12px !important;
+}
+
+.lesson-screen-drag-drop
+.drag-drop-reference-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+/* Show the left button held down */
+.lesson-screen-drag-drop
+.drag-drop-reference-button {
+  background: #3b82f6 !important;
+
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+}
+
+/* ========================================
+   Week 3 Step 7 - move hand reference outside activity box
+======================================== */
+
+.lesson-screen-drag-drop
+.drag-drop-corner-reference {
+  position: fixed !important;
+
+  left: 14px !important;
+  top: 92px !important;
+  bottom: auto !important;
+
+  z-index: 20000 !important;
+
+  width: 105px;
+  height: 115px;
+
+  pointer-events: none;
+}
+
+/* Keep the small visual exactly the same size */
+.lesson-screen-drag-drop
+.drag-drop-reference-visual {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 280px;
+  height: 330px;
+
+  transform:
+    translateX(-50%)
+    scale(0.28) !important;
+
+  transform-origin: top center;
+}
+
+/* Keep label beneath the hand */
+.lesson-screen-drag-drop
+.drag-drop-reference-label {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform:
+    translateX(-50%);
+
+  width: 105px;
+
+  text-align: center;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  color: #1d4ed8;
+}
+
+/* Week 3 Step 7 - nudge hand reference right onto white area */
+
+.lesson-screen-drag-drop
+.drag-drop-corner-reference {
+  left: 115px !important;
+}

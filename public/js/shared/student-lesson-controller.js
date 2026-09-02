@@ -197,6 +197,16 @@
   let pressHoldNativeReleaseHandler = null;
   let pressHoldSuccessTimer = null;
 
+  let removeDragDropMoveListener = null;
+  let removeDragDropLeftDownListener = null;
+  let removeDragDropRightListener = null;
+  let dragDropNativeReleaseHandler = null;
+
+  let removeDragPracticeMoveListener = null;
+  let removeDragPracticeLeftDownListener = null;
+  let removeDragPracticeRightListener = null;
+  let dragPracticeNativeReleaseHandler = null;
+
   let removeLetGoMoveListener = null;
   let removeLetGoLeftDownListener = null;
   let removeLetGoLeftUpListener = null;
@@ -207,6 +217,832 @@
   let removeHoldMoveLeftDownListener = null;
   let removeHoldMoveLeftUpListener = null;
   let removeHoldMoveRightListener = null;
+
+  function startDragDropBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("dragDropArea");
+
+    const pointer =
+      document.getElementById("dragDropPointer");
+
+    const status =
+      document.getElementById("dragDropStatus");
+
+    const progress =
+      document.getElementById("dragDropProgress");
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const objects =
+      Array.from(
+        area.querySelectorAll(
+          ".drag-drop-object"
+        )
+      );
+
+    const destinations =
+      Array.from(
+        area.querySelectorAll(
+          ".drag-drop-destination"
+        )
+      );
+
+    let activeObject = null;
+    let completedCount = 0;
+
+    function pointerOnObject(object) {
+      return pointerTipHitsElement(
+        pointer,
+        object
+      );
+    }
+
+    function matchingDestination(object) {
+      return destinations.find(
+        destination =>
+          destination.dataset.match ===
+          object.dataset.match
+      );
+    }
+
+    function objectInsideDestination(
+      object,
+      destination
+    ) {
+      if (!object || !destination) {
+        return false;
+      }
+
+      const objectRect =
+        object.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        objectRect.left +
+        objectRect.width / 2;
+
+      const centerY =
+        objectRect.top +
+        objectRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function clearReadyStates() {
+      objects.forEach(object => {
+        object.classList.remove(
+          "drag-drop-object-ready"
+        );
+      });
+
+      destinations.forEach(destination => {
+        destination.classList.remove(
+          "drag-drop-destination-ready"
+        );
+      });
+    }
+
+    function returnObject(object) {
+      if (!object) {
+        return;
+      }
+
+      object.style.left =
+        object.dataset.startLeft;
+
+      object.style.top =
+        object.dataset.startTop;
+
+      object.classList.remove(
+        "drag-drop-object-held",
+        "drag-drop-object-ready"
+      );
+    }
+
+    objects.forEach(object => {
+      object.dataset.startLeft =
+        object.style.left;
+
+      object.dataset.startTop =
+        object.style.top;
+    });
+
+
+    removeDragDropMoveListener =
+      input.subscribe("move", event => {
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!activeObject) {
+          return;
+        }
+
+        activeObject.style.left =
+          `${event.x - rect.left}px`;
+
+        activeObject.style.top =
+          `${event.y - rect.top}px`;
+
+        clearReadyStates();
+
+        const destination =
+          matchingDestination(
+            activeObject
+          );
+
+        if (
+          objectInsideDestination(
+            activeObject,
+            destination
+          )
+        ) {
+          activeObject.classList.add(
+            "drag-drop-object-ready"
+          );
+
+          destination.classList.add(
+            "drag-drop-destination-ready"
+          );
+
+          status.textContent =
+            "That's the right place — LET GO!";
+        } else {
+          status.textContent =
+            "Keep holding and move.";
+        }
+      });
+
+
+    removeDragDropLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (activeObject) {
+          return;
+        }
+
+        const object =
+          objects.find(item => {
+            return (
+              !item.classList.contains(
+                "drag-drop-object-complete"
+              ) &&
+              pointerOnObject(item)
+            );
+          });
+
+        if (!object) {
+          status.textContent =
+            "Move onto an object first.";
+
+          return;
+        }
+
+        activeObject = object;
+
+        object.classList.add(
+          "drag-drop-object-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — find its place.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime = 0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+
+    removeDragDropRightListener =
+      input.subscribe("rightDown", () => {
+        if (activeObject) {
+          returnObject(activeObject);
+          activeObject = null;
+        }
+
+        clearReadyStates();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+
+    function finishDrop() {
+      if (!activeObject) {
+        return;
+      }
+
+      const object =
+        activeObject;
+
+      const destination =
+        matchingDestination(object);
+
+      activeObject = null;
+
+      clearReadyStates();
+
+      if (
+        objectInsideDestination(
+          object,
+          destination
+        )
+      ) {
+        object.classList.remove(
+          "drag-drop-object-held"
+        );
+
+        object.classList.add(
+          "drag-drop-object-complete"
+        );
+
+        destination.classList.add(
+          "drag-drop-destination-complete"
+        );
+
+        /*
+         * Snap object into center of destination.
+         */
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const destinationRect =
+          destination.getBoundingClientRect();
+
+        /*
+         * Park the completed object as a small badge
+         * near the upper-right corner of its destination.
+         * This keeps the destination picture visible
+         * and prevents completed objects from covering
+         * the next matching area.
+         */
+        object.style.left =
+          `${
+            destinationRect.right -
+            areaRect.left -
+            22
+          }px`;
+
+        object.style.top =
+          `${
+            destinationRect.top -
+            areaRect.top +
+            22
+          }px`;
+
+        completedCount += 1;
+
+        progress.textContent =
+          `${completedCount} of ${objects.length}`;
+
+        if (soundEnabled) {
+          const correctSound =
+            new Audio(
+              "/sounds/correct.mp3"
+            );
+
+          correctSound.volume = 0.6;
+          correctSound.currentTime = 0;
+
+          correctSound
+            .play()
+            .catch(() => {});
+        }
+
+        if (
+          completedCount ===
+          objects.length
+        ) {
+          status.textContent =
+            "You matched them all! ✓";
+
+          progress.textContent =
+            `${objects.length} of ${objects.length} ✓`;
+        } else {
+          status.textContent =
+            "Great drop! Choose another object.";
+        }
+
+        return;
+      }
+
+      returnObject(object);
+
+      status.textContent =
+        "Try the matching place.";
+    }
+
+
+    dragDropNativeReleaseHandler =
+      event => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      dragDropNativeReleaseHandler,
+      true
+    );
+  }
+
+  function startDragPracticeBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("dragPracticeArea");
+
+    const target =
+      document.getElementById("dragPracticeTarget");
+
+    const destination =
+      document.getElementById("dragPracticeDestination");
+
+    const destinationIcon =
+      document.getElementById("dragPracticeDestinationIcon");
+
+    const destinationLabel =
+      document.getElementById("dragPracticeDestinationLabel");
+
+    const pointer =
+      document.getElementById("dragPracticePointer");
+
+    const finger =
+      document.getElementById("dragPracticeFinger");
+
+    const leftButton =
+      document.getElementById("dragPracticeLeftButton");
+
+    const status =
+      document.getElementById("dragPracticeStatus");
+
+    const progress =
+      document.getElementById("dragPracticeProgress");
+
+    const handMessage =
+      document.getElementById("dragPracticeHandMessage");
+
+    if (
+      !input ||
+      !area ||
+      !target ||
+      !destination ||
+      !destinationIcon ||
+      !destinationLabel ||
+      !pointer ||
+      !finger ||
+      !leftButton ||
+      !status ||
+      !progress ||
+      !handMessage
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        object: "★",
+        scene: "sky",
+        destinationLabel: "SKY"
+      },
+      {
+        object: "🍎",
+        scene: "basket",
+        destinationLabel: "BASKET"
+      },
+      {
+        object: "🐟",
+        scene: "fishbowl",
+        destinationLabel: "FISHBOWL"
+      }
+    ];
+
+    let roundIndex = 0;
+    let dragging = false;
+    let finished = false;
+
+    function pointerOnTarget() {
+      return pointerTipHitsElement(
+        pointer,
+        target
+      );
+    }
+
+    function targetInsideDestination() {
+      const targetRect =
+        target.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        targetRect.left +
+        targetRect.width / 2;
+
+      const centerY =
+        targetRect.top +
+        targetRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function pressHand() {
+      finger.classList.add(
+        "drag-practice-finger-down"
+      );
+
+      leftButton.classList.add(
+        "drag-practice-button-down"
+      );
+    }
+
+    function releaseHand() {
+      finger.classList.remove(
+        "drag-practice-finger-down"
+      );
+
+      leftButton.classList.remove(
+        "drag-practice-button-down"
+      );
+    }
+
+    function resetTargetPosition() {
+      target.style.left = "18%";
+      target.style.top = "50%";
+
+      target.classList.remove(
+        "drag-practice-target-held",
+        "drag-practice-target-ready"
+      );
+
+      destination.classList.remove(
+        "drag-practice-destination-ready"
+      );
+    }
+
+    function loadRound() {
+      const round = rounds[roundIndex];
+
+      dragging = false;
+      releaseHand();
+      resetTargetPosition();
+
+      target.textContent =
+        round.object;
+
+      destination.dataset.scene =
+        round.scene;
+
+      destinationIcon.innerHTML =
+        round.scene === "sky"
+          ? `
+              <span class="drag-sky-sun">☀</span>
+              <span class="drag-sky-cloud drag-cloud-one">☁</span>
+              <span class="drag-sky-cloud drag-cloud-two">☁</span>
+            `
+          : round.scene === "basket"
+            ? `
+                <span class="drag-basket-handle"></span>
+                <span class="drag-basket-body"></span>
+              `
+            : `
+                <span class="drag-fishbowl-water"></span>
+                <span class="drag-fishbowl-bubble bubble-one"></span>
+                <span class="drag-fishbowl-bubble bubble-two"></span>
+                <span class="drag-fishbowl-plant">♒</span>
+              `;
+
+      destinationLabel.textContent =
+        round.destinationLabel;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        "Move to the object.";
+
+      handMessage.textContent =
+        "Press, hold, move, then let go.";
+    }
+
+    function completeRound() {
+      dragging = false;
+      releaseHand();
+
+      target.classList.remove(
+        "drag-practice-target-held",
+        "drag-practice-target-ready"
+      );
+
+      target.classList.add(
+        "drag-practice-target-complete"
+      );
+
+      destination.classList.remove(
+        "drag-practice-destination-ready"
+      );
+
+      destination.classList.add(
+        "drag-practice-destination-complete"
+      );
+
+      status.textContent =
+        "Great drag! ✓";
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio("/sounds/correct.mp3");
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        correctSound
+          .play()
+          .catch(() => {});
+      }
+
+      setTimeout(() => {
+        target.classList.remove(
+          "drag-practice-target-complete"
+        );
+
+        destination.classList.remove(
+          "drag-practice-destination-complete"
+        );
+
+        roundIndex += 1;
+
+        if (roundIndex >= rounds.length) {
+          finished = true;
+
+          progress.textContent =
+            "3 of 3 ✓";
+
+          status.textContent =
+            "Drag Practice complete!";
+
+          handMessage.textContent =
+            "You used the whole drag skill!";
+
+          return;
+        }
+
+        loadRound();
+      }, 750);
+    }
+
+    function finishRelease() {
+      if (!dragging || finished) {
+        return;
+      }
+
+      /*
+       * Success is checked ONLY on actual
+       * physical left-button release.
+       */
+      if (targetInsideDestination()) {
+        completeRound();
+        return;
+      }
+
+      dragging = false;
+      releaseHand();
+
+      status.textContent =
+        "Let go inside the destination.";
+
+      handMessage.textContent =
+        "Keep holding all the way there.";
+
+      resetTargetPosition();
+    }
+
+    removeDragPracticeMoveListener =
+      input.subscribe("move", (event) => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!dragging) {
+          return;
+        }
+
+        target.style.left =
+          `${event.x - rect.left}px`;
+
+        target.style.top =
+          `${event.y - rect.top}px`;
+
+        if (targetInsideDestination()) {
+          target.classList.add(
+            "drag-practice-target-ready"
+          );
+
+          destination.classList.add(
+            "drag-practice-destination-ready"
+          );
+
+          status.textContent =
+            "You're there — LET GO!";
+
+          handMessage.textContent =
+            "Lift your pointer finger now.";
+        } else {
+          target.classList.remove(
+            "drag-practice-target-ready"
+          );
+
+          destination.classList.remove(
+            "drag-practice-destination-ready"
+          );
+
+          status.textContent =
+            "Keep holding and move.";
+
+          handMessage.textContent =
+            "Keep your pointer finger DOWN.";
+        }
+      });
+
+    removeDragPracticeRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        dragging = false;
+        releaseHand();
+        resetTargetPosition();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    removeDragPracticeLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (finished) {
+          return;
+        }
+
+        if (dragging) {
+          dragging = false;
+          releaseHand();
+          resetTargetPosition();
+
+          showClickWarning();
+
+          status.textContent =
+            "Click once and keep holding.";
+
+          return;
+        }
+
+        if (!pointerOnTarget()) {
+          status.textContent =
+            "Move onto the object first.";
+
+          return;
+        }
+
+        dragging = true;
+        pressHand();
+
+        target.classList.add(
+          "drag-practice-target-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — move!";
+
+        handMessage.textContent =
+          "Keep your pointer finger DOWN.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio("/sounds/mouseclick.mp3");
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime = 0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    /*
+     * Native physical mouseup is the ONLY
+     * drag-success trigger.
+     */
+    dragPracticeNativeReleaseHandler =
+      (event) => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishRelease();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      dragPracticeNativeReleaseHandler,
+      true
+    );
+
+    loadRound();
+  }
 
   function startLetGoBehavior() {
     const input = window.HandsOnMouseInput;
@@ -3941,6 +4777,301 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "drag-and-drop") {
+      return `
+        <div class="lesson-screen lesson-screen-drag-drop">
+
+          <div class="drag-drop-heading">
+            <span class="drag-review-badge">
+              PRACTICE
+            </span>
+
+            <h1>Drag & Drop</h1>
+
+            <p>
+              Drag each object to where it belongs.
+            </p>
+          </div>
+
+          <div class="drag-drop-progress">
+            Finished:
+            <strong id="dragDropProgress">
+              0 of 3
+            </strong>
+          </div>
+
+          <div
+            id="dragDropArea"
+            class="drag-drop-area"
+          >
+
+            <!-- OBJECTS -->
+
+            <div
+              class="drag-drop-object"
+              data-match="pencil"
+              style="left: 13%; top: 25%;"
+            >
+              ✏️
+            </div>
+
+            <div
+              class="drag-drop-object"
+              data-match="book"
+              style="left: 13%; top: 50%;"
+            >
+              📘
+            </div>
+
+            <div
+              class="drag-drop-object"
+              data-match="toy"
+              style="left: 13%; top: 75%;"
+            >
+              🧸
+            </div>
+
+
+            <!-- DESTINATIONS -->
+
+            <div
+              class="
+                drag-drop-destination
+                drag-drop-pencil-cup
+              "
+              data-match="pencil"
+            >
+              <div class="drag-pencil-cup">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <strong>PENCIL CUP</strong>
+            </div>
+
+
+            <div
+              class="
+                drag-drop-destination
+                drag-drop-bookshelf
+              "
+              data-match="book"
+            >
+              <div class="drag-bookshelf">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <strong>BOOKSHELF</strong>
+            </div>
+
+
+            <div
+              class="
+                drag-drop-destination
+                drag-drop-toybox
+              "
+              data-match="toy"
+            >
+              <div class="drag-toybox">
+                TOYS
+              </div>
+
+              <strong>TOY BOX</strong>
+            </div>
+
+
+            <div
+              class="drag-drop-corner-reference"
+              aria-hidden="true"
+            >
+              <div class="drag-drop-reference-label">
+                HOLD & MOVE
+              </div>
+
+              <div class="drag-drop-reference-visual">
+
+                <div
+                  class="mouse-demo-hand hold-mouse-hand drag-drop-reference-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-index drag-drop-reference-finger"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-middle"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-pinky"
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+                  <div
+                    class="mouse-demo-left drag-drop-reference-button"
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+                </div>
+
+              </div>
+            </div>
+
+            <div
+              id="dragDropPointer"
+              class="drag-drop-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="dragDropStatus"
+              class="drag-drop-status"
+            >
+              Pick an object to start.
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "drag-practice") {
+      return `
+        <div class="lesson-screen lesson-screen-drag-practice">
+
+          <div class="drag-practice-heading">
+            <span class="drag-review-badge">
+              PRACTICE
+            </span>
+
+            <h1>Drag Practice</h1>
+
+            <p>
+              Use the whole skill three times.
+            </p>
+          </div>
+
+          <div class="drag-practice-layout">
+
+            <div class="drag-practice-hand-side">
+
+              <div
+                id="dragPracticeHandMessage"
+                class="drag-practice-hand-message"
+              >
+                Press, hold, move, then let go.
+              </div>
+
+              <div
+                class="hold-mouse-visual drag-practice-hand-visual"
+              >
+
+                <div
+                  class="mouse-demo-hand hold-mouse-hand drag-practice-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    id="dragPracticeFinger"
+                    class="mouse-demo-finger mouse-demo-index"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-middle"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-pinky"
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+
+                  <div
+                    id="dragPracticeLeftButton"
+                    class="mouse-demo-left"
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="drag-practice-side">
+
+              <div class="drag-practice-progress">
+                Round
+                <strong id="dragPracticeProgress">
+                  1 of 3
+                </strong>
+              </div>
+
+              <div
+                id="dragPracticeArea"
+                class="drag-practice-area"
+              >
+
+                <div
+                  id="dragPracticeTarget"
+                  class="drag-practice-target"
+                >
+                  ★
+                </div>
+
+                <div
+                  id="dragPracticeDestination"
+                  class="drag-practice-destination"
+                >
+                  <span
+                    id="dragPracticeDestinationIcon"
+                    class="drag-practice-destination-icon"
+                  >
+                    📦
+                  </span>
+
+                  <strong
+                    id="dragPracticeDestinationLabel"
+                  >
+                    BOX
+                  </strong>
+                </div>
+
+                <div
+                  id="dragPracticePointer"
+                  class="drag-practice-pointer"
+                >
+                  ➤
+                </div>
+
+                <div
+                  id="dragPracticeStatus"
+                  class="drag-practice-status"
+                >
+                  Move to the object.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "let-go") {
       return `
         <div class="lesson-screen lesson-screen-let-go">
@@ -5284,6 +6415,58 @@
 
 
   function stopStepBehavior() {
+
+    if (removeDragDropMoveListener) {
+      removeDragDropMoveListener();
+      removeDragDropMoveListener = null;
+    }
+
+    if (removeDragDropLeftDownListener) {
+      removeDragDropLeftDownListener();
+      removeDragDropLeftDownListener = null;
+    }
+
+    if (removeDragDropRightListener) {
+      removeDragDropRightListener();
+      removeDragDropRightListener = null;
+    }
+
+    if (dragDropNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        dragDropNativeReleaseHandler,
+        true
+      );
+
+      dragDropNativeReleaseHandler = null;
+    }
+
+
+    if (removeDragPracticeMoveListener) {
+      removeDragPracticeMoveListener();
+      removeDragPracticeMoveListener = null;
+    }
+
+    if (removeDragPracticeLeftDownListener) {
+      removeDragPracticeLeftDownListener();
+      removeDragPracticeLeftDownListener = null;
+    }
+
+    if (removeDragPracticeRightListener) {
+      removeDragPracticeRightListener();
+      removeDragPracticeRightListener = null;
+    }
+
+    if (dragPracticeNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        dragPracticeNativeReleaseHandler,
+        true
+      );
+
+      dragPracticeNativeReleaseHandler = null;
+    }
+
 
     if (removeLetGoMoveListener) {
       removeLetGoMoveListener();
@@ -6877,6 +8060,14 @@
 
     if (step.id === "let-go") {
       startLetGoBehavior();
+    }
+
+    if (step.id === "drag-practice") {
+      startDragPracticeBehavior();
+    }
+
+    if (step.id === "drag-and-drop") {
+      startDragDropBehavior();
     }
 
     if (
