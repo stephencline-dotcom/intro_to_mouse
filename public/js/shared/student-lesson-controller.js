@@ -173,6 +173,23 @@
     dragReviewAnimationTimers = [];
   }
 
+  let week4QuickReviewTimers = [];
+
+  function stopWeek4QuickReviewAnimation() {
+    week4QuickReviewTimers.forEach((timer) => {
+      clearTimeout(timer);
+    });
+
+    week4QuickReviewTimers = [];
+
+    /*
+     * Week 4 review uses the same shared demo-sound
+     * player as Week 3, so stop any active swish/click
+     * sounds immediately when leaving this step.
+     */
+    stopWeek3DemoSounds();
+  }
+
   let meetDragAnimationTimers = [];
 
   function stopMeetDragAnimation() {
@@ -2408,6 +2425,249 @@
       input.subscribe("leftUp", () => {
         handlePressHoldRelease();
       });
+  }
+
+  function startWeek4QuickReviewAnimation() {
+    stopWeek4QuickReviewAnimation();
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week4-quick-review"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    const pointer =
+      document.getElementById("week4ReviewPointer");
+
+    const object =
+      document.getElementById("week4ReviewObject");
+
+    const destination =
+      document.getElementById("week4ReviewDestination");
+
+    const hand =
+      document.getElementById("week4ReviewHand");
+
+    const finger =
+      document.getElementById("week4ReviewFinger");
+
+    const leftButton =
+      document.getElementById("week4ReviewLeftButton");
+
+    const message =
+      document.getElementById("week4ReviewMessage");
+
+    const cards =
+      Array.from(
+        screen.querySelectorAll(
+          "[data-week4-drag-step]"
+        )
+      );
+
+    if (
+      !pointer ||
+      !object ||
+      !destination ||
+      !hand ||
+      !finger ||
+      !leftButton ||
+      !message ||
+      cards.length !== 5
+    ) {
+      return;
+    }
+
+    function activeStep(name) {
+      cards.forEach((card) => {
+        card.classList.toggle(
+          "week4-review-step-active",
+          card.dataset.week4DragStep === name
+        );
+      });
+    }
+
+    function swish() {
+      playWeek3DemoSound(
+        "/sounds/swish.mp3",
+        0.42
+      );
+    }
+
+    function click() {
+      playWeek3DemoSound(
+        "/sounds/mouseclick.mp3",
+        0.5
+      );
+    }
+
+    function resetDemo() {
+      stopWeek4QuickReviewAnimation();
+
+      pointer.className =
+        "week4-review-pointer";
+
+      object.className =
+        "week4-review-object";
+
+      destination.classList.remove(
+        "week4-review-destination-ready",
+        "week4-review-destination-complete"
+      );
+
+      hand.classList.remove(
+        "week4-review-hand-held"
+      );
+
+      finger.classList.remove(
+        "week4-review-finger-held"
+      );
+
+      leftButton.classList.remove(
+        "week4-review-button-held"
+      );
+
+      activeStep("point");
+
+      message.textContent =
+        "POINT to the object.";
+
+      void pointer.offsetWidth;
+      void object.offsetWidth;
+
+      pointer.classList.add(
+        "week4-review-pointer-point"
+      );
+
+      swish();
+
+      week4QuickReviewTimers.push(
+        setTimeout(
+          pressStep,
+          1150
+        )
+      );
+    }
+
+    function pressStep() {
+      activeStep("press");
+
+      hand.classList.add(
+        "week4-review-hand-held"
+      );
+
+      finger.classList.add(
+        "week4-review-finger-held"
+      );
+
+      leftButton.classList.add(
+        "week4-review-button-held"
+      );
+
+      object.classList.add(
+        "week4-review-object-held"
+      );
+
+      message.textContent =
+        "PRESS the left button.";
+
+      click();
+
+      week4QuickReviewTimers.push(
+        setTimeout(
+          holdStep,
+          850
+        )
+      );
+    }
+
+    function holdStep() {
+      activeStep("hold");
+
+      message.textContent =
+        "HOLD the button down.";
+
+      week4QuickReviewTimers.push(
+        setTimeout(
+          moveStep,
+          850
+        )
+      );
+    }
+
+    function moveStep() {
+      activeStep("move");
+
+      pointer.classList.add(
+        "week4-review-pointer-move"
+      );
+
+      object.classList.add(
+        "week4-review-object-move"
+      );
+
+      destination.classList.add(
+        "week4-review-destination-ready"
+      );
+
+      message.textContent =
+        "MOVE while you keep holding.";
+
+      swish();
+
+      week4QuickReviewTimers.push(
+        setTimeout(
+          releaseStep,
+          1350
+        )
+      );
+    }
+
+    function releaseStep() {
+      activeStep("release");
+
+      hand.classList.remove(
+        "week4-review-hand-held"
+      );
+
+      finger.classList.remove(
+        "week4-review-finger-held"
+      );
+
+      leftButton.classList.remove(
+        "week4-review-button-held"
+      );
+
+      object.classList.remove(
+        "week4-review-object-held"
+      );
+
+      object.classList.add(
+        "week4-review-object-dropped"
+      );
+
+      destination.classList.remove(
+        "week4-review-destination-ready"
+      );
+
+      destination.classList.add(
+        "week4-review-destination-complete"
+      );
+
+      message.textContent =
+        "LET GO when you get there.";
+
+      week4QuickReviewTimers.push(
+        setTimeout(
+          resetDemo,
+          1450
+        )
+      );
+    }
+
+    resetDemo();
   }
 
   function startMeetDragAnimation() {
@@ -5245,6 +5505,146 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week4-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-quick-review">
+
+          <div class="week4-review-heading">
+            <span class="drag-review-badge">
+              QUICK REVIEW
+            </span>
+
+            <h1>Remember How to Drag?</h1>
+
+            <p>
+              Watch the whole drag motion again.
+            </p>
+          </div>
+
+          <div class="week4-review-steps">
+
+            <div
+              class="week4-review-step"
+              data-week4-drag-step="point"
+            >
+              <strong>1</strong>
+              <span>POINT</span>
+            </div>
+
+            <div
+              class="week4-review-step"
+              data-week4-drag-step="press"
+            >
+              <strong>2</strong>
+              <span>PRESS</span>
+            </div>
+
+            <div
+              class="week4-review-step"
+              data-week4-drag-step="hold"
+            >
+              <strong>3</strong>
+              <span>HOLD</span>
+            </div>
+
+            <div
+              class="week4-review-step"
+              data-week4-drag-step="move"
+            >
+              <strong>4</strong>
+              <span>MOVE</span>
+            </div>
+
+            <div
+              class="week4-review-step"
+              data-week4-drag-step="release"
+            >
+              <strong>5</strong>
+              <span>LET GO</span>
+            </div>
+
+          </div>
+
+          <div class="week4-review-demo">
+
+            <div class="week4-review-hand-side">
+
+              <div
+                id="week4ReviewMessage"
+                class="week4-review-message"
+              >
+                POINT to the object.
+              </div>
+
+              <div class="week4-review-mouse-visual">
+
+                <div
+                  id="week4ReviewHand"
+                  class="mouse-demo-hand hold-mouse-hand week4-review-hand"
+                >
+                  <div class="mouse-demo-palm"></div>
+
+                  <div
+                    id="week4ReviewFinger"
+                    class="mouse-demo-finger mouse-demo-index"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-middle"
+                  ></div>
+
+                  <div
+                    class="mouse-demo-finger mouse-demo-pinky"
+                  ></div>
+                </div>
+
+                <div class="mouse-demo-body">
+
+                  <div
+                    id="week4ReviewLeftButton"
+                    class="mouse-demo-left"
+                  ></div>
+
+                  <div class="mouse-demo-right"></div>
+                  <div class="mouse-demo-wheel"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="week4-review-action">
+
+              <div
+                id="week4ReviewObject"
+                class="week4-review-object"
+              >
+                ★
+              </div>
+
+              <div
+                id="week4ReviewDestination"
+                class="week4-review-destination"
+              >
+                DROP HERE
+              </div>
+
+              <div
+                id="week4ReviewPointer"
+                class="week4-review-pointer"
+              >
+                ➤
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "drag-complete") {
       return `
         <div class="lesson-screen lesson-screen-drag-complete">
@@ -7046,6 +7446,8 @@
 
 
   function stopStepBehavior() {
+    stopWeek4QuickReviewAnimation();
+
     /*
      * Remove the Week 1 Step 4 completion card
      * whenever the teacher/student leaves the step.
@@ -8760,6 +9162,10 @@
 
     if (step.id === "drag-quick-review") {
       startDragQuickReviewAnimation();
+    }
+
+    if (step.id === "week4-quick-review") {
+      startWeek4QuickReviewAnimation();
     }
 
     if (step.id === "meet-click-drag") {

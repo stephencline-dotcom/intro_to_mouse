@@ -120,7 +120,8 @@ app.put("/api/classroom-state", (req, res) => {
   if (
     req.body.activeLesson === "week1" ||
     req.body.activeLesson === "review1" ||
-    req.body.activeLesson === "week3"
+    req.body.activeLesson === "week3" ||
+    req.body.activeLesson === "week4"
   ) {
     activeLesson = req.body.activeLesson;
     currentLessonStep = 0;

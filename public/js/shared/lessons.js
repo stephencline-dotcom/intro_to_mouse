@@ -118,6 +118,58 @@ const mouseLessons = {
         type: "complete"
       }
     ]
+  },
+
+  week4: {
+    id: "week4",
+    title: "Click & Drag Review",
+    steps: [
+      {
+        id: "week4-quick-review",
+        title: "Quick Drag Review",
+        type: "review"
+      },
+      {
+        id: "week4-warm-up",
+        title: "Warm-Up Drag",
+        type: "practice"
+      },
+      {
+        id: "week4-sort",
+        title: "Sort It!",
+        type: "practice"
+      },
+      {
+        id: "week4-clean-up",
+        title: "Clean Up the Classroom",
+        type: "practice"
+      },
+      {
+        id: "week4-puzzle",
+        title: "Puzzle Pieces",
+        type: "practice"
+      },
+      {
+        id: "week4-moving-targets",
+        title: "Moving Targets",
+        type: "practice"
+      },
+      {
+        id: "week4-activities",
+        title: "Quick Activities",
+        type: "practice"
+      },
+      {
+        id: "week4-challenge",
+        title: "Drag Master Challenge",
+        type: "practice"
+      },
+      {
+        id: "week4-complete",
+        title: "Week 4 Complete!",
+        type: "complete"
+      }
+    ]
   }
 };
 
