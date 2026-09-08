@@ -10049,3 +10049,902 @@ body:has(#globalFreezeButton) .lesson-screen {
   top: 49%;
 }
 
+
+
+/* ========================================
+   Week 4 Step 2: Warm-Up Drag
+======================================== */
+
+.lesson-screen-week4-warm-up {
+  position: relative;
+
+  padding: 12px 24px 16px;
+}
+
+.week4-warm-up-heading {
+  text-align: center;
+}
+
+.week4-warm-up-heading h1 {
+  margin: 2px 0 3px;
+
+  font-size:
+    clamp(32px, 4.7vh, 44px);
+}
+
+.week4-warm-up-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.week4-warm-up-progress {
+  margin: 7px 0;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.week4-warm-up-progress strong {
+  color: #2563eb;
+}
+
+.week4-warm-up-area {
+  position: relative;
+
+  width: min(900px, 92%);
+  height: 390px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  cursor: none;
+}
+
+.week4-warm-up-target {
+  position: absolute;
+
+  left: 18%;
+  top: 50%;
+
+  width: 110px;
+  height: 110px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+
+  border: 5px solid #2563eb;
+  border-radius: 20px;
+
+  background: white;
+
+  font-size: 58px;
+
+  box-shadow:
+    0 7px 15px
+    rgba(0, 0, 0, 0.12);
+}
+
+.week4-warm-up-target-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.06);
+}
+
+.week4-warm-up-target-ready {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.week4-warm-up-target-complete {
+  border-color: #16a34a;
+  background: #dcfce7;
+}
+
+.week4-warm-up-destination {
+  position: absolute;
+
+  left: 80%;
+  top: 50%;
+
+  width: 185px;
+  height: 165px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  border: 5px dashed #22c55e;
+  border-radius: 20px;
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.week4-warm-up-destination-ready {
+  border-color: #f59e0b !important;
+  background: #fef3c7 !important;
+}
+
+.week4-warm-up-destination-complete {
+  border-color: #16a34a !important;
+  border-style: solid !important;
+  background: #bbf7d0 !important;
+}
+
+.week4-warm-up-destination-visual {
+  width: 125px;
+  height: 95px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Night sky */
+
+.week4-warm-up-sky {
+  position: relative;
+
+  width: 125px;
+  height: 90px;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      #172554,
+      #312e81
+    );
+}
+
+.week4-warm-up-moon {
+  position: absolute;
+
+  right: 8px;
+  top: 5px;
+
+  color: #fef3c7;
+
+  font-size: 35px;
+}
+
+.week4-warm-up-stars {
+  position: absolute;
+
+  left: 12px;
+  top: 10px;
+
+  color: #fef9c3;
+
+  font-size: 17px;
+  letter-spacing: 7px;
+}
+
+.week4-warm-up-cloud {
+  position: absolute;
+
+  left: 10px;
+  bottom: 5px;
+
+  color: #dbeafe;
+
+  font-size: 34px;
+}
+
+
+/* Basket */
+
+.week4-warm-up-basket {
+  position: relative;
+
+  width: 105px;
+  height: 72px;
+
+  border: 5px solid #92400e;
+  border-radius:
+    8px 8px 22px 22px;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #d97706 0 12px,
+      #f59e0b 12px 22px
+    );
+}
+
+.week4-warm-up-basket::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: -38px;
+
+  width: 70px;
+  height: 45px;
+
+  transform:
+    translateX(-50%);
+
+  border: 7px solid #92400e;
+  border-bottom: 0;
+
+  border-radius:
+    45px 45px 0 0;
+}
+
+
+/* Fishbowl */
+
+.week4-warm-up-fishbowl {
+  position: relative;
+
+  width: 115px;
+  height: 88px;
+
+  overflow: hidden;
+
+  border: 5px solid #7dd3fc;
+  border-top: 7px solid #38bdf8;
+
+  border-radius:
+    10px 10px 50px 50px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #f0f9ff 0 25%,
+      #bae6fd 25% 100%
+    );
+}
+
+.week4-warm-up-water {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 68%;
+
+  background:
+    linear-gradient(
+      #7dd3fc,
+      #38bdf8
+    );
+
+  opacity: 0.55;
+}
+
+.week4-warm-up-bubble {
+  position: absolute;
+
+  z-index: 2;
+
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.week4-warm-up-bubble.bubble-one {
+  width: 7px;
+  height: 7px;
+
+  left: 25px;
+  top: 42px;
+}
+
+.week4-warm-up-bubble.bubble-two {
+  width: 5px;
+  height: 5px;
+
+  right: 25px;
+  top: 52px;
+}
+
+
+/* Pointer */
+
+.week4-warm-up-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 84%;
+
+  z-index: 50;
+
+  font-size: 64px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-warm-up-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10px;
+
+  transform:
+    translateX(-50%);
+
+  width: 72%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+
+/* Small hand/mouse reference */
+
+.week4-warm-up-reference {
+  position: fixed;
+
+  left: 115px;
+  top: 90px;
+
+  z-index: 18000;
+
+  width: 105px;
+  height: 115px;
+
+  pointer-events: none;
+}
+
+.week4-warm-up-reference-label {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform:
+    translateX(-50%);
+
+  width: 105px;
+
+  text-align: center;
+
+  color: #1d4ed8;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.week4-warm-up-reference-visual {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 280px;
+  height: 330px;
+
+  transform:
+    translateX(-50%)
+    scale(0.28);
+
+  transform-origin:
+    top center;
+}
+
+.week4-warm-up-reference-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+.week4-warm-up-reference-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+}
+
+.week4-warm-up-reference-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 19px !important;
+
+  background: #60a5fa !important;
+}
+
+.week4-warm-up-reference-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+.week4-warm-up-reference-button {
+  background: #3b82f6 !important;
+
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+}
+
+
+
+/* ========================================
+   Week 4 Step 2: Pack the Backpack
+======================================== */
+
+.lesson-screen-week4-backpack {
+  position: relative;
+
+  padding: 10px 22px 16px;
+}
+
+.week4-backpack-heading {
+  text-align: center;
+}
+
+.week4-backpack-heading h1 {
+  margin: 2px 0 3px;
+
+  font-size:
+    clamp(32px, 4.6vh, 44px);
+}
+
+.week4-backpack-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.week4-backpack-progress {
+  margin: 7px 0;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.week4-backpack-progress strong {
+  color: #2563eb;
+}
+
+
+/* Activity area */
+
+.week4-backpack-area {
+  position: relative;
+
+  width: min(950px, 93%);
+  height: 410px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #f1f5f9
+    );
+
+  cursor: none;
+}
+
+
+/* School items */
+
+.week4-backpack-object {
+  position: absolute;
+
+  z-index: 20;
+
+  width: 105px;
+  height: 86px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #60a5fa;
+  border-radius: 17px;
+
+  background: white;
+
+  font-size: 41px;
+
+  box-shadow:
+    0 5px 12px
+    rgba(0, 0, 0, 0.11);
+}
+
+.week4-backpack-object span {
+  margin-top: 2px;
+
+  color: #334155;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.week4-backpack-object-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.07);
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(37, 99, 235, 0.15);
+}
+
+.week4-backpack-object-ready {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.week4-backpack-object-packed {
+  opacity: 0;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.25);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+
+  pointer-events: none;
+}
+
+
+/* Backpack */
+
+.week4-backpack {
+  position: absolute;
+
+  left: 76%;
+  top: 49%;
+
+  width: 225px;
+  height: 265px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.week4-backpack-handle {
+  width: 96px;
+  height: 58px;
+
+  box-sizing: border-box;
+
+  border: 13px solid #1e3a8a;
+  border-bottom: 0;
+
+  border-radius:
+    50px 50px 0 0;
+}
+
+.week4-backpack-body {
+  position: relative;
+
+  width: 190px;
+  height: 190px;
+
+  margin-top: -5px;
+
+  border: 8px solid #1e3a8a;
+  border-radius:
+    34px 34px 45px 45px;
+
+  background:
+    linear-gradient(
+      #3b82f6,
+      #2563eb
+    );
+
+  box-shadow:
+    0 9px 18px
+    rgba(30, 58, 138, 0.18);
+}
+
+.week4-backpack-pocket {
+  position: absolute;
+
+  left: 50%;
+  bottom: 18px;
+
+  width: 115px;
+  height: 67px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #1e40af;
+  border-radius:
+    14px 14px 25px 25px;
+
+  background: #60a5fa;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.week4-backpack-packed-items {
+  position: absolute;
+
+  left: 50%;
+  top: 36px;
+
+  transform:
+    translateX(-50%);
+
+  width: 150px;
+
+  text-align: center;
+
+  color: #dcfce7;
+
+  font-size: 25px;
+  font-weight: 1000;
+
+  letter-spacing: 5px;
+}
+
+.week4-backpack > strong {
+  margin-top: 5px;
+
+  color: #1e3a8a;
+
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+
+/* Ready = yellow */
+
+.week4-backpack-ready {
+  filter:
+    drop-shadow(
+      0 0 9px
+      rgba(245, 158, 11, 0.58)
+    );
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.03);
+}
+
+/* Successful drop = green pulse */
+
+.week4-backpack-success {
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(34, 197, 94, 0.62)
+    );
+}
+
+.week4-backpack-complete
+.week4-backpack-body {
+  border-color: #15803d;
+
+  background:
+    linear-gradient(
+      #4ade80,
+      #16a34a
+    );
+}
+
+
+/* Pointer */
+
+.week4-backpack-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 88%;
+
+  z-index: 60;
+
+  font-size: 62px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-backpack-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 8px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 70;
+
+  width: 68%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+
+/* Small hand/mouse reference */
+
+.week4-backpack-reference {
+  position: fixed;
+
+  left: 115px;
+  top: 90px;
+
+  z-index: 18000;
+
+  width: 105px;
+  height: 115px;
+
+  pointer-events: none;
+}
+
+.week4-backpack-reference-label {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform:
+    translateX(-50%);
+
+  width: 105px;
+
+  text-align: center;
+
+  color: #1d4ed8;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.week4-backpack-reference-visual {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 280px;
+  height: 330px;
+
+  transform:
+    translateX(-50%)
+    scale(0.28);
+
+  transform-origin:
+    top center;
+}
+
+.week4-backpack-reference-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+.week4-backpack-reference-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+}
+
+.week4-backpack-reference-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 19px !important;
+
+  background: #60a5fa !important;
+}
+
+.week4-backpack-reference-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+.week4-backpack-reference-button {
+  background: #3b82f6 !important;
+
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+}
+

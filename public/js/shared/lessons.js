@@ -131,7 +131,7 @@ const mouseLessons = {
       },
       {
         id: "week4-warm-up",
-        title: "Warm-Up Drag",
+        title: "Pack the Backpack",
         type: "practice"
       },
       {

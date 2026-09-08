@@ -224,6 +224,11 @@
   let removeDragDropRightListener = null;
   let dragDropNativeReleaseHandler = null;
 
+  let removeWeek4WarmUpMoveListener = null;
+  let removeWeek4WarmUpLeftDownListener = null;
+  let removeWeek4WarmUpRightListener = null;
+  let week4WarmUpNativeReleaseHandler = null;
+
   let removeDragPracticeMoveListener = null;
   let removeDragPracticeLeftDownListener = null;
   let removeDragPracticeRightListener = null;
@@ -1085,6 +1090,360 @@
       dragDropNativeReleaseHandler,
       true
     );
+  }
+
+  function startWeek4WarmUpBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("week4BackpackArea");
+
+    const backpack =
+      document.getElementById("week4Backpack");
+
+    const pointer =
+      document.getElementById("week4BackpackPointer");
+
+    const status =
+      document.getElementById("week4BackpackStatus");
+
+    const progress =
+      document.getElementById("week4BackpackProgress");
+
+    const packedItems =
+      document.getElementById("week4BackpackPackedItems");
+
+    if (
+      !input ||
+      !area ||
+      !backpack ||
+      !pointer ||
+      !status ||
+      !progress ||
+      !packedItems
+    ) {
+      return;
+    }
+
+    const objects =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-backpack-object"
+        )
+      );
+
+    let activeObject = null;
+    let packedCount = 0;
+    let finished = false;
+
+    objects.forEach((object) => {
+      object.dataset.startLeft =
+        object.style.left;
+
+      object.dataset.startTop =
+        object.style.top;
+    });
+
+    function pointerOnObject(object) {
+      return pointerTipHitsElement(
+        pointer,
+        object
+      );
+    }
+
+    function objectInsideBackpack(object) {
+      if (!object) {
+        return false;
+      }
+
+      const objectRect =
+        object.getBoundingClientRect();
+
+      const backpackRect =
+        backpack.getBoundingClientRect();
+
+      const centerX =
+        objectRect.left +
+        objectRect.width / 2;
+
+      const centerY =
+        objectRect.top +
+        objectRect.height / 2;
+
+      return (
+        centerX >= backpackRect.left &&
+        centerX <= backpackRect.right &&
+        centerY >= backpackRect.top &&
+        centerY <= backpackRect.bottom
+      );
+    }
+
+    function clearReady() {
+      backpack.classList.remove(
+        "week4-backpack-ready"
+      );
+
+      objects.forEach((object) => {
+        object.classList.remove(
+          "week4-backpack-object-ready"
+        );
+      });
+    }
+
+    function returnObject(object) {
+      if (!object) {
+        return;
+      }
+
+      object.style.left =
+        object.dataset.startLeft;
+
+      object.style.top =
+        object.dataset.startTop;
+
+      object.classList.remove(
+        "week4-backpack-object-held",
+        "week4-backpack-object-ready"
+      );
+    }
+
+    function updateProgress() {
+      progress.textContent =
+        `${packedCount} of ${objects.length}`;
+
+      backpack.dataset.packed =
+        String(packedCount);
+
+      if (packedCount === 0) {
+        packedItems.textContent = "";
+      } else if (packedCount === 1) {
+        packedItems.textContent = "✓";
+      } else if (packedCount === 2) {
+        packedItems.textContent = "✓ ✓";
+      } else {
+        packedItems.textContent = "✓ ✓ ✓";
+      }
+    }
+
+    function finishDrop() {
+      if (!activeObject || finished) {
+        return;
+      }
+
+      const object = activeObject;
+      activeObject = null;
+
+      clearReady();
+
+      if (!objectInsideBackpack(object)) {
+        returnObject(object);
+
+        status.textContent =
+          "Keep holding until the item is over the backpack.";
+
+        return;
+      }
+
+      object.classList.remove(
+        "week4-backpack-object-held"
+      );
+
+      object.classList.add(
+        "week4-backpack-object-packed"
+      );
+
+      packedCount += 1;
+      updateProgress();
+
+      backpack.classList.add(
+        "week4-backpack-success"
+      );
+
+      status.textContent =
+        "Packed! ✓";
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio("/sounds/correct.mp3");
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        correctSound
+          .play()
+          .catch(() => {});
+      }
+
+      setTimeout(() => {
+        backpack.classList.remove(
+          "week4-backpack-success"
+        );
+
+        if (packedCount >= objects.length) {
+          finished = true;
+
+          progress.textContent =
+            "3 of 3 ✓";
+
+          status.textContent =
+            "Backpack packed! Great job!";
+
+          backpack.classList.add(
+            "week4-backpack-complete"
+          );
+
+          return;
+        }
+
+        status.textContent =
+          "Choose another school item.";
+      }, 500);
+    }
+
+    removeWeek4WarmUpMoveListener =
+      input.subscribe("move", (event) => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!activeObject) {
+          return;
+        }
+
+        activeObject.style.left =
+          `${event.x - rect.left}px`;
+
+        activeObject.style.top =
+          `${event.y - rect.top}px`;
+
+        clearReady();
+
+        if (objectInsideBackpack(activeObject)) {
+          activeObject.classList.add(
+            "week4-backpack-object-ready"
+          );
+
+          backpack.classList.add(
+            "week4-backpack-ready"
+          );
+
+          status.textContent =
+            "You're there — LET GO!";
+        } else {
+          status.textContent =
+            "Keep holding and move to the backpack.";
+        }
+      });
+
+    removeWeek4WarmUpLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (finished || activeObject) {
+          return;
+        }
+
+        const object =
+          objects.find((item) => {
+            return (
+              !item.classList.contains(
+                "week4-backpack-object-packed"
+              ) &&
+              pointerOnObject(item)
+            );
+          });
+
+        if (!object) {
+          status.textContent =
+            "Move onto a school item first.";
+
+          return;
+        }
+
+        activeObject = object;
+
+        object.classList.add(
+          "week4-backpack-object-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — move it to the backpack.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio("/sounds/mouseclick.mp3");
+
+            leftClickSound.volume = 0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime = 0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    removeWeek4WarmUpRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        if (activeObject) {
+          returnObject(activeObject);
+          activeObject = null;
+        }
+
+        clearReady();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    week4WarmUpNativeReleaseHandler =
+      (event) => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      week4WarmUpNativeReleaseHandler,
+      true
+    );
+
+    updateProgress();
   }
 
   function startDragPracticeBehavior() {
@@ -5505,6 +5864,151 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week4-warm-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-backpack">
+
+          <div class="week4-backpack-heading">
+            <span class="drag-review-badge">
+              WARM-UP
+            </span>
+
+            <h1>Pack the Backpack</h1>
+
+            <p>
+              Drag all three school items into the backpack.
+            </p>
+          </div>
+
+          <div class="week4-backpack-progress">
+            Packed:
+            <strong id="week4BackpackProgress">
+              0 of 3
+            </strong>
+          </div>
+
+          <div
+            id="week4BackpackArea"
+            class="week4-backpack-area"
+          >
+
+            <div
+              class="week4-backpack-object"
+              data-item="pencil"
+              style="left: 18%; top: 27%;"
+            >
+              ✏️
+
+              <span>PENCIL</span>
+            </div>
+
+            <div
+              class="week4-backpack-object"
+              data-item="notebook"
+              style="left: 24%; top: 58%;"
+            >
+              📓
+
+              <span>NOTEBOOK</span>
+            </div>
+
+            <div
+              class="week4-backpack-object"
+              data-item="headphones"
+              style="left: 15%; top: 82%;"
+            >
+              🎧
+
+              <span>HEADPHONES</span>
+            </div>
+
+
+            <div
+              id="week4Backpack"
+              class="week4-backpack"
+            >
+              <div class="week4-backpack-handle"></div>
+
+              <div class="week4-backpack-body">
+                <div class="week4-backpack-pocket">
+                  SCHOOL
+                </div>
+
+                <div
+                  id="week4BackpackPackedItems"
+                  class="week4-backpack-packed-items"
+                ></div>
+              </div>
+
+              <strong>
+                BACKPACK
+              </strong>
+            </div>
+
+
+            <div
+              id="week4BackpackPointer"
+              class="week4-backpack-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="week4BackpackStatus"
+              class="week4-backpack-status"
+            >
+              Choose a school item to pack.
+            </div>
+
+          </div>
+
+
+          <div
+            class="week4-backpack-reference"
+            aria-hidden="true"
+          >
+            <div class="week4-backpack-reference-label">
+              HOLD & MOVE
+            </div>
+
+            <div class="week4-backpack-reference-visual">
+
+              <div
+                class="mouse-demo-hand hold-mouse-hand week4-backpack-reference-hand"
+              >
+                <div class="mouse-demo-palm"></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-index"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-middle"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-pinky"
+                ></div>
+              </div>
+
+              <div class="mouse-demo-body">
+
+                <div
+                  class="mouse-demo-left week4-backpack-reference-button"
+                ></div>
+
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week4-quick-review") {
       return `
         <div class="lesson-screen lesson-screen-week4-quick-review">
@@ -7446,6 +7950,32 @@
 
 
   function stopStepBehavior() {
+
+    if (removeWeek4WarmUpMoveListener) {
+      removeWeek4WarmUpMoveListener();
+      removeWeek4WarmUpMoveListener = null;
+    }
+
+    if (removeWeek4WarmUpLeftDownListener) {
+      removeWeek4WarmUpLeftDownListener();
+      removeWeek4WarmUpLeftDownListener = null;
+    }
+
+    if (removeWeek4WarmUpRightListener) {
+      removeWeek4WarmUpRightListener();
+      removeWeek4WarmUpRightListener = null;
+    }
+
+    if (week4WarmUpNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        week4WarmUpNativeReleaseHandler,
+        true
+      );
+
+      week4WarmUpNativeReleaseHandler = null;
+    }
+
     stopWeek4QuickReviewAnimation();
 
     /*
@@ -9166,6 +9696,10 @@
 
     if (step.id === "week4-quick-review") {
       startWeek4QuickReviewAnimation();
+    }
+
+    if (step.id === "week4-warm-up") {
+      startWeek4WarmUpBehavior();
     }
 
     if (step.id === "meet-click-drag") {
