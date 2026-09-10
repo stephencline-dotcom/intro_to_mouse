@@ -224,6 +224,21 @@
   let removeDragDropRightListener = null;
   let dragDropNativeReleaseHandler = null;
 
+  let removeWeek4PuzzleMoveListener = null;
+  let removeWeek4PuzzleLeftDownListener = null;
+  let removeWeek4PuzzleRightListener = null;
+  let week4PuzzleNativeReleaseHandler = null;
+
+  let removeWeek4CleanUpMoveListener = null;
+  let removeWeek4CleanUpLeftDownListener = null;
+  let removeWeek4CleanUpRightListener = null;
+  let week4CleanUpNativeReleaseHandler = null;
+
+  let removeWeek4SortMoveListener = null;
+  let removeWeek4SortLeftDownListener = null;
+  let removeWeek4SortRightListener = null;
+  let week4SortNativeReleaseHandler = null;
+
   let removeWeek4WarmUpMoveListener = null;
   let removeWeek4WarmUpLeftDownListener = null;
   let removeWeek4WarmUpRightListener = null;
@@ -1090,6 +1105,1284 @@
       dragDropNativeReleaseHandler,
       true
     );
+  }
+
+  function startWeek4PuzzleBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("week4PuzzleArea");
+
+    const pointer =
+      document.getElementById("week4PuzzlePointer");
+
+    const status =
+      document.getElementById("week4PuzzleStatus");
+
+    const progress =
+      document.getElementById("week4PuzzleProgress");
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const pieces =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-puzzle-piece"
+        )
+      );
+
+    const slots =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-puzzle-slot"
+        )
+      );
+
+    let activePiece = null;
+    let completedCount = 0;
+    let finished = false;
+
+    pieces.forEach((piece) => {
+      piece.dataset.startLeft =
+        piece.style.left;
+
+      piece.dataset.startTop =
+        piece.style.top;
+    });
+
+    function pointerOnPiece(piece) {
+      return pointerTipHitsElement(
+        pointer,
+        piece
+      );
+    }
+
+    function matchingSlot(piece) {
+      return slots.find(
+        slot =>
+          slot.dataset.match ===
+          piece.dataset.match
+      );
+    }
+
+    function slotUnderPiece(piece) {
+      if (!piece) {
+        return null;
+      }
+
+      const pieceRect =
+        piece.getBoundingClientRect();
+
+      const centerX =
+        pieceRect.left +
+        pieceRect.width / 2;
+
+      const centerY =
+        pieceRect.top +
+        pieceRect.height / 2;
+
+      return slots.find((slot) => {
+        const rect =
+          slot.getBoundingClientRect();
+
+        return (
+          centerX >= rect.left &&
+          centerX <= rect.right &&
+          centerY >= rect.top &&
+          centerY <= rect.bottom
+        );
+      }) || null;
+    }
+
+    function clearReady() {
+      pieces.forEach((piece) => {
+        piece.classList.remove(
+          "week4-puzzle-piece-ready"
+        );
+      });
+
+      slots.forEach((slot) => {
+        slot.classList.remove(
+          "week4-puzzle-slot-ready",
+          "week4-puzzle-slot-wrong"
+        );
+      });
+    }
+
+    function returnPiece(piece) {
+      if (!piece) {
+        return;
+      }
+
+      piece.style.left =
+        piece.dataset.startLeft;
+
+      piece.style.top =
+        piece.dataset.startTop;
+
+      piece.classList.remove(
+        "week4-puzzle-piece-held",
+        "week4-puzzle-piece-ready"
+      );
+    }
+
+    function updateProgress() {
+      progress.textContent =
+        `${completedCount} of ${pieces.length}`;
+    }
+
+    function snapPiece(
+      piece,
+      slot
+    ) {
+      const areaRect =
+        area.getBoundingClientRect();
+
+      const slotRect =
+        slot.getBoundingClientRect();
+
+      piece.style.left =
+        `${
+          slotRect.left -
+          areaRect.left +
+          slotRect.width / 2
+        }px`;
+
+      piece.style.top =
+        `${
+          slotRect.top -
+          areaRect.top +
+          slotRect.height / 2
+        }px`;
+
+      piece.classList.remove(
+        "week4-puzzle-piece-held",
+        "week4-puzzle-piece-ready"
+      );
+
+      piece.classList.add(
+        "week4-puzzle-piece-complete"
+      );
+
+      slot.classList.add(
+        "week4-puzzle-slot-complete"
+      );
+
+      completedCount += 1;
+      updateProgress();
+
+      status.textContent =
+        "Perfect fit! ✓";
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio("/sounds/correct.mp3");
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        correctSound
+          .play()
+          .catch(() => {});
+      }
+
+      setTimeout(() => {
+        if (
+          completedCount >=
+          pieces.length
+        ) {
+          finished = true;
+
+          progress.textContent =
+            "4 of 4 ✓";
+
+          status.textContent =
+            "Puzzle complete! Great job!";
+
+          area.classList.add(
+            "week4-puzzle-complete"
+          );
+
+          return;
+        }
+
+        status.textContent =
+          "Choose another puzzle piece.";
+      }, 450);
+    }
+
+    function finishDrop() {
+      if (
+        !activePiece ||
+        finished
+      ) {
+        return;
+      }
+
+      const piece =
+        activePiece;
+
+      activePiece = null;
+
+      const droppedSlot =
+        slotUnderPiece(piece);
+
+      const correctSlot =
+        matchingSlot(piece);
+
+      clearReady();
+
+      if (
+        droppedSlot &&
+        droppedSlot === correctSlot
+      ) {
+        snapPiece(
+          piece,
+          correctSlot
+        );
+
+        return;
+      }
+
+      if (droppedSlot) {
+        droppedSlot.classList.add(
+          "week4-puzzle-slot-wrong"
+        );
+
+        status.textContent =
+          "Try a different puzzle spot.";
+
+        setTimeout(() => {
+          droppedSlot.classList.remove(
+            "week4-puzzle-slot-wrong"
+          );
+        }, 450);
+      } else {
+        status.textContent =
+          "Let go inside a matching puzzle spot.";
+      }
+
+      returnPiece(piece);
+    }
+
+    removeWeek4PuzzleMoveListener =
+      input.subscribe("move", (event) => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!activePiece) {
+          return;
+        }
+
+        activePiece.style.left =
+          `${event.x - rect.left}px`;
+
+        activePiece.style.top =
+          `${event.y - rect.top}px`;
+
+        clearReady();
+
+        const slot =
+          slotUnderPiece(activePiece);
+
+        if (!slot) {
+          status.textContent =
+            "Keep holding and find its match.";
+
+          return;
+        }
+
+        activePiece.classList.add(
+          "week4-puzzle-piece-ready"
+        );
+
+        slot.classList.add(
+          "week4-puzzle-slot-ready"
+        );
+
+        if (
+          slot ===
+          matchingSlot(activePiece)
+        ) {
+          status.textContent =
+            "It fits — LET GO!";
+        } else {
+          status.textContent =
+            "Does that piece fit there?";
+        }
+      });
+
+    removeWeek4PuzzleLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (
+          finished ||
+          activePiece
+        ) {
+          return;
+        }
+
+        const piece =
+          pieces.find((item) => {
+            return (
+              !item.classList.contains(
+                "week4-puzzle-piece-complete"
+              ) &&
+              pointerOnPiece(item)
+            );
+          });
+
+        if (!piece) {
+          status.textContent =
+            "Move onto a puzzle piece first.";
+
+          return;
+        }
+
+        activePiece =
+          piece;
+
+        piece.classList.add(
+          "week4-puzzle-piece-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — find its matching spot.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume =
+              0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime =
+            0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    removeWeek4PuzzleRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        if (activePiece) {
+          returnPiece(
+            activePiece
+          );
+
+          activePiece =
+            null;
+        }
+
+        clearReady();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    week4PuzzleNativeReleaseHandler =
+      (event) => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      week4PuzzleNativeReleaseHandler,
+      true
+    );
+
+    updateProgress();
+  }
+
+  function startWeek4CleanUpBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("week4CleanUpArea");
+
+    const pointer =
+      document.getElementById("week4CleanUpPointer");
+
+    const status =
+      document.getElementById("week4CleanUpStatus");
+
+    const progress =
+      document.getElementById("week4CleanUpProgress");
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const objects =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-clean-object"
+        )
+      );
+
+    const destinations =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-clean-destination"
+        )
+      );
+
+    let activeObject = null;
+    let completedCount = 0;
+    let finished = false;
+
+    objects.forEach((object) => {
+      object.dataset.startLeft =
+        object.style.left;
+
+      object.dataset.startTop =
+        object.style.top;
+    });
+
+    function pointerOnObject(object) {
+      return pointerTipHitsElement(
+        pointer,
+        object
+      );
+    }
+
+    function matchingDestination(object) {
+      return destinations.find(
+        destination =>
+          destination.dataset.match ===
+          object.dataset.match
+      );
+    }
+
+    function destinationUnderObject(object) {
+      if (!object) {
+        return null;
+      }
+
+      const objectRect =
+        object.getBoundingClientRect();
+
+      const centerX =
+        objectRect.left +
+        objectRect.width / 2;
+
+      const centerY =
+        objectRect.top +
+        objectRect.height / 2;
+
+      return destinations.find(
+        destination => {
+          const rect =
+            destination.getBoundingClientRect();
+
+          return (
+            centerX >= rect.left &&
+            centerX <= rect.right &&
+            centerY >= rect.top &&
+            centerY <= rect.bottom
+          );
+        }
+      ) || null;
+    }
+
+    function clearReady() {
+      objects.forEach((object) => {
+        object.classList.remove(
+          "week4-clean-object-ready"
+        );
+      });
+
+      destinations.forEach(
+        destination => {
+          destination.classList.remove(
+            "week4-clean-destination-ready",
+            "week4-clean-destination-wrong"
+          );
+        }
+      );
+    }
+
+    function returnObject(object) {
+      if (!object) {
+        return;
+      }
+
+      object.style.left =
+        object.dataset.startLeft;
+
+      object.style.top =
+        object.dataset.startTop;
+
+      object.classList.remove(
+        "week4-clean-object-held",
+        "week4-clean-object-ready"
+      );
+    }
+
+    function updateProgress() {
+      progress.textContent =
+        `${completedCount} of ${objects.length}`;
+    }
+
+    function completeObject(
+      object,
+      destination
+    ) {
+      object.classList.remove(
+        "week4-clean-object-held",
+        "week4-clean-object-ready"
+      );
+
+      object.classList.add(
+        "week4-clean-object-complete"
+      );
+
+      destination.classList.add(
+        "week4-clean-destination-complete"
+      );
+
+      completedCount += 1;
+      updateProgress();
+
+      status.textContent =
+        "Nice cleanup! ✓";
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio("/sounds/correct.mp3");
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        correctSound
+          .play()
+          .catch(() => {});
+      }
+
+      setTimeout(() => {
+        if (
+          completedCount >=
+          objects.length
+        ) {
+          finished = true;
+
+          progress.textContent =
+            "4 of 4 ✓";
+
+          status.textContent =
+            "Classroom clean! Great job!";
+
+          area.classList.add(
+            "week4-clean-area-complete"
+          );
+
+          return;
+        }
+
+        status.textContent =
+          "Choose another item to clean up.";
+      }, 450);
+    }
+
+    function finishDrop() {
+      if (
+        !activeObject ||
+        finished
+      ) {
+        return;
+      }
+
+      const object =
+        activeObject;
+
+      activeObject = null;
+
+      const droppedDestination =
+        destinationUnderObject(object);
+
+      const correctDestination =
+        matchingDestination(object);
+
+      clearReady();
+
+      if (
+        droppedDestination &&
+        droppedDestination ===
+          correctDestination
+      ) {
+        completeObject(
+          object,
+          correctDestination
+        );
+
+        return;
+      }
+
+      if (droppedDestination) {
+        droppedDestination.classList.add(
+          "week4-clean-destination-wrong"
+        );
+
+        status.textContent =
+          "That item belongs somewhere else.";
+
+        setTimeout(() => {
+          droppedDestination.classList.remove(
+            "week4-clean-destination-wrong"
+          );
+        }, 450);
+      } else {
+        status.textContent =
+          "Let go inside the correct spot.";
+      }
+
+      returnObject(object);
+    }
+
+    removeWeek4CleanUpMoveListener =
+      input.subscribe("move", event => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!activeObject) {
+          return;
+        }
+
+        activeObject.style.left =
+          `${event.x - rect.left}px`;
+
+        activeObject.style.top =
+          `${event.y - rect.top}px`;
+
+        clearReady();
+
+        const destination =
+          destinationUnderObject(
+            activeObject
+          );
+
+        if (!destination) {
+          status.textContent =
+            "Keep holding and move.";
+          return;
+        }
+
+        activeObject.classList.add(
+          "week4-clean-object-ready"
+        );
+
+        destination.classList.add(
+          "week4-clean-destination-ready"
+        );
+
+        if (
+          destination ===
+          matchingDestination(activeObject)
+        ) {
+          status.textContent =
+            "That's the right spot — LET GO!";
+        } else {
+          status.textContent =
+            "Is that where it belongs?";
+        }
+      });
+
+    removeWeek4CleanUpLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (
+          finished ||
+          activeObject
+        ) {
+          return;
+        }
+
+        const object =
+          objects.find(item => {
+            return (
+              !item.classList.contains(
+                "week4-clean-object-complete"
+              ) &&
+              pointerOnObject(item)
+            );
+          });
+
+        if (!object) {
+          status.textContent =
+            "Move onto an item first.";
+          return;
+        }
+
+        activeObject = object;
+
+        object.classList.add(
+          "week4-clean-object-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — find where it belongs.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume =
+              0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime =
+            0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    removeWeek4CleanUpRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        if (activeObject) {
+          returnObject(
+            activeObject
+          );
+
+          activeObject = null;
+        }
+
+        clearReady();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    week4CleanUpNativeReleaseHandler =
+      event => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      week4CleanUpNativeReleaseHandler,
+      true
+    );
+
+    updateProgress();
+  }
+
+  function startWeek4SortBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("week4SortArea");
+
+    const pointer =
+      document.getElementById("week4SortPointer");
+
+    const status =
+      document.getElementById("week4SortStatus");
+
+    const progress =
+      document.getElementById("week4SortProgress");
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const objects =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-sort-object"
+        )
+      );
+
+    const bins =
+      Array.from(
+        area.querySelectorAll(
+          ".week4-sort-bin"
+        )
+      );
+
+    let activeObject = null;
+    let completedCount = 0;
+    let finished = false;
+
+    objects.forEach((object) => {
+      object.dataset.startLeft =
+        object.style.left;
+
+      object.dataset.startTop =
+        object.style.top;
+    });
+
+    function pointerOnObject(object) {
+      return pointerTipHitsElement(
+        pointer,
+        object
+      );
+    }
+
+    function matchingBin(object) {
+      return bins.find(
+        bin =>
+          bin.dataset.category ===
+          object.dataset.category
+      );
+    }
+
+    function binUnderObject(object) {
+      if (!object) {
+        return null;
+      }
+
+      const objectRect =
+        object.getBoundingClientRect();
+
+      const centerX =
+        objectRect.left +
+        objectRect.width / 2;
+
+      const centerY =
+        objectRect.top +
+        objectRect.height / 2;
+
+      return bins.find((bin) => {
+        const rect =
+          bin.getBoundingClientRect();
+
+        return (
+          centerX >= rect.left &&
+          centerX <= rect.right &&
+          centerY >= rect.top &&
+          centerY <= rect.bottom
+        );
+      }) || null;
+    }
+
+    function clearReady() {
+      objects.forEach((object) => {
+        object.classList.remove(
+          "week4-sort-object-ready"
+        );
+      });
+
+      bins.forEach((bin) => {
+        bin.classList.remove(
+          "week4-sort-bin-ready",
+          "week4-sort-bin-wrong"
+        );
+      });
+    }
+
+    function returnObject(object) {
+      if (!object) {
+        return;
+      }
+
+      object.style.left =
+        object.dataset.startLeft;
+
+      object.style.top =
+        object.dataset.startTop;
+
+      object.classList.remove(
+        "week4-sort-object-held",
+        "week4-sort-object-ready"
+      );
+    }
+
+    function updateProgress() {
+      progress.textContent =
+        `${completedCount} of ${objects.length}`;
+    }
+
+    function completeObject(
+      object,
+      bin
+    ) {
+      object.classList.remove(
+        "week4-sort-object-held",
+        "week4-sort-object-ready"
+      );
+
+      object.classList.add(
+        "week4-sort-object-complete"
+      );
+
+      bin.classList.add(
+        "week4-sort-bin-success"
+      );
+
+      completedCount += 1;
+      updateProgress();
+
+      status.textContent =
+        "Great sort! ✓";
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio("/sounds/correct.mp3");
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        correctSound
+          .play()
+          .catch(() => {});
+      }
+
+      setTimeout(() => {
+        bin.classList.remove(
+          "week4-sort-bin-success"
+        );
+
+        if (
+          completedCount >=
+          objects.length
+        ) {
+          finished = true;
+
+          progress.textContent =
+            "6 of 6 ✓";
+
+          status.textContent =
+            "You sorted everything! Great job!";
+
+          area.classList.add(
+            "week4-sort-complete"
+          );
+
+          return;
+        }
+
+        status.textContent =
+          "Choose another item.";
+      }, 450);
+    }
+
+    function finishDrop() {
+      if (
+        !activeObject ||
+        finished
+      ) {
+        return;
+      }
+
+      const object =
+        activeObject;
+
+      activeObject = null;
+
+      const droppedBin =
+        binUnderObject(object);
+
+      const correctBin =
+        matchingBin(object);
+
+      clearReady();
+
+      if (
+        droppedBin &&
+        droppedBin === correctBin
+      ) {
+        completeObject(
+          object,
+          correctBin
+        );
+
+        return;
+      }
+
+      if (droppedBin) {
+        droppedBin.classList.add(
+          "week4-sort-bin-wrong"
+        );
+
+        status.textContent =
+          "That belongs in the other group.";
+
+        setTimeout(() => {
+          droppedBin.classList.remove(
+            "week4-sort-bin-wrong"
+          );
+        }, 450);
+      } else {
+        status.textContent =
+          "Let go inside one of the bins.";
+      }
+
+      returnObject(object);
+    }
+
+    removeWeek4SortMoveListener =
+      input.subscribe("move", (event) => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!activeObject) {
+          return;
+        }
+
+        activeObject.style.left =
+          `${event.x - rect.left}px`;
+
+        activeObject.style.top =
+          `${event.y - rect.top}px`;
+
+        clearReady();
+
+        const bin =
+          binUnderObject(activeObject);
+
+        if (!bin) {
+          status.textContent =
+            "Keep holding and move to a group.";
+
+          return;
+        }
+
+        activeObject.classList.add(
+          "week4-sort-object-ready"
+        );
+
+        bin.classList.add(
+          "week4-sort-bin-ready"
+        );
+
+        if (
+          bin ===
+          matchingBin(activeObject)
+        ) {
+          status.textContent =
+            "That looks right — LET GO!";
+        } else {
+          status.textContent =
+            "Hmm... is that the right group?";
+        }
+      });
+
+    removeWeek4SortLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (
+          finished ||
+          activeObject
+        ) {
+          return;
+        }
+
+        const object =
+          objects.find((item) => {
+            return (
+              !item.classList.contains(
+                "week4-sort-object-complete"
+              ) &&
+              pointerOnObject(item)
+            );
+          });
+
+        if (!object) {
+          status.textContent =
+            "Move onto an item first.";
+
+          return;
+        }
+
+        activeObject =
+          object;
+
+        object.classList.add(
+          "week4-sort-object-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — choose its group.";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume =
+              0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime =
+            0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    removeWeek4SortRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        if (activeObject) {
+          returnObject(
+            activeObject
+          );
+
+          activeObject =
+            null;
+        }
+
+        clearReady();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    week4SortNativeReleaseHandler =
+      (event) => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      week4SortNativeReleaseHandler,
+      true
+    );
+
+    updateProgress();
   }
 
   function startWeek4WarmUpBehavior() {
@@ -5864,6 +7157,554 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week4-puzzle") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-puzzle">
+
+          <div class="week4-puzzle-heading">
+            <span class="drag-review-badge">
+              PUZZLE
+            </span>
+
+            <h1>Puzzle Pieces</h1>
+
+            <p>
+              Drag each piece into its matching spot.
+            </p>
+          </div>
+
+          <div class="week4-puzzle-progress">
+            Pieces:
+            <strong id="week4PuzzleProgress">
+              0 of 4
+            </strong>
+          </div>
+
+          <div
+            id="week4PuzzleArea"
+            class="week4-puzzle-area"
+          >
+
+            <!-- PUZZLE PIECES -->
+
+            <div
+              class="
+                week4-puzzle-piece
+                week4-mouse-piece
+                week4-mouse-piece-tl
+              "
+              data-match="mouse-tl"
+              style="left: 34%; top: 72%;"
+            >
+              <div class="week4-mouse-fragment mouse-fragment-tl"></div>
+            </div>
+
+            <div
+              class="
+                week4-puzzle-piece
+                week4-mouse-piece
+                week4-mouse-piece-tr
+              "
+              data-match="mouse-tr"
+              style="left: 14%; top: 72%;"
+            >
+              <div class="week4-mouse-fragment mouse-fragment-tr"></div>
+            </div>
+
+            <div
+              class="
+                week4-puzzle-piece
+                week4-mouse-piece
+                week4-mouse-piece-bl
+              "
+              data-match="mouse-bl"
+              style="left: 34%; top: 27%;"
+            >
+              <div class="week4-mouse-fragment mouse-fragment-bl"></div>
+            </div>
+
+            <div
+              class="
+                week4-puzzle-piece
+                week4-mouse-piece
+                week4-mouse-piece-br
+              "
+              data-match="mouse-br"
+              style="left: 14%; top: 27%;"
+            >
+              <div class="week4-mouse-fragment mouse-fragment-br"></div>
+            </div>
+
+
+            <!-- MOUSE PUZZLE BOARD -->
+
+            <div class="week4-puzzle-board week4-mouse-puzzle-board">
+
+              <div
+                class="week4-puzzle-slot week4-mouse-slot slot-tl"
+                data-match="mouse-tl"
+              ></div>
+
+              <div
+                class="week4-puzzle-slot week4-mouse-slot slot-tr"
+                data-match="mouse-tr"
+              ></div>
+
+              <div
+                class="week4-puzzle-slot week4-mouse-slot slot-bl"
+                data-match="mouse-bl"
+              ></div>
+
+              <div
+                class="week4-puzzle-slot week4-mouse-slot slot-br"
+                data-match="mouse-br"
+              ></div>
+
+            </div>
+
+
+            <div
+              id="week4PuzzlePointer"
+              class="week4-puzzle-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="week4PuzzleStatus"
+              class="week4-puzzle-status"
+            >
+              Choose a puzzle piece.
+            </div>
+
+          </div>
+
+
+          <div
+            class="week4-puzzle-reference"
+            aria-hidden="true"
+          >
+            <div class="week4-puzzle-reference-label">
+              HOLD & MOVE
+            </div>
+
+            <div class="week4-puzzle-reference-visual">
+
+              <div
+                class="mouse-demo-hand hold-mouse-hand week4-puzzle-reference-hand"
+              >
+                <div class="mouse-demo-palm"></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-index"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-middle"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-pinky"
+                ></div>
+              </div>
+
+              <div class="mouse-demo-body">
+
+                <div
+                  class="mouse-demo-left week4-puzzle-reference-button"
+                ></div>
+
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week4-clean-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-clean">
+
+          <div class="week4-clean-heading">
+            <span class="drag-review-badge">
+              CLEAN UP!
+            </span>
+
+            <h1>Clean Up the Classroom</h1>
+
+            <p>
+              Put each classroom item where it belongs.
+            </p>
+          </div>
+
+          <div class="week4-clean-progress">
+            Put away:
+            <strong id="week4CleanUpProgress">
+              0 of 4
+            </strong>
+          </div>
+
+          <div
+            id="week4CleanUpArea"
+            class="week4-clean-area"
+          >
+
+            <!-- SCATTERED ITEMS -->
+
+            <div
+              class="week4-clean-object"
+              data-match="book"
+              style="left: 13%; top: 25%;"
+            >
+              📘
+              <span>BOOK</span>
+            </div>
+
+            <div
+              class="week4-clean-object"
+              data-match="headphones"
+              style="left: 34%; top: 29%;"
+            >
+              🎧
+              <span>HEADPHONES</span>
+            </div>
+
+            <div
+              class="week4-clean-object"
+              data-match="teddy"
+              style="left: 16%; top: 69%;"
+            >
+              🧸
+              <span>TEDDY</span>
+            </div>
+
+            <div
+              class="week4-clean-object"
+              data-match="pencil"
+              style="left: 37%; top: 73%;"
+            >
+              ✏️
+              <span>PENCIL</span>
+            </div>
+
+
+            <!-- DESTINATIONS -->
+
+            <div
+              class="
+                week4-clean-destination
+                week4-clean-bookshelf
+              "
+              data-match="book"
+            >
+              <div class="week4-clean-bookshelf-visual">
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+              <strong>BOOKSHELF</strong>
+            </div>
+
+            <div
+              class="
+                week4-clean-destination
+                week4-clean-headphone-hook
+              "
+              data-match="headphones"
+            >
+              <div class="week4-clean-hook-visual">
+                <span>🎧</span>
+              </div>
+
+              <strong>HEADPHONE HOOK</strong>
+            </div>
+
+            <div
+              class="
+                week4-clean-destination
+                week4-clean-toy-bin
+              "
+              data-match="teddy"
+            >
+              <div class="week4-clean-toy-bin-visual">
+                TOYS
+              </div>
+
+              <strong>TOY BIN</strong>
+            </div>
+
+            <div
+              class="
+                week4-clean-destination
+                week4-clean-pencil-cup
+              "
+              data-match="pencil"
+            >
+              <div class="week4-clean-pencil-cup-visual">
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+              <strong>PENCIL CUP</strong>
+            </div>
+
+
+            <div
+              id="week4CleanUpPointer"
+              class="week4-clean-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="week4CleanUpStatus"
+              class="week4-clean-status"
+            >
+              Choose something to put away.
+            </div>
+
+          </div>
+
+
+          <div
+            class="week4-clean-reference"
+            aria-hidden="true"
+          >
+            <div class="week4-clean-reference-label">
+              HOLD & MOVE
+            </div>
+
+            <div class="week4-clean-reference-visual">
+
+              <div
+                class="mouse-demo-hand hold-mouse-hand week4-clean-reference-hand"
+              >
+                <div class="mouse-demo-palm"></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-index"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-middle"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-pinky"
+                ></div>
+              </div>
+
+              <div class="mouse-demo-body">
+
+                <div
+                  class="mouse-demo-left week4-clean-reference-button"
+                ></div>
+
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week4-sort") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-sort">
+
+          <div class="week4-sort-heading">
+            <span class="drag-review-badge">
+              SORT IT!
+            </span>
+
+            <h1>School or Toy?</h1>
+
+            <p>
+              Drag each item into the group where it belongs.
+            </p>
+          </div>
+
+          <div class="week4-sort-progress">
+            Sorted:
+            <strong id="week4SortProgress">
+              0 of 6
+            </strong>
+          </div>
+
+          <div
+            id="week4SortArea"
+            class="week4-sort-area"
+          >
+
+            <div class="week4-sort-items">
+
+              <div
+                class="week4-sort-object"
+                data-category="school"
+                style="left: 30%; top: 22%;"
+              >
+                ✏️
+                <span>PENCIL</span>
+              </div>
+
+              <div
+                class="week4-sort-object"
+                data-category="toy"
+                style="left: 13%; top: 22%;"
+              >
+                🧸
+                <span>TEDDY</span>
+              </div>
+
+              <div
+                class="week4-sort-object"
+                data-category="school"
+                style="left: 13%; top: 51%;"
+              >
+                📘
+                <span>BOOK</span>
+              </div>
+
+              <div
+                class="week4-sort-object"
+                data-category="toy"
+                style="left: 30%; top: 51%;"
+              >
+                ⚽
+                <span>BALL</span>
+              </div>
+
+              <div
+                class="week4-sort-object"
+                data-category="school"
+                style="left: 30%; top: 80%;"
+              >
+                🖍️
+                <span>CRAYON</span>
+              </div>
+
+              <div
+                class="week4-sort-object"
+                data-category="toy"
+                style="left: 13%; top: 80%;"
+              >
+                🪀
+                <span>YO-YO</span>
+              </div>
+
+            </div>
+
+
+            <div
+              class="week4-sort-bin week4-sort-school-bin"
+              data-category="school"
+            >
+              <div class="week4-sort-bin-icon">
+                🎒
+              </div>
+
+              <strong>
+                SCHOOL
+              </strong>
+
+              <span>
+                Things we use for learning
+              </span>
+            </div>
+
+
+            <div
+              class="week4-sort-bin week4-sort-toy-bin"
+              data-category="toy"
+            >
+              <div class="week4-sort-bin-icon">
+                🧸
+              </div>
+
+              <strong>
+                TOYS
+              </strong>
+
+              <span>
+                Things we play with
+              </span>
+            </div>
+
+
+            <div
+              id="week4SortPointer"
+              class="week4-sort-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="week4SortStatus"
+              class="week4-sort-status"
+            >
+              Choose an item to sort.
+            </div>
+
+          </div>
+
+
+          <div
+            class="week4-sort-reference"
+            aria-hidden="true"
+          >
+            <div class="week4-sort-reference-label">
+              HOLD & MOVE
+            </div>
+
+            <div class="week4-sort-reference-visual">
+
+              <div
+                class="mouse-demo-hand hold-mouse-hand week4-sort-reference-hand"
+              >
+                <div class="mouse-demo-palm"></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-index"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-middle"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-pinky"
+                ></div>
+              </div>
+
+              <div class="mouse-demo-body">
+
+                <div
+                  class="mouse-demo-left week4-sort-reference-button"
+                ></div>
+
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week4-warm-up") {
       return `
         <div class="lesson-screen lesson-screen-week4-backpack">
@@ -7951,6 +9792,84 @@
 
   function stopStepBehavior() {
 
+    if (removeWeek4PuzzleMoveListener) {
+      removeWeek4PuzzleMoveListener();
+      removeWeek4PuzzleMoveListener = null;
+    }
+
+    if (removeWeek4PuzzleLeftDownListener) {
+      removeWeek4PuzzleLeftDownListener();
+      removeWeek4PuzzleLeftDownListener = null;
+    }
+
+    if (removeWeek4PuzzleRightListener) {
+      removeWeek4PuzzleRightListener();
+      removeWeek4PuzzleRightListener = null;
+    }
+
+    if (week4PuzzleNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        week4PuzzleNativeReleaseHandler,
+        true
+      );
+
+      week4PuzzleNativeReleaseHandler = null;
+    }
+
+
+    if (removeWeek4CleanUpMoveListener) {
+      removeWeek4CleanUpMoveListener();
+      removeWeek4CleanUpMoveListener = null;
+    }
+
+    if (removeWeek4CleanUpLeftDownListener) {
+      removeWeek4CleanUpLeftDownListener();
+      removeWeek4CleanUpLeftDownListener = null;
+    }
+
+    if (removeWeek4CleanUpRightListener) {
+      removeWeek4CleanUpRightListener();
+      removeWeek4CleanUpRightListener = null;
+    }
+
+    if (week4CleanUpNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        week4CleanUpNativeReleaseHandler,
+        true
+      );
+
+      week4CleanUpNativeReleaseHandler = null;
+    }
+
+
+    if (removeWeek4SortMoveListener) {
+      removeWeek4SortMoveListener();
+      removeWeek4SortMoveListener = null;
+    }
+
+    if (removeWeek4SortLeftDownListener) {
+      removeWeek4SortLeftDownListener();
+      removeWeek4SortLeftDownListener = null;
+    }
+
+    if (removeWeek4SortRightListener) {
+      removeWeek4SortRightListener();
+      removeWeek4SortRightListener = null;
+    }
+
+    if (week4SortNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        week4SortNativeReleaseHandler,
+        true
+      );
+
+      week4SortNativeReleaseHandler = null;
+    }
+
+
     if (removeWeek4WarmUpMoveListener) {
       removeWeek4WarmUpMoveListener();
       removeWeek4WarmUpMoveListener = null;
@@ -9700,6 +11619,18 @@
 
     if (step.id === "week4-warm-up") {
       startWeek4WarmUpBehavior();
+    }
+
+    if (step.id === "week4-sort") {
+      startWeek4SortBehavior();
+    }
+
+    if (step.id === "week4-clean-up") {
+      startWeek4CleanUpBehavior();
+    }
+
+    if (step.id === "week4-puzzle") {
+      startWeek4PuzzleBehavior();
     }
 
     if (step.id === "meet-click-drag") {

@@ -1,0 +1,121 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 240 240"
+>
+  <!-- tail -->
+  <path
+    d="M174 165
+       C220 150 225 190 201 201
+       C182 210 179 194 191 187"
+    fill="none"
+    stroke="#64748b"
+    stroke-width="11"
+    stroke-linecap="round"
+  />
+
+  <!-- ears -->
+  <circle
+    cx="74"
+    cy="62"
+    r="39"
+    fill="#cbd5e1"
+    stroke="#475569"
+    stroke-width="9"
+  />
+
+  <circle
+    cx="166"
+    cy="62"
+    r="39"
+    fill="#cbd5e1"
+    stroke="#475569"
+    stroke-width="9"
+  />
+
+  <circle
+    cx="74"
+    cy="62"
+    r="21"
+    fill="#f9a8d4"
+  />
+
+  <circle
+    cx="166"
+    cy="62"
+    r="21"
+    fill="#f9a8d4"
+  />
+
+  <!-- body/head -->
+  <ellipse
+    cx="120"
+    cy="137"
+    rx="77"
+    ry="82"
+    fill="#94a3b8"
+    stroke="#475569"
+    stroke-width="10"
+  />
+
+  <!-- face -->
+  <circle cx="94" cy="116" r="7" fill="#1f2937"/>
+  <circle cx="146" cy="116" r="7" fill="#1f2937"/>
+
+  <!-- nose -->
+  <circle
+    cx="120"
+    cy="146"
+    r="10"
+    fill="#f472b6"
+    stroke="#475569"
+    stroke-width="4"
+  />
+
+  <!-- mouth -->
+  <path
+    d="M120 155
+       C110 170 99 168 94 161
+       M120 155
+       C130 170 141 168 146 161"
+    fill="none"
+    stroke="#475569"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+
+  <!-- whiskers -->
+  <path
+    d="M94 145 L48 134
+       M94 153 L45 153
+       M94 161 L49 174
+
+       M146 145 L192 134
+       M146 153 L195 153
+       M146 161 L191 174"
+    fill="none"
+    stroke="#64748b"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+
+  <!-- feet -->
+  <ellipse
+    cx="82"
+    cy="205"
+    rx="27"
+    ry="14"
+    fill="#cbd5e1"
+    stroke="#475569"
+    stroke-width="6"
+  />
+
+  <ellipse
+    cx="158"
+    cy="205"
+    rx="27"
+    ry="14"
+    fill="#cbd5e1"
+    stroke="#475569"
+    stroke-width="6"
+  />
+</svg>
