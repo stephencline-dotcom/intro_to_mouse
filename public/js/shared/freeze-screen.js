@@ -27,8 +27,39 @@
 
     overlay.innerHTML = `
       <div class="freeze-overlay-card">
+
+        <div
+          class="freeze-visual"
+          aria-hidden="true"
+        >
+          <div class="freeze-eyes">
+            <span class="freeze-eye">
+              <i></i>
+            </span>
+
+            <span class="freeze-eye">
+              <i></i>
+            </span>
+          </div>
+
+          <div class="freeze-look-arrow">
+            ➜
+          </div>
+
+          <div class="freeze-teacher-visual">
+            <div class="freeze-board">
+              <span>★</span>
+            </div>
+
+            <div class="freeze-teacher">
+              👩‍🏫
+            </div>
+          </div>
+        </div>
+
         <h1>Eyes Up Front</h1>
         <p>Look at the teacher.</p>
+
       </div>
     `;
 
