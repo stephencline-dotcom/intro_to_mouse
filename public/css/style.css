@@ -13479,3 +13479,500 @@ body:has(#globalFreezeButton) .lesson-screen {
   box-sizing: border-box !important;
 }
 
+
+
+/* ========================================
+   Week 4 Step 6: Moving Targets
+======================================== */
+
+.lesson-screen-week4-moving {
+  position: relative;
+  padding: 10px 22px 16px;
+}
+
+.week4-moving-heading {
+  text-align: center;
+}
+
+.week4-moving-heading h1 {
+  margin: 2px 0 3px;
+
+  font-size:
+    clamp(31px, 4.5vh, 43px);
+}
+
+.week4-moving-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.week4-moving-progress {
+  margin: 6px 0;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.week4-moving-progress strong {
+  color: #2563eb;
+}
+
+
+/* Activity */
+
+.week4-moving-area {
+  position: relative;
+
+  width: min(1000px, 94%);
+  height: 420px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #f1f5f9
+    );
+
+  cursor: none;
+}
+
+
+/* Draggable object */
+
+.week4-moving-object {
+  position: absolute;
+
+  z-index: 30;
+
+  width: 105px;
+  height: 105px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #2563eb;
+  border-radius: 20px;
+
+  background: white;
+
+  font-size: 55px;
+
+  box-shadow:
+    0 6px 13px
+    rgba(0, 0, 0, 0.12);
+}
+
+.week4-moving-object-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.07);
+
+  box-shadow:
+    0 0 0 7px
+    rgba(37, 99, 235, 0.16);
+}
+
+.week4-moving-object-ready {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.week4-moving-object-success {
+  border-color: #16a34a;
+  background: #dcfce7;
+}
+
+
+/* Moving destination */
+
+.week4-moving-destination {
+  position: absolute;
+
+  left: 72%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+
+  border: 5px dashed #22c55e;
+  border-radius: 20px;
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+  font-size: 15px;
+  font-weight: 1000;
+
+  box-sizing: border-box;
+}
+
+
+/* Round sizes */
+
+.week4-moving-size-large {
+  width: 200px;
+  height: 165px;
+}
+
+.week4-moving-size-medium {
+  width: 165px;
+  height: 140px;
+}
+
+.week4-moving-size-small {
+  width: 135px;
+  height: 118px;
+}
+
+
+/* Moving paths */
+
+.week4-moving-drift-a {
+  animation:
+    week4-moving-a
+    6.5s ease-in-out
+    infinite alternate;
+}
+
+.week4-moving-drift-b {
+  animation:
+    week4-moving-b
+    5.7s ease-in-out
+    infinite alternate;
+}
+
+.week4-moving-drift-c {
+  animation:
+    week4-moving-c
+    5s ease-in-out
+    infinite alternate;
+}
+
+@keyframes week4-moving-a {
+  from {
+    left: 64%;
+    top: 36%;
+  }
+
+  to {
+    left: 82%;
+    top: 65%;
+  }
+}
+
+@keyframes week4-moving-b {
+  from {
+    left: 80%;
+    top: 30%;
+  }
+
+  to {
+    left: 61%;
+    top: 70%;
+  }
+}
+
+@keyframes week4-moving-c {
+  0% {
+    left: 62%;
+    top: 32%;
+  }
+
+  50% {
+    left: 82%;
+    top: 48%;
+  }
+
+  100% {
+    left: 66%;
+    top: 72%;
+  }
+}
+
+
+/* Feedback */
+
+.week4-moving-destination-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(245, 158, 11, 0.16);
+}
+
+.week4-moving-destination-success {
+  border-color: #16a34a;
+  border-style: solid;
+
+  background: #bbf7d0;
+
+  box-shadow:
+    0 0 0 8px
+    rgba(34, 197, 94, 0.18);
+}
+
+
+/* Pointer/status */
+
+.week4-moving-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 91%;
+
+  z-index: 70;
+
+  font-size: 60px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-moving-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 7px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 75;
+
+  width: 62%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.week4-moving-complete {
+  box-shadow:
+    inset 0 0 0 5px
+    rgba(34, 197, 94, 0.15);
+}
+
+
+/* Small mouse reference */
+
+.week4-moving-reference {
+  position: fixed;
+
+  left: 115px;
+  top: 90px;
+
+  z-index: 18000;
+
+  width: 105px;
+  height: 115px;
+
+  pointer-events: none;
+}
+
+.week4-moving-reference-label {
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  transform:
+    translateX(-50%);
+
+  width: 105px;
+
+  text-align: center;
+
+  color: #1d4ed8;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.week4-moving-reference-visual {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 280px;
+  height: 330px;
+
+  transform:
+    translateX(-50%)
+    scale(0.28);
+
+  transform-origin:
+    top center;
+}
+
+.week4-moving-reference-hand {
+  position: absolute !important;
+
+  width: 195px !important;
+  height: 235px !important;
+
+  left: 50% !important;
+  top: 48px !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index: 8 !important;
+}
+
+.week4-moving-reference-hand
+.mouse-demo-palm {
+  left: 10px !important;
+  top: 80px !important;
+
+  width: 166px !important;
+  height: 164px !important;
+}
+
+.week4-moving-reference-hand
+.mouse-demo-index {
+  left: 47px !important;
+  top: 19px !important;
+
+  background: #60a5fa !important;
+}
+
+.week4-moving-reference-visual
+.mouse-demo-body {
+  width: 210px !important;
+  height: 275px !important;
+
+  margin: 0 auto;
+}
+
+.week4-moving-reference-button {
+  background: #3b82f6 !important;
+
+  transform:
+    translateY(5px)
+    scaleY(0.88);
+}
+
+
+/* ========================================
+   Week 4 Step 6 - faster rounds 4 and 5
+======================================== */
+
+.week4-moving-drift-d {
+  animation:
+    week4-moving-d
+    3.6s ease-in-out
+    infinite alternate;
+}
+
+.week4-moving-drift-e {
+  animation:
+    week4-moving-e
+    2.8s ease-in-out
+    infinite alternate;
+}
+
+
+/* Round 4 - faster diagonal sweep */
+@keyframes week4-moving-d {
+  0% {
+    left: 63%;
+    top: 28%;
+  }
+
+  50% {
+    left: 83%;
+    top: 68%;
+  }
+
+  100% {
+    left: 69%;
+    top: 38%;
+  }
+}
+
+
+/* Round 5 - fastest, wider path */
+@keyframes week4-moving-e {
+  0% {
+    left: 60%;
+    top: 30%;
+  }
+
+  25% {
+    left: 82%;
+    top: 32%;
+  }
+
+  50% {
+    left: 78%;
+    top: 72%;
+  }
+
+  75% {
+    left: 62%;
+    top: 68%;
+  }
+
+  100% {
+    left: 72%;
+    top: 42%;
+  }
+}
+
+
+/* ========================================
+   Week 4 Step 6 - smoother speed progression
+======================================== */
+
+.week4-moving-drift-a {
+  animation-duration: 5.5s !important;
+}
+
+.week4-moving-drift-b {
+  animation-duration: 4.8s !important;
+}
+
+.week4-moving-drift-c {
+  animation-duration: 4.1s !important;
+}
+
+.week4-moving-drift-d {
+  animation-duration: 3.4s !important;
+}
+
+.week4-moving-drift-e {
+  animation-duration: 2.7s !important;
+}
+

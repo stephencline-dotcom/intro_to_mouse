@@ -224,6 +224,11 @@
   let removeDragDropRightListener = null;
   let dragDropNativeReleaseHandler = null;
 
+  let removeWeek4MovingMoveListener = null;
+  let removeWeek4MovingLeftDownListener = null;
+  let removeWeek4MovingRightListener = null;
+  let week4MovingNativeReleaseHandler = null;
+
   let removeWeek4PuzzleMoveListener = null;
   let removeWeek4PuzzleLeftDownListener = null;
   let removeWeek4PuzzleRightListener = null;
@@ -1105,6 +1110,399 @@
       dragDropNativeReleaseHandler,
       true
     );
+  }
+
+  function startWeek4MovingTargetsBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById("week4MovingArea");
+
+    const object =
+      document.getElementById("week4MovingObject");
+
+    const destination =
+      document.getElementById("week4MovingDestination");
+
+    const pointer =
+      document.getElementById("week4MovingPointer");
+
+    const status =
+      document.getElementById("week4MovingStatus");
+
+    const progress =
+      document.getElementById("week4MovingProgress");
+
+    if (
+      !input ||
+      !area ||
+      !object ||
+      !destination ||
+      !pointer ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        object: "★",
+        label: "STAR",
+        size: "large",
+        drift: "a"
+      },
+      {
+        object: "🔵",
+        label: "BALL",
+        size: "medium",
+        drift: "b"
+      },
+      {
+        object: "💎",
+        label: "GEM",
+        size: "small",
+        drift: "c"
+      },
+      {
+        object: "🍎",
+        label: "APPLE",
+        size: "small",
+        drift: "d"
+      },
+      {
+        object: "⚡",
+        label: "LIGHTNING",
+        size: "small",
+        drift: "e"
+      }
+    ];
+
+    let roundIndex = 0;
+    let dragging = false;
+    let finished = false;
+
+    object.dataset.startLeft = "18%";
+    object.dataset.startTop = "50%";
+
+    function pointerOnObject() {
+      return pointerTipHitsElement(
+        pointer,
+        object
+      );
+    }
+
+    function objectInsideDestination() {
+      const objectRect =
+        object.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        objectRect.left +
+        objectRect.width / 2;
+
+      const centerY =
+        objectRect.top +
+        objectRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function clearReady() {
+      object.classList.remove(
+        "week4-moving-object-ready"
+      );
+
+      destination.classList.remove(
+        "week4-moving-destination-ready"
+      );
+    }
+
+    function resetObject() {
+      dragging = false;
+
+      object.style.left =
+        object.dataset.startLeft;
+
+      object.style.top =
+        object.dataset.startTop;
+
+      object.classList.remove(
+        "week4-moving-object-held",
+        "week4-moving-object-ready",
+        "week4-moving-object-success"
+      );
+
+      clearReady();
+    }
+
+    function loadRound() {
+      const round =
+        rounds[roundIndex];
+
+      resetObject();
+
+      object.textContent =
+        round.object;
+
+      object.dataset.label =
+        round.label;
+
+      destination.className =
+        "week4-moving-destination";
+
+      destination.classList.add(
+        `week4-moving-size-${round.size}`,
+        `week4-moving-drift-${round.drift}`
+      );
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        "Drag the object into the moving target.";
+    }
+
+    function finishRound() {
+      dragging = false;
+
+      object.classList.remove(
+        "week4-moving-object-held",
+        "week4-moving-object-ready"
+      );
+
+      destination.classList.remove(
+        "week4-moving-destination-ready"
+      );
+
+      object.classList.add(
+        "week4-moving-object-success"
+      );
+
+      destination.classList.add(
+        "week4-moving-destination-success"
+      );
+
+      status.textContent =
+        "Great drop! ✓";
+
+      if (soundEnabled) {
+        const sound =
+          new Audio("/sounds/correct.mp3");
+
+        sound.volume = 0.6;
+        sound.currentTime = 0;
+
+        sound.play().catch(() => {});
+      }
+
+      setTimeout(() => {
+        destination.classList.remove(
+          "week4-moving-destination-success"
+        );
+
+        object.classList.remove(
+          "week4-moving-object-success"
+        );
+
+        roundIndex += 1;
+
+        if (
+          roundIndex >=
+          rounds.length
+        ) {
+          finished = true;
+
+          destination.style.animation =
+            "none";
+
+          progress.textContent =
+            "5 of 5 ✓";
+
+          status.textContent =
+            "Moving Targets complete! Great job!";
+
+          area.classList.add(
+            "week4-moving-complete"
+          );
+
+          return;
+        }
+
+        loadRound();
+      }, 650);
+    }
+
+    function finishDrop() {
+      if (
+        !dragging ||
+        finished
+      ) {
+        return;
+      }
+
+      /*
+       * Success is checked ONLY when the student
+       * physically releases the left mouse button.
+       */
+      const releasedInside =
+        objectInsideDestination();
+
+      if (releasedInside) {
+        finishRound();
+        return;
+      }
+
+      resetObject();
+
+      status.textContent =
+        "Almost! Try to let go inside the moving target.";
+    }
+
+    removeWeek4MovingMoveListener =
+      input.subscribe("move", event => {
+        if (finished) {
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        const inside =
+          event.x >= rect.left &&
+          event.x <= rect.right &&
+          event.y >= rect.top &&
+          event.y <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        const offsetX =
+          pointer.offsetWidth * 0.90;
+
+        const offsetY =
+          pointer.offsetHeight * 0.50;
+
+        pointer.style.left =
+          `${event.x - rect.left - offsetX}px`;
+
+        pointer.style.top =
+          `${event.y - rect.top - offsetY}px`;
+
+        if (!dragging) {
+          return;
+        }
+
+        object.style.left =
+          `${event.x - rect.left}px`;
+
+        object.style.top =
+          `${event.y - rect.top}px`;
+
+        clearReady();
+
+        if (
+          objectInsideDestination()
+        ) {
+          object.classList.add(
+            "week4-moving-object-ready"
+          );
+
+          destination.classList.add(
+            "week4-moving-destination-ready"
+          );
+
+          status.textContent =
+            "You're inside — LET GO!";
+        } else {
+          status.textContent =
+            "Keep holding and follow the target.";
+        }
+      });
+
+    removeWeek4MovingLeftDownListener =
+      input.subscribe("leftDown", () => {
+        if (
+          finished ||
+          dragging
+        ) {
+          return;
+        }
+
+        if (!pointerOnObject()) {
+          status.textContent =
+            "Move onto the object first.";
+          return;
+        }
+
+        dragging = true;
+
+        object.classList.add(
+          "week4-moving-object-held"
+        );
+
+        status.textContent =
+          "KEEP HOLDING — catch the target!";
+
+        if (soundEnabled) {
+          if (!leftClickSound) {
+            leftClickSound =
+              new Audio(
+                "/sounds/mouseclick.mp3"
+              );
+
+            leftClickSound.volume =
+              0.5;
+          }
+
+          leftClickSound.pause();
+          leftClickSound.currentTime =
+            0.12;
+
+          leftClickSound
+            .play()
+            .catch(() => {});
+        }
+      });
+
+    removeWeek4MovingRightListener =
+      input.subscribe("rightDown", () => {
+        if (finished) {
+          return;
+        }
+
+        resetObject();
+
+        showWrongButtonWarning();
+
+        status.textContent =
+          "Use the LEFT button.";
+      });
+
+    week4MovingNativeReleaseHandler =
+      event => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      week4MovingNativeReleaseHandler,
+      true
+    );
+
+    loadRound();
   }
 
   function startWeek4PuzzleBehavior() {
@@ -7157,6 +7555,116 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week4-moving-targets") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-moving">
+
+          <div class="week4-moving-heading">
+            <span class="drag-review-badge">
+              CHALLENGE
+            </span>
+
+            <h1>Moving Targets</h1>
+
+            <p>
+              Drag the object into the moving box and LET GO.
+            </p>
+          </div>
+
+          <div class="week4-moving-progress">
+            Round:
+            <strong id="week4MovingProgress">
+              1 of 5
+            </strong>
+          </div>
+
+          <div
+            id="week4MovingArea"
+            class="week4-moving-area"
+          >
+
+            <div
+              id="week4MovingObject"
+              class="week4-moving-object"
+              style="left: 18%; top: 50%;"
+            >
+              ★
+            </div>
+
+            <div
+              id="week4MovingDestination"
+              class="
+                week4-moving-destination
+                week4-moving-size-large
+                week4-moving-drift-a
+              "
+            >
+              DROP HERE
+            </div>
+
+            <div
+              id="week4MovingPointer"
+              class="week4-moving-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="week4MovingStatus"
+              class="week4-moving-status"
+            >
+              Drag the object into the moving target.
+            </div>
+
+          </div>
+
+
+          <div
+            class="week4-moving-reference"
+            aria-hidden="true"
+          >
+            <div class="week4-moving-reference-label">
+              HOLD & MOVE
+            </div>
+
+            <div class="week4-moving-reference-visual">
+
+              <div
+                class="mouse-demo-hand hold-mouse-hand week4-moving-reference-hand"
+              >
+                <div class="mouse-demo-palm"></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-index"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-middle"
+                ></div>
+
+                <div
+                  class="mouse-demo-finger mouse-demo-pinky"
+                ></div>
+              </div>
+
+              <div class="mouse-demo-body">
+
+                <div
+                  class="mouse-demo-left week4-moving-reference-button"
+                ></div>
+
+                <div class="mouse-demo-right"></div>
+                <div class="mouse-demo-wheel"></div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week4-puzzle") {
       return `
         <div class="lesson-screen lesson-screen-week4-puzzle">
@@ -9792,6 +10300,32 @@
 
   function stopStepBehavior() {
 
+    if (removeWeek4MovingMoveListener) {
+      removeWeek4MovingMoveListener();
+      removeWeek4MovingMoveListener = null;
+    }
+
+    if (removeWeek4MovingLeftDownListener) {
+      removeWeek4MovingLeftDownListener();
+      removeWeek4MovingLeftDownListener = null;
+    }
+
+    if (removeWeek4MovingRightListener) {
+      removeWeek4MovingRightListener();
+      removeWeek4MovingRightListener = null;
+    }
+
+    if (week4MovingNativeReleaseHandler) {
+      window.removeEventListener(
+        "mouseup",
+        week4MovingNativeReleaseHandler,
+        true
+      );
+
+      week4MovingNativeReleaseHandler = null;
+    }
+
+
     if (removeWeek4PuzzleMoveListener) {
       removeWeek4PuzzleMoveListener();
       removeWeek4PuzzleMoveListener = null;
@@ -11631,6 +12165,10 @@
 
     if (step.id === "week4-puzzle") {
       startWeek4PuzzleBehavior();
+    }
+
+    if (step.id === "week4-moving-targets") {
+      startWeek4MovingTargetsBehavior();
     }
 
     if (step.id === "meet-click-drag") {
