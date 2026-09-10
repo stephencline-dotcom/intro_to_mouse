@@ -14177,3 +14177,1940 @@ body:has(#globalFreezeButton) .lesson-screen {
     32px 32px 38px;
 }
 
+
+
+/* ========================================
+   Week 4 Step 7: Quick Activities
+======================================== */
+
+.lesson-screen-week4-activities {
+  position: relative;
+
+  padding: 14px 24px 20px;
+}
+
+.week4-activities-heading {
+  text-align: center;
+}
+
+.week4-activities-heading h1 {
+  margin: 3px 0 4px;
+
+  font-size:
+    clamp(32px, 4.7vh, 45px);
+}
+
+.week4-activities-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+
+/* Hub */
+
+.week4-activities-hub {
+  width: min(950px, 94%);
+
+  margin: 34px auto 0;
+
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+.week4-activity-card {
+  min-height: 270px;
+
+  padding: 24px 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  border: 4px solid #dbeafe;
+  border-radius: 24px;
+
+  background: white;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px
+    rgba(0, 0, 0, 0.10);
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.week4-activity-card:hover {
+  transform:
+    translateY(-5px);
+
+  border-color: #60a5fa;
+
+  box-shadow:
+    0 12px 24px
+    rgba(0, 0, 0, 0.14);
+}
+
+.week4-activity-icon {
+  font-size: 78px;
+  line-height: 1;
+}
+
+.week4-activity-card strong {
+  color: #1e3a8a;
+
+  font-size: 23px;
+  font-weight: 1000;
+}
+
+.week4-activity-card > span:last-child {
+  max-width: 220px;
+
+  color: #64748b;
+
+  text-align: center;
+
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+
+
+/* Mini-game area */
+
+.week4-activity-view {
+  width: min(1000px, 95%);
+
+  margin: 18px auto 0;
+}
+
+.week4-mini-activity-shell {
+  position: relative;
+
+  min-height: 445px;
+
+  padding: 18px 22px;
+
+  box-sizing: border-box;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #f1f5f9
+    );
+}
+
+.week4-activity-back {
+  position: absolute;
+
+  left: 18px;
+  top: 16px;
+
+  padding: 8px 12px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #334155;
+  color: white;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.week4-mini-activity-heading {
+  text-align: center;
+}
+
+.week4-mini-icon {
+  font-size: 54px;
+  line-height: 1;
+}
+
+.week4-mini-activity-heading h2 {
+  margin: 4px 0;
+
+  color: #1e293b;
+
+  font-size: 31px;
+}
+
+.week4-mini-activity-heading p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.week4-mini-coming-soon {
+  height: 280px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #94a3b8;
+
+  font-size: 25px;
+  font-weight: 900;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - Feed the Animals
+======================================== */
+
+.week4-feed-shell {
+  padding-bottom: 12px;
+}
+
+.week4-feed-progress {
+  margin: 5px 0;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.week4-feed-progress strong {
+  color: #2563eb;
+}
+
+
+/* Activity area */
+
+.week4-feed-area {
+  position: relative;
+
+  width: min(900px, 94%);
+  height: 300px;
+
+  margin: 4px auto 0;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f0fdf4,
+      #f8fafc
+    );
+
+  cursor: none;
+}
+
+
+/* Food cards */
+
+.week4-feed-food {
+  position: absolute;
+
+  z-index: 30;
+
+  width: 96px;
+  height: 78px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #60a5fa;
+  border-radius: 16px;
+
+  background: white;
+
+  font-size: 39px;
+
+  box-shadow:
+    0 5px 11px
+    rgba(0, 0, 0, 0.10);
+}
+
+.week4-feed-food span {
+  color: #334155;
+
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.week4-feed-food-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color: #2563eb;
+
+  z-index: 80;
+}
+
+.week4-feed-food-ready {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.week4-feed-food-complete {
+  opacity: 0;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.2);
+
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+
+  pointer-events: none;
+}
+
+
+/* Animals */
+
+.week4-feed-animal {
+  position: absolute;
+
+  width: 145px;
+  height: 105px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px dashed #94a3b8;
+  border-radius: 20px;
+
+  background: white;
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.week4-feed-animal-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.week4-feed-animal strong {
+  margin-top: 3px;
+
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week4-feed-happy {
+  position: absolute;
+
+  right: 10px;
+  top: 7px;
+
+  color: #ef4444;
+
+  font-size: 23px;
+
+  animation:
+    week4-feed-heart
+    0.8s ease-in-out
+    infinite alternate;
+}
+
+.week4-feed-animal-ready {
+  transform:
+    translate(-50%, -50%)
+    scale(1.04);
+
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(245, 158, 11, 0.16);
+}
+
+.week4-feed-animal-wrong {
+  border-color: #ef4444;
+
+  background: #fee2e2;
+}
+
+.week4-feed-animal-fed {
+  border-color: #16a34a;
+  border-style: solid;
+
+  background: #dcfce7;
+}
+
+
+/* Pointer/status */
+
+.week4-feed-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 88%;
+
+  z-index: 100;
+
+  font-size: 55px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-feed-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 5px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 110;
+
+  width: 55%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.week4-feed-complete {
+  box-shadow:
+    inset 0 0 0 5px
+    rgba(34, 197, 94, 0.14);
+}
+
+
+@keyframes week4-feed-heart {
+  from {
+    transform:
+      scale(0.9)
+      rotate(-6deg);
+  }
+
+  to {
+    transform:
+      scale(1.15)
+      rotate(6deg);
+  }
+}
+
+
+/* ========================================
+   Week 4 Step 7 - hidden view fix
+======================================== */
+
+/*
+ * Make sure the activity hub disappears when
+ * a mini-game is opened.
+ */
+.lesson-screen-week4-activities
+.week4-activities-hub[hidden] {
+  display: none !important;
+}
+
+/*
+ * Make sure the mini-game view disappears
+ * when returning to the activity menu.
+ */
+.lesson-screen-week4-activities
+.week4-activity-view[hidden] {
+  display: none !important;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - fit mini-games on screen
+======================================== */
+
+.lesson-screen-week4-activities {
+  padding:
+    8px 18px 10px !important;
+}
+
+.week4-activities-heading h1 {
+  margin:
+    0 0 2px !important;
+
+  font-size:
+    clamp(27px, 3.8vh, 36px) !important;
+}
+
+.week4-activities-heading p {
+  font-size:
+    15px !important;
+
+  line-height:
+    1.15 !important;
+}
+
+.week4-activity-view {
+  width:
+    min(1000px, 96%) !important;
+
+  margin:
+    8px auto 0 !important;
+}
+
+.week4-mini-activity-shell {
+  min-height:
+    0 !important;
+
+  height:
+    440px !important;
+
+  padding:
+    10px 18px 8px !important;
+
+  overflow:
+    hidden !important;
+}
+
+.week4-activity-back {
+  left:
+    12px !important;
+
+  top:
+    10px !important;
+
+  padding:
+    6px 10px !important;
+
+  font-size:
+    11px !important;
+}
+
+.week4-mini-icon {
+  font-size:
+    40px !important;
+}
+
+.week4-mini-activity-heading h2 {
+  margin:
+    0 !important;
+
+  font-size:
+    27px !important;
+}
+
+.week4-mini-activity-heading p {
+  margin:
+    1px 0 0 !important;
+
+  font-size:
+    14px !important;
+
+  line-height:
+    1.15 !important;
+}
+
+.week4-feed-progress {
+  margin:
+    3px 0 !important;
+
+  font-size:
+    13px !important;
+}
+
+.week4-feed-area {
+  width:
+    min(900px, 96%) !important;
+
+  height:
+    310px !important;
+
+  margin:
+    2px auto 0 !important;
+}
+
+/* Make the animal and food cards slightly smaller */
+.week4-feed-food {
+  width:
+    82px !important;
+
+  height:
+    66px !important;
+
+  font-size:
+    32px !important;
+}
+
+.week4-feed-food span {
+  font-size:
+    8px !important;
+}
+
+.week4-feed-animal {
+  width:
+    122px !important;
+
+  height:
+    90px !important;
+}
+
+.week4-feed-animal-icon {
+  font-size:
+    40px !important;
+}
+
+.week4-feed-animal strong {
+  font-size:
+    11px !important;
+}
+
+.week4-feed-status {
+  bottom:
+    3px !important;
+
+  font-size:
+    13px !important;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - responsive fit polish
+======================================== */
+
+
+/* ----------------------------------------
+   STUDENT VIEW - slightly more compact
+---------------------------------------- */
+
+body:not(.teacher-session)
+.lesson-screen-week4-activities {
+  padding:
+    4px 12px 6px !important;
+}
+
+body:not(.teacher-session)
+.week4-activities-heading h1 {
+  font-size:
+    clamp(24px, 3.4vh, 32px) !important;
+
+  margin:
+    0 0 1px !important;
+}
+
+body:not(.teacher-session)
+.week4-activities-heading p {
+  font-size:
+    13px !important;
+
+  line-height:
+    1.1 !important;
+}
+
+body:not(.teacher-session)
+.week4-activity-view {
+  margin:
+    4px auto 0 !important;
+
+  width:
+    min(980px, 97%) !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-shell {
+  height:
+    365px !important;
+
+  padding:
+    6px 10px 4px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-shell
+.week4-mini-icon {
+  font-size:
+    30px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-shell
+.week4-mini-activity-heading h2 {
+  font-size:
+    22px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-shell
+.week4-mini-activity-heading p {
+  font-size:
+    11px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-progress {
+  font-size:
+    11px !important;
+
+  margin:
+    0 0 1px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-area {
+  height:
+    235px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-food {
+  width:
+    70px !important;
+
+  height:
+    54px !important;
+
+  font-size:
+    25px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-animal {
+  width:
+    98px !important;
+
+  height:
+    70px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-animal-icon {
+  font-size:
+    31px !important;
+}
+
+body:not(.teacher-session)
+.week4-feed-status {
+  font-size:
+    10px !important;
+}
+
+
+/* ----------------------------------------
+   TEACHER VIEW - stronger compact mode
+---------------------------------------- */
+
+body.teacher-session
+.lesson-screen-week4-activities {
+  padding:
+    2px 8px 4px !important;
+}
+
+body.teacher-session
+.week4-activities-heading h1 {
+  font-size:
+    26px !important;
+
+  margin:
+    0 !important;
+}
+
+body.teacher-session
+.week4-activities-heading p {
+  font-size:
+    12px !important;
+
+  line-height:
+    1.05 !important;
+}
+
+body.teacher-session
+.week4-activity-view {
+  margin:
+    2px auto 0 !important;
+
+  width:
+    min(940px, 96%) !important;
+}
+
+body.teacher-session
+.week4-feed-shell {
+  height:
+    330px !important;
+
+  padding:
+    4px 8px 3px !important;
+}
+
+body.teacher-session
+.week4-activity-back {
+  top:
+    6px !important;
+
+  left:
+    8px !important;
+
+  padding:
+    5px 8px !important;
+
+  font-size:
+    10px !important;
+}
+
+body.teacher-session
+.week4-feed-shell
+.week4-mini-icon {
+  font-size:
+    26px !important;
+}
+
+body.teacher-session
+.week4-feed-shell
+.week4-mini-activity-heading h2 {
+  font-size:
+    20px !important;
+
+  line-height:
+    1 !important;
+}
+
+body.teacher-session
+.week4-feed-shell
+.week4-mini-activity-heading p {
+  font-size:
+    10px !important;
+
+  line-height:
+    1 !important;
+}
+
+body.teacher-session
+.week4-feed-progress {
+  font-size:
+    10px !important;
+
+  margin:
+    0 !important;
+}
+
+body.teacher-session
+.week4-feed-area {
+  width:
+    min(860px, 96%) !important;
+
+  height:
+    205px !important;
+
+  margin:
+    0 auto !important;
+}
+
+body.teacher-session
+.week4-feed-food {
+  width:
+    62px !important;
+
+  height:
+    48px !important;
+
+  font-size:
+    22px !important;
+}
+
+body.teacher-session
+.week4-feed-food span {
+  font-size:
+    6px !important;
+}
+
+body.teacher-session
+.week4-feed-animal {
+  width:
+    88px !important;
+
+  height:
+    62px !important;
+}
+
+body.teacher-session
+.week4-feed-animal-icon {
+  font-size:
+    27px !important;
+}
+
+body.teacher-session
+.week4-feed-animal strong {
+  font-size:
+    8px !important;
+}
+
+body.teacher-session
+.week4-feed-status {
+  font-size:
+    9px !important;
+
+  bottom:
+    1px !important;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - Feed Animals 5-item layout
+======================================== */
+
+/* Foods */
+.lesson-screen-week4-activities
+.week4-feed-food[data-for-animal="rabbit"] {
+  left: 12% !important;
+  top: 22% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-food[data-for-animal="chicken"] {
+  left: 28% !important;
+  top: 24% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-food[data-for-animal="cat"] {
+  left: 20% !important;
+  top: 50% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-food[data-for-animal="dog"] {
+  left: 12% !important;
+  top: 76% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-food[data-for-animal="monkey"] {
+  left: 28% !important;
+  top: 74% !important;
+}
+
+
+/* Animals */
+.lesson-screen-week4-activities
+.week4-feed-animal[data-animal="dog"] {
+  left: 66% !important;
+  top: 22% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-animal[data-animal="chicken"] {
+  left: 82% !important;
+  top: 24% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-animal[data-animal="rabbit"] {
+  left: 74% !important;
+  top: 50% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-animal[data-animal="cat"] {
+  left: 66% !important;
+  top: 76% !important;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-animal[data-animal="monkey"] {
+  left: 82% !important;
+  top: 74% !important;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - Build a Robot
+======================================== */
+
+.week4-robot-shell {
+  height: 365px !important;
+  min-height: 0 !important;
+
+  padding:
+    6px 10px 4px !important;
+}
+
+.week4-robot-progress {
+  margin:
+    1px 0 2px;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.week4-robot-progress strong {
+  color: #2563eb;
+}
+
+
+/* Activity area */
+
+.week4-robot-area {
+  position: relative;
+
+  width: min(900px, 96%);
+  height: 235px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #eff6ff,
+      #f8fafc
+    );
+
+  cursor: none;
+}
+
+
+/* Draggable pieces */
+
+.week4-robot-part {
+  position: absolute;
+
+  z-index: 30;
+
+  width: 66px;
+  height: 54px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid #60a5fa;
+  border-radius: 13px;
+
+  background: white;
+
+  font-size: 29px;
+
+  box-shadow:
+    0 4px 9px
+    rgba(0, 0, 0, 0.10);
+}
+
+.week4-robot-part-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color: #2563eb;
+
+  z-index: 90;
+}
+
+.week4-robot-part-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+}
+
+.week4-robot-part-complete {
+  z-index: 45;
+
+  border-color: #16a34a;
+
+  background: #dcfce7;
+
+  pointer-events: none;
+}
+
+
+/* Robot assembly */
+
+.week4-robot-build {
+  position: absolute;
+
+  left: 76%;
+  top: 49%;
+
+  width: 245px;
+  height: 205px;
+
+  transform:
+    translate(-50%, -50%);
+}
+
+
+/* Body already exists so students build around it */
+
+.week4-robot-body {
+  position: absolute;
+
+  left: 50%;
+  top: 51%;
+
+  width: 82px;
+  height: 76px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #475569;
+  border-radius: 15px;
+
+  background: #94a3b8;
+
+  color: white;
+
+  font-size: 10px;
+  font-weight: 1000;
+}
+
+
+/* Empty target locations */
+
+.week4-robot-slot {
+  position: absolute;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px dashed #94a3b8;
+  border-radius: 11px;
+
+  background:
+    rgba(255, 255, 255, 0.65);
+
+  color: #94a3b8;
+
+  font-size: 8px;
+  font-weight: 900;
+}
+
+
+/* Head */
+.robot-slot-head {
+  left: 50%;
+  top: 8%;
+
+  width: 66px;
+  height: 54px;
+
+  transform:
+    translateX(-50%);
+}
+
+
+/* Arms */
+.robot-slot-left-arm {
+  left: 9%;
+  top: 43%;
+
+  width: 58px;
+  height: 54px;
+}
+
+.robot-slot-right-arm {
+  right: 9%;
+  top: 43%;
+
+  width: 58px;
+  height: 54px;
+}
+
+
+/* Legs */
+.robot-slot-left-leg {
+  left: 31%;
+  bottom: 1%;
+
+  width: 52px;
+  height: 54px;
+}
+
+.robot-slot-right-leg {
+  right: 31%;
+  bottom: 1%;
+
+  width: 52px;
+  height: 54px;
+}
+
+
+/* Feedback */
+
+.week4-robot-slot-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(245, 158, 11, 0.14);
+}
+
+.week4-robot-slot-wrong {
+  border-color: #ef4444;
+
+  background: #fee2e2;
+}
+
+.week4-robot-slot-complete {
+  border-color: transparent;
+
+  color: transparent;
+
+  background: transparent;
+}
+
+.week4-robot-complete
+.week4-robot-body {
+  border-color: #15803d;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(34, 197, 94, 0.14);
+}
+
+
+/* Pointer and status */
+
+.week4-robot-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 87%;
+
+  z-index: 100;
+
+  font-size: 48px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-robot-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 2px;
+
+  transform:
+    translateX(-50%);
+
+  width: 48%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+
+/* Teacher screen gets slightly tighter */
+
+body.teacher-session
+.week4-robot-shell {
+  height: 330px !important;
+}
+
+body.teacher-session
+.week4-robot-area {
+  height: 205px !important;
+}
+
+body.teacher-session
+.week4-robot-part {
+  width: 58px;
+  height: 47px;
+
+  font-size: 25px;
+}
+
+body.teacher-session
+.week4-robot-build {
+  transform:
+    translate(-50%, -50%)
+    scale(0.88);
+}
+
+
+/* ========================================
+   Week 4 Step 7 - real robot part visuals
+======================================== */
+
+/* Hide the emoji artwork inside the draggable pieces */
+.lesson-screen-week4-activities
+.week4-robot-part > span {
+  display: none !important;
+}
+
+
+/* ----------------------------------------
+   SHARED ROBOT COLORS / PIECES
+---------------------------------------- */
+
+.lesson-screen-week4-activities
+.week4-robot-part {
+  overflow: visible !important;
+
+  background: transparent !important;
+  border: 0 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* ========================================
+   HEAD
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-robot-head::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 58px;
+  height: 48px;
+
+  transform:
+    translate(-50%, -50%);
+
+  box-sizing: border-box;
+
+  border: 5px solid #475569;
+  border-radius: 12px;
+
+  background: #cbd5e1;
+
+  box-shadow:
+    inset 0 -8px 0 #94a3b8;
+}
+
+
+/* Eyes */
+.lesson-screen-week4-activities
+.week4-robot-head::after {
+  content: "●  ●";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 48px;
+
+  transform:
+    translate(-50%, -58%);
+
+  text-align: center;
+
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: 5px;
+}
+
+
+/* Antenna */
+.lesson-screen-week4-activities
+.week4-robot-head {
+  background-image:
+    linear-gradient(
+      #475569,
+      #475569
+    ) !important;
+
+  background-repeat:
+    no-repeat !important;
+
+  background-size:
+    4px 18px !important;
+
+  background-position:
+    center 0 !important;
+}
+
+
+/* ========================================
+   ARMS
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm::before,
+.lesson-screen-week4-activities
+.week4-robot-right-arm::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 58px;
+  height: 24px;
+
+  transform:
+    translate(-50%, -50%);
+
+  box-sizing: border-box;
+
+  border: 4px solid #475569;
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #60a5fa 0 43%,
+      #cbd5e1 43% 57%,
+      #60a5fa 57% 100%
+    );
+}
+
+
+/* Robot claw */
+.lesson-screen-week4-activities
+.week4-robot-left-arm::after,
+.lesson-screen-week4-activities
+.week4-robot-right-arm::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+
+  width: 16px;
+  height: 24px;
+
+  transform:
+    translateY(-50%);
+
+  box-sizing: border-box;
+
+  border: 4px solid #475569;
+
+  background: #cbd5e1;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm::after {
+  left: -3px;
+
+  border-radius:
+    12px 3px 3px 12px;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-right-arm::after {
+  right: -3px;
+
+  border-radius:
+    3px 12px 12px 3px;
+}
+
+
+/* ========================================
+   LEGS
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-robot-left-leg::before,
+.lesson-screen-week4-activities
+.week4-robot-right-leg::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 43%;
+
+  width: 24px;
+  height: 48px;
+
+  transform:
+    translate(-50%, -50%);
+
+  box-sizing: border-box;
+
+  border: 4px solid #475569;
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      #60a5fa 0 44%,
+      #cbd5e1 44% 58%,
+      #60a5fa 58% 100%
+    );
+}
+
+
+/* Feet */
+.lesson-screen-week4-activities
+.week4-robot-left-leg::after,
+.lesson-screen-week4-activities
+.week4-robot-right-leg::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -1px;
+
+  width: 38px;
+  height: 14px;
+
+  transform:
+    translateX(-50%);
+
+  box-sizing: border-box;
+
+  border: 4px solid #475569;
+  border-radius:
+    10px 10px 5px 5px;
+
+  background: #cbd5e1;
+}
+
+
+/* ========================================
+   CENTER BODY
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-robot-body {
+  width: 82px !important;
+  height: 76px !important;
+
+  border:
+    5px solid #475569 !important;
+
+  border-radius:
+    15px !important;
+
+  background:
+    linear-gradient(
+      #60a5fa,
+      #3b82f6
+    ) !important;
+
+  color: white !important;
+
+  font-size:
+    9px !important;
+
+  box-shadow:
+    inset 0 -9px 0
+    rgba(30, 64, 175, 0.18);
+}
+
+
+/* Chest panel */
+.lesson-screen-week4-activities
+.week4-robot-body::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 16px;
+
+  width: 36px;
+  height: 18px;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    3px solid #1e3a8a;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ef4444 0 30%,
+      #facc15 30% 65%,
+      #22c55e 65% 100%
+    );
+}
+
+
+/* ========================================
+   TARGET SLOTS
+======================================== */
+
+/* Make the target shapes resemble the actual parts */
+
+.lesson-screen-week4-activities
+.robot-slot-head {
+  border-radius:
+    12px !important;
+}
+
+.lesson-screen-week4-activities
+.robot-slot-left-arm,
+.lesson-screen-week4-activities
+.robot-slot-right-arm {
+  height:
+    34px !important;
+
+  border-radius:
+    10px !important;
+}
+
+.lesson-screen-week4-activities
+.robot-slot-left-leg,
+.lesson-screen-week4-activities
+.robot-slot-right-leg {
+  width:
+    38px !important;
+
+  height:
+    58px !important;
+
+  border-radius:
+    9px !important;
+}
+
+
+/* Make labels less distracting */
+.lesson-screen-week4-activities
+.week4-robot-slot {
+  color:
+    #64748b !important;
+
+  background:
+    rgba(226, 232, 240, 0.45) !important;
+}
+
+
+/* Once placed, show only the real robot part */
+.lesson-screen-week4-activities
+.week4-robot-slot-complete {
+  border-color:
+    transparent !important;
+
+  background:
+    transparent !important;
+
+  color:
+    transparent !important;
+}
+
+
+/* Correct part glow */
+.lesson-screen-week4-activities
+.week4-robot-part-complete {
+  background:
+    transparent !important;
+
+  border: 0 !important;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(34, 197, 94, 0.12) !important;
+}
+
+
+/* Held piece */
+.lesson-screen-week4-activities
+.week4-robot-part-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.10) !important;
+
+  filter:
+    drop-shadow(
+      0 5px 5px
+      rgba(0, 0, 0, 0.18)
+    );
+}
+
+
+/* Correct left/right robot part orientation */
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm::before,
+.lesson-screen-week4-activities
+.week4-robot-left-arm::after {
+  transform-origin: center;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm {
+  transform:
+    translate(-50%, -50%)
+    scaleX(-1);
+}
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm.week4-robot-part-held {
+  transform:
+    translate(-50%, -50%)
+    scaleX(-1)
+    scale(1.10) !important;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm.week4-robot-part-complete {
+  transform:
+    translate(-50%, -50%)
+    scaleX(-1) !important;
+}
+
+
+/* ========================================
+   Week 4 Robot - left/right visual matching
+======================================== */
+
+/*
+ * LEFT SIDE = RED
+ * RIGHT SIDE = YELLOW
+ *
+ * These colors appear on both the draggable
+ * part and its matching destination.
+ */
+
+
+/* ----------------------------------------
+   LEFT ARM - red hand
+---------------------------------------- */
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm::after {
+  background: #ef4444 !important;
+}
+
+
+/* ----------------------------------------
+   RIGHT ARM - yellow hand
+---------------------------------------- */
+
+.lesson-screen-week4-activities
+.week4-robot-right-arm::after {
+  background: #facc15 !important;
+}
+
+
+/* ----------------------------------------
+   LEFT LEG - red foot
+---------------------------------------- */
+
+.lesson-screen-week4-activities
+.week4-robot-left-leg::after {
+  background: #ef4444 !important;
+}
+
+
+/* ----------------------------------------
+   RIGHT LEG - yellow foot
+---------------------------------------- */
+
+.lesson-screen-week4-activities
+.week4-robot-right-leg::after {
+  background: #facc15 !important;
+}
+
+
+/* ========================================
+   Matching target cues
+======================================== */
+
+/* Left arm target */
+.lesson-screen-week4-activities
+.robot-slot-left-arm {
+  border-color: #ef4444 !important;
+
+  background:
+    rgba(254, 226, 226, 0.7) !important;
+}
+
+
+/* Right arm target */
+.lesson-screen-week4-activities
+.robot-slot-right-arm {
+  border-color: #eab308 !important;
+
+  background:
+    rgba(254, 249, 195, 0.75) !important;
+}
+
+
+/* Left leg target */
+.lesson-screen-week4-activities
+.robot-slot-left-leg {
+  border-color: #ef4444 !important;
+
+  background:
+    rgba(254, 226, 226, 0.7) !important;
+}
+
+
+/* Right leg target */
+.lesson-screen-week4-activities
+.robot-slot-right-leg {
+  border-color: #eab308 !important;
+
+  background:
+    rgba(254, 249, 195, 0.75) !important;
+}
+
+
+/* Keep completed slots invisible */
+.lesson-screen-week4-activities
+.robot-slot-left-arm.week4-robot-slot-complete,
+.lesson-screen-week4-activities
+.robot-slot-right-arm.week4-robot-slot-complete,
+.lesson-screen-week4-activities
+.robot-slot-left-leg.week4-robot-slot-complete,
+.lesson-screen-week4-activities
+.robot-slot-right-leg.week4-robot-slot-complete {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+
+/* Ready state still overrides the matching cue */
+.lesson-screen-week4-activities
+.week4-robot-slot-ready {
+  border-color: #f59e0b !important;
+
+  background: #fef3c7 !important;
+}
+
+
+/* ========================================
+   Week 4 Robot - fix red arm orientation
+======================================== */
+
+/*
+ * Keep the left/red arm itself in normal orientation.
+ * Its red hand belongs on the OUTSIDE (left) end.
+ */
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm {
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm.week4-robot-part-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.10) !important;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-left-arm.week4-robot-part-complete {
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+/* Red hand stays on the outer LEFT end */
+.lesson-screen-week4-activities
+.week4-robot-left-arm::after {
+  left: -3px !important;
+  right: auto !important;
+
+  border-radius:
+    12px 3px 3px 12px !important;
+
+  background:
+    #ef4444 !important;
+}
+
+
+/* ========================================
+   Week 4 Robot - tuck left arm into body
+======================================== */
+
+.lesson-screen-week4-activities
+.robot-slot-left-arm {
+  left: 13% !important;
+}
+
+
+/* ========================================
+   Week 4 Robot - perfectly align both arms
+======================================== */
+
+/*
+ * Robot body is 82px wide.
+ * These positions place each 58px arm slot
+ * directly against the body's left/right edge.
+ */
+
+.lesson-screen-week4-activities
+.robot-slot-left-arm {
+  left: calc(50% - 99px) !important;
+  right: auto !important;
+  top: 43% !important;
+}
+
+.lesson-screen-week4-activities
+.robot-slot-right-arm {
+  left: calc(50% + 41px) !important;
+  right: auto !important;
+  top: 43% !important;
+}
+

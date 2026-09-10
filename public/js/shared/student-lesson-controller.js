@@ -1112,6 +1112,1391 @@
     );
   }
 
+  function startWeek4ActivitiesBehavior() {
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week4-activities"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    const hub =
+      document.getElementById(
+        "week4ActivitiesHub"
+      );
+
+    const activityView =
+      document.getElementById(
+        "week4ActivityView"
+      );
+
+    if (!hub || !activityView) {
+      return;
+    }
+
+    let activityCleanup = null;
+
+    function stopCurrentActivity() {
+      if (activityCleanup) {
+        activityCleanup();
+        activityCleanup = null;
+      }
+    }
+
+    function showHub() {
+      stopCurrentActivity();
+      activityView.hidden = true;
+      activityView.innerHTML = "";
+
+      hub.hidden = false;
+    }
+
+    function startFeedAnimalsActivity() {
+      const input = window.HandsOnMouseInput;
+
+      const area =
+        document.getElementById(
+          "week4FeedAnimalsArea"
+        );
+
+      const pointer =
+        document.getElementById(
+          "week4FeedAnimalsPointer"
+        );
+
+      const status =
+        document.getElementById(
+          "week4FeedAnimalsStatus"
+        );
+
+      const progress =
+        document.getElementById(
+          "week4FeedAnimalsProgress"
+        );
+
+      if (
+        !input ||
+        !area ||
+        !pointer ||
+        !status ||
+        !progress
+      ) {
+        return;
+      }
+
+      const foods =
+        Array.from(
+          area.querySelectorAll(
+            ".week4-feed-food"
+          )
+        );
+
+      const animals =
+        Array.from(
+          area.querySelectorAll(
+            ".week4-feed-animal"
+          )
+        );
+
+      let activeFood = null;
+      let completedCount = 0;
+      let finished = false;
+
+      foods.forEach((food) => {
+        food.dataset.startLeft =
+          food.style.left;
+
+        food.dataset.startTop =
+          food.style.top;
+      });
+
+      function pointerOnFood(food) {
+        return pointerTipHitsElement(
+          pointer,
+          food
+        );
+      }
+
+      function animalUnderFood(food) {
+        if (!food) {
+          return null;
+        }
+
+        const foodRect =
+          food.getBoundingClientRect();
+
+        const centerX =
+          foodRect.left +
+          foodRect.width / 2;
+
+        const centerY =
+          foodRect.top +
+          foodRect.height / 2;
+
+        return animals.find((animal) => {
+          const rect =
+            animal.getBoundingClientRect();
+
+          return (
+            centerX >= rect.left &&
+            centerX <= rect.right &&
+            centerY >= rect.top &&
+            centerY <= rect.bottom
+          );
+        }) || null;
+      }
+
+      function correctAnimal(food) {
+        return animals.find(
+          animal =>
+            animal.dataset.animal ===
+            food.dataset.forAnimal
+        );
+      }
+
+      function clearReady() {
+        foods.forEach((food) => {
+          food.classList.remove(
+            "week4-feed-food-ready"
+          );
+        });
+
+        animals.forEach((animal) => {
+          animal.classList.remove(
+            "week4-feed-animal-ready",
+            "week4-feed-animal-wrong"
+          );
+        });
+      }
+
+      function returnFood(food) {
+        if (!food) {
+          return;
+        }
+
+        food.style.left =
+          food.dataset.startLeft;
+
+        food.style.top =
+          food.dataset.startTop;
+
+        food.classList.remove(
+          "week4-feed-food-held",
+          "week4-feed-food-ready"
+        );
+      }
+
+      function updateProgress() {
+        progress.textContent =
+          `${completedCount} of ${foods.length}`;
+      }
+
+      function completeFood(
+        food,
+        animal
+      ) {
+        food.classList.remove(
+          "week4-feed-food-held",
+          "week4-feed-food-ready"
+        );
+
+        food.classList.add(
+          "week4-feed-food-complete"
+        );
+
+        animal.classList.add(
+          "week4-feed-animal-fed"
+        );
+
+        const happy =
+          animal.querySelector(
+            ".week4-feed-happy"
+          );
+
+        if (happy) {
+          happy.textContent = "♥";
+        }
+
+        completedCount += 1;
+        updateProgress();
+
+        status.textContent =
+          "Yum! Great match! ✓";
+
+        if (soundEnabled) {
+          const sound =
+            new Audio(
+              "/sounds/correct.mp3"
+            );
+
+          sound.volume = 0.6;
+          sound.currentTime = 0;
+
+          sound
+            .play()
+            .catch(() => {});
+        }
+
+        setTimeout(() => {
+          if (
+            completedCount >=
+            foods.length
+          ) {
+            finished = true;
+
+            progress.textContent =
+              "5 of 5 ✓";
+
+            status.textContent =
+              "All the animals are fed!";
+
+            area.classList.add(
+              "week4-feed-complete"
+            );
+
+            return;
+          }
+
+          status.textContent =
+            "Choose another food.";
+        }, 450);
+      }
+
+      function finishDrop() {
+        if (
+          !activeFood ||
+          finished
+        ) {
+          return;
+        }
+
+        const food =
+          activeFood;
+
+        activeFood = null;
+
+        const droppedAnimal =
+          animalUnderFood(food);
+
+        const match =
+          correctAnimal(food);
+
+        clearReady();
+
+        /*
+         * SUCCESS ONLY HAPPENS HERE,
+         * ON THE PHYSICAL LEFT-BUTTON RELEASE.
+         */
+        if (
+          droppedAnimal &&
+          droppedAnimal === match
+        ) {
+          completeFood(
+            food,
+            match
+          );
+
+          return;
+        }
+
+        if (droppedAnimal) {
+          droppedAnimal.classList.add(
+            "week4-feed-animal-wrong"
+          );
+
+          status.textContent =
+            "That's not this animal's food.";
+
+          setTimeout(() => {
+            droppedAnimal.classList.remove(
+              "week4-feed-animal-wrong"
+            );
+          }, 450);
+        } else {
+          status.textContent =
+            "Let go over an animal.";
+        }
+
+        returnFood(food);
+      }
+
+
+      const removeMove =
+        input.subscribe(
+          "move",
+          (event) => {
+            if (finished) {
+              return;
+            }
+
+            const rect =
+              area.getBoundingClientRect();
+
+            const inside =
+              event.x >= rect.left &&
+              event.x <= rect.right &&
+              event.y >= rect.top &&
+              event.y <= rect.bottom;
+
+            if (!inside) {
+              return;
+            }
+
+            const offsetX =
+              pointer.offsetWidth * 0.90;
+
+            const offsetY =
+              pointer.offsetHeight * 0.50;
+
+            pointer.style.left =
+              `${
+                event.x -
+                rect.left -
+                offsetX
+              }px`;
+
+            pointer.style.top =
+              `${
+                event.y -
+                rect.top -
+                offsetY
+              }px`;
+
+            if (!activeFood) {
+              return;
+            }
+
+            activeFood.style.left =
+              `${event.x - rect.left}px`;
+
+            activeFood.style.top =
+              `${event.y - rect.top}px`;
+
+            clearReady();
+
+            const animal =
+              animalUnderFood(
+                activeFood
+              );
+
+            if (!animal) {
+              status.textContent =
+                "Keep holding — find the hungry animal.";
+
+              return;
+            }
+
+            activeFood.classList.add(
+              "week4-feed-food-ready"
+            );
+
+            animal.classList.add(
+              "week4-feed-animal-ready"
+            );
+
+            if (
+              animal ===
+              correctAnimal(activeFood)
+            ) {
+              status.textContent =
+                "That's right — LET GO!";
+            } else {
+              status.textContent =
+                "Hmm... does that animal eat this?";
+            }
+          }
+        );
+
+
+      const removeLeftDown =
+        input.subscribe(
+          "leftDown",
+          () => {
+            if (
+              finished ||
+              activeFood
+            ) {
+              return;
+            }
+
+            const food =
+              foods.find((item) => {
+                return (
+                  !item.classList.contains(
+                    "week4-feed-food-complete"
+                  ) &&
+                  pointerOnFood(item)
+                );
+              });
+
+            if (!food) {
+              status.textContent =
+                "Move onto a food first.";
+
+              return;
+            }
+
+            activeFood = food;
+
+            food.classList.add(
+              "week4-feed-food-held"
+            );
+
+            status.textContent =
+              "KEEP HOLDING — feed an animal.";
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio(
+                    "/sounds/mouseclick.mp3"
+                  );
+
+                leftClickSound.volume =
+                  0.5;
+              }
+
+              leftClickSound.pause();
+              leftClickSound.currentTime =
+                0.12;
+
+              leftClickSound
+                .play()
+                .catch(() => {});
+            }
+          }
+        );
+
+
+      const removeRightDown =
+        input.subscribe(
+          "rightDown",
+          () => {
+            if (finished) {
+              return;
+            }
+
+            if (activeFood) {
+              returnFood(activeFood);
+              activeFood = null;
+            }
+
+            clearReady();
+
+            showWrongButtonWarning();
+
+            status.textContent =
+              "Use the LEFT button.";
+          }
+        );
+
+
+      const nativeReleaseHandler =
+        (event) => {
+          if (event.button !== 0) {
+            return;
+          }
+
+          finishDrop();
+        };
+
+      window.addEventListener(
+        "mouseup",
+        nativeReleaseHandler,
+        true
+      );
+
+
+      activityCleanup = () => {
+        removeMove?.();
+        removeLeftDown?.();
+        removeRightDown?.();
+
+        window.removeEventListener(
+          "mouseup",
+          nativeReleaseHandler,
+          true
+        );
+      };
+
+      updateProgress();
+    }
+
+
+    function startBuildRobotActivity() {
+      const input = window.HandsOnMouseInput;
+
+      const area =
+        document.getElementById(
+          "week4RobotArea"
+        );
+
+      const pointer =
+        document.getElementById(
+          "week4RobotPointer"
+        );
+
+      const status =
+        document.getElementById(
+          "week4RobotStatus"
+        );
+
+      const progress =
+        document.getElementById(
+          "week4RobotProgress"
+        );
+
+      if (
+        !input ||
+        !area ||
+        !pointer ||
+        !status ||
+        !progress
+      ) {
+        return;
+      }
+
+      const parts =
+        Array.from(
+          area.querySelectorAll(
+            ".week4-robot-part"
+          )
+        );
+
+      const slots =
+        Array.from(
+          area.querySelectorAll(
+            ".week4-robot-slot"
+          )
+        );
+
+      let activePart = null;
+      let completedCount = 0;
+      let finished = false;
+
+      parts.forEach((part) => {
+        part.dataset.startLeft =
+          part.style.left;
+
+        part.dataset.startTop =
+          part.style.top;
+      });
+
+      function pointerOnPart(part) {
+        return pointerTipHitsElement(
+          pointer,
+          part
+        );
+      }
+
+      function matchingSlot(part) {
+        return slots.find(
+          slot =>
+            slot.dataset.match ===
+            part.dataset.match
+        );
+      }
+
+      function slotUnderPart(part) {
+        if (!part) {
+          return null;
+        }
+
+        const partRect =
+          part.getBoundingClientRect();
+
+        const centerX =
+          partRect.left +
+          partRect.width / 2;
+
+        const centerY =
+          partRect.top +
+          partRect.height / 2;
+
+        return slots.find((slot) => {
+          const rect =
+            slot.getBoundingClientRect();
+
+          return (
+            centerX >= rect.left &&
+            centerX <= rect.right &&
+            centerY >= rect.top &&
+            centerY <= rect.bottom
+          );
+        }) || null;
+      }
+
+      function clearReady() {
+        parts.forEach((part) => {
+          part.classList.remove(
+            "week4-robot-part-ready"
+          );
+        });
+
+        slots.forEach((slot) => {
+          slot.classList.remove(
+            "week4-robot-slot-ready",
+            "week4-robot-slot-wrong"
+          );
+        });
+      }
+
+      function returnPart(part) {
+        if (!part) {
+          return;
+        }
+
+        part.style.left =
+          part.dataset.startLeft;
+
+        part.style.top =
+          part.dataset.startTop;
+
+        part.classList.remove(
+          "week4-robot-part-held",
+          "week4-robot-part-ready"
+        );
+      }
+
+      function updateProgress() {
+        progress.textContent =
+          `${completedCount} of ${parts.length}`;
+      }
+
+      function snapPart(
+        part,
+        slot
+      ) {
+        const areaRect =
+          area.getBoundingClientRect();
+
+        const slotRect =
+          slot.getBoundingClientRect();
+
+        part.style.left =
+          `${
+            slotRect.left -
+            areaRect.left +
+            slotRect.width / 2
+          }px`;
+
+        part.style.top =
+          `${
+            slotRect.top -
+            areaRect.top +
+            slotRect.height / 2
+          }px`;
+
+        part.classList.remove(
+          "week4-robot-part-held",
+          "week4-robot-part-ready"
+        );
+
+        part.classList.add(
+          "week4-robot-part-complete"
+        );
+
+        slot.classList.add(
+          "week4-robot-slot-complete"
+        );
+
+        completedCount += 1;
+        updateProgress();
+
+        status.textContent =
+          "Robot part connected! ✓";
+
+        if (soundEnabled) {
+          const sound =
+            new Audio(
+              "/sounds/correct.mp3"
+            );
+
+          sound.volume = 0.6;
+          sound.currentTime = 0;
+
+          sound
+            .play()
+            .catch(() => {});
+        }
+
+        setTimeout(() => {
+          if (
+            completedCount >=
+            parts.length
+          ) {
+            finished = true;
+
+            progress.textContent =
+              "5 of 5 ✓";
+
+            status.textContent =
+              "Robot complete!";
+
+            area.classList.add(
+              "week4-robot-complete"
+            );
+
+            return;
+          }
+
+          status.textContent =
+            "Choose another robot part.";
+        }, 400);
+      }
+
+      function finishDrop() {
+        if (
+          !activePart ||
+          finished
+        ) {
+          return;
+        }
+
+        const part = activePart;
+        activePart = null;
+
+        const droppedSlot =
+          slotUnderPart(part);
+
+        const correctSlot =
+          matchingSlot(part);
+
+        clearReady();
+
+        /*
+         * Success happens only on physical release.
+         */
+        if (
+          droppedSlot &&
+          droppedSlot === correctSlot
+        ) {
+          snapPart(
+            part,
+            correctSlot
+          );
+
+          return;
+        }
+
+        if (droppedSlot) {
+          droppedSlot.classList.add(
+            "week4-robot-slot-wrong"
+          );
+
+          status.textContent =
+            "Try a different robot spot.";
+
+          setTimeout(() => {
+            droppedSlot.classList.remove(
+              "week4-robot-slot-wrong"
+            );
+          }, 400);
+        } else {
+          status.textContent =
+            "Let go inside a robot spot.";
+        }
+
+        returnPart(part);
+      }
+
+
+      const removeMove =
+        input.subscribe(
+          "move",
+          (event) => {
+            if (finished) {
+              return;
+            }
+
+            const rect =
+              area.getBoundingClientRect();
+
+            const inside =
+              event.x >= rect.left &&
+              event.x <= rect.right &&
+              event.y >= rect.top &&
+              event.y <= rect.bottom;
+
+            if (!inside) {
+              return;
+            }
+
+            const offsetX =
+              pointer.offsetWidth * 0.90;
+
+            const offsetY =
+              pointer.offsetHeight * 0.50;
+
+            pointer.style.left =
+              `${
+                event.x -
+                rect.left -
+                offsetX
+              }px`;
+
+            pointer.style.top =
+              `${
+                event.y -
+                rect.top -
+                offsetY
+              }px`;
+
+            if (!activePart) {
+              return;
+            }
+
+            activePart.style.left =
+              `${event.x - rect.left}px`;
+
+            activePart.style.top =
+              `${event.y - rect.top}px`;
+
+            clearReady();
+
+            const slot =
+              slotUnderPart(
+                activePart
+              );
+
+            if (!slot) {
+              status.textContent =
+                "Keep holding — find its spot.";
+
+              return;
+            }
+
+            activePart.classList.add(
+              "week4-robot-part-ready"
+            );
+
+            slot.classList.add(
+              "week4-robot-slot-ready"
+            );
+
+            if (
+              slot ===
+              matchingSlot(activePart)
+            ) {
+              status.textContent =
+                "That's the spot — LET GO!";
+            } else {
+              status.textContent =
+                "Does that part fit there?";
+            }
+          }
+        );
+
+
+      const removeLeftDown =
+        input.subscribe(
+          "leftDown",
+          () => {
+            if (
+              finished ||
+              activePart
+            ) {
+              return;
+            }
+
+            const part =
+              parts.find((item) => {
+                return (
+                  !item.classList.contains(
+                    "week4-robot-part-complete"
+                  ) &&
+                  pointerOnPart(item)
+                );
+              });
+
+            if (!part) {
+              status.textContent =
+                "Move onto a robot part first.";
+
+              return;
+            }
+
+            activePart = part;
+
+            part.classList.add(
+              "week4-robot-part-held"
+            );
+
+            status.textContent =
+              "KEEP HOLDING — find its spot.";
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio(
+                    "/sounds/mouseclick.mp3"
+                  );
+
+                leftClickSound.volume =
+                  0.5;
+              }
+
+              leftClickSound.pause();
+              leftClickSound.currentTime =
+                0.12;
+
+              leftClickSound
+                .play()
+                .catch(() => {});
+            }
+          }
+        );
+
+
+      const removeRightDown =
+        input.subscribe(
+          "rightDown",
+          () => {
+            if (finished) {
+              return;
+            }
+
+            if (activePart) {
+              returnPart(activePart);
+              activePart = null;
+            }
+
+            clearReady();
+
+            showWrongButtonWarning();
+
+            status.textContent =
+              "Use the LEFT button.";
+          }
+        );
+
+
+      const nativeReleaseHandler =
+        (event) => {
+          if (event.button !== 0) {
+            return;
+          }
+
+          finishDrop();
+        };
+
+      window.addEventListener(
+        "mouseup",
+        nativeReleaseHandler,
+        true
+      );
+
+
+      activityCleanup = () => {
+        removeMove?.();
+        removeLeftDown?.();
+        removeRightDown?.();
+
+        window.removeEventListener(
+          "mouseup",
+          nativeReleaseHandler,
+          true
+        );
+      };
+
+      updateProgress();
+    }
+
+
+    function showActivity(activityId) {
+      stopCurrentActivity();
+
+      hub.hidden = true;
+      activityView.hidden = false;
+
+      if (activityId === "feed-animals") {
+        activityView.innerHTML = `
+          <div class="week4-mini-activity-shell week4-feed-shell">
+
+            <button
+              class="week4-activity-back"
+              type="button"
+            >
+              ← Activities
+            </button>
+
+            <div class="week4-mini-activity-heading">
+              <div class="week4-mini-icon">🐶</div>
+
+              <h2>Feed the Animals</h2>
+
+              <p>
+                Drag each food to the animal that eats it.
+              </p>
+            </div>
+
+            <div class="week4-feed-progress">
+              Fed:
+              <strong id="week4FeedAnimalsProgress">
+                0 of 5
+              </strong>
+            </div>
+
+            <div
+              id="week4FeedAnimalsArea"
+              class="week4-feed-area"
+            >
+
+              <!-- FOODS -->
+
+              <div
+                class="week4-feed-food"
+                data-for-animal="rabbit"
+                style="left: 13%; top: 25%;"
+              >
+                🥕
+                <span>CARROT</span>
+              </div>
+
+              <div
+                class="week4-feed-food"
+                data-for-animal="cat"
+                style="left: 27%; top: 52%;"
+              >
+                🐟
+                <span>FISH</span>
+              </div>
+
+              <div
+                class="week4-feed-food"
+                data-for-animal="dog"
+                style="left: 13%; top: 79%;"
+              >
+                🦴
+                <span>BONE</span>
+              </div>
+
+              <div
+                class="week4-feed-food"
+                data-for-animal="chicken"
+                style="left: 29%; top: 27%;"
+              >
+                🌽
+                <span>CORN</span>
+              </div>
+
+              <div
+                class="week4-feed-food"
+                data-for-animal="monkey"
+                style="left: 29%; top: 77%;"
+              >
+                🍌
+                <span>BANANA</span>
+              </div>
+
+
+              <!-- ANIMALS -->
+
+              <div
+                class="week4-feed-animal"
+                data-animal="dog"
+                style="left: 66%; top: 26%;"
+              >
+                <span class="week4-feed-animal-icon">
+                  🐶
+                </span>
+
+                <strong>DOG</strong>
+
+                <span class="week4-feed-happy"></span>
+              </div>
+
+              <div
+                class="week4-feed-animal"
+                data-animal="rabbit"
+                style="left: 84%; top: 52%;"
+              >
+                <span class="week4-feed-animal-icon">
+                  🐰
+                </span>
+
+                <strong>BUNNY</strong>
+
+                <span class="week4-feed-happy"></span>
+              </div>
+
+              <div
+                class="week4-feed-animal"
+                data-animal="cat"
+                style="left: 66%; top: 78%;"
+              >
+                <span class="week4-feed-animal-icon">
+                  🐱
+                </span>
+
+                <strong>CAT</strong>
+
+                <span class="week4-feed-happy"></span>
+              </div>
+
+              <div
+                class="week4-feed-animal"
+                data-animal="chicken"
+                style="left: 82%; top: 28%;"
+              >
+                <span class="week4-feed-animal-icon">
+                  🐔
+                </span>
+
+                <strong>CHICKEN</strong>
+
+                <span class="week4-feed-happy"></span>
+              </div>
+
+              <div
+                class="week4-feed-animal"
+                data-animal="monkey"
+                style="left: 82%; top: 76%;"
+              >
+                <span class="week4-feed-animal-icon">
+                  🐵
+                </span>
+
+                <strong>MONKEY</strong>
+
+                <span class="week4-feed-happy"></span>
+              </div>
+
+
+              <div
+                id="week4FeedAnimalsPointer"
+                class="week4-feed-pointer"
+              >
+                ➤
+              </div>
+
+              <div
+                id="week4FeedAnimalsStatus"
+                class="week4-feed-status"
+              >
+                Choose a food.
+              </div>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+      if (activityId === "build-robot") {
+        activityView.innerHTML = `
+          <div class="week4-mini-activity-shell week4-robot-shell">
+
+            <button
+              class="week4-activity-back"
+              type="button"
+            >
+              ← Activities
+            </button>
+
+            <div class="week4-mini-activity-heading">
+              <div class="week4-mini-icon">
+                🤖
+              </div>
+
+              <h2>Build a Robot</h2>
+
+              <p>
+                Drag each robot part into its matching spot.
+              </p>
+            </div>
+
+            <div class="week4-robot-progress">
+              Built:
+              <strong id="week4RobotProgress">
+                0 of 5
+              </strong>
+            </div>
+
+            <div
+              id="week4RobotArea"
+              class="week4-robot-area"
+            >
+
+              <!-- MIXED ROBOT PARTS -->
+
+              <div
+                class="week4-robot-part week4-robot-head"
+                data-match="head"
+                style="left: 13%; top: 24%;"
+              >
+                <span>🤖</span>
+              </div>
+
+              <div
+                class="week4-robot-part week4-robot-left-leg"
+                data-match="left-leg"
+                style="left: 30%; top: 25%;"
+              >
+                <span>🦿</span>
+              </div>
+
+              <div
+                class="week4-robot-part week4-robot-right-arm"
+                data-match="right-arm"
+                style="left: 14%; top: 52%;"
+              >
+                <span>🦾</span>
+              </div>
+
+              <div
+                class="week4-robot-part week4-robot-left-arm"
+                data-match="left-arm"
+                style="left: 30%; top: 72%;"
+              >
+                <span>🦾</span>
+              </div>
+
+              <div
+                class="week4-robot-part week4-robot-right-leg"
+                data-match="right-leg"
+                style="left: 14%; top: 78%;"
+              >
+                <span>🦿</span>
+              </div>
+
+
+              <!-- ROBOT BUILD AREA -->
+
+              <div class="week4-robot-build">
+
+                <div
+                  class="week4-robot-slot robot-slot-head"
+                  data-match="head"
+                >
+                  HEAD
+                </div>
+
+                <div class="week4-robot-body">
+                  ROBOT
+                </div>
+
+                <div
+                  class="week4-robot-slot robot-slot-left-arm"
+                  data-match="left-arm"
+                >
+                  ARM
+                </div>
+
+                <div
+                  class="week4-robot-slot robot-slot-right-arm"
+                  data-match="right-arm"
+                >
+                  ARM
+                </div>
+
+                <div
+                  class="week4-robot-slot robot-slot-left-leg"
+                  data-match="left-leg"
+                >
+                  LEG
+                </div>
+
+                <div
+                  class="week4-robot-slot robot-slot-right-leg"
+                  data-match="right-leg"
+                >
+                  LEG
+                </div>
+
+              </div>
+
+
+              <div
+                id="week4RobotPointer"
+                class="week4-robot-pointer"
+              >
+                ➤
+              </div>
+
+              <div
+                id="week4RobotStatus"
+                class="week4-robot-status"
+              >
+                Choose a robot part.
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      }
+
+      if (activityId === "make-pizza") {
+        activityView.innerHTML = `
+          <div class="week4-mini-activity-shell">
+            <button
+              class="week4-activity-back"
+              type="button"
+            >
+              ← Activities
+            </button>
+
+            <div class="week4-mini-activity-heading">
+              <div class="week4-mini-icon">🍕</div>
+              <h2>Make a Pizza</h2>
+              <p>
+                Drag toppings anywhere onto your pizza.
+              </p>
+            </div>
+
+            <div class="week4-mini-coming-soon">
+              Make a Pizza
+            </div>
+          </div>
+        `;
+      }
+
+      activityView
+        .querySelector(
+          ".week4-activity-back"
+        )
+        ?.addEventListener(
+          "click",
+          showHub
+        );
+
+      /*
+       * Start the mini-game only after its HTML
+       * and navigation controls are fully rendered.
+       */
+      if (activityId === "feed-animals") {
+        requestAnimationFrame(() => {
+          startFeedAnimalsActivity();
+        });
+      }
+
+      if (activityId === "build-robot") {
+        requestAnimationFrame(() => {
+          startBuildRobotActivity();
+        });
+      }
+    }
+
+    screen
+      .querySelectorAll(
+        "[data-week4-activity]"
+      )
+      .forEach((button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            showActivity(
+              button.dataset.week4Activity
+            );
+          }
+        );
+      });
+  }
+
   function startWeek4MovingTargetsBehavior() {
     const input = window.HandsOnMouseInput;
 
@@ -7555,6 +8940,97 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week4-activities") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-activities">
+
+          <div class="week4-activities-heading">
+            <span class="drag-review-badge">
+              QUICK ACTIVITIES
+            </span>
+
+            <h1>Choose an Activity</h1>
+
+            <p>
+              Pick a game and practice your dragging.
+            </p>
+          </div>
+
+
+          <div
+            id="week4ActivitiesHub"
+            class="week4-activities-hub"
+          >
+
+            <button
+              class="week4-activity-card"
+              type="button"
+              data-week4-activity="feed-animals"
+            >
+              <span class="week4-activity-icon">
+                🐶
+              </span>
+
+              <strong>
+                Feed the Animals
+              </strong>
+
+              <span>
+                Match each animal with its food.
+              </span>
+            </button>
+
+
+            <button
+              class="week4-activity-card"
+              type="button"
+              data-week4-activity="build-robot"
+            >
+              <span class="week4-activity-icon">
+                🤖
+              </span>
+
+              <strong>
+                Build a Robot
+              </strong>
+
+              <span>
+                Put the robot pieces together.
+              </span>
+            </button>
+
+
+            <button
+              class="week4-activity-card"
+              type="button"
+              data-week4-activity="make-pizza"
+            >
+              <span class="week4-activity-icon">
+                🍕
+              </span>
+
+              <strong>
+                Make a Pizza
+              </strong>
+
+              <span>
+                Create your own pizza.
+              </span>
+            </button>
+
+          </div>
+
+
+          <div
+            id="week4ActivityView"
+            class="week4-activity-view"
+            hidden
+          ></div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week4-moving-targets") {
       return `
         <div class="lesson-screen lesson-screen-week4-moving">
@@ -12169,6 +13645,10 @@
 
     if (step.id === "week4-moving-targets") {
       startWeek4MovingTargetsBehavior();
+    }
+
+    if (step.id === "week4-activities") {
+      startWeek4ActivitiesBehavior();
     }
 
     if (step.id === "meet-click-drag") {
