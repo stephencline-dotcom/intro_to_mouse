@@ -170,6 +170,68 @@ const mouseLessons = {
         type: "complete"
       }
     ]
+  },
+
+  week5: {
+    id: "week5",
+    title: "Scroll & Find",
+    steps: [
+      {
+        id: "week5-quick-review",
+        title: "Quick Review",
+        type: "review"
+      },
+      {
+        id: "week5-meet-wheel",
+        title: "Meet the Scroll Wheel",
+        type: "learn"
+      },
+      {
+        id: "week5-scroll-down",
+        title: "Scroll Down",
+        type: "learn"
+      },
+      {
+        id: "week5-scroll-up",
+        title: "Scroll Up",
+        type: "learn"
+      },
+      {
+        id: "week5-scroll-practice",
+        title: "Scroll Practice",
+        type: "practice"
+      },
+      {
+        id: "week5-stop-target",
+        title: "Stop at the Target",
+        type: "practice"
+      },
+      {
+        id: "week5-scroll-click",
+        title: "Scroll & Click",
+        type: "practice"
+      },
+      {
+        id: "week5-scroll-drag",
+        title: "Scroll, Find & Drag",
+        type: "practice"
+      },
+      {
+        id: "week5-activities",
+        title: "Quick Activities",
+        type: "practice"
+      },
+      {
+        id: "week5-challenge",
+        title: "Scroll Master Challenge",
+        type: "practice"
+      },
+      {
+        id: "week5-complete",
+        title: "Week 5 Complete!",
+        type: "complete"
+      }
+    ]
   }
 };
 

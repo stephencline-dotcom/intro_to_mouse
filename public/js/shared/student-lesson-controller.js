@@ -1112,6 +1112,958 @@
     );
   }
 
+  let removeWeek4ChallengeBehavior = null;
+
+  function startWeek4CompleteBehavior() {
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week4-complete"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    if (soundEnabled) {
+      const completeSound =
+        new Audio(
+          "/sounds/complete.mp3"
+        );
+
+      completeSound.volume = 0.7;
+      completeSound.currentTime = 0;
+
+      completeSound
+        .play()
+        .catch(() => {});
+    }
+
+    screen.classList.add(
+      "week4-complete-celebrate"
+    );
+  }
+
+  function startWeek4ChallengeBehavior() {
+    const input = window.HandsOnMouseInput;
+
+    const area =
+      document.getElementById(
+        "week4ChallengeArea"
+      );
+
+    const pointer =
+      document.getElementById(
+        "week4ChallengePointer"
+      );
+
+    const status =
+      document.getElementById(
+        "week4ChallengeStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week4ChallengeProgress"
+      );
+
+    const roundLabel =
+      document.getElementById(
+        "week4ChallengeRoundLabel"
+      );
+
+    const stage =
+      document.getElementById(
+        "week4ChallengeStage"
+      );
+
+    if (
+      !input ||
+      !area ||
+      !pointer ||
+      !status ||
+      !progress ||
+      !roundLabel ||
+      !stage
+    ) {
+      return;
+    }
+
+    let roundIndex = 0;
+    let activeObject = null;
+    let dragging = false;
+    let finished = false;
+    let failedByObstacle = false;
+    let fireTruckSound = null;
+
+    function stopFireTruckSound() {
+      if (!fireTruckSound) {
+        return;
+      }
+
+      fireTruckSound.pause();
+      fireTruckSound.currentTime = 0;
+      fireTruckSound = null;
+    }
+
+    function startFireTruckSound() {
+      stopFireTruckSound();
+
+      if (!soundEnabled) {
+        return;
+      }
+
+      fireTruckSound =
+        new Audio(
+          "/sounds/fire.mp3"
+        );
+
+      fireTruckSound.volume = 0.5;
+      fireTruckSound.loop = true;
+      fireTruckSound.currentTime = 0;
+
+      fireTruckSound
+        .play()
+        .catch(() => {});
+    }
+
+    const ROUND_COUNT = 5;
+
+    function updatePointer(event) {
+      const rect =
+        area.getBoundingClientRect();
+
+      const inside =
+        event.x >= rect.left &&
+        event.x <= rect.right &&
+        event.y >= rect.top &&
+        event.y <= rect.bottom;
+
+      if (!inside) {
+        return null;
+      }
+
+      const offsetX =
+        pointer.offsetWidth * 0.90;
+
+      const offsetY =
+        pointer.offsetHeight * 0.50;
+
+      pointer.style.left =
+        `${event.x - rect.left - offsetX}px`;
+
+      pointer.style.top =
+        `${event.y - rect.top - offsetY}px`;
+
+      return rect;
+    }
+
+    function pointerOnElement(element) {
+      return pointerTipHitsElement(
+        pointer,
+        element
+      );
+    }
+
+    function elementCenterInside(
+      element,
+      destination
+    ) {
+      if (!element || !destination) {
+        return false;
+      }
+
+      const elementRect =
+        element.getBoundingClientRect();
+
+      const destinationRect =
+        destination.getBoundingClientRect();
+
+      const centerX =
+        elementRect.left +
+        elementRect.width / 2;
+
+      const centerY =
+        elementRect.top +
+        elementRect.height / 2;
+
+      return (
+        centerX >= destinationRect.left &&
+        centerX <= destinationRect.right &&
+        centerY >= destinationRect.top &&
+        centerY <= destinationRect.bottom
+      );
+    }
+
+    function objectTouchesObstacle(
+      object,
+      obstacle
+    ) {
+      const a =
+        object.getBoundingClientRect();
+
+      const b =
+        obstacle.getBoundingClientRect();
+
+      return !(
+        a.right < b.left ||
+        a.left > b.right ||
+        a.bottom < b.top ||
+        a.top > b.bottom
+      );
+    }
+
+    function firetruckOnRoad(object) {
+      if (
+        roundIndex !== 3 ||
+        !object
+      ) {
+        return true;
+      }
+
+      const objectRect =
+        object.getBoundingClientRect();
+
+      const centerX =
+        objectRect.left +
+        objectRect.width / 2;
+
+      const centerY =
+        objectRect.top +
+        objectRect.height / 2;
+
+      const roadSegments =
+        Array.from(
+          stage.querySelectorAll(
+            ".week4-fire-road-segment"
+          )
+        );
+
+      return roadSegments.some(
+        (segment) => {
+          const rect =
+            segment.getBoundingClientRect();
+
+          return (
+            centerX >= rect.left &&
+            centerX <= rect.right &&
+            centerY >= rect.top &&
+            centerY <= rect.bottom
+          );
+        }
+      );
+    }
+
+    function clearHighlights() {
+      stage
+        .querySelectorAll(
+          ".week4-master-ready"
+        )
+        .forEach((element) => {
+          element.classList.remove(
+            "week4-master-ready"
+          );
+        });
+    }
+
+    function stopDragging() {
+      stopFireTruckSound();
+
+      dragging = false;
+
+      if (activeObject) {
+        activeObject.classList.remove(
+          "week4-master-object-held"
+        );
+      }
+
+      activeObject = null;
+
+      clearHighlights();
+    }
+
+    function playCorrect() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(
+          "/sounds/correct.mp3"
+        );
+
+      sound.volume = 0.6;
+      sound.currentTime = 0;
+
+      sound.play().catch(() => {});
+    }
+
+    function advanceRound() {
+      stopDragging();
+
+      playCorrect();
+
+      status.textContent =
+        "Great job! ✓";
+
+      setTimeout(() => {
+        roundIndex += 1;
+
+        if (
+          roundIndex >=
+          ROUND_COUNT
+        ) {
+          finishChallenge();
+          return;
+        }
+
+        loadRound();
+      }, 650);
+    }
+
+    function finishChallenge() {
+      finished = true;
+
+      stage.innerHTML = `
+        <div class="week4-master-finish">
+          <div class="week4-master-trophy">
+            🏆
+          </div>
+
+          <strong>
+            DRAG MASTER!
+          </strong>
+
+          <span>
+            ★ ★ ★
+          </span>
+        </div>
+      `;
+
+      roundLabel.textContent =
+        "Challenge Complete";
+
+      progress.textContent =
+        "5 of 5 ✓";
+
+      status.textContent =
+        "You did it!";
+
+      area.classList.add(
+        "week4-challenge-complete"
+      );
+
+      if (soundEnabled) {
+        const completeSound =
+          new Audio(
+            "/sounds/complete.mp3"
+          );
+
+        completeSound.volume = 0.65;
+        completeSound.currentTime = 0;
+
+        completeSound
+          .play()
+          .catch(() => {});
+      }
+    }
+
+    function loadRound() {
+      stopDragging();
+
+      failedByObstacle = false;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${ROUND_COUNT}`;
+
+      roundLabel.textContent =
+        `Round ${roundIndex + 1}`;
+
+      area.classList.remove(
+        "week4-master-final-active"
+      );
+
+      /*
+       * ROUND 1
+       * One object, two possible destinations.
+       */
+      if (roundIndex === 0) {
+        status.textContent =
+          "Put the fish where it belongs.";
+
+        stage.innerHTML = `
+          <div
+            class="week4-master-object"
+            data-master-object="fish"
+            style="left: 17%; top: 50%;"
+          >
+            🐟
+          </div>
+
+          <div
+            class="week4-master-target week4-master-target-choice"
+            data-master-target="water"
+            style="left: 72%; top: 28%;"
+          >
+            🌊
+          </div>
+
+          <div
+            class="week4-master-target week4-master-target-choice"
+            data-master-target="tree"
+            style="left: 72%; top: 72%;"
+          >
+            🌳
+          </div>
+        `;
+
+        return;
+      }
+
+      /*
+       * ROUND 2
+       * Three objects. Only one belongs in the nest.
+       */
+      if (roundIndex === 1) {
+        status.textContent =
+          "Choose what belongs in the nest.";
+
+        stage.innerHTML = `
+          <div
+            class="week4-master-object"
+            data-master-object="bird"
+            style="left: 15%; top: 24%;"
+          >
+            🐦
+          </div>
+
+          <div
+            class="week4-master-object"
+            data-master-object="car"
+            style="left: 27%; top: 50%;"
+          >
+            🚗
+          </div>
+
+          <div
+            class="week4-master-object"
+            data-master-object="apple"
+            style="left: 15%; top: 76%;"
+          >
+            🍎
+          </div>
+
+          <div
+            class="week4-master-target week4-master-nest"
+            data-master-target="nest"
+            style="left: 76%; top: 50%;"
+          >
+            🪹
+          </div>
+        `;
+
+        return;
+      }
+
+      /*
+       * ROUND 3
+       * Obstacle course.
+       */
+      if (roundIndex === 2) {
+        status.textContent =
+          "Carry the star through the path.";
+
+        stage.innerHTML = `
+          <div
+            class="week4-master-object"
+            data-master-object="star"
+            style="left: 11%; top: 50%;"
+          >
+            ★
+          </div>
+
+          <div
+            class="week4-master-obstacle obstacle-a"
+          ></div>
+
+          <div
+            class="week4-master-obstacle obstacle-b"
+          ></div>
+
+          <div
+            class="week4-master-obstacle obstacle-c"
+          ></div>
+
+          <div
+            class="week4-master-target week4-master-finish-target"
+            data-master-target="finish"
+            style="left: 89%; top: 50%;"
+          >
+            🏁
+          </div>
+        `;
+
+        return;
+      }
+
+      /*
+       * ROUND 4
+       * Drive the firetruck down a winding road.
+       * Leaving the road resets the round.
+       */
+      if (roundIndex === 3) {
+        status.textContent =
+          "Drive the firetruck to the fire!";
+
+        stage.innerHTML = `
+          <div class="week4-fire-road">
+
+            <div
+              class="week4-fire-road-segment road-one"
+            ></div>
+
+            <div
+              class="week4-fire-road-segment road-two"
+            ></div>
+
+            <div
+              class="week4-fire-road-segment road-three"
+            ></div>
+
+            <div
+              class="week4-fire-road-segment road-four"
+            ></div>
+
+            <div
+              class="week4-fire-road-segment road-five"
+            ></div>
+
+          </div>
+
+          <div
+            class="week4-master-object week4-firetruck"
+            data-master-object="firetruck"
+            style="left: 10%; top: 72%;"
+          >
+            🚒
+          </div>
+
+          <div
+            class="week4-master-target week4-burning-house"
+            data-master-target="fire"
+            style="left: 88%; top: 25%;"
+          >
+            <span>🏠</span>
+            <b>🔥</b>
+          </div>
+        `;
+
+        return;
+      }
+
+      /*
+       * ROUND 5
+       * Moving target. It becomes faster once grabbed.
+       */
+      status.textContent =
+        "Catch it!";
+
+      area.classList.add(
+        "week4-master-final-active"
+      );
+
+      stage.innerHTML = `
+        <div
+          class="week4-master-object"
+          data-master-object="lightning"
+          style="left: 15%; top: 50%;"
+        >
+          ⚡
+        </div>
+
+        <div
+          class="week4-master-target week4-master-moving-target"
+          data-master-target="moving"
+        >
+          ★
+        </div>
+      `;
+    }
+
+    function getObjectUnderPointer() {
+      return Array.from(
+        stage.querySelectorAll(
+          ".week4-master-object"
+        )
+      ).find((object) => {
+        return pointerOnElement(object);
+      }) || null;
+    }
+
+    function getTargetUnderObject(object) {
+      return Array.from(
+        stage.querySelectorAll(
+          ".week4-master-target"
+        )
+      ).find((target) => {
+        return elementCenterInside(
+          object,
+          target
+        );
+      }) || null;
+    }
+
+    function resetRoundObject() {
+      loadRound();
+
+      status.textContent =
+        "Try again.";
+    }
+
+    function checkObstacleCollision() {
+      if (
+        roundIndex !== 2 ||
+        !activeObject ||
+        failedByObstacle
+      ) {
+        return false;
+      }
+
+      const obstacle =
+        Array.from(
+          stage.querySelectorAll(
+            ".week4-master-obstacle"
+          )
+        ).find((item) => {
+          return objectTouchesObstacle(
+            activeObject,
+            item
+          );
+        });
+
+      if (!obstacle) {
+        return false;
+      }
+
+      failedByObstacle = true;
+
+      obstacle.classList.add(
+        "week4-master-obstacle-hit"
+      );
+
+      if (soundEnabled) {
+        const hitSound =
+          new Audio(
+            "/sounds/hit.mp3"
+          );
+
+        hitSound.volume = 0.6;
+        hitSound.currentTime = 0;
+
+        hitSound
+          .play()
+          .catch(() => {});
+      }
+
+      status.textContent =
+        "Oops! Stay in the path.";
+
+      setTimeout(() => {
+        resetRoundObject();
+      }, 350);
+
+      return true;
+    }
+
+    function finishDrop() {
+      if (
+        !dragging ||
+        !activeObject ||
+        finished
+      ) {
+        return;
+      }
+
+      const object =
+        activeObject;
+
+      const target =
+        getTargetUnderObject(object);
+
+      /*
+       * ROUND 1:
+       * Fish must go into water.
+       */
+      if (roundIndex === 0) {
+        if (
+          target?.dataset.masterTarget ===
+          "water"
+        ) {
+          advanceRound();
+        } else {
+          resetRoundObject();
+        }
+
+        return;
+      }
+
+      /*
+       * ROUND 2:
+       * Only the bird belongs in the nest.
+       */
+      if (roundIndex === 1) {
+        if (
+          object.dataset.masterObject ===
+            "bird" &&
+          target?.dataset.masterTarget ===
+            "nest"
+        ) {
+          advanceRound();
+        } else {
+          resetRoundObject();
+        }
+
+        return;
+      }
+
+      /*
+       * ROUND 3:
+       * Star must survive the obstacles and
+       * be released inside the finish.
+       */
+      if (roundIndex === 2) {
+        if (
+          !failedByObstacle &&
+          target?.dataset.masterTarget ===
+            "finish"
+        ) {
+          advanceRound();
+        } else {
+          resetRoundObject();
+        }
+
+        return;
+      }
+
+      /*
+       * ROUND 4:
+       * Firetruck must stay on the road and
+       * be released at the burning house.
+       */
+      if (roundIndex === 3) {
+        if (
+          firetruckOnRoad(object) &&
+          target?.dataset.masterTarget ===
+            "fire"
+        ) {
+          advanceRound();
+        } else {
+          resetRoundObject();
+
+          status.textContent =
+            "Drive all the way to the fire.";
+        }
+
+        return;
+      }
+
+      /*
+       * ROUND 5:
+       * Must release inside moving target.
+       */
+      if (
+        target?.dataset.masterTarget ===
+        "moving"
+      ) {
+        advanceRound();
+      } else {
+        resetRoundObject();
+      }
+    }
+
+    const removeMove =
+      input.subscribe(
+        "move",
+        (event) => {
+          if (finished) {
+            return;
+          }
+
+          const rect =
+            updatePointer(event);
+
+          if (!rect || !dragging || !activeObject) {
+            return;
+          }
+
+          activeObject.style.left =
+            `${event.x - rect.left}px`;
+
+          activeObject.style.top =
+            `${event.y - rect.top}px`;
+
+          if (checkObstacleCollision()) {
+            return;
+          }
+
+          /*
+           * Round 4 firetruck must remain on
+           * the winding road while being dragged.
+           */
+          if (
+            roundIndex === 3 &&
+            !firetruckOnRoad(activeObject)
+          ) {
+            status.textContent =
+              "Stay on the road!";
+
+            stopDragging();
+
+            setTimeout(() => {
+              loadRound();
+
+              status.textContent =
+                "Try the road again.";
+            }, 300);
+
+            return;
+          }
+
+          clearHighlights();
+
+          const target =
+            getTargetUnderObject(
+              activeObject
+            );
+
+          if (target) {
+            target.classList.add(
+              "week4-master-ready"
+            );
+          }
+        }
+      );
+
+    const removeLeftDown =
+      input.subscribe(
+        "leftDown",
+        () => {
+          if (
+            finished ||
+            dragging
+          ) {
+            return;
+          }
+
+          const object =
+            getObjectUnderPointer();
+
+          if (!object) {
+            status.textContent =
+              "Choose carefully.";
+
+            return;
+          }
+
+          activeObject = object;
+          dragging = true;
+
+          object.classList.add(
+            "week4-master-object-held"
+          );
+
+          /*
+           * Round 4 firetruck sound plays only
+           * while the truck is being dragged.
+           */
+          if (
+            roundIndex === 3 &&
+            object.dataset.masterObject ===
+              "firetruck"
+          ) {
+            startFireTruckSound();
+          }
+
+          /*
+           * Round 5 becomes faster only after
+           * the student grabs the object.
+           */
+          if (roundIndex === 4) {
+            area.classList.add(
+              "week4-master-final-fast"
+            );
+          }
+
+          if (soundEnabled) {
+            if (!leftClickSound) {
+              leftClickSound =
+                new Audio(
+                  "/sounds/mouseclick.mp3"
+                );
+
+              leftClickSound.volume =
+                0.5;
+            }
+
+            leftClickSound.pause();
+            leftClickSound.currentTime =
+              0.12;
+
+            leftClickSound
+              .play()
+              .catch(() => {});
+          }
+        }
+      );
+
+    const removeRightDown =
+      input.subscribe(
+        "rightDown",
+        () => {
+          if (finished) {
+            return;
+          }
+
+          showWrongButtonWarning();
+
+          resetRoundObject();
+
+          status.textContent =
+            "Use the LEFT button.";
+        }
+      );
+
+    const nativeReleaseHandler =
+      (event) => {
+        if (event.button !== 0) {
+          return;
+        }
+
+        finishDrop();
+      };
+
+    window.addEventListener(
+      "mouseup",
+      nativeReleaseHandler,
+      true
+    );
+
+    removeWeek4ChallengeBehavior = () => {
+      stopFireTruckSound();
+
+      removeMove?.();
+      removeLeftDown?.();
+      removeRightDown?.();
+
+      window.removeEventListener(
+        "mouseup",
+        nativeReleaseHandler,
+        true
+      );
+    };
+
+    loadRound();
+  }
+
   function startWeek4ActivitiesBehavior() {
     const screen =
       document.querySelector(
@@ -6686,6 +7638,317 @@
       });
   }
 
+
+
+  let week5ReviewTimers = [];
+
+  function stopWeek5QuickReviewAnimation() {
+    week5ReviewTimers.forEach(
+      timer => clearTimeout(timer)
+    );
+
+    week5ReviewTimers = [];
+
+    if (
+      typeof window.week5StopReviewSounds ===
+      "function"
+    ) {
+      window.week5StopReviewSounds();
+      window.week5StopReviewSounds = null;
+    }
+  }
+
+  function startWeek5QuickReviewAnimation() {
+    stopWeek5QuickReviewAnimation();
+
+    let activeReviewSounds = [];
+
+    function playReviewSound(src, volume = 0.5, startTime = 0) {
+      if (!soundEnabled) {
+        return null;
+      }
+
+      const sound =
+        new Audio(src);
+
+      sound.volume = volume;
+      sound.currentTime = startTime;
+
+      activeReviewSounds.push(sound);
+
+      sound
+        .play()
+        .catch(() => {});
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          activeReviewSounds =
+            activeReviewSounds.filter(
+              item => item !== sound
+            );
+        },
+        { once: true }
+      );
+
+      return sound;
+    }
+
+    function stopReviewSounds() {
+      activeReviewSounds.forEach(
+        sound => {
+          sound.pause();
+          sound.currentTime = 0;
+        }
+      );
+
+      activeReviewSounds = [];
+    }
+
+    window.week5StopReviewSounds =
+      stopReviewSounds;
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week5-quick-review"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    const pointer =
+      document.getElementById(
+        "week5ReviewPointer"
+      );
+
+    const mouse =
+      document.getElementById(
+        "week5ReviewMouse"
+      );
+
+    const leftButton =
+      document.getElementById(
+        "week5ReviewLeftButton"
+      );
+
+    const object =
+      document.getElementById(
+        "week5ReviewObject"
+      );
+
+    const destination =
+      document.getElementById(
+        "week5ReviewDestination"
+      );
+
+    const message =
+      document.getElementById(
+        "week5ReviewMessage"
+      );
+
+    const cards =
+      Array.from(
+        screen.querySelectorAll(
+          "[data-week5-review-step]"
+        )
+      );
+
+    if (
+      !pointer ||
+      !mouse ||
+      !leftButton ||
+      !object ||
+      !destination ||
+      !message ||
+      cards.length !== 5
+    ) {
+      return;
+    }
+
+    function setActive(name) {
+      cards.forEach((card) => {
+        card.classList.toggle(
+          "week5-review-step-active",
+          card.dataset.week5ReviewStep ===
+            name
+        );
+      });
+    }
+
+    function resetVisuals() {
+      pointer.className =
+        "week5-visual-review-pointer";
+
+      object.className =
+        "week5-visual-review-object";
+
+      destination.className =
+        "week5-visual-review-destination";
+
+      leftButton.classList.remove(
+        "week5-visual-review-button-down"
+      );
+    }
+
+    function startSequence() {
+      resetVisuals();
+
+      /*
+       * MOVE
+       *
+       * Start away from the star, pause briefly,
+       * then travel onto it.
+       */
+      setActive("move");
+
+      message.textContent =
+        "MOVE the mouse.";
+
+      void pointer.offsetWidth;
+
+      week5ReviewTimers.push(
+        setTimeout(() => {
+          pointer.classList.add(
+            "week5-visual-review-pointer-move"
+          );
+        }, 300)
+      );
+
+      week5ReviewTimers.push(
+        setTimeout(() => {
+
+          /*
+           * CLICK
+           */
+          setActive("click");
+
+          message.textContent =
+            "CLICK the star.";
+
+          leftButton.classList.add(
+            "week5-visual-review-button-down"
+          );
+
+          pointer.classList.add(
+            "week5-visual-review-pointer-click"
+          );
+
+          object.classList.add(
+            "week5-visual-review-object-clicked"
+          );
+
+          playReviewSound(
+            "/sounds/mouseclick.mp3",
+            0.5,
+            0.12
+          );
+
+        }, 1750)
+      );
+
+      week5ReviewTimers.push(
+        setTimeout(() => {
+
+          /*
+           * HOLD
+           */
+          setActive("hold");
+
+          message.textContent =
+            "PRESS and HOLD.";
+
+          pointer.classList.remove(
+            "week5-visual-review-pointer-click"
+          );
+
+          object.classList.remove(
+            "week5-visual-review-object-clicked"
+          );
+
+          object.classList.add(
+            "week5-visual-review-object-held"
+          );
+
+        }, 2950)
+      );
+
+      week5ReviewTimers.push(
+        setTimeout(() => {
+
+          /*
+           * DRAG
+           */
+          setActive("drag");
+
+          message.textContent =
+            "DRAG while holding.";
+
+          /*
+           * Pointer and star travel together.
+           */
+          pointer.classList.add(
+            "week5-visual-review-pointer-drag"
+          );
+
+          object.classList.add(
+            "week5-visual-review-object-drag"
+          );
+
+          destination.classList.add(
+            "week5-visual-review-destination-ready"
+          );
+
+        }, 4150)
+      );
+
+      week5ReviewTimers.push(
+        setTimeout(() => {
+
+          /*
+           * LET GO
+           */
+          setActive("release");
+
+          message.textContent =
+            "LET GO.";
+
+          leftButton.classList.remove(
+            "week5-visual-review-button-down"
+          );
+
+          object.classList.remove(
+            "week5-visual-review-object-held"
+          );
+
+          object.classList.add(
+            "week5-visual-review-object-dropped"
+          );
+
+          destination.classList.add(
+            "week5-visual-review-destination-complete"
+          );
+
+          playReviewSound(
+            "/sounds/correct.mp3",
+            0.55,
+            0
+          );
+
+        }, 5750)
+      );
+
+      week5ReviewTimers.push(
+        setTimeout(
+          startSequence,
+          7900
+        )
+      );
+    }
+
+    startSequence();
+  }
+
   function startWeek4QuickReviewAnimation() {
     stopWeek4QuickReviewAnimation();
 
@@ -9764,6 +11027,263 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week5-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-quick-review">
+
+          <div class="week5-review-heading">
+            <span class="drag-review-badge">
+              QUICK REVIEW
+            </span>
+
+            <h1>What Do We Already Know?</h1>
+
+            <p>
+              Watch the mouse skills we have learned.
+            </p>
+          </div>
+
+          <div class="week5-visual-review-steps">
+
+            <div
+              class="week5-visual-review-step"
+              data-week5-review-step="move"
+            >
+              <strong>1</strong>
+              <span>MOVE</span>
+            </div>
+
+            <div
+              class="week5-visual-review-step"
+              data-week5-review-step="click"
+            >
+              <strong>2</strong>
+              <span>CLICK</span>
+            </div>
+
+            <div
+              class="week5-visual-review-step"
+              data-week5-review-step="hold"
+            >
+              <strong>3</strong>
+              <span>HOLD</span>
+            </div>
+
+            <div
+              class="week5-visual-review-step"
+              data-week5-review-step="drag"
+            >
+              <strong>4</strong>
+              <span>DRAG</span>
+            </div>
+
+            <div
+              class="week5-visual-review-step"
+              data-week5-review-step="release"
+            >
+              <strong>5</strong>
+              <span>LET GO</span>
+            </div>
+
+          </div>
+
+          <div class="week5-visual-review-demo">
+
+            <div class="week5-visual-review-action">
+
+              <div
+                id="week5ReviewObject"
+                class="week5-visual-review-object"
+              >
+                ★
+              </div>
+
+              <div
+                id="week5ReviewDestination"
+                class="week5-visual-review-destination"
+              >
+                ☆
+              </div>
+
+              <div
+                id="week5ReviewPointer"
+                class="week5-visual-review-pointer"
+              >
+                ➤
+              </div>
+
+            </div>
+
+            <div class="week5-visual-review-mouse-side">
+
+              <div
+                id="week5ReviewMouse"
+                class="week5-visual-review-mouse"
+              >
+                <div
+                  id="week5ReviewLeftButton"
+                  class="week5-visual-review-left-button"
+                ></div>
+
+                <div class="week5-visual-review-right-button"></div>
+
+                <div class="week5-visual-review-wheel"></div>
+              </div>
+
+              <div
+                id="week5ReviewMessage"
+                class="week5-visual-review-message"
+              >
+                MOVE the mouse.
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week4-complete") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-complete">
+
+          <div class="week4-complete-stars">
+            ✦ ★ ✦
+          </div>
+
+          <div class="week4-complete-trophy">
+            🏆
+          </div>
+
+          <h1>
+            Drag Master!
+          </h1>
+
+          <p class="week4-complete-message">
+            You learned how to control, drag, and drop with the mouse!
+          </p>
+
+          <div class="week4-complete-recap">
+
+            <div class="week4-complete-recap-item">
+              <span class="week4-complete-recap-icon">
+                👆
+              </span>
+              <strong>POINT</strong>
+            </div>
+
+            <div class="week4-complete-arrow">
+              ➜
+            </div>
+
+            <div class="week4-complete-recap-item">
+              <span class="week4-complete-recap-icon">
+                🖱️
+              </span>
+              <strong>PRESS</strong>
+            </div>
+
+            <div class="week4-complete-arrow">
+              ➜
+            </div>
+
+            <div class="week4-complete-recap-item">
+              <span class="week4-complete-recap-icon">
+                ✊
+              </span>
+              <strong>HOLD</strong>
+            </div>
+
+            <div class="week4-complete-arrow">
+              ➜
+            </div>
+
+            <div class="week4-complete-recap-item">
+              <span class="week4-complete-recap-icon">
+                ➤
+              </span>
+              <strong>MOVE</strong>
+            </div>
+
+            <div class="week4-complete-arrow">
+              ➜
+            </div>
+
+            <div class="week4-complete-recap-item">
+              <span class="week4-complete-recap-icon">
+                ✋
+              </span>
+              <strong>LET GO</strong>
+            </div>
+
+          </div>
+
+          <div class="week4-complete-banner">
+            ⭐ CLICK & DRAG COMPLETE ⭐
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week4-challenge") {
+      return `
+        <div class="lesson-screen lesson-screen-week4-challenge">
+
+          <div class="week4-challenge-heading">
+            <span class="drag-review-badge">
+              FINAL CHALLENGE
+            </span>
+
+            <h1>Drag Master Challenge</h1>
+
+            <p>
+              Show what you can do!
+            </p>
+          </div>
+
+          <div class="week4-challenge-meta">
+            <span id="week4ChallengeRoundLabel">
+              Round 1
+            </span>
+
+            <strong id="week4ChallengeProgress">
+              1 of 5
+            </strong>
+          </div>
+
+          <div
+            id="week4ChallengeArea"
+            class="week4-challenge-area"
+          >
+
+            <div
+              id="week4ChallengeStage"
+              class="week4-challenge-stage"
+            ></div>
+
+            <div
+              id="week4ChallengePointer"
+              class="week4-challenge-pointer"
+            >
+              ➤
+            </div>
+
+            <div
+              id="week4ChallengeStatus"
+              class="week4-challenge-status"
+            >
+              Drag the star into the box.
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week4-activities") {
       return `
         <div class="lesson-screen lesson-screen-week4-activities">
@@ -12600,6 +14120,12 @@
 
   function stopStepBehavior() {
 
+    if (removeWeek4ChallengeBehavior) {
+      removeWeek4ChallengeBehavior();
+      removeWeek4ChallengeBehavior = null;
+    }
+
+
     if (removeWeek4MovingMoveListener) {
       removeWeek4MovingMoveListener();
       removeWeek4MovingMoveListener = null;
@@ -14451,6 +15977,10 @@
       startWeek4QuickReviewAnimation();
     }
 
+    if (step.id === "week5-quick-review") {
+      startWeek5QuickReviewAnimation();
+    }
+
     if (step.id === "week4-warm-up") {
       startWeek4WarmUpBehavior();
     }
@@ -14473,6 +16003,14 @@
 
     if (step.id === "week4-activities") {
       startWeek4ActivitiesBehavior();
+    }
+
+    if (step.id === "week4-challenge") {
+      startWeek4ChallengeBehavior();
+    }
+
+    if (step.id === "week4-complete") {
+      startWeek4CompleteBehavior();
     }
 
     if (step.id === "meet-click-drag") {

@@ -17857,3 +17857,2925 @@ EOFcat >> public/css/style.css <<'EOF'
   opacity: 0 !important;
 }
 
+
+
+/* ========================================
+   Week 4 Step 8: Drag Master Challenge
+======================================== */
+
+.lesson-screen-week4-challenge {
+  position: relative;
+
+  padding:
+    8px 18px 10px;
+}
+
+.week4-challenge-heading {
+  text-align: center;
+}
+
+.week4-challenge-heading h1 {
+  margin:
+    2px 0 2px;
+
+  font-size:
+    clamp(30px, 4.2vh, 40px);
+}
+
+.week4-challenge-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.week4-challenge-meta {
+  width:
+    min(900px, 94%);
+
+  margin:
+    5px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  color: #475569;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.week4-challenge-meta strong {
+  color: #2563eb;
+}
+
+
+/* Challenge board */
+
+.week4-challenge-area {
+  position: relative;
+
+  width:
+    min(1000px, 95%);
+
+  height:
+    370px;
+
+  margin:
+    0 auto;
+
+  overflow: hidden;
+
+  border:
+    3px dashed #cbd5e1;
+
+  border-radius:
+    22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eef2ff
+    );
+
+  cursor: none;
+
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+/* Draggable object */
+
+.week4-challenge-object {
+  position: absolute;
+
+  z-index: 40;
+
+  width: 92px;
+  height: 92px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    4px solid #60a5fa;
+
+  border-radius:
+    18px;
+
+  background: white;
+
+  font-size: 48px;
+
+  box-shadow:
+    0 6px 13px
+    rgba(0, 0, 0, 0.12);
+}
+
+.week4-challenge-object-held {
+  z-index: 90;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color:
+    #2563eb;
+}
+
+.week4-challenge-object-ready {
+  border-color:
+    #f59e0b;
+
+  background:
+    #fef3c7;
+}
+
+.week4-challenge-object-success {
+  border-color:
+    #16a34a;
+
+  background:
+    #dcfce7;
+}
+
+
+/* Destination */
+
+.week4-challenge-destination {
+  position: absolute;
+
+  z-index: 20;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border:
+    5px dashed #22c55e;
+
+  border-radius:
+    20px;
+
+  background:
+    rgba(220, 252, 231, 0.72);
+
+  color:
+    #15803d;
+
+  font-size:
+    22px;
+
+  font-weight:
+    1000;
+}
+
+.challenge-target-large {
+  width: 190px;
+  height: 155px;
+}
+
+.challenge-target-medium {
+  width: 150px;
+  height: 125px;
+}
+
+.challenge-target-small {
+  width: 115px;
+  height: 105px;
+}
+
+.week4-challenge-destination-ready {
+  border-color:
+    #f59e0b;
+
+  background:
+    #fef3c7;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(245, 158, 11, 0.15);
+}
+
+.week4-challenge-destination-success {
+  border-style: solid;
+
+  border-color:
+    #16a34a;
+
+  background:
+    #bbf7d0;
+}
+
+
+/* Final moving target */
+
+.challenge-target-moving {
+  animation:
+    week4-final-target-move
+    2.6s ease-in-out
+    infinite alternate;
+}
+
+@keyframes week4-final-target-move {
+  0% {
+    left: 63%;
+    top: 30%;
+  }
+
+  50% {
+    left: 82%;
+    top: 47%;
+  }
+
+  100% {
+    left: 68%;
+    top: 70%;
+  }
+}
+
+
+/* Pointer/status */
+
+.week4-challenge-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 88%;
+
+  z-index: 110;
+
+  font-size: 56px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-challenge-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 5px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 120;
+
+  width: 55%;
+
+  text-align: center;
+
+  color:
+    #334155;
+
+  font-size:
+    15px;
+
+  font-weight:
+    900;
+}
+
+.week4-challenge-complete {
+  box-shadow:
+    inset 0 0 0 6px
+    rgba(34, 197, 94, 0.16);
+}
+
+
+/* Teacher view */
+
+body.teacher-session
+.week4-challenge-area {
+  height:
+    315px;
+}
+
+body.teacher-session
+.week4-challenge-heading h1 {
+  font-size:
+    28px;
+}
+
+body.teacher-session
+.week4-challenge-heading p {
+  font-size:
+    13px;
+}
+
+body.teacher-session
+.week4-challenge-object {
+  width:
+    78px;
+
+  height:
+    78px;
+
+  font-size:
+    40px;
+}
+
+
+/* ========================================
+   Week 4 Step 8 - Advanced Drag Master
+======================================== */
+
+.week4-challenge-stage {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.week4-master-object {
+  position: absolute;
+
+  z-index: 40;
+
+  width: 78px;
+  height: 78px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #60a5fa;
+  border-radius: 17px;
+
+  background: white;
+
+  font-size: 42px;
+
+  box-shadow:
+    0 5px 12px
+    rgba(0, 0, 0, 0.12);
+
+  pointer-events: auto;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.week4-master-object-small {
+  width: 62px;
+  height: 62px;
+
+  font-size: 32px;
+}
+
+.week4-master-object-held {
+  z-index: 100;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color: #2563eb;
+}
+
+
+/* Targets */
+
+.week4-master-target {
+  position: absolute;
+
+  z-index: 20;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border:
+    4px dashed #94a3b8;
+
+  border-radius:
+    18px;
+
+  background:
+    rgba(255, 255, 255, 0.78);
+
+  font-size: 50px;
+
+  pointer-events: none;
+}
+
+.week4-master-target-choice {
+  width: 155px;
+  height: 120px;
+}
+
+.week4-master-nest {
+  width: 170px;
+  height: 135px;
+
+  font-size: 65px;
+}
+
+.week4-master-finish-target {
+  width: 105px;
+  height: 115px;
+
+  border-color: #22c55e;
+
+  font-size: 52px;
+}
+
+.week4-master-ready {
+  border-color:
+    #f59e0b !important;
+
+  background:
+    #fef3c7 !important;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(245, 158, 11, 0.15);
+}
+
+
+/* ----------------------------------------
+   Round 3 obstacle course
+---------------------------------------- */
+
+.week4-master-obstacle {
+  position: absolute;
+
+  z-index: 15;
+
+  border:
+    4px solid #dc2626;
+
+  border-radius:
+    18px;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #fecaca 0,
+      #fecaca 12px,
+      #fee2e2 12px,
+      #fee2e2 24px
+    );
+
+  box-shadow:
+    inset 0 0 0 3px
+    rgba(255, 255, 255, 0.55);
+}
+
+.week4-master-obstacle::after {
+  content: "✕";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  color: #dc2626;
+
+  font-size: 28px;
+  font-weight: 1000;
+}
+
+.week4-master-obstacle.obstacle-a {
+  left: 30%;
+  top: -8%;
+
+  width: 105px;
+  height: 58%;
+}
+
+.week4-master-obstacle.obstacle-b {
+  left: 51%;
+  bottom: -8%;
+
+  width: 105px;
+  height: 58%;
+}
+
+.week4-master-obstacle.obstacle-c {
+  left: 70%;
+  top: -8%;
+
+  width: 105px;
+  height: 58%;
+}
+
+.week4-master-obstacle-hit {
+  background: #ef4444 !important;
+
+  animation:
+    week4-master-hit
+    0.18s linear
+    2;
+}
+
+
+/* ----------------------------------------
+   Round 4 precision
+---------------------------------------- */
+
+.week4-master-precision-target {
+  width: 82px;
+  height: 82px;
+
+  border-color: #22c55e;
+
+  font-size: 34px;
+}
+
+.week4-master-distractor-target {
+  width: 112px;
+  height: 112px;
+
+  border-color: #60a5fa;
+
+  font-size: 43px;
+}
+
+
+/* ----------------------------------------
+   Round 5 moving target
+---------------------------------------- */
+
+.week4-master-moving-target {
+  left: 72%;
+  top: 50%;
+
+  width: 105px;
+  height: 105px;
+
+  border-color: #22c55e;
+
+  color: #eab308;
+
+  font-size: 48px;
+
+  animation:
+    week4-master-moving-slow
+    3.2s ease-in-out
+    infinite alternate;
+}
+
+.week4-master-final-fast
+.week4-master-moving-target {
+  animation:
+    week4-master-moving-fast
+    1.55s ease-in-out
+    infinite alternate !important;
+}
+
+@keyframes week4-master-moving-slow {
+  0% {
+    left: 61%;
+    top: 27%;
+  }
+
+  50% {
+    left: 83%;
+    top: 48%;
+  }
+
+  100% {
+    left: 65%;
+    top: 73%;
+  }
+}
+
+@keyframes week4-master-moving-fast {
+  0% {
+    left: 59%;
+    top: 25%;
+  }
+
+  25% {
+    left: 82%;
+    top: 29%;
+  }
+
+  50% {
+    left: 79%;
+    top: 73%;
+  }
+
+  75% {
+    left: 61%;
+    top: 68%;
+  }
+
+  100% {
+    left: 72%;
+    top: 43%;
+  }
+}
+
+
+/* ----------------------------------------
+   Completion
+---------------------------------------- */
+
+.week4-master-finish {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #1e3a8a;
+
+  font-size: 28px;
+  font-weight: 1000;
+
+  animation:
+    week4-master-finish-pop
+    0.45s ease-out;
+}
+
+.week4-master-trophy {
+  font-size: 90px;
+}
+
+.week4-master-finish span {
+  color: #f59e0b;
+
+  font-size: 32px;
+
+  letter-spacing: 7px;
+}
+
+
+@keyframes week4-master-hit {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes week4-master-finish-pop {
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 4 Step 8 - widen obstacle gap
+======================================== */
+
+.week4-master-obstacle.obstacle-b {
+  left: 48% !important;
+}
+
+.week4-master-obstacle.obstacle-c {
+  left: 74% !important;
+}
+
+
+/* ========================================
+   Week 4 Step 8 - even obstacle spacing
+======================================== */
+
+.week4-master-obstacle.obstacle-a {
+  left: 27% !important;
+}
+
+.week4-master-obstacle.obstacle-b {
+  left: 50% !important;
+}
+
+.week4-master-obstacle.obstacle-c {
+  left: 73% !important;
+}
+
+
+/* ========================================
+   Week 4 Step 8 - Round 4 Firetruck Road
+======================================== */
+
+/* Firetruck */
+
+.week4-master-object.week4-firetruck {
+  width: 76px;
+  height: 62px;
+
+  font-size: 42px;
+
+  border-color: #ef4444;
+
+  background: #fff;
+}
+
+
+/* Road sits behind everything */
+
+.week4-fire-road {
+  position: absolute;
+  inset: 0;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+.week4-fire-road-segment {
+  position: absolute;
+
+  background: #64748b;
+
+  border: 7px solid #f8fafc;
+
+  box-shadow:
+    0 0 0 3px #334155;
+
+  box-sizing: border-box;
+}
+
+
+/*
+ * Winding path:
+ *
+ * START
+ *   ↓
+ * ──────
+ *      |
+ *      └────
+ *           |
+ *       ────┘  FIRE
+ */
+
+.week4-fire-road-segment.road-one {
+  left: 7%;
+  top: 64%;
+
+  width: 30%;
+  height: 74px;
+
+  border-radius:
+    36px 0 0 36px;
+}
+
+.week4-fire-road-segment.road-two {
+  left: 31%;
+  top: 45%;
+
+  width: 74px;
+  height: 26%;
+
+  border-radius:
+    0 36px 0 0;
+}
+
+.week4-fire-road-segment.road-three {
+  left: 34%;
+  top: 40%;
+
+  width: 32%;
+  height: 74px;
+
+  border-radius:
+    36px 0 0 36px;
+}
+
+.week4-fire-road-segment.road-four {
+  left: 60%;
+  top: 22%;
+
+  width: 74px;
+  height: 25%;
+
+  border-radius:
+    0 0 36px 0;
+}
+
+.week4-fire-road-segment.road-five {
+  left: 63%;
+  top: 17%;
+
+  width: 27%;
+  height: 74px;
+
+  border-radius:
+    36px 36px 36px 0;
+}
+
+
+/* Center lane markings */
+
+.week4-fire-road-segment::after {
+  content: "";
+
+  position: absolute;
+
+  left: 8px;
+  right: 8px;
+  top: 50%;
+
+  height: 4px;
+
+  transform:
+    translateY(-50%);
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #fde047 0 18px,
+      transparent 18px 32px
+    );
+
+  border-radius: 4px;
+}
+
+.week4-fire-road-segment.road-two::after,
+.week4-fire-road-segment.road-four::after {
+  left: 50%;
+  top: 8px;
+  bottom: 8px;
+
+  width: 4px;
+  height: auto;
+
+  transform:
+    translateX(-50%);
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #fde047 0 18px,
+      transparent 18px 32px
+    );
+}
+
+
+/* Burning house */
+
+.week4-burning-house {
+  width: 112px;
+  height: 100px;
+
+  border-color: #ef4444;
+
+  background:
+    #fff7ed;
+
+  font-size: 48px;
+}
+
+.week4-burning-house span {
+  line-height: 1;
+}
+
+.week4-burning-house b {
+  position: absolute;
+
+  right: 3px;
+  top: -22px;
+
+  font-size: 43px;
+
+  animation:
+    week4-fire-flicker
+    0.28s ease-in-out
+    infinite alternate;
+}
+
+
+/* Road failure flash */
+
+.week4-firetruck.week4-master-object-held {
+  border-color: #dc2626;
+}
+
+
+@keyframes week4-fire-flicker {
+  from {
+    transform:
+      scale(0.92)
+      rotate(-5deg);
+  }
+
+  to {
+    transform:
+      scale(1.08)
+      rotate(5deg);
+  }
+}
+
+
+/* ========================================
+   Week 4 Step 8 - seamless firetruck road
+======================================== */
+
+/*
+ * Keep the existing road geometry and collision
+ * areas exactly the same. This only changes how
+ * the road looks.
+ */
+
+.week4-fire-road-segment {
+  background: #64748b !important;
+
+  border: 0 !important;
+
+  box-shadow:
+    none !important;
+
+  overflow: visible !important;
+}
+
+
+/* ----------------------------------------
+   Smooth overlapping road sections
+---------------------------------------- */
+
+.week4-fire-road-segment.road-one {
+  left: 7% !important;
+  top: 64% !important;
+
+  width: 31% !important;
+  height: 74px !important;
+
+  border-radius:
+    38px 0 0 38px !important;
+}
+
+.week4-fire-road-segment.road-two {
+  left: 31% !important;
+  top: 44% !important;
+
+  width: 74px !important;
+  height: 29% !important;
+
+  border-radius:
+    0 !important;
+}
+
+.week4-fire-road-segment.road-three {
+  left: 31% !important;
+  top: 40% !important;
+
+  width: 36% !important;
+  height: 74px !important;
+
+  border-radius:
+    38px 0 0 38px !important;
+}
+
+.week4-fire-road-segment.road-four {
+  left: 60% !important;
+  top: 20% !important;
+
+  width: 74px !important;
+  height: 28% !important;
+
+  border-radius:
+    0 !important;
+}
+
+.week4-fire-road-segment.road-five {
+  left: 60% !important;
+  top: 17% !important;
+
+  width: 31% !important;
+  height: 74px !important;
+
+  border-radius:
+    38px !important;
+}
+
+
+/* ----------------------------------------
+   Rounded junction fillers
+---------------------------------------- */
+
+/*
+ * These circles cover the square-looking seams
+ * where horizontal and vertical road sections meet.
+ */
+
+.week4-fire-road-segment.road-two::before,
+.week4-fire-road-segment.road-four::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  width: 74px;
+  height: 74px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    #64748b;
+
+  z-index: -1;
+}
+
+.week4-fire-road-segment.road-two::before {
+  top: -28px;
+}
+
+.week4-fire-road-segment.road-four::before {
+  bottom: -28px;
+}
+
+
+/* ----------------------------------------
+   Cleaner yellow center lines
+---------------------------------------- */
+
+.week4-fire-road-segment::after {
+  z-index: 2;
+
+  box-shadow:
+    none !important;
+}
+
+
+/*
+ * Slightly soften the whole road visually so it
+ * reads as one continuous winding roadway.
+ */
+
+.week4-fire-road {
+  filter:
+    drop-shadow(
+      0 3px 2px
+      rgba(15, 23, 42, 0.16)
+    );
+}
+
+
+/* ========================================
+   Week 4 Step 8 - firetruck road visual polish
+======================================== */
+
+/* Smooth the road into one continuous shape */
+
+.week4-fire-road-segment {
+  border: 0 !important;
+  box-shadow: none !important;
+
+  background: #64748b !important;
+
+  overflow: visible !important;
+}
+
+
+/* Give horizontal road pieces softer ends */
+
+.week4-fire-road-segment.road-one {
+  border-radius:
+    38px 0 0 38px !important;
+}
+
+.week4-fire-road-segment.road-three {
+  border-radius:
+    38px 0 0 38px !important;
+}
+
+.week4-fire-road-segment.road-five {
+  border-radius:
+    38px !important;
+}
+
+
+/* Hide visible square seams with rounded junctions */
+
+.week4-fire-road-segment.road-two::before,
+.week4-fire-road-segment.road-two::after,
+.week4-fire-road-segment.road-four::before,
+.week4-fire-road-segment.road-four::after {
+  content: "";
+
+  position: absolute;
+
+  width: 74px;
+  height: 74px;
+
+  border-radius: 50%;
+
+  background: #64748b;
+
+  z-index: 0;
+}
+
+.week4-fire-road-segment.road-two::before {
+  left: 0;
+  top: -26px;
+}
+
+.week4-fire-road-segment.road-two::after {
+  left: 0;
+  bottom: -26px;
+}
+
+.week4-fire-road-segment.road-four::before {
+  left: 0;
+  top: -26px;
+}
+
+.week4-fire-road-segment.road-four::after {
+  left: 0;
+  bottom: -26px;
+}
+
+
+/* Keep the yellow road lines above the junction fillers */
+
+.week4-fire-road-segment > *,
+.week4-fire-road-segment::after {
+  z-index: 2;
+}
+
+
+/* ----------------------------------------
+   FIRETRUCK
+---------------------------------------- */
+
+/* Remove the white draggable card */
+
+.lesson-screen-week4-challenge
+.week4-master-object.week4-firetruck {
+  width: 84px !important;
+  height: 58px !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  font-size: 48px !important;
+}
+
+
+/* Flip the truck so it faces RIGHT toward the house */
+
+.lesson-screen-week4-challenge
+.week4-firetruck {
+  transform:
+    translate(-50%, -50%)
+    scaleX(-1) !important;
+}
+
+
+/* Preserve the right-facing truck while it is being held */
+
+.lesson-screen-week4-challenge
+.week4-firetruck.week4-master-object-held {
+  transform:
+    translate(-50%, -50%)
+    scaleX(-1)
+    scale(1.08) !important;
+
+  filter:
+    drop-shadow(
+      0 5px 5px
+      rgba(0, 0, 0, 0.18)
+    );
+}
+
+
+/* Remove any generic held-card styling from the truck */
+
+.lesson-screen-week4-challenge
+.week4-firetruck.week4-master-object-held {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+
+/* ----------------------------------------
+   HOUSE
+---------------------------------------- */
+
+/* Also soften the destination so it feels less boxed-in */
+
+.lesson-screen-week4-challenge
+.week4-burning-house {
+  border: 0 !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+}
+
+
+/* ========================================
+   Week 4 Step 9 - Complete
+======================================== */
+
+.lesson-screen-week4-complete {
+  position: relative;
+
+  width:
+    min(1000px, 94%);
+
+  margin:
+    10px auto;
+
+  padding:
+    28px 28px 24px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  overflow: hidden;
+
+  border:
+    4px solid #93c5fd;
+
+  border-radius:
+    28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #eff6ff,
+      #ffffff
+    );
+
+  box-shadow:
+    0 14px 32px
+    rgba(30, 64, 175, 0.14);
+}
+
+
+/* Stars */
+
+.week4-complete-stars {
+  color:
+    #f59e0b;
+
+  font-size:
+    34px;
+
+  letter-spacing:
+    12px;
+
+  animation:
+    week4-complete-stars
+    1s ease-in-out
+    infinite alternate;
+}
+
+
+/* Trophy */
+
+.week4-complete-trophy {
+  margin-top:
+    2px;
+
+  font-size:
+    clamp(72px, 10vh, 100px);
+
+  line-height:
+    1;
+
+  animation:
+    week4-complete-trophy
+    0.8s ease-in-out
+    infinite alternate;
+}
+
+
+/* Heading */
+
+.lesson-screen-week4-complete h1 {
+  margin:
+    4px 0 7px;
+
+  color:
+    #1e3a8a;
+
+  font-size:
+    clamp(38px, 5.5vh, 54px);
+
+  font-weight:
+    1000;
+}
+
+.week4-complete-message {
+  width:
+    min(720px, 90%);
+
+  margin:
+    0 auto 20px;
+
+  color:
+    #475569;
+
+  font-size:
+    18px;
+
+  line-height:
+    1.3;
+
+  font-weight:
+    800;
+}
+
+
+/* Skill recap */
+
+.week4-complete-recap {
+  width:
+    min(900px, 96%);
+
+  margin:
+    0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap:
+    10px;
+
+  flex-wrap:
+    nowrap;
+}
+
+.week4-complete-recap-item {
+  min-width:
+    105px;
+
+  padding:
+    12px 9px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap:
+    4px;
+
+  border:
+    3px solid #bfdbfe;
+
+  border-radius:
+    17px;
+
+  background:
+    white;
+
+  box-shadow:
+    0 5px 10px
+    rgba(0, 0, 0, 0.07);
+}
+
+.week4-complete-recap-icon {
+  font-size:
+    35px;
+
+  line-height:
+    1;
+}
+
+.week4-complete-recap-item strong {
+  color:
+    #1e40af;
+
+  font-size:
+    12px;
+
+  font-weight:
+    1000;
+}
+
+.week4-complete-arrow {
+  color:
+    #60a5fa;
+
+  font-size:
+    25px;
+
+  font-weight:
+    1000;
+}
+
+
+/* Bottom banner */
+
+.week4-complete-banner {
+  display: inline-block;
+
+  margin-top:
+    22px;
+
+  padding:
+    10px 20px;
+
+  border-radius:
+    999px;
+
+  background:
+    #dcfce7;
+
+  color:
+    #15803d;
+
+  font-size:
+    15px;
+
+  font-weight:
+    1000;
+
+  letter-spacing:
+    0.4px;
+}
+
+
+/* Celebration entrance */
+
+.week4-complete-celebrate {
+  animation:
+    week4-complete-pop
+    0.5s ease-out;
+}
+
+
+/* Teacher view */
+
+body.teacher-session
+.lesson-screen-week4-complete {
+  padding:
+    18px 20px 16px;
+}
+
+body.teacher-session
+.week4-complete-trophy {
+  font-size:
+    70px;
+}
+
+body.teacher-session
+.lesson-screen-week4-complete h1 {
+  font-size:
+    38px;
+}
+
+body.teacher-session
+.week4-complete-message {
+  margin-bottom:
+    13px;
+
+  font-size:
+    14px;
+}
+
+body.teacher-session
+.week4-complete-recap-item {
+  min-width:
+    88px;
+
+  padding:
+    8px 6px;
+}
+
+body.teacher-session
+.week4-complete-recap-icon {
+  font-size:
+    28px;
+}
+
+body.teacher-session
+.week4-complete-banner {
+  margin-top:
+    13px;
+}
+
+
+/* Animations */
+
+@keyframes week4-complete-pop {
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+}
+
+@keyframes week4-complete-trophy {
+  from {
+    transform:
+      rotate(-3deg)
+      scale(1);
+  }
+
+  to {
+    transform:
+      rotate(3deg)
+      scale(1.06);
+  }
+}
+
+@keyframes week4-complete-stars {
+  from {
+    transform:
+      translateY(0);
+
+    opacity:
+      0.7;
+  }
+
+  to {
+    transform:
+      translateY(-4px);
+
+    opacity:
+      1;
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 1 - Quick Review
+======================================== */
+
+.lesson-screen-week5-quick-review {
+  padding: 10px 22px 16px;
+}
+
+.week5-review-heading {
+  text-align: center;
+}
+
+.week5-review-heading h1 {
+  margin: 2px 0 3px;
+
+  font-size:
+    clamp(30px, 4.2vh, 41px);
+}
+
+.week5-review-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+
+/* Review cards */
+
+.week5-review-steps {
+  width: min(820px, 94%);
+
+  margin: 16px auto 12px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 10px;
+}
+
+.week5-review-step {
+  padding: 8px 5px;
+
+  text-align: center;
+
+  border: 3px solid #dbeafe;
+  border-radius: 14px;
+
+  background: white;
+
+  color: #64748b;
+}
+
+.week5-review-step strong {
+  display: block;
+
+  margin: 0 auto 3px;
+
+  width: 26px;
+  height: 26px;
+
+  line-height: 26px;
+
+  border-radius: 50%;
+
+  background: #e2e8f0;
+
+  font-size: 12px;
+}
+
+.week5-review-step span {
+  font-size: 11px;
+  font-weight: 1000;
+}
+
+.week5-review-step-active {
+  border-color: #2563eb;
+
+  background: #eff6ff;
+
+  color: #1e40af;
+
+  transform: translateY(-2px);
+}
+
+.week5-review-step-active strong {
+  background: #2563eb;
+  color: white;
+}
+
+
+/* Main demo */
+
+.week5-review-demo {
+  width: min(900px, 95%);
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns:
+    1.4fr 0.8fr;
+
+  gap: 18px;
+}
+
+
+/* Work area */
+
+.week5-review-work-area {
+  position: relative;
+
+  height: 260px;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eef2ff
+    );
+}
+
+.week5-review-object {
+  position: absolute;
+
+  left: 25%;
+  top: 50%;
+
+  width: 74px;
+  height: 74px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #60a5fa;
+  border-radius: 16px;
+
+  background: white;
+
+  font-size: 39px;
+
+  transition:
+    left 1.1s ease,
+    top 1.1s ease,
+    transform 0.2s ease;
+}
+
+.week5-review-object-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color: #2563eb;
+}
+
+.week5-review-object-drag {
+  left: 73%;
+}
+
+.week5-review-object-dropped {
+  left: 73%;
+
+  border-color: #16a34a;
+
+  background: #dcfce7;
+}
+
+
+/* Destination */
+
+.week5-review-destination {
+  position: absolute;
+
+  left: 73%;
+  top: 50%;
+
+  width: 110px;
+  height: 110px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px dashed #22c55e;
+  border-radius: 18px;
+
+  background: #f0fdf4;
+
+  color: #16a34a;
+
+  font-size: 46px;
+}
+
+.week5-review-destination-ready {
+  background: #fef3c7;
+
+  border-color: #f59e0b;
+}
+
+.week5-review-destination-complete {
+  background: #dcfce7;
+
+  border-style: solid;
+}
+
+
+/* Pointer */
+
+.week5-review-pointer {
+  position: absolute;
+
+  left: 8%;
+  top: 72%;
+
+  z-index: 50;
+
+  font-size: 52px;
+
+  transition:
+    left 1.1s ease,
+    top 1.1s ease;
+}
+
+.week5-review-pointer-move {
+  left: 25%;
+  top: 50%;
+}
+
+.week5-review-pointer-drag {
+  left: 73%;
+}
+
+
+/* Mouse */
+
+.week5-review-mouse-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+}
+
+.week5-review-mouse {
+  position: relative;
+
+  width: 125px;
+  height: 175px;
+
+  border: 5px solid #475569;
+  border-radius: 62px 62px 52px 52px;
+
+  background: #e2e8f0;
+
+  overflow: hidden;
+}
+
+.week5-review-left-button,
+.week5-review-right-button {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 72px;
+
+  border-bottom: 4px solid #475569;
+}
+
+.week5-review-left-button {
+  left: 0;
+
+  border-right: 2px solid #475569;
+
+  background: #bfdbfe;
+}
+
+.week5-review-right-button {
+  right: 0;
+
+  border-left: 2px solid #475569;
+}
+
+.week5-review-left-button.week5-review-button-down {
+  background: #2563eb;
+
+  transform: translateY(4px);
+}
+
+.week5-review-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 25px;
+
+  width: 17px;
+  height: 38px;
+
+  transform: translateX(-50%);
+
+  border: 3px solid #475569;
+  border-radius: 10px;
+
+  background: white;
+}
+
+.week5-review-message {
+  min-height: 24px;
+
+  text-align: center;
+
+  color: #1e3a8a;
+
+  font-size: 17px;
+  font-weight: 1000;
+}
+
+
+/* Teacher compact */
+
+body.teacher-session
+.week5-review-work-area {
+  height: 220px;
+}
+
+body.teacher-session
+.week5-review-mouse {
+  width: 105px;
+  height: 148px;
+}
+
+body.teacher-session
+.week5-review-demo {
+  gap: 10px;
+}
+
+
+/* ========================================
+   Week 5 Step 1 - interactive review
+======================================== */
+
+.week5-review-task-row {
+  width: min(560px, 90%);
+
+  margin: 14px auto 10px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+}
+
+.week5-review-task-card {
+  padding: 8px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: 3px solid #dbeafe;
+  border-radius: 14px;
+
+  background: white;
+
+  color: #1e40af;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-review-task-card span {
+  color: #94a3b8;
+
+  font-size: 20px;
+}
+
+.week5-review-practice-area {
+  position: relative;
+
+  width: min(900px, 95%);
+  height: 325px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eff6ff
+    );
+
+  cursor: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.week5-review-move-target {
+  position: absolute;
+
+  left: 18%;
+  top: 26%;
+
+  width: 78px;
+  height: 78px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #60a5fa;
+  border-radius: 50%;
+
+  background: white;
+
+  color: #f59e0b;
+
+  font-size: 42px;
+}
+
+.week5-review-click-target {
+  position: absolute;
+
+  left: 50%;
+  top: 27%;
+
+  width: 125px;
+  height: 68px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border: 4px solid #2563eb;
+  border-radius: 18px;
+
+  background: #dbeafe;
+
+  color: #1e40af;
+
+  font-size: 16px;
+  font-weight: 1000;
+
+  cursor: none;
+}
+
+.week5-review-drag-object {
+  position: absolute;
+
+  width: 72px;
+  height: 72px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 30;
+
+  border: 4px solid #60a5fa;
+  border-radius: 16px;
+
+  background: white;
+
+  font-size: 38px;
+}
+
+.week5-review-drag-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color: #2563eb;
+
+  z-index: 80;
+}
+
+.week5-review-drag-target {
+  position: absolute;
+
+  left: 78%;
+  top: 72%;
+
+  width: 130px;
+  height: 105px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px dashed #22c55e;
+  border-radius: 18px;
+
+  background: #f0fdf4;
+
+  font-size: 50px;
+}
+
+.week5-review-drag-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+}
+
+.week5-review-task-done {
+  border-color: #16a34a !important;
+
+  background: #dcfce7 !important;
+}
+
+.week5-review-practice-pointer {
+  position: absolute;
+
+  left: 5%;
+  top: 90%;
+
+  z-index: 100;
+
+  font-size: 54px;
+
+  pointer-events: none;
+}
+
+.week5-review-practice-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 5px;
+
+  transform:
+    translateX(-50%);
+
+  width: 55%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.week5-review-complete {
+  box-shadow:
+    inset 0 0 0 5px
+    rgba(34, 197, 94, 0.14);
+}
+
+body.teacher-session
+.week5-review-practice-area {
+  height: 280px;
+}
+
+
+/* ========================================
+   Week 5 Step 1 - visual-only review
+======================================== */
+
+.week5-visual-review-steps {
+  width: min(820px, 94%);
+
+  margin:
+    16px auto 12px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 10px;
+}
+
+.week5-visual-review-step {
+  padding:
+    8px 5px;
+
+  text-align: center;
+
+  border:
+    3px solid #dbeafe;
+
+  border-radius:
+    14px;
+
+  background: white;
+
+  color: #64748b;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.week5-visual-review-step strong {
+  display: block;
+
+  width: 27px;
+  height: 27px;
+
+  margin:
+    0 auto 3px;
+
+  line-height: 27px;
+
+  border-radius: 50%;
+
+  background: #e2e8f0;
+
+  font-size: 12px;
+}
+
+.week5-visual-review-step span {
+  font-size: 11px;
+
+  font-weight: 1000;
+}
+
+.week5-visual-review-step.week5-review-step-active {
+  border-color: #2563eb;
+
+  background: #eff6ff;
+
+  color: #1e40af;
+
+  transform:
+    translateY(-3px);
+}
+
+.week5-visual-review-step.week5-review-step-active strong {
+  background: #2563eb;
+
+  color: white;
+}
+
+
+/* Main visual */
+
+.week5-visual-review-demo {
+  width: min(900px, 95%);
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    1.45fr 0.75fr;
+
+  gap: 18px;
+}
+
+
+/* Action area */
+
+.week5-visual-review-action {
+  position: relative;
+
+  height: 270px;
+
+  overflow: hidden;
+
+  border:
+    3px dashed #cbd5e1;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eef2ff
+    );
+}
+
+.week5-visual-review-object {
+  position: absolute;
+
+  left: 24%;
+  top: 50%;
+
+  width: 74px;
+  height: 74px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    4px solid #60a5fa;
+
+  border-radius: 16px;
+
+  background: white;
+
+  font-size: 40px;
+
+  transition:
+    left 1.2s ease,
+    transform 0.2s ease;
+}
+
+.week5-visual-review-object-held {
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+
+  border-color:
+    #2563eb;
+}
+
+.week5-visual-review-object-drag {
+  left: 74%;
+}
+
+.week5-visual-review-object-dropped {
+  left: 74%;
+
+  border-color:
+    #16a34a;
+
+  background:
+    #dcfce7;
+}
+
+
+/* Target */
+
+.week5-visual-review-destination {
+  position: absolute;
+
+  left: 74%;
+  top: 50%;
+
+  width: 112px;
+  height: 112px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    4px dashed #22c55e;
+
+  border-radius: 18px;
+
+  background:
+    #f0fdf4;
+
+  color:
+    #16a34a;
+
+  font-size:
+    48px;
+}
+
+.week5-visual-review-destination-ready {
+  border-color:
+    #f59e0b;
+
+  background:
+    #fef3c7;
+}
+
+.week5-visual-review-destination-complete {
+  border-style: solid;
+
+  background:
+    #dcfce7;
+}
+
+
+/* Pointer */
+
+.week5-visual-review-pointer {
+  position: absolute;
+
+  left: 7%;
+  top: 72%;
+
+  z-index: 50;
+
+  font-size: 54px;
+
+  transition:
+    left 1.2s ease,
+    top 1.2s ease;
+}
+
+.week5-visual-review-pointer-move {
+  left: 24%;
+  top: 50%;
+}
+
+.week5-visual-review-pointer-drag {
+  left: 74%;
+}
+
+
+/* Mouse */
+
+.week5-visual-review-mouse-side {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+}
+
+.week5-visual-review-mouse {
+  position: relative;
+
+  width: 125px;
+  height: 175px;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius:
+    62px 62px 52px 52px;
+
+  background:
+    #e2e8f0;
+}
+
+.week5-visual-review-left-button,
+.week5-visual-review-right-button {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 72px;
+
+  border-bottom:
+    4px solid #475569;
+}
+
+.week5-visual-review-left-button {
+  left: 0;
+
+  border-right:
+    2px solid #475569;
+
+  background:
+    #bfdbfe;
+}
+
+.week5-visual-review-right-button {
+  right: 0;
+
+  border-left:
+    2px solid #475569;
+}
+
+.week5-visual-review-left-button.week5-visual-review-button-down {
+  background:
+    #2563eb;
+
+  transform:
+    translateY(4px);
+}
+
+.week5-visual-review-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 25px;
+
+  width: 17px;
+  height: 38px;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    3px solid #475569;
+
+  border-radius:
+    10px;
+
+  background:
+    white;
+}
+
+.week5-visual-review-message {
+  min-height: 26px;
+
+  text-align: center;
+
+  color: #1e3a8a;
+
+  font-size: 18px;
+
+  font-weight: 1000;
+}
+
+
+/* Teacher compact */
+
+body.teacher-session
+.week5-visual-review-action {
+  height: 225px;
+}
+
+body.teacher-session
+.week5-visual-review-mouse {
+  width: 105px;
+  height: 148px;
+}
+
+
+/* ========================================
+   Week 5 Step 1 - review polish
+======================================== */
+
+/*
+ * Destination stays BEHIND the draggable star.
+ */
+
+.week5-visual-review-destination {
+  z-index: 10 !important;
+}
+
+
+/*
+ * Star always stays above the destination,
+ * including while moving into it.
+ */
+
+.week5-visual-review-object {
+  z-index: 40 !important;
+}
+
+.week5-visual-review-object-held,
+.week5-visual-review-object-drag,
+.week5-visual-review-object-dropped {
+  z-index: 60 !important;
+}
+
+
+/*
+ * Pointer stays above everything so students
+ * can clearly see the mouse action.
+ */
+
+.week5-visual-review-pointer {
+  z-index: 100 !important;
+}
+
+
+/* ----------------------------------------
+   Visible pointer click
+---------------------------------------- */
+
+.week5-visual-review-pointer-click {
+  animation:
+    week5-review-pointer-click
+    0.28s ease-in-out
+    2;
+}
+
+
+/* Star reacts when clicked */
+
+.week5-visual-review-object-clicked {
+  border-color:
+    #2563eb !important;
+
+  background:
+    #dbeafe !important;
+
+  animation:
+    week5-review-star-click
+    0.28s ease-in-out
+    2;
+}
+
+
+@keyframes week5-review-pointer-click {
+  0% {
+    transform:
+      scale(1);
+  }
+
+  50% {
+    transform:
+      scale(0.82);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+@keyframes week5-review-star-click {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.92);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 1 - pointer travel + tip alignment
+======================================== */
+
+/*
+ * Start the pointer clearly away from the star.
+ */
+.week5-visual-review-pointer {
+  left: 7% !important;
+  top: 78% !important;
+
+  transform:
+    translate(0, 0);
+
+  transform-origin:
+    100% 50%;
+
+  z-index:
+    100 !important;
+}
+
+
+/*
+ * MOVE step:
+ * Move the pointer so the actual TIP of the arrow
+ * lands on the middle of the star.
+ */
+.week5-visual-review-pointer-move {
+  left: 17.5% !important;
+  top: 50% !important;
+}
+
+
+/*
+ * CLICK step:
+ * Tiny forward press so the arrow tip visibly
+ * pushes into the star.
+ */
+.week5-visual-review-pointer-click {
+  animation:
+    week5-review-pointer-tip-click
+    0.28s ease-in-out
+    2 !important;
+}
+
+
+/*
+ * During the drag, keep the arrow tip aligned
+ * with the dragged star.
+ */
+.week5-visual-review-pointer-drag {
+  left: 67.5% !important;
+  top: 50% !important;
+}
+
+
+@keyframes week5-review-pointer-tip-click {
+  0% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(8px, 0)
+      scale(0.92);
+  }
+
+  100% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 1 - center pointer on star
+======================================== */
+
+/*
+ * Move the pointer farther into the star box
+ * before the click animation begins.
+ */
+.week5-visual-review-pointer-move {
+  left: 20% !important;
+  top: 50% !important;
+}
+
+
+/*
+ * During the click, press the arrow tip slightly
+ * deeper into the center of the star.
+ */
+@keyframes week5-review-pointer-tip-click {
+  0% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(12px, 0)
+      scale(0.92);
+  }
+
+  100% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 1 - synchronized pointer + star
+======================================== */
+
+/* Start arrow clearly away from the star */
+.lesson-screen-week5-quick-review
+.week5-visual-review-pointer {
+  left: 7% !important;
+  top: 78% !important;
+
+  transform:
+    translate(0, 0) !important;
+
+  transition:
+    left 1.15s ease,
+    top 1.15s ease,
+    transform 0.18s ease !important;
+
+  z-index:
+    120 !important;
+}
+
+
+/* Arrow tip moves well into the center of star */
+.lesson-screen-week5-quick-review
+.week5-visual-review-pointer.week5-visual-review-pointer-move {
+  left: 22% !important;
+  top: 48% !important;
+}
+
+
+/* During drag, pointer travels with the star */
+.lesson-screen-week5-quick-review
+.week5-visual-review-pointer.week5-visual-review-pointer-drag {
+  left: 72% !important;
+  top: 48% !important;
+}
+
+
+/* Star stays in front of destination */
+.lesson-screen-week5-quick-review
+.week5-visual-review-object {
+  z-index:
+    60 !important;
+
+  transition:
+    left 1.15s ease,
+    top 1.15s ease,
+    transform 0.18s ease !important;
+}
+
+.lesson-screen-week5-quick-review
+.week5-visual-review-object.week5-visual-review-object-drag {
+  left: 74% !important;
+  top: 50% !important;
+}
+
+
+/* Destination always stays behind star */
+.lesson-screen-week5-quick-review
+.week5-visual-review-destination {
+  z-index:
+    10 !important;
+}
+
+
+/* Actual click motion */
+.lesson-screen-week5-quick-review
+.week5-visual-review-pointer-click {
+  animation:
+    week5-pointer-real-click
+    0.22s ease-in-out
+    2 !important;
+}
+
+@keyframes week5-pointer-real-click {
+  0% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(10px, -2px)
+      scale(0.9);
+  }
+
+  100% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 1 - pointer tip centered on star
+======================================== */
+
+.lesson-screen-week5-quick-review
+.week5-visual-review-pointer.week5-visual-review-pointer-move {
+  left: 18.5% !important;
+  top: 44% !important;
+}
+
+
+/* Keep the pointer aligned the same way during drag */
+
+.lesson-screen-week5-quick-review
+.week5-visual-review-pointer.week5-visual-review-pointer-drag {
+  left: 68.5% !important;
+  top: 44% !important;
+}
+
+
+/* ========================================
+   Week 5 Step 1 - keep held star blue
+======================================== */
+
+/* Once grabbed, blue means the mouse button is still held. */
+
+.lesson-screen-week5-quick-review
+.week5-visual-review-object.week5-visual-review-object-held {
+  border-color: #2563eb !important;
+  background: #dbeafe !important;
+}
+
+
+/* Keep that same blue held state while dragging. */
+
+.lesson-screen-week5-quick-review
+.week5-visual-review-object.week5-visual-review-object-held.week5-visual-review-object-drag {
+  border-color: #2563eb !important;
+  background: #dbeafe !important;
+}
+
+
+/* Only after LET GO should it become green. */
+
+.lesson-screen-week5-quick-review
+.week5-visual-review-object.week5-visual-review-object-dropped {
+  border-color: #16a34a !important;
+  background: #dcfce7 !important;
+}
+
