@@ -1145,7 +1145,129 @@
       }
     }
 
+    function showActivityComplete({
+      title,
+      message,
+      retry
+    }) {
+      /*
+       * Play the completion sound when the
+       * Step 7 celebration box appears.
+       */
+      if (soundEnabled) {
+        const completeSound =
+          new Audio(
+            "/sounds/complete.mp3"
+          );
+
+        completeSound.volume = 0.65;
+        completeSound.currentTime = 0;
+
+        completeSound
+          .play()
+          .catch(() => {});
+      }
+
+      const existing =
+        document.getElementById(
+          "week4ActivityCompleteOverlay"
+        );
+
+      existing?.remove();
+
+      const overlay =
+        document.createElement("div");
+
+      overlay.id =
+        "week4ActivityCompleteOverlay";
+
+      overlay.className =
+        "week4-activity-complete-overlay";
+
+      overlay.innerHTML = `
+        <div class="week4-activity-complete-card">
+
+          <div class="week4-activity-complete-confetti">
+            ✦ 🎉 ✦
+          </div>
+
+          <h2>${title}</h2>
+
+          <p>${message}</p>
+
+          <div class="week4-activity-complete-buttons">
+
+            <button
+              id="week4ActivityRetryButton"
+              type="button"
+              class="week4-activity-retry-button"
+            >
+              ↻ Try Again
+            </button>
+
+            <button
+              id="week4ActivityBackButton"
+              type="button"
+              class="week4-activity-return-button"
+            >
+              ← Activities
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+      const shell =
+        activityView.querySelector(
+          ".week4-mini-activity-shell"
+        );
+
+      if (!shell) {
+        return;
+      }
+
+      shell.appendChild(overlay);
+
+      overlay
+        .querySelector(
+          "#week4ActivityRetryButton"
+        )
+        ?.addEventListener(
+          "click",
+          () => {
+            overlay.remove();
+
+            if (
+              typeof retry ===
+              "function"
+            ) {
+              retry();
+            }
+          }
+        );
+
+      overlay
+        .querySelector(
+          "#week4ActivityBackButton"
+        )
+        ?.addEventListener(
+          "click",
+          () => {
+            overlay.remove();
+            showHub();
+          }
+        );
+    }
+
+
     function showHub() {
+      document
+        .getElementById(
+          "week4ActivityCompleteOverlay"
+        )
+        ?.remove();
+
       stopCurrentActivity();
       activityView.hidden = true;
       activityView.innerHTML = "";
@@ -1355,6 +1477,19 @@
             area.classList.add(
               "week4-feed-complete"
             );
+
+            setTimeout(() => {
+              showActivityComplete({
+                title: "Great Job!",
+                message:
+                  "You fed all the animals!",
+                retry: () => {
+                  showActivity(
+                    "feed-animals"
+                  );
+                }
+              });
+            }, 450);
 
             return;
           }
@@ -1619,6 +1754,7 @@
           nativeReleaseHandler,
           true
         );
+
       };
 
       updateProgress();
@@ -1838,6 +1974,66 @@
             area.classList.add(
               "week4-robot-complete"
             );
+
+            /*
+             * Give the student a moment to see the
+             * finished robot, then make the whole
+             * assembled robot walk off the screen.
+             */
+            let robotStepSound = null;
+
+            setTimeout(() => {
+              area.classList.add(
+                "week4-robot-walking"
+              );
+
+              status.textContent =
+                "Bye, robot! 👋";
+
+              if (soundEnabled) {
+                robotStepSound =
+                  new Audio(
+                    "/sounds/robotstep.mp3"
+                  );
+
+                robotStepSound.volume = 0.55;
+                robotStepSound.loop = true;
+                robotStepSound.currentTime = 0;
+
+                robotStepSound
+                  .play()
+                  .catch(() => {});
+              }
+            }, 650);
+
+            /*
+             * Stop the walking sound when the
+             * robot reaches the edge of the screen.
+             */
+            setTimeout(() => {
+              if (robotStepSound) {
+                robotStepSound.pause();
+                robotStepSound.currentTime = 0;
+                robotStepSound = null;
+              }
+            }, 2950);
+
+            /*
+             * Show the celebration after the robot
+             * finishes walking away.
+             */
+            setTimeout(() => {
+              showActivityComplete({
+                title: "Robot Complete!",
+                message:
+                  "You built the whole robot!",
+                retry: () => {
+                  showActivity(
+                    "build-robot"
+                  );
+                }
+              });
+            }, 3100);
 
             return;
           }
@@ -2103,6 +2299,546 @@
 
       updateProgress();
     }
+
+
+    function startMakePizzaActivity() {
+      const input = window.HandsOnMouseInput;
+
+      const area =
+        document.getElementById(
+          "week4PizzaArea"
+        );
+
+      const pizza =
+        document.getElementById(
+          "week4Pizza"
+        );
+
+      const pointer =
+        document.getElementById(
+          "week4PizzaPointer"
+        );
+
+      const status =
+        document.getElementById(
+          "week4PizzaStatus"
+        );
+
+      const progress =
+        document.getElementById(
+          "week4PizzaProgress"
+        );
+
+      if (
+        !input ||
+        !area ||
+        !pizza ||
+        !pointer ||
+        !status ||
+        !progress
+      ) {
+        return;
+      }
+
+      const toppingChoices =
+        Array.from(
+          area.querySelectorAll(
+            ".week4-pizza-topping-choice"
+          )
+        );
+
+      const preventNativeDrag =
+        (event) => {
+          event.preventDefault();
+        };
+
+      area.addEventListener(
+        "dragstart",
+        preventNativeDrag
+      );
+
+      area.addEventListener(
+        "selectstart",
+        preventNativeDrag
+      );
+
+      let activeTopping = null;
+      let toppingCount = 0;
+      let finished = false;
+
+      function pointerOnChoice(choice) {
+        return pointerTipHitsElement(
+          pointer,
+          choice
+        );
+      }
+
+      function toppingInsidePizza(topping) {
+        if (!topping) {
+          return false;
+        }
+
+        const toppingRect =
+          topping.getBoundingClientRect();
+
+        const pizzaRect =
+          pizza.getBoundingClientRect();
+
+        const centerX =
+          toppingRect.left +
+          toppingRect.width / 2;
+
+        const centerY =
+          toppingRect.top +
+          toppingRect.height / 2;
+
+        const pizzaCenterX =
+          pizzaRect.left +
+          pizzaRect.width / 2;
+
+        const pizzaCenterY =
+          pizzaRect.top +
+          pizzaRect.height / 2;
+
+        const dx =
+          centerX - pizzaCenterX;
+
+        const dy =
+          centerY - pizzaCenterY;
+
+        const distance =
+          Math.sqrt(
+            dx * dx +
+            dy * dy
+          );
+
+        return (
+          distance <=
+          pizzaRect.width * 0.39
+        );
+      }
+
+      function clearReady() {
+        pizza.classList.remove(
+          "week4-pizza-ready"
+        );
+      }
+
+      function removeActiveTopping() {
+        if (!activeTopping) {
+          return;
+        }
+
+        activeTopping.remove();
+        activeTopping = null;
+
+        clearReady();
+      }
+
+      function updateProgress() {
+        progress.textContent =
+          `${toppingCount} of 10`;
+      }
+
+      function createToppingFromChoice(choice) {
+        const topping =
+          document.createElement("div");
+
+        topping.className =
+          `week4-pizza-placed-topping ${choice.dataset.topping}`;
+
+        topping.innerHTML =
+          '<span class="pizza-topping-visual"></span>';
+
+        area.appendChild(topping);
+
+        return topping;
+      }
+
+      function finishPlacement(topping) {
+        topping.classList.remove(
+          "week4-pizza-active-topping"
+        );
+
+        topping.classList.add(
+          "week4-pizza-topping-finished"
+        );
+
+        pizza.classList.add(
+          "week4-pizza-success"
+        );
+
+        toppingCount += 1;
+        updateProgress();
+
+        status.textContent =
+          "Topping added! ✓";
+
+        if (soundEnabled) {
+          const sound =
+            new Audio(
+              "/sounds/correct.mp3"
+            );
+
+          sound.volume = 0.55;
+          sound.currentTime = 0;
+
+          sound
+            .play()
+            .catch(() => {});
+        }
+
+        setTimeout(() => {
+          pizza.classList.remove(
+            "week4-pizza-success"
+          );
+
+          if (toppingCount >= 10) {
+            finished = true;
+
+            progress.textContent =
+              "10 of 10 ✓";
+
+            status.textContent =
+              "Pizza ready! 🍕";
+
+            pizza.classList.add(
+              "week4-pizza-complete"
+            );
+
+            area.classList.add(
+              "week4-pizza-area-complete"
+            );
+
+            /*
+             * Take five visible cartoon bites from
+             * the pizza edge, one at a time.
+             */
+            const bitePositions = [
+              "bite-one",
+              "bite-two",
+              "bite-three",
+              "bite-four",
+              "bite-five",
+              "bite-six",
+              "bite-seven",
+              "bite-eight"
+            ];
+
+            bitePositions.forEach(
+              (biteName, biteIndex) => {
+                setTimeout(() => {
+                  const bite =
+                    document.createElement("span");
+
+                  bite.className =
+                    `week4-pizza-bite ${biteName}`;
+
+                  pizza.appendChild(bite);
+
+                  status.textContent =
+                    "Yum!";
+
+                  if (soundEnabled) {
+                    const biteSound =
+                      new Audio(
+                        "/sounds/crunching.mp3"
+                      );
+
+                    biteSound.volume = 0.25;
+                    biteSound.currentTime = 0;
+
+                    biteSound
+                      .play()
+                      .catch(() => {});
+                  }
+                }, 500 + biteIndex * 340);
+              }
+            );
+
+            setTimeout(() => {
+              pizza.classList.add(
+                "week4-pizza-eaten"
+              );
+
+              area
+                .querySelectorAll(
+                  ".week4-pizza-topping-finished"
+                )
+                .forEach((topping) => {
+                  topping.classList.add(
+                    "week4-pizza-topping-eaten"
+                  );
+                });
+
+              status.textContent =
+                "All gone! 😋";
+            }, 3400);
+
+            setTimeout(() => {
+              showActivityComplete({
+                title: "Pizza Ready!",
+                message:
+                  "You made a delicious pizza!",
+                retry: () => {
+                  showActivity(
+                    "make-pizza"
+                  );
+                }
+              });
+            }, 3900);
+
+            return;
+          }
+
+          status.textContent =
+            "Choose another topping.";
+        }, 300);
+      }
+
+      function finishDrop() {
+        if (
+          !activeTopping ||
+          finished
+        ) {
+          return;
+        }
+
+        const topping =
+          activeTopping;
+
+        activeTopping = null;
+
+        clearReady();
+
+        /*
+         * Counts only when physically released
+         * over the pizza.
+         */
+        if (
+          toppingInsidePizza(topping)
+        ) {
+          finishPlacement(topping);
+          return;
+        }
+
+        topping.remove();
+
+        status.textContent =
+          "Let go on the pizza.";
+      }
+
+
+      const removeMove =
+        input.subscribe(
+          "move",
+          (event) => {
+            if (finished) {
+              return;
+            }
+
+            const rect =
+              area.getBoundingClientRect();
+
+            const inside =
+              event.x >= rect.left &&
+              event.x <= rect.right &&
+              event.y >= rect.top &&
+              event.y <= rect.bottom;
+
+            if (!inside) {
+              return;
+            }
+
+            const offsetX =
+              pointer.offsetWidth * 0.90;
+
+            const offsetY =
+              pointer.offsetHeight * 0.50;
+
+            pointer.style.left =
+              `${
+                event.x -
+                rect.left -
+                offsetX
+              }px`;
+
+            pointer.style.top =
+              `${
+                event.y -
+                rect.top -
+                offsetY
+              }px`;
+
+            if (!activeTopping) {
+              return;
+            }
+
+            activeTopping.style.left =
+              `${event.x - rect.left}px`;
+
+            activeTopping.style.top =
+              `${event.y - rect.top}px`;
+
+            clearReady();
+
+            if (
+              toppingInsidePizza(
+                activeTopping
+              )
+            ) {
+              pizza.classList.add(
+                "week4-pizza-ready"
+              );
+
+              status.textContent =
+                "Looks tasty — LET GO!";
+            } else {
+              status.textContent =
+                "KEEP HOLDING — move onto the pizza.";
+            }
+          }
+        );
+
+
+      const removeLeftDown =
+        input.subscribe(
+          "leftDown",
+          () => {
+            if (
+              finished ||
+              activeTopping
+            ) {
+              return;
+            }
+
+            const choice =
+              toppingChoices.find(
+                item =>
+                  pointerOnChoice(item)
+              );
+
+            if (!choice) {
+              status.textContent =
+                "Choose a topping.";
+
+              return;
+            }
+
+            activeTopping =
+              createToppingFromChoice(
+                choice
+              );
+
+            const areaRect =
+              area.getBoundingClientRect();
+
+            const choiceRect =
+              choice.getBoundingClientRect();
+
+            activeTopping.style.left =
+              `${
+                choiceRect.left -
+                areaRect.left +
+                choiceRect.width / 2
+              }px`;
+
+            activeTopping.style.top =
+              `${
+                choiceRect.top -
+                areaRect.top +
+                choiceRect.height / 2
+              }px`;
+
+            activeTopping.classList.add(
+              "week4-pizza-active-topping"
+            );
+
+            status.textContent =
+              "KEEP HOLDING — put it on your pizza.";
+
+            if (soundEnabled) {
+              if (!leftClickSound) {
+                leftClickSound =
+                  new Audio(
+                    "/sounds/mouseclick.mp3"
+                  );
+
+                leftClickSound.volume =
+                  0.5;
+              }
+
+              leftClickSound.pause();
+              leftClickSound.currentTime =
+                0.12;
+
+              leftClickSound
+                .play()
+                .catch(() => {});
+            }
+          }
+        );
+
+
+      const removeRightDown =
+        input.subscribe(
+          "rightDown",
+          () => {
+            if (finished) {
+              return;
+            }
+
+            removeActiveTopping();
+
+            showWrongButtonWarning();
+
+            status.textContent =
+              "Use the LEFT button.";
+          }
+        );
+
+
+      const nativeReleaseHandler =
+        (event) => {
+          if (event.button !== 0) {
+            return;
+          }
+
+          finishDrop();
+        };
+
+      window.addEventListener(
+        "mouseup",
+        nativeReleaseHandler,
+        true
+      );
+
+
+      activityCleanup = () => {
+        removeMove?.();
+        removeLeftDown?.();
+        removeRightDown?.();
+
+        window.removeEventListener(
+          "mouseup",
+          nativeReleaseHandler,
+          true
+        );
+
+        area.removeEventListener(
+          "dragstart",
+          preventNativeDrag
+        );
+
+        area.removeEventListener(
+          "selectstart",
+          preventNativeDrag
+        );
+      };
+
+      updateProgress();
+    }
+
 
 
     function showActivity(activityId) {
@@ -2432,7 +3168,8 @@
 
       if (activityId === "make-pizza") {
         activityView.innerHTML = `
-          <div class="week4-mini-activity-shell">
+          <div class="week4-mini-activity-shell week4-pizza-shell">
+
             <button
               class="week4-activity-back"
               type="button"
@@ -2441,16 +3178,97 @@
             </button>
 
             <div class="week4-mini-activity-heading">
-              <div class="week4-mini-icon">🍕</div>
+              <div class="week4-mini-icon">
+                🍕
+              </div>
+
               <h2>Make a Pizza</h2>
+
               <p>
-                Drag toppings anywhere onto your pizza.
+                Drag each topping anywhere onto your pizza.
               </p>
             </div>
 
-            <div class="week4-mini-coming-soon">
-              Make a Pizza
+            <div class="week4-pizza-progress">
+              Toppings:
+              <strong id="week4PizzaProgress">
+                0 of 10
+              </strong>
             </div>
+
+            <div
+              id="week4PizzaArea"
+              class="week4-pizza-area"
+            >
+
+              <!-- TOPPINGS -->
+
+              <div
+                class="week4-pizza-topping-choice pizza-pepperoni"
+                data-topping="pizza-pepperoni"
+                style="left: 12%; top: 22%;"
+              >
+                <span class="pizza-topping-visual"></span>
+                <strong>PEPPERONI</strong>
+              </div>
+
+              <div
+                class="week4-pizza-topping-choice pizza-mushroom"
+                data-topping="pizza-mushroom"
+                style="left: 29%; top: 26%;"
+              >
+                <span class="pizza-topping-visual"></span>
+                <strong>MUSHROOM</strong>
+              </div>
+
+              <div
+                class="week4-pizza-topping-choice pizza-pepper"
+                data-topping="pizza-pepper"
+                style="left: 20%; top: 50%;"
+              >
+                <span class="pizza-topping-visual"></span>
+                <strong>PEPPER</strong>
+              </div>
+
+              <div
+                class="week4-pizza-topping-choice pizza-olive"
+                data-topping="pizza-olive"
+                style="left: 12%; top: 76%;"
+              >
+                <span class="pizza-topping-visual"></span>
+                <strong>OLIVE</strong>
+              </div>
+
+
+
+              <!-- PIZZA -->
+
+              <div
+                id="week4Pizza"
+                class="week4-pizza"
+              >
+                <div class="week4-pizza-crust"></div>
+                <div class="week4-pizza-sauce"></div>
+                <div class="week4-pizza-cheese-base"></div>
+              </div>
+
+
+              <div
+                id="week4PizzaPointer"
+                class="week4-pizza-pointer"
+              >
+                ➤
+              </div>
+
+              <div
+                id="week4PizzaStatus"
+                class="week4-pizza-status"
+              >
+                Choose a topping.
+              </div>
+
+            </div>
+
           </div>
         `;
       }
@@ -2477,6 +3295,12 @@
       if (activityId === "build-robot") {
         requestAnimationFrame(() => {
           startBuildRobotActivity();
+        });
+      }
+
+      if (activityId === "make-pizza") {
+        requestAnimationFrame(() => {
+          startMakePizzaActivity();
         });
       }
     }

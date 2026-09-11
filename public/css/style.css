@@ -15095,32 +15095,32 @@ body.teacher-session
 /* Foods */
 .lesson-screen-week4-activities
 .week4-feed-food[data-for-animal="rabbit"] {
-  left: 12% !important;
-  top: 22% !important;
+  left: 12% ;
+  top: 22% ;
 }
 
 .lesson-screen-week4-activities
 .week4-feed-food[data-for-animal="chicken"] {
-  left: 28% !important;
-  top: 24% !important;
+  left: 28% ;
+  top: 24% ;
 }
 
 .lesson-screen-week4-activities
 .week4-feed-food[data-for-animal="cat"] {
-  left: 20% !important;
-  top: 50% !important;
+  left: 20% ;
+  top: 50% ;
 }
 
 .lesson-screen-week4-activities
 .week4-feed-food[data-for-animal="dog"] {
-  left: 12% !important;
-  top: 76% !important;
+  left: 12% ;
+  top: 76% ;
 }
 
 .lesson-screen-week4-activities
 .week4-feed-food[data-for-animal="monkey"] {
-  left: 28% !important;
-  top: 74% !important;
+  left: 28% ;
+  top: 74% ;
 }
 
 
@@ -16112,5 +16112,1748 @@ body.teacher-session
   left: calc(50% + 41px) !important;
   right: auto !important;
   top: 43% !important;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - Make a Pizza
+======================================== */
+
+.week4-pizza-shell {
+  height: 365px !important;
+  min-height: 0 !important;
+
+  padding:
+    6px 10px 4px !important;
+}
+
+.week4-pizza-progress {
+  margin:
+    1px 0 2px;
+
+  text-align: center;
+
+  color: #475569;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.week4-pizza-progress strong {
+  color: #2563eb;
+}
+
+
+/* Activity area */
+
+.week4-pizza-area {
+  position: relative;
+
+  width: min(900px, 96%);
+  height: 235px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 3px dashed #cbd5e1;
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff7ed,
+      #fffaf5
+    );
+
+  cursor: none;
+}
+
+
+/* ========================================
+   Pizza
+======================================== */
+
+.week4-pizza {
+  position: absolute;
+
+  left: 76%;
+  top: 48%;
+
+  width: 190px;
+  height: 190px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.week4-pizza-crust {
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  background: #d97706;
+
+  box-shadow:
+    inset 0 0 0 7px #92400e,
+    0 7px 16px rgba(0, 0, 0, 0.15);
+}
+
+.week4-pizza-sauce {
+  position: absolute;
+
+  inset: 16px;
+
+  border-radius: 50%;
+
+  background: #dc2626;
+}
+
+.week4-pizza-cheese-base {
+  position: absolute;
+
+  inset: 25px;
+
+  border-radius: 50%;
+
+  background: #fde68a;
+
+  box-shadow:
+    inset 0 0 0 4px
+    rgba(245, 158, 11, 0.35);
+}
+
+.week4-pizza-ready {
+  transform:
+    translate(-50%, -50%)
+    scale(1.04);
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(245, 158, 11, 0.55)
+    );
+}
+
+.week4-pizza-success {
+  filter:
+    drop-shadow(
+      0 0 9px
+      rgba(34, 197, 94, 0.55)
+    );
+}
+
+.week4-pizza-complete {
+  animation:
+    week4-pizza-celebrate
+    0.55s ease-in-out
+    3 alternate;
+}
+
+
+/* ========================================
+   Topping cards
+======================================== */
+
+.week4-pizza-topping {
+  position: absolute;
+
+  z-index: 40;
+
+  width: 72px;
+  height: 56px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1px;
+
+  border: 3px solid #60a5fa;
+  border-radius: 13px;
+
+  background: white;
+
+  box-shadow:
+    0 4px 9px
+    rgba(0, 0, 0, 0.10);
+}
+
+.week4-pizza-topping strong {
+  color: #334155;
+
+  font-size: 6px;
+  font-weight: 900;
+}
+
+.pizza-topping-visual {
+  position: relative;
+
+  display: block;
+
+  width: 32px;
+  height: 32px;
+}
+
+
+/* Pepperoni */
+
+.pizza-pepperoni
+.pizza-topping-visual {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  box-shadow:
+    inset 0 0 0 4px #b91c1c;
+}
+
+
+/* Mushroom */
+
+.pizza-mushroom
+.pizza-topping-visual::before {
+  content: "";
+
+  position: absolute;
+
+  left: 3px;
+  top: 3px;
+
+  width: 27px;
+  height: 16px;
+
+  border-radius:
+    16px 16px 6px 6px;
+
+  background: #d6d3d1;
+}
+
+.pizza-mushroom
+.pizza-topping-visual::after {
+  content: "";
+
+  position: absolute;
+
+  left: 13px;
+  top: 16px;
+
+  width: 9px;
+  height: 14px;
+
+  border-radius:
+    2px 2px 5px 5px;
+
+  background: #a8a29e;
+}
+
+
+/* Pepper */
+
+.pizza-pepper
+.pizza-topping-visual {
+  box-sizing: border-box;
+
+  width: 29px;
+  height: 24px;
+
+  border:
+    7px solid #22c55e;
+
+  border-radius:
+    50% 40% 50% 40%;
+
+  transform:
+    rotate(-14deg);
+}
+
+
+/* Olive */
+
+.pizza-olive
+.pizza-topping-visual {
+  width: 27px;
+  height: 27px;
+
+  box-sizing: border-box;
+
+  border:
+    7px solid #1f2937;
+
+  border-radius: 50%;
+}
+
+
+/* Cheese */
+
+.pizza-cheese
+.pizza-topping-visual {
+  width: 31px;
+  height: 27px;
+
+  background: #facc15;
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      82% 100%,
+      15% 90%
+    );
+}
+
+.pizza-cheese
+.pizza-topping-visual::before,
+.pizza-cheese
+.pizza-topping-visual::after {
+  content: "";
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: #eab308;
+}
+
+.pizza-cheese
+.pizza-topping-visual::before {
+  width: 5px;
+  height: 5px;
+
+  left: 8px;
+  top: 7px;
+}
+
+.pizza-cheese
+.pizza-topping-visual::after {
+  width: 4px;
+  height: 4px;
+
+  right: 7px;
+  bottom: 6px;
+}
+
+
+/* Drag states */
+
+.week4-pizza-topping-held {
+  z-index: 100;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.10);
+
+  border-color: #2563eb;
+}
+
+.week4-pizza-topping-ready {
+  border-color: #f59e0b;
+
+  background: #fef3c7;
+}
+
+
+/*
+ * A placed topping keeps the student's exact
+ * release position and loses the card border.
+ */
+
+.week4-pizza-topping-placed {
+  width: 44px !important;
+  height: 44px !important;
+
+  z-index: 30;
+
+  border: 0 !important;
+  border-radius: 50%;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  pointer-events: none;
+}
+
+.week4-pizza-topping-placed strong {
+  display: none;
+}
+
+.week4-pizza-topping-placed
+.pizza-topping-visual {
+  transform:
+    scale(0.82);
+}
+
+
+/* Pointer/status */
+
+.week4-pizza-pointer {
+  position: absolute;
+
+  left: 4%;
+  top: 87%;
+
+  z-index: 120;
+
+  font-size: 48px;
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.week4-pizza-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 2px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 125;
+
+  width: 48%;
+
+  text-align: center;
+
+  color: #334155;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.week4-pizza-area-complete {
+  box-shadow:
+    inset 0 0 0 5px
+    rgba(34, 197, 94, 0.14);
+}
+
+
+@keyframes week4-pizza-celebrate {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(-3deg)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(3deg)
+      scale(1.05);
+  }
+}
+
+
+/* Teacher view */
+
+body.teacher-session
+.week4-pizza-shell {
+  height: 330px !important;
+}
+
+body.teacher-session
+.week4-pizza-area {
+  height: 205px !important;
+}
+
+body.teacher-session
+.week4-pizza {
+  width: 165px;
+  height: 165px;
+}
+
+body.teacher-session
+.week4-pizza-topping {
+  width: 62px;
+  height: 48px;
+}
+
+
+/* ========================================
+   Week 4 Pizza - reusable topping choices
+======================================== */
+
+.week4-pizza-topping-choice {
+  position: absolute;
+
+  z-index: 40;
+
+  width: 72px;
+  height: 56px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1px;
+
+  border: 3px solid #60a5fa;
+  border-radius: 13px;
+
+  background: white;
+
+  box-shadow:
+    0 4px 9px
+    rgba(0, 0, 0, 0.10);
+}
+
+.week4-pizza-topping-choice strong {
+  color: #334155;
+
+  font-size: 6px;
+  font-weight: 900;
+}
+
+
+/* The copy that actually travels to the pizza */
+
+.week4-pizza-placed-topping {
+  position: absolute;
+
+  z-index: 90;
+
+  width: 44px;
+  height: 44px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+.week4-pizza-active-topping {
+  z-index: 110;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.12);
+}
+
+.week4-pizza-topping-finished {
+  z-index: 35;
+}
+
+
+/* Keep all placed toppings visually compact */
+
+.week4-pizza-placed-topping
+.pizza-topping-visual {
+  transform:
+    scale(0.78);
+}
+
+
+/* Teacher compact size */
+
+body.teacher-session
+.week4-pizza-topping-choice {
+  width: 62px;
+  height: 48px;
+}
+
+
+/* ========================================
+   Week 4 Pizza - prevent text/image dragging
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-pizza-area,
+.lesson-screen-week4-activities
+.week4-pizza-area *,
+.lesson-screen-week4-activities
+.week4-pizza-topping-choice,
+.lesson-screen-week4-activities
+.week4-pizza-topping-choice * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+
+  -webkit-user-drag: none !important;
+
+  touch-action: none;
+}
+
+.lesson-screen-week4-activities
+.week4-pizza-topping-choice {
+  cursor: none;
+}
+
+.lesson-screen-week4-activities
+.week4-pizza-topping-choice strong,
+.lesson-screen-week4-activities
+.pizza-topping-visual {
+  pointer-events: none;
+}
+
+
+/* ========================================
+   Week 4 Feed the Animals - prevent text dragging
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-feed-area,
+.lesson-screen-week4-activities
+.week4-feed-area *,
+.lesson-screen-week4-activities
+.week4-feed-food,
+.lesson-screen-week4-activities
+.week4-feed-food * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+
+  -webkit-user-drag: none !important;
+
+  touch-action: none;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-food {
+  cursor: none;
+}
+
+.lesson-screen-week4-activities
+.week4-feed-food span,
+.lesson-screen-week4-activities
+.week4-feed-animal strong,
+.lesson-screen-week4-activities
+.week4-feed-animal-icon {
+  pointer-events: none;
+}
+
+
+/* ========================================
+   Week 4 Step 7 - activity completion popup
+======================================== */
+
+.week4-mini-activity-shell {
+  position: relative;
+}
+
+.week4-activity-complete-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+
+  box-sizing: border-box;
+
+  background:
+    rgba(15, 23, 42, 0.72);
+
+  border-radius: inherit;
+}
+
+.week4-activity-complete-card {
+  width:
+    min(420px, 88%);
+
+  padding:
+    24px 22px 20px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  border:
+    5px solid #60a5fa;
+
+  border-radius:
+    24px;
+
+  background:
+    white;
+
+  box-shadow:
+    0 14px 35px
+    rgba(0, 0, 0, 0.24);
+
+  animation:
+    week4-activity-complete-pop
+    0.35s ease-out;
+}
+
+.week4-activity-complete-confetti {
+  margin-bottom:
+    4px;
+
+  font-size:
+    36px;
+
+  animation:
+    week4-activity-confetti-bounce
+    0.8s ease-in-out
+    infinite alternate;
+}
+
+.week4-activity-complete-card h2 {
+  margin:
+    2px 0 6px;
+
+  color:
+    #1e3a8a;
+
+  font-size:
+    30px;
+
+  font-weight:
+    1000;
+}
+
+.week4-activity-complete-card p {
+  margin:
+    0 0 18px;
+
+  color:
+    #475569;
+
+  font-size:
+    16px;
+
+  font-weight:
+    800;
+}
+
+.week4-activity-complete-buttons {
+  display: flex;
+  justify-content: center;
+
+  gap:
+    12px;
+}
+
+.week4-activity-complete-buttons button {
+  min-width:
+    125px;
+
+  padding:
+    10px 14px;
+
+  border:
+    0;
+
+  border-radius:
+    12px;
+
+  font-size:
+    14px;
+
+  font-weight:
+    900;
+
+  cursor:
+    pointer;
+}
+
+.week4-activity-retry-button {
+  background:
+    #dbeafe;
+
+  color:
+    #1d4ed8;
+}
+
+.week4-activity-return-button {
+  background:
+    #2563eb;
+
+  color:
+    white;
+}
+
+.week4-activity-complete-buttons button:hover {
+  transform:
+    translateY(-2px);
+}
+
+
+/* Teacher screen stays compact */
+
+body.teacher-session
+.week4-activity-complete-card {
+  width:
+    min(360px, 86%);
+
+  padding:
+    18px 18px 15px;
+}
+
+body.teacher-session
+.week4-activity-complete-confetti {
+  font-size:
+    30px;
+}
+
+body.teacher-session
+.week4-activity-complete-card h2 {
+  font-size:
+    24px;
+}
+
+body.teacher-session
+.week4-activity-complete-card p {
+  margin-bottom:
+    12px;
+
+  font-size:
+    13px;
+}
+
+body.teacher-session
+.week4-activity-complete-buttons button {
+  min-width:
+    110px;
+
+  padding:
+    8px 11px;
+
+  font-size:
+    12px;
+}
+
+
+@keyframes week4-activity-complete-pop {
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.82);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+}
+
+@keyframes week4-activity-confetti-bounce {
+  from {
+    transform:
+      translateY(0)
+      rotate(-3deg);
+  }
+
+  to {
+    transform:
+      translateY(-5px)
+      rotate(3deg);
+  }
+}
+
+
+/* ========================================
+   Week 4 Robot - completed walk away
+======================================== */
+
+/*
+ * The finished robot is made from several separate
+ * elements, so give every completed part and the
+ * center build/body the same horizontal movement.
+ */
+
+.week4-robot-walking
+.week4-robot-build {
+  animation:
+    week4-robot-body-walk-away
+    2.25s ease-in
+    forwards !important;
+}
+
+
+/* Completed draggable parts travel with it */
+
+.week4-robot-walking
+.week4-robot-part-complete {
+  animation:
+    week4-robot-part-walk-away
+    2.25s ease-in
+    forwards !important;
+}
+
+
+/*
+ * Give the robot a little walking bounce while
+ * crossing the screen.
+ */
+
+@keyframes week4-robot-body-walk-away {
+  0% {
+    margin-left: 0;
+
+    translate:
+      0 0;
+  }
+
+  12% {
+    translate:
+      25px -5px;
+  }
+
+  25% {
+    translate:
+      55px 2px;
+  }
+
+  38% {
+    translate:
+      90px -5px;
+  }
+
+  52% {
+    translate:
+      130px 2px;
+  }
+
+  66% {
+    translate:
+      180px -5px;
+  }
+
+  80% {
+    translate:
+      245px 2px;
+  }
+
+  100% {
+    translate:
+      390px 0;
+  }
+}
+
+
+@keyframes week4-robot-part-walk-away {
+  0% {
+    margin-left: 0;
+
+    translate:
+      0 0;
+  }
+
+  12% {
+    translate:
+      25px -5px;
+  }
+
+  25% {
+    translate:
+      55px 2px;
+  }
+
+  38% {
+    translate:
+      90px -5px;
+  }
+
+  52% {
+    translate:
+      130px 2px;
+  }
+
+  66% {
+    translate:
+      180px -5px;
+  }
+
+  80% {
+    translate:
+      245px 2px;
+  }
+
+  100% {
+    translate:
+      390px 0;
+  }
+}
+
+
+/*
+ * Alternate the legs slightly during the walk.
+ * Their main travel animation still comes from
+ * the parent completed-part animation.
+ */
+
+.week4-robot-walking
+.week4-robot-left-leg::before {
+  animation:
+    week4-robot-left-step
+    0.32s ease-in-out
+    infinite alternate;
+}
+
+.week4-robot-walking
+.week4-robot-right-leg::before {
+  animation:
+    week4-robot-right-step
+    0.32s ease-in-out
+    infinite alternate;
+}
+
+
+@keyframes week4-robot-left-step {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(-8deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(8deg);
+  }
+}
+
+
+@keyframes week4-robot-right-step {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(8deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(-8deg);
+  }
+}
+
+
+/* ========================================
+   Week 4 Robot - prevent text highlighting
+======================================== */
+
+.lesson-screen-week4-activities
+.week4-robot-area,
+.lesson-screen-week4-activities
+.week4-robot-area * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+
+  -webkit-user-drag: none !important;
+}
+
+/* Text inside robot pieces/targets should never
+   intercept the custom mouse interaction. */
+.lesson-screen-week4-activities
+.week4-robot-part > span,
+.lesson-screen-week4-activities
+.week4-robot-slot,
+.lesson-screen-week4-activities
+.week4-robot-body {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.lesson-screen-week4-activities
+.week4-robot-part > span {
+  pointer-events: none !important;
+}
+
+
+/* ========================================
+   Week 4 Pizza - eating animation
+======================================== */
+
+.week4-pizza {
+  --pizza-area-background: #fffaf5;
+}
+
+
+/*
+ * This layer sits over the finished pizza.
+ * Each added class creates another bite using
+ * circles that match the activity background.
+ */
+.week4-pizza::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 80;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+/* Bite 1 - upper right */
+.week4-pizza.week4-pizza-bite-1::after {
+  box-shadow:
+    82px -58px 0 22px
+    var(--pizza-area-background);
+}
+
+
+/* Bite 2 - right side */
+.week4-pizza.week4-pizza-bite-2::after {
+  box-shadow:
+    82px -58px 0 22px
+      var(--pizza-area-background),
+    98px -5px 0 27px
+      var(--pizza-area-background);
+}
+
+
+/* Bite 3 - lower right */
+.week4-pizza.week4-pizza-bite-3::after {
+  box-shadow:
+    82px -58px 0 22px
+      var(--pizza-area-background),
+    98px -5px 0 27px
+      var(--pizza-area-background),
+    72px 58px 0 29px
+      var(--pizza-area-background);
+}
+
+
+/* Bite 4 - bottom */
+.week4-pizza.week4-pizza-bite-4::after {
+  box-shadow:
+    82px -58px 0 22px
+      var(--pizza-area-background),
+    98px -5px 0 27px
+      var(--pizza-area-background),
+    72px 58px 0 29px
+      var(--pizza-area-background),
+    10px 94px 0 32px
+      var(--pizza-area-background);
+}
+
+
+/* Bite 5 - left side */
+.week4-pizza.week4-pizza-bite-5::after {
+  box-shadow:
+    82px -58px 0 22px
+      var(--pizza-area-background),
+    98px -5px 0 27px
+      var(--pizza-area-background),
+    72px 58px 0 29px
+      var(--pizza-area-background),
+    10px 94px 0 32px
+      var(--pizza-area-background),
+    -72px 55px 0 38px
+      var(--pizza-area-background);
+}
+
+
+/* Tiny bounce with each new bite */
+.week4-pizza-bite-1,
+.week4-pizza-bite-2,
+.week4-pizza-bite-3,
+.week4-pizza-bite-4,
+.week4-pizza-bite-5 {
+  animation:
+    week4-pizza-bite-bounce
+    0.24s ease-out !important;
+}
+
+
+/* Final disappearance */
+.week4-pizza.week4-pizza-eaten {
+  opacity: 0 !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.15) !important;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+
+/* The student-added toppings disappear with it */
+.week4-pizza-topping-eaten {
+  opacity: 0 !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.15) !important;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+@keyframes week4-pizza-bite-bounce {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.95);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 4 Pizza - mouth-shaped bite marks
+======================================== */
+
+/*
+ * Replace the old single-circle chunks with
+ * scalloped "teeth" made from three circles.
+ */
+
+.week4-pizza::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 80;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  box-shadow: none !important;
+}
+
+
+/* ----------------------------------------
+   Bite 1 - upper right
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-1::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 2 - right middle
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-2::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 3 - lower right
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-3::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5,
+
+    75px 54px 0 20px #fffaf5,
+    61px 72px 0 20px #fffaf5,
+    39px 67px 0 20px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 4 - bottom
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-4::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5,
+
+    75px 54px 0 20px #fffaf5,
+    61px 72px 0 20px #fffaf5,
+    39px 67px 0 20px #fffaf5,
+
+    19px 87px 0 21px #fffaf5,
+    -3px 94px 0 21px #fffaf5,
+    -25px 84px 0 21px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 5 - lower left
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-5::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5,
+
+    75px 54px 0 20px #fffaf5,
+    61px 72px 0 20px #fffaf5,
+    39px 67px 0 20px #fffaf5,
+
+    19px 87px 0 21px #fffaf5,
+    -3px 94px 0 21px #fffaf5,
+    -25px 84px 0 21px #fffaf5,
+
+    -59px 66px 0 22px #fffaf5,
+    -76px 49px 0 22px #fffaf5,
+    -72px 26px 0 22px #fffaf5 !important;
+}
+
+EOFcat >> public/css/style.css <<'EOF'
+
+/* ========================================
+   Week 4 Pizza - mouth-shaped bite marks
+======================================== */
+
+/*
+ * Replace the old single-circle chunks with
+ * scalloped "teeth" made from three circles.
+ */
+
+.week4-pizza::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 80;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  box-shadow: none !important;
+}
+
+
+/* ----------------------------------------
+   Bite 1 - upper right
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-1::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 2 - right middle
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-2::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 3 - lower right
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-3::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5,
+
+    75px 54px 0 20px #fffaf5,
+    61px 72px 0 20px #fffaf5,
+    39px 67px 0 20px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 4 - bottom
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-4::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5,
+
+    75px 54px 0 20px #fffaf5,
+    61px 72px 0 20px #fffaf5,
+    39px 67px 0 20px #fffaf5,
+
+    19px 87px 0 21px #fffaf5,
+    -3px 94px 0 21px #fffaf5,
+    -25px 84px 0 21px #fffaf5 !important;
+}
+
+
+/* ----------------------------------------
+   Bite 5 - lower left
+---------------------------------------- */
+
+.week4-pizza.week4-pizza-bite-5::after {
+  box-shadow:
+    82px -58px 0 18px #fffaf5,
+    97px -45px 0 18px #fffaf5,
+    77px -34px 0 18px #fffaf5,
+
+    96px -10px 0 19px #fffaf5,
+    103px 9px 0 19px #fffaf5,
+    88px 23px 0 19px #fffaf5,
+
+    75px 54px 0 20px #fffaf5,
+    61px 72px 0 20px #fffaf5,
+    39px 67px 0 20px #fffaf5,
+
+    19px 87px 0 21px #fffaf5,
+    -3px 94px 0 21px #fffaf5,
+    -25px 84px 0 21px #fffaf5,
+
+    -59px 66px 0 22px #fffaf5,
+    -76px 49px 0 22px #fffaf5,
+    -72px 26px 0 22px #fffaf5 !important;
+}
+
+
+/* ========================================
+   Week 4 Pizza - real mouth bite cutouts
+======================================== */
+
+/* Kill the old shadow-mask bite effect */
+.week4-pizza::after {
+  display: none !important;
+  box-shadow: none !important;
+}
+
+
+/*
+ * Each bite is a cluster of 3 circles that
+ * covers part of the pizza with the activity
+ * background, creating a scalloped mouth bite.
+ */
+.week4-pizza-bite {
+  position: absolute;
+
+  z-index: 200;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: #fffaf5;
+
+  pointer-events: none;
+
+  animation:
+    week4-pizza-real-bite
+    0.18s ease-out;
+}
+
+.week4-pizza-bite::before,
+.week4-pizza-bite::after {
+  content: "";
+
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #fffaf5;
+}
+
+.week4-pizza-bite::before {
+  left: -18px;
+  top: 13px;
+}
+
+.week4-pizza-bite::after {
+  left: 18px;
+  top: 13px;
+}
+
+
+/* Bite 1 - upper right */
+.week4-pizza-bite.bite-one {
+  right: -7px;
+  top: 18px;
+
+  transform:
+    rotate(-35deg);
+}
+
+
+/* Bite 2 - right middle */
+.week4-pizza-bite.bite-two {
+  right: -10px;
+  top: 70px;
+
+  transform:
+    rotate(-5deg);
+}
+
+
+/* Bite 3 - lower right */
+.week4-pizza-bite.bite-three {
+  right: 6px;
+  bottom: 18px;
+
+  transform:
+    rotate(28deg);
+}
+
+
+/* Bite 4 - bottom */
+.week4-pizza-bite.bite-four {
+  left: 72px;
+  bottom: -8px;
+
+  transform:
+    rotate(85deg);
+}
+
+
+/* Bite 5 - lower left */
+.week4-pizza-bite.bite-five {
+  left: -4px;
+  bottom: 28px;
+
+  transform:
+    rotate(140deg);
+}
+
+
+/* Make the bite appear sharply */
+@keyframes week4-pizza-real-bite {
+  from {
+    transform:
+      scale(0.3);
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+.lesson-screen-week4-activities
+.week4-pizza-area {
+  background:
+    #fffaf5 !important;
+}
+
+
+/* ========================================
+   Week 4 Pizza - bigger full-eating bites
+======================================== */
+
+.week4-pizza-bite {
+  width: 46px !important;
+  height: 46px !important;
+}
+
+.week4-pizza-bite::before,
+.week4-pizza-bite::after {
+  width: 42px !important;
+  height: 42px !important;
+}
+
+.week4-pizza-bite::before {
+  left: -23px !important;
+  top: 17px !important;
+}
+
+.week4-pizza-bite::after {
+  left: 23px !important;
+  top: 17px !important;
+}
+
+
+/* Move the first five deeper into the pizza */
+
+.week4-pizza-bite.bite-one {
+  right: -2px !important;
+  top: 6px !important;
+}
+
+.week4-pizza-bite.bite-two {
+  right: -5px !important;
+  top: 53px !important;
+}
+
+.week4-pizza-bite.bite-three {
+  right: 2px !important;
+  bottom: 20px !important;
+}
+
+.week4-pizza-bite.bite-four {
+  left: 71px !important;
+  bottom: -2px !important;
+}
+
+.week4-pizza-bite.bite-five {
+  left: -2px !important;
+  bottom: 23px !important;
+}
+
+
+/* Bite 6 - left middle */
+
+.week4-pizza-bite.bite-six {
+  left: -8px;
+  top: 62px;
+
+  transform:
+    rotate(180deg);
+}
+
+
+/* Bite 7 - upper left */
+
+.week4-pizza-bite.bite-seven {
+  left: 8px;
+  top: 10px;
+
+  transform:
+    rotate(215deg);
+}
+
+
+/* Bite 8 - center, finishes the pizza */
+
+.week4-pizza-bite.bite-eight {
+  left: 50%;
+  top: 50%;
+
+  width: 105px !important;
+  height: 105px !important;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    #fffaf5 !important;
+
+  border-radius:
+    50% !important;
+}
+
+.week4-pizza-bite.bite-eight::before,
+.week4-pizza-bite.bite-eight::after {
+  width: 82px !important;
+  height: 82px !important;
+
+  background:
+    #fffaf5 !important;
+}
+
+.week4-pizza-bite.bite-eight::before {
+  left: -48px !important;
+  top: 15px !important;
+}
+
+.week4-pizza-bite.bite-eight::after {
+  left: 72px !important;
+  top: 15px !important;
+}
+
+
+/* Don't shrink the pizza away anymore.
+   The bites themselves should consume it. */
+
+.week4-pizza.week4-pizza-eaten {
+  opacity: 1 !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  transition:
+    none !important;
+}
+
+
+/* Hide any tiny leftovers after the last bite */
+
+.week4-pizza.week4-pizza-eaten
+.week4-pizza-crust,
+.week4-pizza.week4-pizza-eaten
+.week4-pizza-sauce,
+.week4-pizza.week4-pizza-eaten
+.week4-pizza-cheese-base {
+  opacity: 0 !important;
 }
 
