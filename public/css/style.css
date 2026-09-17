@@ -24873,3 +24873,940 @@ body.teacher-session
   transition: none !important;
 }
 
+
+/* ========================================
+   Week 5 Complete - Scrolling Master
+======================================== */
+
+.lesson-screen-week5-complete {
+  width: min(920px, 95%);
+
+  margin: 0 auto;
+
+  padding:
+    24px 30px 20px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  opacity: 0;
+
+  transform:
+    scale(0.96);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.lesson-screen-week5-complete.week5-complete-show {
+  opacity: 1;
+
+  transform:
+    scale(1);
+}
+
+
+/* Celebration */
+
+.week5-complete-burst {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  margin-bottom: 5px;
+
+  font-size: 42px;
+}
+
+.week5-complete-show
+.week5-complete-burst span {
+  animation:
+    week5-complete-star-pop
+    0.55s ease-out;
+}
+
+.week5-complete-show
+.week5-complete-burst span:nth-child(2) {
+  animation-delay:
+    0.08s;
+}
+
+.week5-complete-show
+.week5-complete-burst span:nth-child(3) {
+  animation-delay:
+    0.16s;
+}
+
+
+.week5-complete-badge {
+  display: inline-block;
+
+  padding:
+    6px 16px;
+
+  border-radius:
+    999px;
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+
+  font-size:
+    12px;
+
+  font-weight:
+    1000;
+
+  letter-spacing:
+    0.7px;
+}
+
+
+.lesson-screen-week5-complete h1 {
+  margin:
+    7px 0 3px;
+
+  color:
+    #1e3a8a;
+
+  font-size:
+    clamp(38px, 6vh, 58px);
+
+  line-height: 1;
+}
+
+
+.week5-complete-message {
+  margin:
+    5px 0 18px;
+
+  color:
+    #475569;
+
+  font-size:
+    18px;
+
+  font-weight:
+    800;
+}
+
+
+/* Main scrolling skills */
+
+.week5-complete-skills {
+  width:
+    min(650px, 90%);
+
+  margin:
+    0 auto 18px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 14px;
+}
+
+
+.week5-complete-skill {
+  min-height: 135px;
+
+  padding:
+    12px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border:
+    3px solid #bfdbfe;
+
+  border-radius:
+    20px;
+
+  background:
+    #eff6ff;
+
+  color:
+    #1e40af;
+
+  box-shadow:
+    0 5px 12px
+    rgba(15, 23, 42, 0.08);
+}
+
+
+.week5-complete-skill-icon {
+  font-size:
+    55px;
+
+  line-height: 0.9;
+}
+
+
+.week5-complete-skill strong {
+  font-size:
+    13px;
+
+  font-weight:
+    1000;
+}
+
+
+/* Completion mouse */
+
+.week5-complete-mouse {
+  position: relative;
+
+  width: 70px;
+  height: 90px;
+
+  overflow: hidden;
+
+  border:
+    4px solid #475569;
+
+  border-radius:
+    36px 36px 27px 27px;
+
+  background:
+    #e2e8f0;
+}
+
+
+.week5-complete-mouse-left,
+.week5-complete-mouse-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 36px;
+
+  border-bottom:
+    3px solid #475569;
+
+  background:
+    #cbd5e1;
+}
+
+
+.week5-complete-mouse-left {
+  left: 0;
+
+  border-right:
+    2px solid #475569;
+}
+
+
+.week5-complete-mouse-right {
+  right: 0;
+
+  border-left:
+    2px solid #475569;
+}
+
+
+.week5-complete-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 10px;
+
+  z-index: 5;
+
+  width: 16px;
+  height: 31px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  border:
+    3px solid #1e40af;
+
+  border-radius:
+    9px;
+
+  background:
+    #60a5fa;
+}
+
+
+.week5-complete-wheel span {
+  width: 8px;
+  height: 2px;
+
+  border-radius:
+    2px;
+
+  background:
+    white;
+}
+
+
+/* Skills accumulated so far */
+
+.week5-complete-review {
+  width:
+    min(650px, 90%);
+
+  margin:
+    0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 9px;
+}
+
+
+.week5-complete-review div {
+  padding:
+    8px 5px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  border-radius:
+    12px;
+
+  background:
+    #f8fafc;
+
+  color:
+    #475569;
+
+  font-size:
+    11px;
+
+  font-weight:
+    1000;
+}
+
+
+.week5-complete-review span {
+  font-size:
+    20px;
+}
+
+
+.week5-complete-footer {
+  margin-top:
+    15px;
+
+  color:
+    #16a34a;
+
+  font-size:
+    21px;
+
+  font-weight:
+    1000;
+}
+
+
+/* Teacher presentation fit */
+
+body.teacher-session
+.lesson-screen-week5-complete {
+  padding-top:
+    12px;
+}
+
+
+body.teacher-session
+.week5-complete-skill {
+  min-height:
+    110px;
+}
+
+
+body.teacher-session
+.week5-complete-message {
+  margin-bottom:
+    10px;
+}
+
+
+/* Celebration animation */
+
+@keyframes week5-complete-star-pop {
+  0% {
+    transform:
+      scale(0.3)
+      rotate(-20deg);
+  }
+
+  70% {
+    transform:
+      scale(1.25)
+      rotate(8deg);
+  }
+
+  100% {
+    transform:
+      scale(1)
+      rotate(0);
+  }
+}
+
+/* ========================================
+   Week 5 - inner activity fit only
+   Keep slide headings full size
+======================================== */
+
+
+/* ----------------------------------------
+   Step 1 - tighten vertical spacing
+---------------------------------------- */
+
+.lesson-screen-week5-quick-review
+.week5-review-heading {
+  margin-bottom: 4px !important;
+}
+
+.lesson-screen-week5-quick-review
+.week5-review-steps {
+  margin-top: 4px !important;
+  margin-bottom: 5px !important;
+}
+
+.lesson-screen-week5-quick-review
+.week5-review-demo {
+  min-height: 300px !important;
+  height: 300px !important;
+}
+
+
+/* ----------------------------------------
+   Step 5 - Scroll Practice
+---------------------------------------- */
+
+.lesson-screen-week5-scroll-practice
+.week5-scroll-practice-viewport {
+  height: 285px !important;
+}
+
+.lesson-screen-week5-scroll-practice
+.week5-scroll-practice-layout {
+  margin-top: 4px !important;
+  margin-bottom: 2px !important;
+}
+
+.lesson-screen-week5-scroll-practice
+.week5-scroll-practice-topbar {
+  height: 38px !important;
+  margin-bottom: 3px !important;
+}
+
+
+/* ----------------------------------------
+   Step 6 - Stop at the Target
+---------------------------------------- */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-area {
+  height: 295px !important;
+}
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-layout {
+  margin-top: 5px !important;
+  margin-bottom: 2px !important;
+}
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-footer {
+  margin-top: 3px !important;
+}
+
+
+/* ----------------------------------------
+   Step 7 - Scroll & Click
+---------------------------------------- */
+
+.lesson-screen-week5-scroll-click
+.week5-scroll-click-viewport {
+  height: 285px !important;
+}
+
+.lesson-screen-week5-scroll-click
+.week5-scroll-click-topbar {
+  height: 38px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+}
+
+.lesson-screen-week5-scroll-click
+.week5-scroll-click-layout {
+  margin-top: 0 !important;
+}
+
+
+/* ----------------------------------------
+   Step 8 - Scroll, Find & Drag
+---------------------------------------- */
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-viewport {
+  height: 285px !important;
+}
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-topbar {
+  height: 38px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+}
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-layout {
+  margin-top: 0 !important;
+}
+
+
+/* ========================================
+   Week 5 Step 1 - final activity fit
+   Keep heading and review cards full size
+======================================== */
+
+.lesson-screen-week5-quick-review
+.week5-review-demo {
+  height: 255px !important;
+  min-height: 255px !important;
+  max-height: 255px !important;
+}
+
+/* Slightly tighten space above the demo only */
+
+.lesson-screen-week5-quick-review
+.week5-review-steps {
+  margin-bottom: 3px !important;
+}
+
+.lesson-screen-week5-quick-review
+.week5-review-demo {
+  margin-top: 3px !important;
+}
+
+
+/* ========================================
+   Student Independent Mode
+   Keep Previous / Next visible on screen
+======================================== */
+
+/*
+ * The navigation controls are rendered after the lesson
+ * content. In independent mode, pin that controls container
+ * to the bottom instead of letting it increase page height.
+ */
+
+body:has(#studentBackButton)
+#studentBackButton {
+  position: fixed;
+
+  left: 24px;
+  bottom: 14px;
+
+  z-index: 1000;
+}
+
+body:has(#studentNextButton)
+#studentNextButton {
+  position: fixed;
+
+  right: 24px;
+  bottom: 14px;
+
+  z-index: 1000;
+}
+
+
+/*
+ * Give both buttons a compact, classroom-friendly size.
+ */
+
+#studentBackButton,
+#studentNextButton {
+  min-width: 120px !important;
+
+  padding:
+    10px 18px !important;
+
+  border-radius:
+    14px !important;
+
+  box-shadow:
+    0 5px 14px
+    rgba(15, 23, 42, 0.16);
+}
+
+
+/*
+ * Reserve a small amount of room at the bottom so the
+ * buttons never cover the activity.
+ */
+
+body:has(#studentBackButton)
+.lesson-screen {
+  padding-bottom:
+    58px !important;
+
+  box-sizing:
+    border-box;
+}
+
+
+
+/*
+ * Collapse the original controls row so it does not
+ * create extra scrolling. The buttons themselves are fixed.
+ */
+
+body:has(#studentBackButton)
+div:has(> #studentBackButton):has(> #studentNextButton) {
+  height: 0 !important;
+  min-height: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  overflow: visible !important;
+}
+
+
+
+/* ========================================
+   Week 6 Step 1 - Quick Scroll Review
+======================================== */
+
+.lesson-screen-week6-quick-review {
+  padding: 10px 22px 16px;
+}
+
+.week6-review-heading {
+  text-align: center;
+}
+
+.week6-review-heading h1 {
+  margin: 2px 0 3px;
+
+  font-size:
+    clamp(30px, 4.2vh, 41px);
+}
+
+.week6-review-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+
+/* Three review cards */
+
+.week6-review-cards {
+  width: min(880px, 94%);
+
+  margin: 22px auto 16px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.week6-review-card {
+  position: relative;
+
+  min-height: 235px;
+
+  padding: 16px 12px 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border: 4px solid #dbeafe;
+  border-radius: 22px;
+
+  background: white;
+
+  color: #475569;
+
+  box-shadow:
+    0 8px 18px
+    rgba(15, 23, 42, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.week6-review-card > strong {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e2e8f0;
+
+  color: #475569;
+
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+.week6-review-card > span {
+  font-size:
+    clamp(16px, 2.2vh, 21px);
+
+  font-weight: 1000;
+
+  letter-spacing: 0.02em;
+}
+
+
+/* Mouse */
+
+.week6-review-mouse {
+  position: relative;
+
+  width: 112px;
+  height: 150px;
+
+  overflow: hidden;
+
+  border: 5px solid #334155;
+  border-radius: 54px 54px 48px 48px;
+
+  background: #f8fafc;
+
+  box-shadow:
+    inset 0 -7px 0
+    rgba(148, 163, 184, 0.18);
+}
+
+.week6-review-mouse-left,
+.week6-review-mouse-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 58px;
+
+  border-bottom: 4px solid #334155;
+
+  background: #e2e8f0;
+}
+
+.week6-review-mouse-left {
+  left: 0;
+
+  border-right: 2px solid #334155;
+}
+
+.week6-review-mouse-right {
+  right: 0;
+
+  border-left: 2px solid #334155;
+}
+
+.week6-review-wheel {
+  position: absolute;
+
+  z-index: 2;
+
+  top: 20px;
+  left: 50%;
+
+  width: 23px;
+  height: 49px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  border: 4px solid #1e293b;
+  border-radius: 14px;
+
+  background: #64748b;
+}
+
+.week6-review-wheel span {
+  width: 10px;
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: #f8fafc;
+}
+
+
+/* Direction arrows */
+
+.week6-review-direction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 125px;
+  height: 145px;
+
+  color: #2563eb;
+
+  font-size:
+    clamp(86px, 13vh, 125px);
+
+  font-weight: 1000;
+
+  line-height: 1;
+}
+
+
+/* Message */
+
+.week6-review-message {
+  width: min(700px, 88%);
+
+  margin: 0 auto 10px;
+
+  padding: 10px 18px;
+
+  text-align: center;
+
+  border: 3px solid #bfdbfe;
+  border-radius: 15px;
+
+  background: #eff6ff;
+
+  color: #1e40af;
+
+  font-size:
+    clamp(17px, 2.3vh, 21px);
+
+  font-weight: 1000;
+}
+
+.week6-review-reminder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  color: #475569;
+
+  font-size:
+    clamp(14px, 2vh, 18px);
+}
+
+.week6-review-reminder span {
+  font-size: 24px;
+}
+
+
+/* Active review state - used by animation next */
+
+.week6-review-card-active {
+  transform:
+    translateY(-5px)
+    scale(1.025);
+
+  border-color: #2563eb;
+
+  background: #eff6ff;
+
+  color: #1e40af;
+
+  box-shadow:
+    0 12px 25px
+    rgba(37, 99, 235, 0.16);
+}
+
+.week6-review-card-active > strong {
+  background: #2563eb;
+  color: white;
+}
+
+.week6-review-wheel-active {
+  background: #2563eb;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(37, 99, 235, 0.14);
+}
+
+
+/* Week 6 Step 1 - classroom screen fit */
+
+.lesson-screen-week6-quick-review
+.week6-review-cards {
+  margin-top: 16px;
+  margin-bottom: 10px;
+}
+
+.lesson-screen-week6-quick-review
+.week6-review-card {
+  min-height: 220px;
+}
+
+.lesson-screen-week6-quick-review
+.week6-review-message {
+  margin-bottom: 4px;
+}
+
+.lesson-screen-week6-quick-review
+.week6-review-reminder {
+  margin-top: 0;
+}

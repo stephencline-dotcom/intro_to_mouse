@@ -8051,6 +8051,70 @@
     }
   }
 
+  let week5CompleteSound = null;
+  let week5CompleteTimer = null;
+
+  function stopWeek5CompleteBehavior() {
+    if (week5CompleteTimer) {
+      clearTimeout(
+        week5CompleteTimer
+      );
+
+      week5CompleteTimer = null;
+    }
+
+    if (week5CompleteSound) {
+      week5CompleteSound.pause();
+      week5CompleteSound.currentTime = 0;
+      week5CompleteSound = null;
+    }
+  }
+
+  function startWeek5CompleteBehavior() {
+    stopWeek5CompleteBehavior();
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week5-complete"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    /*
+     * Tiny delay lets the completion screen
+     * appear before the celebration fires.
+     */
+    week5CompleteTimer =
+      setTimeout(() => {
+        if (!screen.isConnected) {
+          return;
+        }
+
+        screen.classList.add(
+          "week5-complete-show"
+        );
+
+        if (soundEnabled) {
+          week5CompleteSound =
+            new Audio(
+              "/sounds/complete.mp3"
+            );
+
+          week5CompleteSound.volume =
+            0.6;
+
+          week5CompleteSound.currentTime =
+            0;
+
+          week5CompleteSound
+            .play()
+            .catch(() => {});
+        }
+      }, 180);
+  }
+
   function startWeek5ScrollDragBehavior() {
     stopWeek5ScrollDragBehavior();
 
@@ -14189,6 +14253,106 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week5-complete") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-complete">
+
+          <div class="week5-complete-burst">
+            <span>⭐</span>
+            <span>🎉</span>
+            <span>⭐</span>
+          </div>
+
+          <div class="week5-complete-badge">
+            WEEK 5 COMPLETE
+          </div>
+
+          <h1>
+            Scrolling Master!
+          </h1>
+
+          <p class="week5-complete-message">
+            You learned how to use the scroll wheel!
+          </p>
+
+          <div class="week5-complete-skills">
+
+            <div class="week5-complete-skill">
+              <div class="week5-complete-skill-icon">
+                ↑
+              </div>
+
+              <strong>
+                SCROLL UP
+              </strong>
+            </div>
+
+            <div class="week5-complete-skill">
+
+              <div
+                class="week5-complete-mouse"
+                aria-hidden="true"
+              >
+                <div class="week5-complete-mouse-left"></div>
+                <div class="week5-complete-mouse-right"></div>
+
+                <div class="week5-complete-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <strong>
+                SCROLL WHEEL
+              </strong>
+
+            </div>
+
+            <div class="week5-complete-skill">
+              <div class="week5-complete-skill-icon">
+                ↓
+              </div>
+
+              <strong>
+                SCROLL DOWN
+              </strong>
+            </div>
+
+          </div>
+
+          <div class="week5-complete-review">
+
+            <div>
+              <span>🖱️</span>
+              <strong>MOVE</strong>
+            </div>
+
+            <div>
+              <span>👆</span>
+              <strong>CLICK</strong>
+            </div>
+
+            <div>
+              <span>✋</span>
+              <strong>DRAG</strong>
+            </div>
+
+            <div>
+              <span>↕️</span>
+              <strong>SCROLL</strong>
+            </div>
+
+          </div>
+
+          <div class="week5-complete-footer">
+            Amazing work!
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week5-scroll-drag") {
       return `
         <div class="lesson-screen lesson-screen-week5-scroll-drag">
@@ -18250,6 +18414,112 @@
       `;
     }
 
+    if (step.id === "week6-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-quick-review">
+
+          <div class="week6-review-heading">
+            <span class="drag-review-badge">
+              QUICK REVIEW
+            </span>
+
+            <h1>What Do We Remember About Scrolling?</h1>
+
+            <p>
+              Remember what the scroll wheel can do.
+            </p>
+          </div>
+
+          <div class="week6-review-cards">
+
+            <div
+              id="week6ReviewWheelCard"
+              class="week6-review-card week6-review-card-wheel"
+            >
+              <strong>1</strong>
+
+              <div
+                class="week6-review-mouse"
+                aria-hidden="true"
+              >
+                <div class="week6-review-mouse-left"></div>
+                <div class="week6-review-mouse-right"></div>
+
+                <div
+                  id="week6ReviewWheel"
+                  class="week6-review-wheel"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <span>SCROLL WHEEL</span>
+            </div>
+
+            <div
+              id="week6ReviewDownCard"
+              class="week6-review-card"
+            >
+              <strong>2</strong>
+
+              <div class="week6-review-direction">
+                ↓
+              </div>
+
+              <span>SCROLL DOWN</span>
+            </div>
+
+            <div
+              id="week6ReviewUpCard"
+              class="week6-review-card"
+            >
+              <strong>3</strong>
+
+              <div class="week6-review-direction">
+                ↑
+              </div>
+
+              <span>SCROLL UP</span>
+            </div>
+
+          </div>
+
+          <div
+            id="week6ReviewMessage"
+            class="week6-review-message"
+          >
+            Find the SCROLL WHEEL.
+          </div>
+
+          <div class="week6-review-reminder">
+            <span>🖱️</span>
+            <strong>ROLL — DON'T CLICK</strong>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id.startsWith("week6-")) {
+      return `
+        <div class="lesson-screen lesson-screen-week6-placeholder">
+
+          <div class="week6-placeholder-badge">
+            WEEK 6
+          </div>
+
+          <h1>${step.title}</h1>
+
+          <p class="week6-placeholder-message">
+            This Week 6 screen is ready to build.
+          </p>
+
+        </div>
+      `;
+    }
+
     return `
       <div class="student-lesson-card">
         <p class="student-lesson-progress">
@@ -20100,6 +20370,8 @@
   }
 
   function renderStep(stepIndex, mode) {
+    stopWeek5CompleteBehavior();
+
     stopWeek5ScrollDragBehavior();
 
     stopWeek5ScrollClickBehavior();
@@ -20212,6 +20484,10 @@
 
     if (step.id === "week5-scroll-drag") {
       startWeek5ScrollDragBehavior();
+    }
+
+    if (step.id === "week5-complete") {
+      startWeek5CompleteBehavior();
     }
 
     if (step.id === "week4-warm-up") {

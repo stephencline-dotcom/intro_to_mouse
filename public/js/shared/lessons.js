@@ -217,18 +217,60 @@ const mouseLessons = {
         type: "practice"
       },
       {
-        id: "week5-activities",
-        title: "Quick Activities",
+        id: "week5-complete",
+        title: "Scrolling Master!",
+        type: "complete"
+      }
+    ]
+  },
+
+  week6: {
+    id: "week6",
+    title: "Scroll Review",
+    steps: [
+      {
+        id: "week6-quick-review",
+        title: "Quick Scroll Review",
+        type: "review"
+      },
+      {
+        id: "week6-warm-up",
+        title: "Scroll Warm-Up",
         type: "practice"
       },
       {
-        id: "week5-challenge",
+        id: "week6-precision",
+        title: "Precision Scrolling",
+        type: "practice"
+      },
+      {
+        id: "week6-scroll-click",
+        title: "Scroll & Click Challenge",
+        type: "practice"
+      },
+      {
+        id: "week6-scroll-drag",
+        title: "Scroll & Drag Challenge",
+        type: "practice"
+      },
+      {
+        id: "week6-mixed-skills",
+        title: "Mixed Mouse Skills",
+        type: "practice"
+      },
+      {
+        id: "week6-activities",
+        title: "Scrolling Activities",
+        type: "practice"
+      },
+      {
+        id: "week6-challenge",
         title: "Scroll Master Challenge",
         type: "practice"
       },
       {
-        id: "week5-complete",
-        title: "Week 5 Complete!",
+        id: "week6-complete",
+        title: "Week 6 Complete!",
         type: "complete"
       }
     ]
