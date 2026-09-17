@@ -20779,3 +20779,4610 @@ body.teacher-session
   background: #dcfce7 !important;
 }
 
+
+/* ========================================
+   Week 5 Step 2 - Meet the Scroll Wheel
+======================================== */
+
+.lesson-screen-week5-meet-wheel {
+  padding:
+    10px 24px 16px;
+
+  text-align: center;
+}
+
+.week5-wheel-heading h1 {
+  margin:
+    3px 0 4px;
+
+  font-size:
+    clamp(32px, 4.5vh, 44px);
+}
+
+.week5-wheel-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+
+/* Main demonstration */
+
+.week5-wheel-demo {
+  width:
+    min(760px, 94%);
+
+  height:
+    330px;
+
+  margin:
+    14px auto 6px;
+
+  display: grid;
+
+  grid-template-columns:
+    150px 1fr 150px;
+
+  align-items: center;
+
+  border:
+    3px dashed #cbd5e1;
+
+  border-radius:
+    24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eff6ff
+    );
+}
+
+
+/* Up/down indicators */
+
+.week5-wheel-direction {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+
+  color: #94a3b8;
+
+  font-size: 17px;
+
+  font-weight: 1000;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.week5-wheel-direction span {
+  font-size: 46px;
+}
+
+.week5-wheel-arrow-active {
+  color: #2563eb;
+
+  transform:
+    scale(1.12);
+}
+
+
+/* Mouse */
+
+.week5-wheel-mouse-wrap {
+  position: relative;
+
+  width: 230px;
+  height: 290px;
+
+  margin: 0 auto;
+}
+
+.week5-wheel-mouse {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 180px;
+  height: 245px;
+
+  transform:
+    translate(-50%, -50%);
+
+  overflow: hidden;
+
+  border:
+    6px solid #475569;
+
+  border-radius:
+    90px 90px 68px 68px;
+
+  background:
+    #e2e8f0;
+
+  box-shadow:
+    0 10px 20px
+    rgba(15, 23, 42, 0.12);
+}
+
+
+/* Mouse buttons stay muted */
+
+.week5-wheel-left-button,
+.week5-wheel-right-button {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 94px;
+
+  border-bottom:
+    5px solid #475569;
+
+  background:
+    #cbd5e1;
+}
+
+.week5-wheel-left-button {
+  left: 0;
+
+  border-right:
+    2px solid #475569;
+}
+
+.week5-wheel-right-button {
+  right: 0;
+
+  border-left:
+    2px solid #475569;
+}
+
+
+/* Scroll wheel */
+
+.week5-wheel-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 30px;
+
+  z-index: 20;
+
+  width: 31px;
+  height: 66px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  border:
+    4px solid #1e40af;
+
+  border-radius:
+    16px;
+
+  background:
+    #60a5fa;
+
+  box-shadow:
+    0 0 0 7px
+    rgba(96, 165, 250, 0.18);
+
+  overflow: hidden;
+}
+
+.week5-wheel-wheel span {
+  width: 17px;
+  height: 3px;
+
+  border-radius: 3px;
+
+  background:
+    #dbeafe;
+}
+
+.week5-wheel-highlight {
+  animation:
+    week5-wheel-glow
+    0.8s ease-in-out
+    infinite alternate;
+}
+
+
+/* Finger */
+
+.week5-wheel-finger {
+  position: absolute;
+
+  left: 72%;
+  top: 82%;
+
+  z-index: 50;
+
+  font-size: 70px;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-22deg);
+
+  transition:
+    left 0.8s ease,
+    top 0.8s ease,
+    transform 0.35s ease;
+}
+
+.week5-wheel-finger-on {
+  left: 57%;
+  top: 38%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-8deg);
+}
+
+.week5-wheel-finger-down {
+  transform:
+    translate(-50%, -43%)
+    rotate(-8deg);
+}
+
+.week5-wheel-finger-up {
+  transform:
+    translate(-50%, -58%)
+    rotate(-8deg);
+}
+
+
+/* Wheel rolling */
+
+.week5-wheel-roll-down span {
+  animation:
+    week5-wheel-lines-down
+    0.35s linear
+    infinite;
+}
+
+.week5-wheel-roll-up span {
+  animation:
+    week5-wheel-lines-up
+    0.35s linear
+    infinite;
+}
+
+
+/* Message */
+
+.week5-wheel-message {
+  min-height:
+    29px;
+
+  color:
+    #1e3a8a;
+
+  font-size:
+    21px;
+
+  font-weight:
+    1000;
+}
+
+
+/* Important first-grade reminder */
+
+.week5-wheel-reminder {
+  display:
+    inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top:
+    7px;
+
+  padding:
+    7px 15px;
+
+  border-radius:
+    999px;
+
+  background:
+    #fef3c7;
+
+  color:
+    #92400e;
+
+  font-size:
+    13px;
+
+  font-weight:
+    1000;
+}
+
+.week5-wheel-reminder span {
+  font-size:
+    20px;
+}
+
+
+/* Teacher presentation */
+
+body.teacher-session
+.week5-wheel-demo {
+  height:
+    280px;
+}
+
+body.teacher-session
+.week5-wheel-mouse-wrap {
+  transform:
+    scale(0.87);
+}
+
+
+/* Animations */
+
+@keyframes week5-wheel-glow {
+  from {
+    box-shadow:
+      0 0 0 6px
+      rgba(96, 165, 250, 0.16);
+  }
+
+  to {
+    box-shadow:
+      0 0 0 12px
+      rgba(37, 99, 235, 0.28);
+  }
+}
+
+@keyframes week5-wheel-lines-down {
+  from {
+    transform:
+      translateY(-6px);
+  }
+
+  to {
+    transform:
+      translateY(6px);
+  }
+}
+
+@keyframes week5-wheel-lines-up {
+  from {
+    transform:
+      translateY(6px);
+  }
+
+  to {
+    transform:
+      translateY(-6px);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 2 - existing hand on scroll wheel
+======================================== */
+
+/*
+ * Hide the old standalone finger rules.
+ */
+.lesson-screen-week5-meet-wheel
+.week5-wheel-finger {
+  display: none !important;
+}
+
+
+/*
+ * Reuse the same constructed hand used throughout
+ * the earlier mouse lessons.
+ */
+.week5-wheel-hand {
+  position: absolute;
+
+  left: 50%;
+  top: 55%;
+
+  z-index: 45;
+
+  width: 190px;
+  height: 230px;
+
+  transform:
+    translate(-50%, -50%);
+
+  transform-origin:
+    50% 80%;
+
+  pointer-events: none;
+
+  transition:
+    transform 0.65s ease,
+    top 0.65s ease;
+}
+
+
+/*
+ * Palm sits naturally over the lower mouse.
+ */
+.week5-wheel-hand
+.mouse-demo-palm {
+  position: absolute;
+
+  left: 43px;
+  top: 94px;
+
+  width: 112px;
+  height: 126px;
+
+  z-index: 4;
+}
+
+
+/*
+ * Reposition the existing fingers for this
+ * larger scroll-wheel demonstration.
+ */
+.week5-wheel-hand
+.mouse-demo-finger {
+  position: absolute;
+
+  z-index: 6;
+
+  transition:
+    transform 0.45s ease,
+    top 0.45s ease,
+    left 0.45s ease;
+}
+
+
+/* Pointer/index finger */
+
+.week5-wheel-hand
+.mouse-demo-index {
+  left: 54px;
+  top: 31px;
+
+  transform-origin:
+    50% 90%;
+}
+
+
+/* Middle finger */
+
+.week5-wheel-hand
+.mouse-demo-middle {
+  left: 92px;
+  top: 28px;
+}
+
+
+/* Other fingers */
+
+.week5-wheel-hand
+.mouse-demo-pinky {
+  left: 128px;
+  top: 60px;
+}
+
+
+/* ----------------------------------------
+   Hand settles naturally onto mouse
+---------------------------------------- */
+
+.week5-wheel-hand-ready {
+  top: 52%;
+}
+
+
+/*
+ * POINTER FINGER moves inward toward the
+ * highlighted scroll wheel.
+ */
+.week5-wheel-hand-ready
+.mouse-demo-index {
+  left: 77px;
+  top: 30px;
+
+  transform:
+    rotate(8deg);
+}
+
+
+/* ----------------------------------------
+   Roll DOWN
+---------------------------------------- */
+
+.week5-wheel-hand-down
+.mouse-demo-index {
+  left: 78px;
+  top: 40px;
+
+  transform:
+    rotate(10deg)
+    translateY(11px);
+}
+
+
+/* ----------------------------------------
+   Roll UP
+---------------------------------------- */
+
+.week5-wheel-hand-up
+.mouse-demo-index {
+  left: 77px;
+  top: 20px;
+
+  transform:
+    rotate(6deg)
+    translateY(-10px);
+}
+
+
+/*
+ * Keep the wheel visible above the mouse itself
+ * but underneath the pointer finger.
+ */
+.lesson-screen-week5-meet-wheel
+.week5-wheel-wheel {
+  z-index: 30 !important;
+}
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand {
+  z-index: 40 !important;
+}
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.mouse-demo-index {
+  z-index: 60 !important;
+}
+
+
+/* Subtle pointer-finger highlight */
+
+.week5-wheel-hand-ready
+.mouse-demo-index {
+  box-shadow:
+    0 0 0 5px
+    rgba(250, 204, 21, 0.28);
+}
+
+
+/* Teacher presentation remains compact */
+
+body.teacher-session
+.week5-wheel-hand {
+  transform:
+    translate(-50%, -50%)
+    scale(0.88);
+}
+
+
+/* ========================================
+   Week 5 Step 2 - complete hand fingers
+======================================== */
+
+/* Shift middle finger farther right */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.mouse-demo-middle {
+  left: 104px !important;
+  top: 30px !important;
+}
+
+
+/* Add missing ring finger between middle and pinky */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.week5-wheel-ring {
+  left: 130px;
+  top: 47px;
+
+  width: 34px;
+  height: 112px;
+
+  border:
+    4px solid #9a5b2a;
+
+  border-radius:
+    22px;
+
+  background:
+    #f4c089;
+
+  transform:
+    rotate(12deg);
+
+  transform-origin:
+    50% 90%;
+
+  box-sizing:
+    border-box;
+
+  z-index:
+    5;
+}
+
+
+/* Move pinky a little farther outward */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.mouse-demo-pinky {
+  left: 153px !important;
+  top: 69px !important;
+
+  transform:
+    rotate(20deg);
+}
+
+
+/* ========================================
+   Week 5 Step 2 - add thumb
+======================================== */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.week5-wheel-thumb {
+  position: absolute;
+
+  left: 20px;
+  top: 122px;
+
+  width: 42px;
+  height: 92px;
+
+  border:
+    4px solid #9a5b2a;
+
+  border-radius:
+    28px;
+
+  background:
+    #f4c089;
+
+  transform:
+    rotate(-38deg);
+
+  transform-origin:
+    50% 85%;
+
+  box-sizing:
+    border-box;
+
+  z-index:
+    3;
+}
+
+
+/* ========================================
+   Week 5 Step 2 - hand position polish
+======================================== */
+
+/* Move thumb upward so it connects naturally to palm */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.week5-wheel-thumb {
+  left: 25px !important;
+  top: 101px !important;
+
+  transform:
+    rotate(-38deg) !important;
+}
+
+
+/* Slide ring finger slightly upward */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.week5-wheel-ring {
+  left: 128px !important;
+  top: 40px !important;
+}
+
+
+/* Pull pinky inward/up so it stays attached to hand */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.mouse-demo-pinky {
+  left: 146px !important;
+  top: 58px !important;
+
+  transform:
+    rotate(18deg) !important;
+}
+
+
+/* ========================================
+   Week 5 Step 2 - tuck pinky under ring
+======================================== */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.mouse-demo-pinky {
+  left: 140px !important;
+  top: 78px !important;
+
+  transform:
+    rotate(20deg) !important;
+
+  z-index: 4 !important;
+}
+
+/* Keep ring finger visually above pinky */
+
+.lesson-screen-week5-meet-wheel
+.week5-wheel-hand
+.week5-wheel-ring {
+  z-index: 6 !important;
+}
+
+
+/* ========================================
+   Week 5 Step 3 - Scroll Down
+======================================== */
+
+.lesson-screen-week5-scroll-down {
+  padding:
+    8px 22px 12px;
+
+  text-align: center;
+}
+
+.week5-scroll-down-heading h1 {
+  margin:
+    2px 0 2px;
+
+  font-size:
+    clamp(30px, 4.2vh, 40px);
+}
+
+.week5-scroll-down-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+/* Main layout */
+
+.week5-scroll-down-layout {
+  width:
+    min(900px, 95%);
+
+  margin:
+    10px auto 7px;
+
+  display: grid;
+
+  grid-template-columns:
+    150px 1fr;
+
+  gap: 15px;
+
+  align-items: center;
+}
+
+
+/* Direction guide */
+
+.week5-scroll-down-guide {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+
+  color: #1e40af;
+}
+
+.week5-scroll-down-arrow {
+  font-size: 72px;
+
+  line-height: 0.9;
+
+  color: #2563eb;
+
+  animation:
+    week5-scroll-down-bounce
+    0.85s ease-in-out
+    infinite alternate;
+}
+
+.week5-scroll-down-guide strong {
+  font-size: 15px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-down-mini-wheel {
+  width: 27px;
+  height: 54px;
+
+  margin-top: 8px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: space-evenly;
+
+  border:
+    4px solid #1e40af;
+
+  border-radius: 15px;
+
+  background: #60a5fa;
+
+  overflow: hidden;
+}
+
+.week5-scroll-down-mini-wheel span {
+  width: 14px;
+  height: 3px;
+
+  border-radius: 3px;
+
+  background: white;
+}
+
+.week5-scroll-down-arrow-active {
+  color: #16a34a !important;
+
+  transform:
+    translateY(8px)
+    scale(1.1);
+}
+
+.week5-scroll-down-arrow-wrong {
+  color: #ef4444 !important;
+
+  animation:
+    week5-scroll-wrong
+    0.12s linear
+    2 !important;
+}
+
+.week5-scroll-down-arrow-complete {
+  color: #16a34a !important;
+
+  animation: none !important;
+}
+
+
+/* Scroll window */
+
+.week5-scroll-down-viewport {
+  position: relative;
+
+  height: 345px;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius: 22px;
+
+  background: #dbeafe;
+
+  box-shadow:
+    0 8px 18px
+    rgba(15, 23, 42, 0.12);
+
+  cursor: default;
+
+  overscroll-behavior: contain;
+}
+
+.week5-scroll-down-viewport::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  border-radius: 16px;
+
+  box-shadow:
+    inset 0 0 0 2px
+    rgba(255,255,255,0.65);
+}
+
+
+/* Tall scene */
+
+.week5-scroll-down-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+
+  height: 965px;
+
+  transition:
+    transform 0.11s linear;
+
+  will-change: transform;
+}
+
+.week5-scroll-down-scene section {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-evenly;
+
+  box-sizing: border-box;
+}
+
+
+/* Sky */
+
+.week5-treasure-sky {
+  height: 250px;
+
+  background:
+    linear-gradient(
+      #93c5fd,
+      #dbeafe
+    );
+
+  color: #1e3a8a;
+}
+
+.week5-treasure-sky strong {
+  position: absolute;
+
+  left: 50%;
+  top: 62%;
+
+  transform:
+    translateX(-50%);
+
+  padding:
+    7px 15px;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(255,255,255,0.86);
+
+  font-size: 13px;
+}
+
+.week5-treasure-sun {
+  position: absolute;
+
+  right: 12%;
+  top: 15%;
+
+  font-size: 55px;
+}
+
+.week5-treasure-cloud {
+  position: absolute;
+
+  font-size: 55px;
+}
+
+.week5-treasure-cloud.cloud-a {
+  left: 12%;
+  top: 20%;
+}
+
+.week5-treasure-cloud.cloud-b {
+  left: 45%;
+  top: 8%;
+}
+
+
+/* Treetops */
+
+.week5-treasure-treetops {
+  height: 190px;
+
+  background:
+    linear-gradient(
+      #86efac,
+      #4ade80
+    );
+
+  font-size: 66px;
+}
+
+
+/* Jungle */
+
+.week5-treasure-jungle {
+  height: 190px;
+
+  background:
+    linear-gradient(
+      #22c55e,
+      #15803d
+    );
+
+  font-size: 58px;
+}
+
+
+/* Beach */
+
+.week5-treasure-beach {
+  height: 170px;
+
+  background:
+    linear-gradient(
+      #fde68a,
+      #fcd34d
+    );
+
+  font-size: 66px;
+}
+
+.week5-treasure-path {
+  color: #92400e;
+
+  font-size: 27px;
+
+  letter-spacing: 14px;
+}
+
+
+/* Treasure area */
+
+.week5-treasure-bottom {
+  height: 165px;
+
+  flex-direction: column;
+
+  background:
+    linear-gradient(
+      #fcd34d,
+      #f59e0b
+    );
+
+  color: #78350f;
+}
+
+.week5-scroll-treasure {
+  font-size: 75px;
+
+  transform:
+    scale(0.9);
+
+  transition:
+    transform 0.3s ease;
+}
+
+.week5-treasure-bottom strong {
+  font-size: 19px;
+}
+
+.week5-scroll-treasure-found {
+  transform:
+    scale(1.25);
+
+  animation:
+    week5-treasure-pop
+    0.45s ease-out;
+}
+
+
+/* Progress */
+
+.week5-scroll-down-progress-track {
+  width:
+    min(620px, 75%);
+
+  height: 9px;
+
+  margin:
+    0 auto;
+
+  overflow: hidden;
+
+  border-radius:
+    999px;
+
+  background:
+    #e2e8f0;
+}
+
+.week5-scroll-down-progress-fill {
+  width: 0;
+  height: 100%;
+
+  border-radius:
+    inherit;
+
+  background:
+    #2563eb;
+
+  transition:
+    width 0.1s linear;
+}
+
+
+/* Status */
+
+.week5-scroll-down-status {
+  min-height: 23px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 15px;
+
+  font-weight: 1000;
+}
+
+
+/* Teacher compact */
+
+body.teacher-session
+.week5-scroll-down-viewport {
+  height: 290px;
+}
+
+body.teacher-session
+.week5-scroll-down-layout {
+  margin-top: 5px;
+}
+
+
+/* Animations */
+
+@keyframes week5-scroll-down-bounce {
+  from {
+    transform:
+      translateY(-4px);
+  }
+
+  to {
+    transform:
+      translateY(7px);
+  }
+}
+
+@keyframes week5-scroll-wrong {
+  from {
+    transform:
+      translateX(-5px);
+  }
+
+  to {
+    transform:
+      translateX(5px);
+  }
+}
+
+@keyframes week5-treasure-pop {
+  0% {
+    transform:
+      scale(0.65)
+      rotate(-8deg);
+  }
+
+  65% {
+    transform:
+      scale(1.35)
+      rotate(5deg);
+  }
+
+  100% {
+    transform:
+      scale(1.25)
+      rotate(0);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 3 - full scroll mouse guide
+======================================== */
+
+.week5-scroll-guide-mouse {
+  position: relative;
+
+  width: 92px;
+  height: 125px;
+
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 46px 46px 36px 36px;
+
+  background: #e2e8f0;
+
+  box-shadow:
+    0 6px 12px
+    rgba(15, 23, 42, 0.12);
+}
+
+
+/* Muted left/right buttons */
+
+.week5-scroll-guide-left,
+.week5-scroll-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 48px;
+
+  border-bottom:
+    4px solid #475569;
+
+  background: #cbd5e1;
+}
+
+.week5-scroll-guide-left {
+  left: 0;
+
+  border-right:
+    2px solid #475569;
+}
+
+.week5-scroll-guide-right {
+  right: 0;
+
+  border-left:
+    2px solid #475569;
+}
+
+
+/* Bright scroll wheel */
+
+.week5-scroll-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 14px;
+
+  z-index: 10;
+
+  width: 19px;
+  height: 39px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  overflow: hidden;
+
+  border:
+    3px solid #1e40af;
+
+  border-radius: 11px;
+
+  background: #60a5fa;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(96, 165, 250, 0.22);
+}
+
+.week5-scroll-guide-wheel span {
+  width: 10px;
+  height: 2px;
+
+  border-radius: 2px;
+
+  background: white;
+}
+
+
+/* Make wheel visibly roll downward */
+
+.week5-scroll-guide-wheel span {
+  animation:
+    week5-guide-wheel-down
+    0.55s linear
+    infinite;
+}
+
+@keyframes week5-guide-wheel-down {
+  from {
+    transform:
+      translateY(-4px);
+  }
+
+  to {
+    transform:
+      translateY(4px);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 3 - scroll-down celebration
+======================================== */
+
+.week5-scroll-down-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-scroll-down-celebration-show {
+  opacity: 1;
+}
+
+.week5-scroll-down-celebration-card {
+  min-width: 250px;
+
+  padding:
+    22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border:
+    4px solid #86efac;
+
+  border-radius:
+    24px;
+
+  background:
+    white;
+
+  color:
+    #166534;
+
+  box-shadow:
+    0 16px 35px
+    rgba(15, 23, 42, 0.24);
+
+  transform:
+    scale(0.7);
+
+  animation:
+    week5-scroll-good-job-pop
+    0.42s ease-out
+    forwards;
+}
+
+.week5-scroll-down-celebration-icon {
+  font-size: 52px;
+
+  line-height: 1;
+}
+
+.week5-scroll-down-celebration-card strong {
+  font-size: 28px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-down-celebration-card span {
+  color:
+    #1e40af;
+
+  font-size: 18px;
+
+  font-weight: 900;
+}
+
+@keyframes week5-scroll-good-job-pop {
+  0% {
+    transform:
+      scale(0.7);
+  }
+
+  70% {
+    transform:
+      scale(1.08);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 4 - Scroll Up
+======================================== */
+
+.lesson-screen-week5-scroll-up {
+  padding:
+    8px 22px 12px;
+
+  text-align: center;
+}
+
+.week5-scroll-up-heading h1 {
+  margin:
+    2px 0;
+
+  font-size:
+    clamp(30px, 4.2vh, 40px);
+}
+
+.week5-scroll-up-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+/* Main layout */
+
+.week5-scroll-up-layout {
+  width:
+    min(900px, 95%);
+
+  margin:
+    10px auto 7px;
+
+  display: grid;
+
+  grid-template-columns:
+    150px 1fr;
+
+  gap: 15px;
+
+  align-items: center;
+}
+
+
+/* Guide */
+
+.week5-scroll-up-guide {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+
+  color: #1e40af;
+}
+
+.week5-scroll-up-arrow {
+  color: #2563eb;
+
+  font-size: 72px;
+
+  line-height: 0.9;
+
+  animation:
+    week5-scroll-up-bounce
+    0.85s ease-in-out
+    infinite alternate;
+}
+
+.week5-scroll-up-guide strong {
+  font-size: 15px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-up-arrow-active {
+  color:
+    #16a34a !important;
+
+  transform:
+    translateY(-8px)
+    scale(1.1);
+}
+
+.week5-scroll-up-arrow-wrong {
+  color:
+    #ef4444 !important;
+
+  animation:
+    week5-scroll-up-wrong
+    0.12s linear
+    2 !important;
+}
+
+.week5-scroll-up-arrow-complete {
+  color:
+    #16a34a !important;
+
+  animation:
+    none !important;
+}
+
+
+/* Full mouse guide */
+
+.week5-scroll-up-guide-mouse {
+  position: relative;
+
+  width: 92px;
+  height: 125px;
+
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius:
+    46px 46px 36px 36px;
+
+  background:
+    #e2e8f0;
+
+  box-shadow:
+    0 6px 12px
+    rgba(15, 23, 42, 0.12);
+}
+
+.week5-scroll-up-guide-left,
+.week5-scroll-up-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 48px;
+
+  border-bottom:
+    4px solid #475569;
+
+  background:
+    #cbd5e1;
+}
+
+.week5-scroll-up-guide-left {
+  left: 0;
+
+  border-right:
+    2px solid #475569;
+}
+
+.week5-scroll-up-guide-right {
+  right: 0;
+
+  border-left:
+    2px solid #475569;
+}
+
+.week5-scroll-up-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 14px;
+
+  z-index: 10;
+
+  width: 19px;
+  height: 39px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  overflow: hidden;
+
+  border:
+    3px solid #1e40af;
+
+  border-radius: 11px;
+
+  background:
+    #60a5fa;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(96, 165, 250, 0.22);
+}
+
+.week5-scroll-up-guide-wheel span {
+  width: 10px;
+  height: 2px;
+
+  border-radius: 2px;
+
+  background: white;
+
+  animation:
+    week5-guide-wheel-up
+    0.55s linear
+    infinite;
+}
+
+
+/* Window */
+
+.week5-scroll-up-viewport {
+  position: relative;
+
+  height: 345px;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius: 22px;
+
+  background:
+    #dcfce7;
+
+  box-shadow:
+    0 8px 18px
+    rgba(15, 23, 42, 0.12);
+
+  overscroll-behavior:
+    contain;
+}
+
+.week5-scroll-up-viewport::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  border-radius: 16px;
+
+  box-shadow:
+    inset 0 0 0 2px
+    rgba(255,255,255,0.65);
+}
+
+
+/* Tall forest */
+
+.week5-scroll-up-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1105px;
+
+  transition:
+    transform 0.11s linear;
+
+  will-change:
+    transform;
+}
+
+.week5-scroll-up-scene section {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  box-sizing:
+    border-box;
+}
+
+
+/* Treehouse top */
+
+.week5-treehouse-top {
+  height: 345px;
+
+  flex-direction: column;
+
+  background:
+    linear-gradient(
+      #93c5fd 0%,
+      #dbeafe 52%,
+      #86efac 100%
+    );
+
+  color: #78350f;
+}
+
+.week5-scroll-treehouse {
+  font-size: 90px;
+
+  transform:
+    scale(0.9);
+
+  transition:
+    transform 0.3s ease;
+}
+
+.week5-treehouse-top strong {
+  padding:
+    6px 14px;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(255,255,255,0.85);
+
+  font-size: 18px;
+}
+
+.week5-treehouse-bird {
+  position: absolute;
+
+  right: 17%;
+  top: 24%;
+
+  font-size: 45px;
+}
+
+
+/* Forest sections */
+
+.week5-treehouse-high-branches {
+  height: 190px;
+
+  background:
+    linear-gradient(
+      #86efac,
+      #4ade80
+    );
+
+  font-size: 56px;
+}
+
+.week5-treehouse-middle {
+  height: 190px;
+
+  background:
+    linear-gradient(
+      #4ade80,
+      #22c55e
+    );
+
+  font-size: 58px;
+}
+
+.week5-treehouse-low-branches {
+  height: 190px;
+
+  background:
+    linear-gradient(
+      #22c55e,
+      #15803d
+    );
+
+  font-size: 56px;
+}
+
+
+/* Ground */
+
+.week5-treehouse-ground {
+  height: 190px;
+
+  background:
+    linear-gradient(
+      #86efac,
+      #65a30d
+    );
+
+  font-size: 60px;
+}
+
+.week5-treehouse-ground strong {
+  position: absolute;
+
+  left: 50%;
+  bottom: 18px;
+
+  transform:
+    translateX(-50%);
+
+  padding:
+    7px 15px;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(255,255,255,0.88);
+
+  color: #166534;
+
+  font-size: 13px;
+}
+
+.week5-scroll-treehouse-found {
+  transform:
+    scale(1.2);
+
+  animation:
+    week5-treehouse-pop
+    0.45s ease-out;
+}
+
+
+/* Progress */
+
+.week5-scroll-up-progress-track {
+  width:
+    min(620px, 75%);
+
+  height: 9px;
+
+  margin:
+    0 auto;
+
+  overflow: hidden;
+
+  border-radius:
+    999px;
+
+  background:
+    #e2e8f0;
+}
+
+.week5-scroll-up-progress-fill {
+  width: 0;
+  height: 100%;
+
+  border-radius:
+    inherit;
+
+  background:
+    #2563eb;
+
+  transition:
+    width 0.1s linear;
+}
+
+.week5-scroll-up-status {
+  min-height: 23px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 15px;
+
+  font-weight: 1000;
+}
+
+
+/* Celebration */
+
+.week5-scroll-up-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-scroll-up-celebration-show {
+  opacity: 1;
+}
+
+.week5-scroll-up-celebration-card {
+  min-width: 250px;
+
+  padding:
+    22px 28px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 5px;
+
+  border:
+    4px solid #86efac;
+
+  border-radius: 24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 35px
+    rgba(15, 23, 42, 0.24);
+
+  animation:
+    week5-scroll-up-good-job
+    0.42s ease-out
+    forwards;
+}
+
+.week5-scroll-up-celebration-icon {
+  font-size: 52px;
+
+  line-height: 1;
+}
+
+.week5-scroll-up-celebration-card strong {
+  font-size: 28px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-up-celebration-card span {
+  color: #1e40af;
+
+  font-size: 18px;
+
+  font-weight: 900;
+}
+
+
+/* Teacher compact */
+
+body.teacher-session
+.week5-scroll-up-viewport {
+  height: 290px;
+}
+
+body.teacher-session
+.week5-scroll-up-layout {
+  margin-top: 5px;
+}
+
+
+/* Animations */
+
+@keyframes week5-scroll-up-bounce {
+  from {
+    transform:
+      translateY(7px);
+  }
+
+  to {
+    transform:
+      translateY(-7px);
+  }
+}
+
+@keyframes week5-scroll-up-wrong {
+  from {
+    transform:
+      translateX(-5px);
+  }
+
+  to {
+    transform:
+      translateX(5px);
+  }
+}
+
+@keyframes week5-guide-wheel-up {
+  from {
+    transform:
+      translateY(4px);
+  }
+
+  to {
+    transform:
+      translateY(-4px);
+  }
+}
+
+@keyframes week5-treehouse-pop {
+  0% {
+    transform:
+      scale(0.65)
+      rotate(-6deg);
+  }
+
+  65% {
+    transform:
+      scale(1.3)
+      rotate(4deg);
+  }
+
+  100% {
+    transform:
+      scale(1.2)
+      rotate(0);
+  }
+}
+
+@keyframes week5-scroll-up-good-job {
+  0% {
+    transform:
+      scale(0.7);
+  }
+
+  70% {
+    transform:
+      scale(1.08);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 5 - Scroll Practice
+======================================== */
+
+.lesson-screen-week5-scroll-practice {
+  padding:
+    8px 20px 12px;
+
+  text-align: center;
+}
+
+.week5-scroll-practice-heading h1 {
+  margin:
+    2px 0;
+
+  font-size:
+    clamp(30px, 4.1vh, 40px);
+}
+
+.week5-scroll-practice-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+/* Layout */
+
+.week5-scroll-practice-layout {
+  width:
+    min(930px, 96%);
+
+  margin:
+    9px auto 5px;
+
+  display: grid;
+
+  grid-template-columns:
+    140px 1fr;
+
+  gap: 14px;
+
+  align-items: center;
+}
+
+
+/* Side guide */
+
+.week5-scroll-practice-guide {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.week5-scroll-practice-directions {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  color: #2563eb;
+
+  font-size: 13px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-practice-directions span {
+  font-size: 40px;
+
+  line-height: 0.9;
+}
+
+
+/* Full mouse */
+
+.week5-scroll-practice-guide-mouse {
+  position: relative;
+
+  width: 86px;
+  height: 118px;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius:
+    44px 44px 34px 34px;
+
+  background:
+    #e2e8f0;
+}
+
+.week5-scroll-practice-guide-left,
+.week5-scroll-practice-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 46px;
+
+  border-bottom:
+    4px solid #475569;
+
+  background:
+    #cbd5e1;
+}
+
+.week5-scroll-practice-guide-left {
+  left: 0;
+
+  border-right:
+    2px solid #475569;
+}
+
+.week5-scroll-practice-guide-right {
+  right: 0;
+
+  border-left:
+    2px solid #475569;
+}
+
+.week5-scroll-practice-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 13px;
+
+  width: 18px;
+  height: 38px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  overflow: hidden;
+
+  border:
+    3px solid #1e40af;
+
+  border-radius: 11px;
+
+  background:
+    #60a5fa;
+}
+
+.week5-scroll-practice-guide-wheel span {
+  width: 10px;
+  height: 2px;
+
+  border-radius: 4px;
+
+  background: white;
+}
+
+
+/* Main section */
+
+.week5-scroll-practice-main {
+  min-width: 0;
+}
+
+.week5-scroll-practice-topbar {
+  height: 44px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-bottom: 5px;
+
+  color: #475569;
+
+  font-size: 13px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-practice-target {
+  min-width: 145px;
+
+  padding:
+    5px 13px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border:
+    3px solid #93c5fd;
+
+  border-radius:
+    999px;
+
+  background: white;
+
+  color: #1e40af;
+}
+
+.week5-scroll-practice-target span {
+  font-size: 26px;
+}
+
+.week5-scroll-practice-progress {
+  padding:
+    6px 11px;
+
+  border-radius:
+    999px;
+
+  background:
+    #e0f2fe;
+
+  color:
+    #0369a1;
+}
+
+
+/* Viewport */
+
+.week5-scroll-practice-viewport {
+  position: relative;
+
+  height: 340px;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius:
+    22px;
+
+  background:
+    linear-gradient(
+      #dbeafe,
+      #dcfce7
+    );
+
+  box-shadow:
+    0 7px 16px
+    rgba(15, 23, 42, 0.12);
+
+  overscroll-behavior:
+    contain;
+}
+
+
+/* Center target zone */
+
+.week5-scroll-practice-center-zone {
+  position: absolute;
+
+  left: 16px;
+  right: 16px;
+
+  top: 50%;
+
+  height: 105px;
+
+  transform:
+    translateY(-50%);
+
+  z-index: 10;
+
+  pointer-events: none;
+
+  border:
+    4px dashed
+    rgba(37, 99, 235, 0.55);
+
+  border-radius:
+    20px;
+
+  background:
+    rgba(219, 234, 254, 0.16);
+}
+
+.week5-scroll-practice-center-zone span {
+  position: absolute;
+
+  right: 10px;
+  top: 7px;
+
+  color:
+    rgba(30, 64, 175, 0.68);
+
+  font-size: 10px;
+
+  font-weight: 1000;
+}
+
+
+/* Tall scene */
+
+.week5-scroll-practice-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1240px;
+
+  transition:
+    transform 0.1s linear;
+
+  will-change:
+    transform;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #dbeafe 0 190px,
+      #dcfce7 190px 390px,
+      #fef3c7 390px 590px,
+      #dcfce7 590px 790px
+    );
+}
+
+.week5-scroll-practice-animal {
+  position: absolute;
+
+  left: 50%;
+
+  width: 88px;
+  height: 88px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    4px solid #cbd5e1;
+
+  border-radius:
+    50%;
+
+  background: white;
+
+  font-size: 51px;
+
+  box-shadow:
+    0 6px 12px
+    rgba(15, 23, 42, 0.1);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.week5-scroll-practice-current {
+  border-color:
+    #60a5fa;
+}
+
+.week5-scroll-practice-found {
+  border-color:
+    #16a34a !important;
+
+  background:
+    #dcfce7 !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.18) !important;
+}
+
+
+/* Status */
+
+.week5-scroll-practice-status {
+  min-height: 25px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 16px;
+
+  font-weight: 1000;
+}
+
+
+/* Completion */
+
+.week5-scroll-practice-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-scroll-practice-celebration-show {
+  opacity: 1;
+}
+
+.week5-scroll-practice-celebration-card {
+  padding:
+    22px 28px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 5px;
+
+  border:
+    4px solid #86efac;
+
+  border-radius:
+    24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15, 23, 42, 0.24);
+
+  animation:
+    week5-scroll-practice-pop
+    0.42s ease-out;
+}
+
+.week5-scroll-practice-celebration-card div {
+  font-size: 50px;
+}
+
+.week5-scroll-practice-celebration-card strong {
+  font-size: 26px;
+
+  font-weight: 1000;
+}
+
+.week5-scroll-practice-celebration-card span {
+  color: #1e40af;
+
+  font-size: 17px;
+
+  font-weight: 900;
+}
+
+
+/* Teacher compact */
+
+body.teacher-session
+.week5-scroll-practice-viewport {
+  height: 290px;
+}
+
+body.teacher-session
+.week5-scroll-practice-layout {
+  margin-top: 4px;
+}
+
+
+@keyframes week5-scroll-practice-pop {
+  0% {
+    transform:
+      scale(0.7);
+  }
+
+  70% {
+    transform:
+      scale(1.08);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+/* ========================================
+   Week 5 Step 5 - Scroll Practice
+======================================== */
+
+.lesson-screen-week5-scroll-practice {
+  padding: 8px 20px 12px;
+  text-align: center;
+}
+
+.week5-scroll-practice-heading h1 {
+  margin: 2px 0;
+  font-size: clamp(30px, 4.1vh, 40px);
+}
+
+.week5-scroll-practice-heading p {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.week5-scroll-practice-layout {
+  width: min(930px, 96%);
+  margin: 9px auto 5px;
+
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 14px;
+
+  align-items: center;
+}
+
+.week5-scroll-practice-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.week5-scroll-practice-directions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-scroll-practice-directions span {
+  font-size: 40px;
+  line-height: 0.9;
+}
+
+
+/* Mouse guide */
+
+.week5-scroll-practice-guide-mouse {
+  position: relative;
+
+  width: 86px;
+  height: 118px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 44px 44px 34px 34px;
+
+  background: #e2e8f0;
+}
+
+.week5-scroll-practice-guide-left,
+.week5-scroll-practice-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 46px;
+
+  border-bottom: 4px solid #475569;
+
+  background: #cbd5e1;
+}
+
+.week5-scroll-practice-guide-left {
+  left: 0;
+  border-right: 2px solid #475569;
+}
+
+.week5-scroll-practice-guide-right {
+  right: 0;
+  border-left: 2px solid #475569;
+}
+
+.week5-scroll-practice-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 13px;
+
+  width: 18px;
+  height: 38px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  overflow: hidden;
+
+  border: 3px solid #1e40af;
+  border-radius: 11px;
+
+  background: #60a5fa;
+}
+
+.week5-scroll-practice-guide-wheel span {
+  width: 10px;
+  height: 2px;
+
+  border-radius: 4px;
+
+  background: white;
+}
+
+
+/* Top prompt */
+
+.week5-scroll-practice-topbar {
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-bottom: 5px;
+
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-scroll-practice-target {
+  min-width: 145px;
+
+  padding: 5px 13px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 3px solid #93c5fd;
+  border-radius: 999px;
+
+  background: white;
+
+  color: #1e40af;
+}
+
+.week5-scroll-practice-target span {
+  font-size: 26px;
+}
+
+.week5-scroll-practice-progress {
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+
+/* Scroll viewport */
+
+.week5-scroll-practice-viewport {
+  position: relative;
+
+  height: 340px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 22px;
+
+  background: #dbeafe;
+
+  box-shadow:
+    0 7px 16px
+    rgba(15, 23, 42, 0.12);
+
+  overscroll-behavior: contain;
+}
+
+.week5-scroll-practice-center-zone {
+  position: absolute;
+
+  left: 16px;
+  right: 16px;
+
+  top: 50%;
+
+  height: 105px;
+
+  transform: translateY(-50%);
+
+  z-index: 10;
+
+  pointer-events: none;
+
+  border:
+    4px dashed
+    rgba(37, 99, 235, 0.55);
+
+  border-radius: 20px;
+
+  background:
+    rgba(219, 234, 254, 0.16);
+}
+
+.week5-scroll-practice-center-zone span {
+  position: absolute;
+
+  right: 10px;
+  top: 7px;
+
+  color:
+    rgba(30, 64, 175, 0.68);
+
+  font-size: 10px;
+  font-weight: 1000;
+}
+
+
+/* Tall animal scene */
+
+.week5-scroll-practice-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1240px;
+
+  transition:
+    transform 0.1s linear;
+
+  will-change: transform;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #dbeafe 0 190px,
+      #dcfce7 190px 390px,
+      #fef3c7 390px 590px,
+      #dcfce7 590px 790px
+    );
+}
+
+.week5-scroll-practice-animal {
+  position: absolute;
+
+  left: 50%;
+
+  width: 88px;
+  height: 88px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #cbd5e1;
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 51px;
+
+  box-shadow:
+    0 6px 12px
+    rgba(15, 23, 42, 0.1);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.week5-scroll-practice-current {
+  border-color: #60a5fa;
+}
+
+.week5-scroll-practice-found {
+  border-color: #16a34a !important;
+  background: #dcfce7 !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.18) !important;
+}
+
+.week5-scroll-practice-status {
+  min-height: 25px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+
+/* Celebration */
+
+.week5-scroll-practice-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-scroll-practice-celebration-show {
+  opacity: 1;
+}
+
+.week5-scroll-practice-celebration-card {
+  padding: 22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 4px solid #86efac;
+  border-radius: 24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15, 23, 42, 0.24);
+}
+
+.week5-scroll-practice-celebration-card div {
+  font-size: 50px;
+}
+
+.week5-scroll-practice-celebration-card strong {
+  font-size: 26px;
+  font-weight: 1000;
+}
+
+.week5-scroll-practice-celebration-card span {
+  color: #1e40af;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+body.teacher-session
+.week5-scroll-practice-viewport {
+  height: 290px;
+}
+
+
+/* ========================================
+   Week 5 Step 6 - Stop at the Target
+======================================== */
+
+.lesson-screen-week5-stop-target {
+  padding: 8px 20px 12px;
+  text-align: center;
+}
+
+.week5-stop-target-heading h1 {
+  margin: 2px 0;
+  font-size: clamp(30px, 4.1vh, 40px);
+}
+
+.week5-stop-target-heading p {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.week5-stop-target-layout {
+  width: min(900px, 95%);
+  margin: 10px auto 5px;
+
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 15px;
+
+  align-items: center;
+}
+
+
+/* Mouse guide */
+
+.week5-stop-target-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.week5-stop-target-guide-direction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-stop-target-guide-direction span {
+  font-size: 38px;
+  line-height: 0.9;
+}
+
+.week5-stop-target-guide-mouse {
+  position: relative;
+
+  width: 86px;
+  height: 118px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 44px 44px 34px 34px;
+
+  background: #e2e8f0;
+}
+
+.week5-stop-target-guide-left,
+.week5-stop-target-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 46px;
+
+  border-bottom: 4px solid #475569;
+
+  background: #cbd5e1;
+}
+
+.week5-stop-target-guide-left {
+  left: 0;
+  border-right: 2px solid #475569;
+}
+
+.week5-stop-target-guide-right {
+  right: 0;
+  border-left: 2px solid #475569;
+}
+
+.week5-stop-target-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 13px;
+
+  width: 18px;
+  height: 38px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  border: 3px solid #1e40af;
+  border-radius: 11px;
+
+  background: #60a5fa;
+}
+
+.week5-stop-target-guide-wheel span {
+  width: 10px;
+  height: 2px;
+
+  border-radius: 3px;
+
+  background: white;
+}
+
+
+/* Elevator game */
+
+.week5-stop-target-area {
+  position: relative;
+
+  height: 350px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #e2e8f0,
+      #f8fafc
+    );
+
+  box-shadow:
+    0 7px 16px
+    rgba(15, 23, 42, 0.12);
+
+  overscroll-behavior: contain;
+}
+
+.week5-stop-target-shaft {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 220px;
+  height: 100%;
+
+  transform: translateX(-50%);
+
+  border-left: 6px solid #64748b;
+  border-right: 6px solid #64748b;
+
+  background: #cbd5e1;
+}
+
+
+/* Floor lines */
+
+.week5-stop-target-line {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  height: 3px;
+
+  background: #94a3b8;
+}
+
+.week5-stop-target-line span {
+  position: absolute;
+
+  left: -48px;
+  top: -16px;
+
+  width: 30px;
+  height: 30px;
+
+  line-height: 30px;
+
+  border-radius: 50%;
+
+  background: #475569;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-stop-target-line.floor-4 {
+  top: 75px;
+}
+
+.week5-stop-target-line.floor-3 {
+  top: 135px;
+}
+
+.week5-stop-target-line.floor-2 {
+  top: 195px;
+}
+
+.week5-stop-target-line.floor-1 {
+  top: 235px;
+}
+
+
+/* Moving target floor */
+
+.week5-stop-target-floor {
+  position: absolute;
+
+  left: -18px;
+
+  width: 256px;
+  height: 58px;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 12px;
+
+  box-sizing: border-box;
+
+  border: 4px dashed #f59e0b;
+  border-radius: 14px;
+
+  background:
+    rgba(254, 243, 199, 0.65);
+
+  color: #92400e;
+
+  font-size: 11px;
+
+  transition:
+    top 0.35s ease,
+    background 0.2s ease;
+}
+
+.week5-stop-target-floor-correct {
+  border-color: #16a34a;
+
+  background:
+    rgba(220, 252, 231, 0.85);
+
+  color: #166534;
+}
+
+
+/* Elevator */
+
+.week5-stop-target-elevator {
+  position: absolute;
+
+  left: 50%;
+
+  width: 94px;
+  height: 70px;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid #334155;
+  border-radius: 12px;
+
+  background: #60a5fa;
+
+  color: #1e3a8a;
+
+  font-size: 9px;
+  font-weight: 1000;
+
+  box-shadow:
+    0 5px 10px
+    rgba(15, 23, 42, 0.2);
+
+  transition:
+    top 0.1s linear,
+    background 0.2s ease;
+}
+
+.week5-stop-target-elevator-window {
+  font-size: 27px;
+  line-height: 1;
+}
+
+.week5-stop-target-correct {
+  border-color: #15803d;
+
+  background: #86efac;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.08);
+}
+
+.week5-stop-target-building {
+  position: absolute;
+
+  right: 5%;
+  bottom: 15px;
+
+  font-size: 72px;
+
+  opacity: 0.3;
+}
+
+
+/* Footer */
+
+.week5-stop-target-footer {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 5px;
+}
+
+.week5-stop-target-status {
+  min-width: 230px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+.week5-stop-target-progress {
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+
+  color: #0369a1;
+
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+
+/* Completion */
+
+.week5-stop-target-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-stop-target-celebration-show {
+  opacity: 1;
+}
+
+.week5-stop-target-celebration-card {
+  padding: 22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 4px solid #86efac;
+  border-radius: 24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15, 23, 42, 0.24);
+}
+
+.week5-stop-target-celebration-card div {
+  font-size: 50px;
+}
+
+.week5-stop-target-celebration-card strong {
+  font-size: 26px;
+  font-weight: 1000;
+}
+
+.week5-stop-target-celebration-card span {
+  color: #1e40af;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+body.teacher-session
+.week5-stop-target-area {
+  height: 300px;
+}
+
+
+/* ========================================
+   Week 5 Step 6 - elevator fit polish
+======================================== */
+
+/* Give the elevator shaft a little more room */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-shaft {
+  width: 250px !important;
+}
+
+
+/* Target floor stays neatly around the shaft */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor {
+  left: 10px !important;
+
+  width: 230px !important;
+  height: 54px !important;
+
+  padding-right: 10px !important;
+}
+
+
+/*
+ * Smaller elevator car so it clearly fits
+ * inside the shaft and target floor.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-elevator {
+  width: 78px !important;
+  height: 54px !important;
+
+  border-width: 4px !important;
+
+  border-radius: 10px !important;
+
+  box-sizing: border-box;
+}
+
+
+/* Smaller passenger window */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-elevator-window {
+  font-size: 21px !important;
+  line-height: 1 !important;
+}
+
+
+/* Keep label compact */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-elevator > strong {
+  margin-top: 1px;
+
+  font-size: 8px !important;
+  line-height: 1;
+}
+
+
+/*
+ * Keep successful stop from growing so large
+ * that it no longer fits the target.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-correct {
+  transform:
+    translate(-50%, -50%)
+    scale(1.03) !important;
+}
+
+
+/* ========================================
+   Week 5 Step 6 - clearer elevator target
+======================================== */
+
+/*
+ * Make the target zone stretch across nearly
+ * the full inside width of the elevator shaft.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor {
+  left: 6px !important;
+
+  width: calc(100% - 12px) !important;
+  height: 62px !important;
+
+  padding-right: 12px !important;
+
+  border-width: 4px !important;
+
+  box-sizing: border-box;
+
+  overflow: visible;
+}
+
+
+/*
+ * Add a strong center "STOP HERE" band.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor::before {
+  content: "STOP HERE";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: 118px;
+
+  padding:
+    5px 8px;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(245, 158, 11, 0.18);
+
+  color:
+    #92400e;
+
+  font-size:
+    11px;
+
+  font-weight:
+    1000;
+
+  letter-spacing:
+    0.5px;
+
+  text-align:
+    center;
+
+  pointer-events:
+    none;
+}
+
+
+/*
+ * Keep floor name off to the right so it
+ * doesn't compete with the STOP HERE message.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor > strong {
+  position: absolute;
+
+  right: 10px;
+  top: 7px;
+
+  font-size: 10px !important;
+}
+
+
+/*
+ * Add small side markers so the child can see
+ * the entire horizontal success area.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor::after {
+  content: "";
+
+  position: absolute;
+
+  left: -10px;
+  right: -10px;
+
+  top: 50%;
+
+  height: 4px;
+
+  transform:
+    translateY(-50%);
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #f59e0b 0 12px,
+      transparent 12px 20px
+    );
+
+  z-index: -1;
+}
+
+
+/*
+ * Successful target becomes obviously green.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor-correct {
+  border-color:
+    #16a34a !important;
+
+  background:
+    rgba(220, 252, 231, 0.92) !important;
+}
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor-correct::before {
+  content: "PERFECT STOP!";
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+}
+
+
+/*
+ * Elevator should clearly sit on top of target.
+ */
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-elevator {
+  z-index:
+    30 !important;
+}
+
+.lesson-screen-week5-stop-target
+.week5-stop-target-floor {
+  z-index:
+    10 !important;
+}
+
+
+/* ========================================
+   Week 5 Step 7 - Scroll & Click
+======================================== */
+
+.lesson-screen-week5-scroll-click {
+  padding: 8px 20px 12px;
+  text-align: center;
+}
+
+.week5-scroll-click-heading h1 {
+  margin: 2px 0;
+  font-size: clamp(30px, 4.1vh, 40px);
+}
+
+.week5-scroll-click-heading p {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+/* Prompt */
+
+.week5-scroll-click-topbar {
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin: 5px auto;
+
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-scroll-click-target {
+  min-width: 175px;
+
+  padding: 5px 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 3px solid #93c5fd;
+  border-radius: 999px;
+
+  background: white;
+
+  color: #1e40af;
+}
+
+.week5-scroll-click-target span {
+  font-size: 26px;
+}
+
+.week5-scroll-click-progress {
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+
+  color: #0369a1;
+}
+
+
+/* Layout */
+
+.week5-scroll-click-layout {
+  width: min(920px, 96%);
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  gap: 14px;
+
+  align-items: center;
+}
+
+
+/* Guide */
+
+.week5-scroll-click-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  color: #2563eb;
+
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.week5-scroll-click-up,
+.week5-scroll-click-down {
+  font-size: 35px;
+  line-height: 0.85;
+}
+
+.week5-scroll-click-guide-mouse {
+  position: relative;
+
+  width: 76px;
+  height: 104px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 40px 40px 31px 31px;
+
+  background: #e2e8f0;
+}
+
+.week5-scroll-click-guide-left,
+.week5-scroll-click-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 41px;
+
+  border-bottom: 4px solid #475569;
+
+  background: #cbd5e1;
+}
+
+.week5-scroll-click-guide-left {
+  left: 0;
+  border-right: 2px solid #475569;
+}
+
+.week5-scroll-click-guide-right {
+  right: 0;
+  border-left: 2px solid #475569;
+}
+
+.week5-scroll-click-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 11px;
+
+  width: 17px;
+  height: 34px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  border: 3px solid #1e40af;
+  border-radius: 10px;
+
+  background: #60a5fa;
+}
+
+.week5-scroll-click-guide-wheel span {
+  width: 9px;
+  height: 2px;
+
+  background: white;
+}
+
+.week5-scroll-click-plus {
+  color: #64748b;
+
+  font-size: 20px;
+  line-height: 1;
+}
+
+.week5-scroll-click-button {
+  padding: 6px 9px;
+
+  border: 3px solid #2563eb;
+  border-radius: 10px;
+
+  background: #dbeafe;
+
+  color: #1e40af;
+
+  font-size: 10px;
+}
+
+
+/* Scroll window */
+
+.week5-scroll-click-viewport {
+  position: relative;
+
+  height: 330px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  box-shadow:
+    0 7px 16px
+    rgba(15, 23, 42, 0.12);
+
+  overscroll-behavior: contain;
+}
+
+.week5-scroll-click-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1280px;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #dbeafe 0 200px,
+      #dcfce7 200px 400px,
+      #fef3c7 400px 600px,
+      #fce7f3 600px 800px
+    );
+
+  transition:
+    transform 0.1s linear;
+
+  will-change: transform;
+}
+
+
+/* Clickable objects */
+
+.week5-scroll-click-object {
+  position: absolute;
+
+  width: 90px;
+  height: 90px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #cbd5e1;
+  border-radius: 20px;
+
+  background: white;
+
+  font-size: 52px;
+
+  box-shadow:
+    0 6px 12px
+    rgba(15, 23, 42, 0.12);
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.week5-scroll-click-object:hover {
+  border-color: #60a5fa;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.06);
+}
+
+.week5-scroll-click-correct {
+  border-color:
+    #16a34a !important;
+
+  background:
+    #dcfce7 !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.15) !important;
+}
+
+.week5-scroll-click-wrong {
+  border-color:
+    #ef4444 !important;
+
+  background:
+    #fee2e2 !important;
+}
+
+
+/* Status */
+
+.week5-scroll-click-status {
+  min-height: 24px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+
+/* Celebration */
+
+.week5-scroll-click-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-scroll-click-celebration-show {
+  opacity: 1;
+}
+
+.week5-scroll-click-celebration-card {
+  padding: 22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 4px solid #86efac;
+  border-radius: 24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15, 23, 42, 0.24);
+}
+
+.week5-scroll-click-celebration-card div {
+  font-size: 50px;
+}
+
+.week5-scroll-click-celebration-card strong {
+  font-size: 26px;
+  font-weight: 1000;
+}
+
+.week5-scroll-click-celebration-card span {
+  color: #1e40af;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+body.teacher-session
+.week5-scroll-click-viewport {
+  height: 285px;
+}
+
+
+/* ========================================
+   Week 5 Step 8 - Scroll, Find & Drag
+======================================== */
+
+.lesson-screen-week5-scroll-drag {
+  padding: 8px 20px 12px;
+  text-align: center;
+}
+
+.week5-scroll-drag-heading h1 {
+  margin: 2px 0;
+  font-size: clamp(30px, 4.1vh, 40px);
+}
+
+.week5-scroll-drag-heading p {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.week5-scroll-drag-topbar {
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin: 5px auto;
+
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week5-scroll-drag-target {
+  min-width: 165px;
+
+  padding: 5px 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 3px solid #93c5fd;
+  border-radius: 999px;
+
+  background: white;
+
+  color: #1e40af;
+}
+
+.week5-scroll-drag-target span {
+  font-size: 26px;
+}
+
+.week5-scroll-drag-progress {
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+
+  color: #0369a1;
+}
+
+
+/* Layout */
+
+.week5-scroll-drag-layout {
+  width: min(920px, 96%);
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  gap: 14px;
+
+  align-items: center;
+}
+
+
+/* Guide */
+
+.week5-scroll-drag-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  color: #2563eb;
+
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.week5-scroll-drag-guide > span {
+  font-size: 34px;
+  line-height: 0.85;
+}
+
+.week5-scroll-drag-guide-mouse {
+  position: relative;
+
+  width: 76px;
+  height: 104px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 40px 40px 31px 31px;
+
+  background: #e2e8f0;
+}
+
+.week5-scroll-drag-guide-left,
+.week5-scroll-drag-guide-right {
+  position: absolute;
+
+  top: 0;
+
+  width: 50%;
+  height: 41px;
+
+  border-bottom: 4px solid #475569;
+
+  background: #cbd5e1;
+}
+
+.week5-scroll-drag-guide-left {
+  left: 0;
+  border-right: 2px solid #475569;
+}
+
+.week5-scroll-drag-guide-right {
+  right: 0;
+  border-left: 2px solid #475569;
+}
+
+.week5-scroll-drag-guide-wheel {
+  position: absolute;
+
+  left: 50%;
+  top: 11px;
+
+  width: 17px;
+  height: 34px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  border: 3px solid #1e40af;
+  border-radius: 10px;
+
+  background: #60a5fa;
+}
+
+.week5-scroll-drag-guide-wheel span {
+  width: 9px;
+  height: 2px;
+
+  background: white;
+}
+
+.week5-scroll-drag-plus {
+  color: #64748b;
+  font-size: 20px;
+}
+
+.week5-scroll-drag-button {
+  padding: 6px 9px;
+
+  border: 3px solid #2563eb;
+  border-radius: 10px;
+
+  background: #dbeafe;
+
+  color: #1e40af;
+
+  font-size: 10px;
+}
+
+
+/* Viewport */
+
+.week5-scroll-drag-viewport {
+  position: relative;
+
+  height: 330px;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  box-shadow:
+    0 7px 16px
+    rgba(15, 23, 42, 0.12);
+
+  overscroll-behavior: contain;
+}
+
+
+/* Destination stays visible while scene scrolls */
+
+.week5-scroll-drag-destination {
+  position: absolute;
+
+  right: 18px;
+  top: 50%;
+
+  z-index: 80;
+
+  width: 125px;
+  height: 105px;
+
+  transform:
+    translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  border: 4px dashed #2563eb;
+  border-radius: 18px;
+
+  background:
+    rgba(219, 234, 254, 0.93);
+
+  color: #1e40af;
+
+  font-size: 11px;
+  font-weight: 1000;
+
+  pointer-events: none;
+}
+
+.week5-scroll-drag-destination span {
+  font-size: 44px;
+}
+
+.week5-scroll-drag-destination-correct {
+  border-color: #16a34a;
+
+  background:
+    rgba(220, 252, 231, 0.96);
+
+  color: #166534;
+}
+
+
+/* Tall scene */
+
+.week5-scroll-drag-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1240px;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #dbeafe 0 200px,
+      #dcfce7 200px 400px,
+      #fef3c7 400px 600px,
+      #fce7f3 600px 800px
+    );
+
+  transition:
+    transform 0.1s linear;
+
+  will-change: transform;
+}
+
+.week5-scroll-drag-object {
+  position: absolute;
+
+  width: 88px;
+  height: 88px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid #cbd5e1;
+  border-radius: 20px;
+
+  background: white;
+
+  font-size: 50px;
+
+  box-shadow:
+    0 6px 12px
+    rgba(15, 23, 42, 0.12);
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  cursor: grab;
+
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.week5-scroll-drag-held {
+  border-color: #2563eb !important;
+
+  background: #dbeafe !important;
+
+  cursor: grabbing;
+
+  transform:
+    scale(1.08);
+}
+
+.week5-scroll-drag-wrong {
+  border-color: #ef4444 !important;
+
+  background: #fee2e2 !important;
+}
+
+.week5-scroll-drag-correct {
+  border-color: #16a34a !important;
+
+  background: #dcfce7 !important;
+}
+
+
+/* Status */
+
+.week5-scroll-drag-status {
+  min-height: 24px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+
+/* Celebration */
+
+.week5-scroll-drag-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15, 23, 42, 0.18);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week5-scroll-drag-celebration-show {
+  opacity: 1;
+}
+
+.week5-scroll-drag-celebration-card {
+  padding: 22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 4px solid #86efac;
+  border-radius: 24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15, 23, 42, 0.24);
+}
+
+.week5-scroll-drag-celebration-card div {
+  font-size: 50px;
+}
+
+.week5-scroll-drag-celebration-card strong {
+  font-size: 26px;
+  font-weight: 1000;
+}
+
+.week5-scroll-drag-celebration-card span {
+  color: #1e40af;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+body.teacher-session
+.week5-scroll-drag-viewport {
+  height: 285px;
+}
+
+
+/* ========================================
+   Week 5 Step 8 - drag target polish
+======================================== */
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-destination {
+  width: 145px !important;
+  height: 115px !important;
+
+  gap: 5px !important;
+}
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-destination-item {
+  font-size: 48px;
+
+  line-height: 1;
+
+  opacity: 0.7;
+}
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-destination strong {
+  max-width: 120px;
+
+  font-size: 10px !important;
+  line-height: 1.15;
+
+  text-align: center;
+}
+
+
+/*
+ * While held, don't apply the old translate transform.
+ * JS now positions the object directly beneath the cursor.
+ */
+
+.lesson-screen-week5-scroll-drag
+.week5-scroll-drag-object.week5-scroll-drag-held {
+  transform: none !important;
+
+  pointer-events: none;
+
+  box-shadow:
+    0 10px 22px
+    rgba(15, 23, 42, 0.25);
+}
+
+
+/* ========================================
+   Week 5 Step 8 - true cursor-follow drag
+======================================== */
+
+.week5-scroll-drag-floating {
+  position: fixed !important;
+
+  transform: none !important;
+
+  pointer-events: none !important;
+
+  z-index: 9999 !important;
+
+  transition: none !important;
+}
+

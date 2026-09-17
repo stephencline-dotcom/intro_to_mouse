@@ -1,4 +1,102 @@
 (() => {
+
+  /*
+   * ========================================================
+   * GLOBAL LESSON SOUND MANAGER
+   * ========================================================
+   *
+   * Every Audio object that starts playing while this
+   * controller is active is automatically tracked.
+   *
+   * Changing lesson steps calls stopAllLessonSounds(),
+   * which immediately pauses and resets every sound.
+   *
+   * This prevents sounds/loops from old slides continuing
+   * after the teacher moves forward or backward.
+   */
+
+  const activeLessonSounds =
+    new Set();
+
+  const originalMediaPlay =
+    HTMLMediaElement.prototype.play;
+
+  const originalMediaPause =
+    HTMLMediaElement.prototype.pause;
+
+  HTMLMediaElement.prototype.play =
+    function(...args) {
+      activeLessonSounds.add(this);
+
+      const result =
+        originalMediaPlay.apply(
+          this,
+          args
+        );
+
+      const removeWhenFinished =
+        () => {
+          activeLessonSounds.delete(this);
+
+          this.removeEventListener(
+            "ended",
+            removeWhenFinished
+          );
+        };
+
+      this.addEventListener(
+        "ended",
+        removeWhenFinished
+      );
+
+      return result;
+    };
+
+  function stopAllLessonSounds() {
+    activeLessonSounds.forEach(
+      sound => {
+        try {
+          sound.loop = false;
+
+          originalMediaPause.call(
+            sound
+          );
+
+          sound.currentTime = 0;
+        } catch (error) {
+          // Ignore cleanup errors.
+        }
+      }
+    );
+
+    activeLessonSounds.clear();
+
+    /*
+     * Stop every media element currently attached
+     * to the page as a second safety net.
+     */
+    document
+      .querySelectorAll(
+        "audio, video"
+      )
+      .forEach((media) => {
+        try {
+          media.loop = false;
+
+          originalMediaPause.call(
+            media
+          );
+
+          media.currentTime = 0;
+        } catch (error) {
+          // Ignore cleanup errors.
+        }
+      });
+  }
+
+  window.HandsOnMouseStopLessonSounds =
+    stopAllLessonSounds;
+
   const teacherSession = window.HandsOnMouseTeacherSession;
   const isTeacher =
     teacherSession && teacherSession.isTeacherSession();
@@ -7641,6 +7739,7 @@
 
 
   let week5ReviewTimers = [];
+  let week5ReviewActiveSounds = [];
 
   function stopWeek5QuickReviewAnimation() {
     week5ReviewTimers.forEach(
@@ -7648,6 +7747,15 @@
     );
 
     week5ReviewTimers = [];
+
+    week5ReviewActiveSounds.forEach(
+      sound => {
+        sound.pause();
+        sound.currentTime = 0;
+      }
+    );
+
+    week5ReviewActiveSounds = [];
 
     if (
       typeof window.week5StopReviewSounds ===
@@ -7658,13 +7766,3052 @@
     }
   }
 
+  let week5MeetWheelTimers = [];
+  let week5MeetWheelSound = null;
+
+  function stopWeek5MeetWheelAnimation() {
+    week5MeetWheelTimers.forEach(
+      timer => clearTimeout(timer)
+    );
+
+    week5MeetWheelTimers = [];
+
+    if (week5MeetWheelSound) {
+      week5MeetWheelSound.pause();
+      week5MeetWheelSound.currentTime = 0;
+      week5MeetWheelSound = null;
+    }
+  }
+
+  let removeWeek5ScrollDownWheelListener = null;
+  let week5ScrollDownSound = null;
+  let week5ScrollDownSoundTimer = null;
+  let week5ScrollDownActiveSounds = [];
+
+  function stopAllWeek5ScrollDownSounds() {
+    week5ScrollDownActiveSounds.forEach(
+      sound => {
+        sound.pause();
+        sound.currentTime = 0;
+      }
+    );
+
+    week5ScrollDownActiveSounds = [];
+
+    if (week5ScrollDownSound) {
+      week5ScrollDownSound.pause();
+      week5ScrollDownSound.currentTime = 0;
+      week5ScrollDownSound = null;
+    }
+  }
+
+  function stopWeek5ScrollDownBehavior() {
+    removeWeek5ScrollDownWheelListener?.();
+    removeWeek5ScrollDownWheelListener = null;
+
+    if (week5ScrollDownSoundTimer) {
+      clearTimeout(
+        week5ScrollDownSoundTimer
+      );
+
+      week5ScrollDownSoundTimer = null;
+    }
+
+    stopAllWeek5ScrollDownSounds();
+  }
+
+  let removeWeek5ScrollUpWheelListener = null;
+  let week5ScrollUpSound = null;
+  let week5ScrollUpSoundTimer = null;
+  let week5ScrollUpActiveSounds = [];
+
+  function stopAllWeek5ScrollUpSounds() {
+    week5ScrollUpActiveSounds.forEach(
+      sound => {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.loop = false;
+      }
+    );
+
+    week5ScrollUpActiveSounds = [];
+
+    if (week5ScrollUpSound) {
+      week5ScrollUpSound.pause();
+      week5ScrollUpSound.currentTime = 0;
+      week5ScrollUpSound.loop = false;
+      week5ScrollUpSound = null;
+    }
+  }
+
+  function stopWeek5ScrollUpBehavior() {
+    removeWeek5ScrollUpWheelListener?.();
+    removeWeek5ScrollUpWheelListener = null;
+
+    if (week5ScrollUpSoundTimer) {
+      clearTimeout(
+        week5ScrollUpSoundTimer
+      );
+
+      week5ScrollUpSoundTimer = null;
+    }
+
+    stopAllWeek5ScrollUpSounds();
+  }
+
+  let removeWeek5ScrollPracticeWheelListener = null;
+  let week5ScrollPracticeSound = null;
+  let week5ScrollPracticeSoundTimer = null;
+  let week5ScrollPracticeRoundTimer = null;
+  let week5ScrollPracticeTargetStopTimer = null;
+
+  function stopWeek5ScrollPracticeBehavior() {
+    removeWeek5ScrollPracticeWheelListener?.();
+    removeWeek5ScrollPracticeWheelListener = null;
+
+    if (week5ScrollPracticeSoundTimer) {
+      clearTimeout(
+        week5ScrollPracticeSoundTimer
+      );
+
+      week5ScrollPracticeSoundTimer = null;
+    }
+
+    if (week5ScrollPracticeRoundTimer) {
+      clearTimeout(
+        week5ScrollPracticeRoundTimer
+      );
+
+      week5ScrollPracticeRoundTimer = null;
+    }
+
+    if (week5ScrollPracticeTargetStopTimer) {
+      clearTimeout(
+        week5ScrollPracticeTargetStopTimer
+      );
+
+      week5ScrollPracticeTargetStopTimer = null;
+    }
+
+    if (week5ScrollPracticeSound) {
+      week5ScrollPracticeSound.pause();
+      week5ScrollPracticeSound.currentTime = 0;
+      week5ScrollPracticeSound.loop = false;
+      week5ScrollPracticeSound = null;
+    }
+  }
+
+  let removeWeek5StopTargetWheelListener = null;
+  let week5StopTargetSound = null;
+  let week5StopTargetSoundTimer = null;
+  let week5StopTargetCheckTimer = null;
+  let week5StopTargetRoundTimer = null;
+
+  function stopWeek5StopTargetBehavior() {
+    removeWeek5StopTargetWheelListener?.();
+    removeWeek5StopTargetWheelListener = null;
+
+    [
+      "week5StopTargetSoundTimer",
+      "week5StopTargetCheckTimer",
+      "week5StopTargetRoundTimer"
+    ].forEach(() => {});
+
+    if (week5StopTargetSoundTimer) {
+      clearTimeout(
+        week5StopTargetSoundTimer
+      );
+      week5StopTargetSoundTimer = null;
+    }
+
+    if (week5StopTargetCheckTimer) {
+      clearTimeout(
+        week5StopTargetCheckTimer
+      );
+      week5StopTargetCheckTimer = null;
+    }
+
+    if (week5StopTargetRoundTimer) {
+      clearTimeout(
+        week5StopTargetRoundTimer
+      );
+      week5StopTargetRoundTimer = null;
+    }
+
+    if (week5StopTargetSound) {
+      week5StopTargetSound.pause();
+      week5StopTargetSound.currentTime = 0;
+      week5StopTargetSound.loop = false;
+      week5StopTargetSound = null;
+    }
+  }
+
+  let removeWeek5ScrollClickWheelListener = null;
+  let removeWeek5ScrollClickClickListener = null;
+  let week5ScrollClickSound = null;
+  let week5ScrollClickSoundTimer = null;
+  let week5ScrollClickRoundTimer = null;
+  let week5ScrollClickActiveSounds = [];
+
+  function stopWeek5ScrollClickBehavior() {
+    removeWeek5ScrollClickWheelListener?.();
+    removeWeek5ScrollClickWheelListener = null;
+
+    removeWeek5ScrollClickClickListener?.();
+    removeWeek5ScrollClickClickListener = null;
+
+    if (week5ScrollClickSoundTimer) {
+      clearTimeout(
+        week5ScrollClickSoundTimer
+      );
+
+      week5ScrollClickSoundTimer = null;
+    }
+
+    if (week5ScrollClickRoundTimer) {
+      clearTimeout(
+        week5ScrollClickRoundTimer
+      );
+
+      week5ScrollClickRoundTimer = null;
+    }
+
+    week5ScrollClickActiveSounds.forEach(
+      sound => {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.loop = false;
+      }
+    );
+
+    week5ScrollClickActiveSounds = [];
+
+    if (week5ScrollClickSound) {
+      week5ScrollClickSound.pause();
+      week5ScrollClickSound.currentTime = 0;
+      week5ScrollClickSound.loop = false;
+      week5ScrollClickSound = null;
+    }
+  }
+
+  let removeWeek5ScrollDragWheelListener = null;
+  let removeWeek5ScrollDragDownListener = null;
+  let removeWeek5ScrollDragMoveListener = null;
+  let removeWeek5ScrollDragUpListener = null;
+
+  let week5ScrollDragSound = null;
+  let week5ScrollDragSoundTimer = null;
+  let week5ScrollDragRoundTimer = null;
+  let week5ScrollDragActiveSounds = [];
+
+  function stopWeek5ScrollDragBehavior() {
+    removeWeek5ScrollDragWheelListener?.();
+    removeWeek5ScrollDragWheelListener = null;
+
+    removeWeek5ScrollDragDownListener?.();
+    removeWeek5ScrollDragDownListener = null;
+
+    removeWeek5ScrollDragMoveListener?.();
+    removeWeek5ScrollDragMoveListener = null;
+
+    removeWeek5ScrollDragUpListener?.();
+    removeWeek5ScrollDragUpListener = null;
+
+    if (week5ScrollDragSoundTimer) {
+      clearTimeout(
+        week5ScrollDragSoundTimer
+      );
+
+      week5ScrollDragSoundTimer = null;
+    }
+
+    if (week5ScrollDragRoundTimer) {
+      clearTimeout(
+        week5ScrollDragRoundTimer
+      );
+
+      week5ScrollDragRoundTimer = null;
+    }
+
+    week5ScrollDragActiveSounds.forEach(
+      sound => {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.loop = false;
+      }
+    );
+
+    week5ScrollDragActiveSounds = [];
+
+    if (week5ScrollDragSound) {
+      week5ScrollDragSound.pause();
+      week5ScrollDragSound.currentTime = 0;
+      week5ScrollDragSound.loop = false;
+      week5ScrollDragSound = null;
+    }
+  }
+
+  function startWeek5ScrollDragBehavior() {
+    stopWeek5ScrollDragBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week5ScrollDragViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week5ScrollDragScene"
+      );
+
+    const destination =
+      document.getElementById(
+        "week5ScrollDragDestination"
+      );
+
+    const targetDisplay =
+      document.getElementById(
+        "week5ScrollDragTarget"
+      );
+
+    const status =
+      document.getElementById(
+        "week5ScrollDragStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week5ScrollDragProgress"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !destination ||
+      !targetDisplay ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const objects =
+      Array.from(
+        scene.querySelectorAll(
+          "[data-scroll-drag-object]"
+        )
+      );
+
+    const rounds = [
+      {
+        id: "present",
+        emoji: "🎁",
+        name: "PRESENT",
+        destination: "🎂"
+      },
+      {
+        id: "book",
+        emoji: "📘",
+        name: "BOOK",
+        destination: "📚"
+      },
+      {
+        id: "ball",
+        emoji: "⚽",
+        name: "BALL",
+        destination: "🥅"
+      },
+      {
+        id: "flower",
+        emoji: "🌼",
+        name: "FLOWER",
+        destination: "🏺"
+      }
+    ];
+
+    const MAX_SCROLL = 900;
+
+    let scrollPosition = 350;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+    let activeObject = null;
+    let dragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    let dragOriginalParent = null;
+    let dragOriginalNextSibling = null;
+
+    function stopScrollSound() {
+      if (week5ScrollDragSoundTimer) {
+        clearTimeout(
+          week5ScrollDragSoundTimer
+        );
+
+        week5ScrollDragSoundTimer = null;
+      }
+
+      if (week5ScrollDragSound) {
+        week5ScrollDragSound.pause();
+        week5ScrollDragSound.currentTime = 0;
+        week5ScrollDragSound.loop = false;
+        week5ScrollDragSound = null;
+      }
+    }
+
+    function playSound(
+      src,
+      volume = 0.5
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(src);
+
+      sound.volume = volume;
+      sound.currentTime = 0;
+
+      week5ScrollDragActiveSounds.push(
+        sound
+      );
+
+      sound
+        .play()
+        .catch(() => {});
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          week5ScrollDragActiveSounds =
+            week5ScrollDragActiveSounds.filter(
+              item => item !== sound
+            );
+        },
+        { once: true }
+      );
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week5ScrollDragSound) {
+        week5ScrollDragSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week5ScrollDragSound.volume = 0.42;
+        week5ScrollDragSound.loop = true;
+
+        week5ScrollDragActiveSounds.push(
+          week5ScrollDragSound
+        );
+
+        week5ScrollDragSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week5ScrollDragSoundTimer) {
+        clearTimeout(
+          week5ScrollDragSoundTimer
+        );
+      }
+
+      week5ScrollDragSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+    }
+
+    function clearObjectStates() {
+      objects.forEach((object) => {
+        object.classList.remove(
+          "week5-scroll-drag-held",
+          "week5-scroll-drag-correct",
+          "week5-scroll-drag-wrong"
+        );
+      });
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+      dragging = false;
+      activeObject = null;
+
+      clearObjectStates();
+
+      const round =
+        rounds[roundIndex];
+
+      targetDisplay.innerHTML = `
+        <span>${round.emoji}</span>
+        <strong>${round.name}</strong>
+      `;
+
+      destination.innerHTML = `
+        <span class="week5-scroll-drag-destination-item">
+          ${round.emoji}
+        </span>
+
+        <strong>
+          PUT ${round.name} HERE
+        </strong>
+      `;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Find the ${round.name}, then drag it to the box.`;
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+      dragging = false;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Great job!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week5-scroll-drag-celebration";
+
+      celebration.innerHTML = `
+        <div class="week5-scroll-drag-celebration-card">
+          <div>⭐</div>
+          <strong>GREAT JOB!</strong>
+          <span>You scrolled, found, and dragged!</span>
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week5-scroll-drag-celebration-show"
+        );
+      });
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.6
+      );
+    }
+
+    function completeRound(object) {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+      dragging = false;
+
+      object.classList.remove(
+        "week5-scroll-drag-held"
+      );
+
+      object.classList.add(
+        "week5-scroll-drag-correct"
+      );
+
+      destination.classList.add(
+        "week5-scroll-drag-destination-correct"
+      );
+
+      status.textContent =
+        "Great drop!";
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      week5ScrollDragRoundTimer =
+        setTimeout(() => {
+          if (!viewport.isConnected) {
+            return;
+          }
+
+          destination.classList.remove(
+            "week5-scroll-drag-destination-correct"
+          );
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 900);
+    }
+
+    function pointInsideDestination(
+      x,
+      y
+    ) {
+      const rect =
+        destination.getBoundingClientRect();
+
+      return (
+        x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom
+      );
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished ||
+          dragging
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          viewport.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              22
+            ),
+            65
+          );
+
+        if (event.deltaY > 0) {
+          scrollPosition =
+            Math.min(
+              scrollPosition + amount,
+              MAX_SCROLL
+            );
+        } else {
+          scrollPosition =
+            Math.max(
+              scrollPosition - amount,
+              0
+            );
+        }
+
+        status.textContent =
+          "Scroll until you find it.";
+
+        updateScene();
+      };
+
+    const downHandler =
+      event => {
+        if (
+          locked ||
+          finished ||
+          event.button !== 0
+        ) {
+          return;
+        }
+
+        const object =
+          event.target.closest(
+            "[data-scroll-drag-object]"
+          );
+
+        if (!object) {
+          return;
+        }
+
+        const round =
+          rounds[roundIndex];
+
+        if (
+          object.dataset.scrollDragObject !==
+          round.id
+        ) {
+          object.classList.add(
+            "week5-scroll-drag-wrong"
+          );
+
+          status.textContent =
+            `Find the ${round.name}.`;
+
+          setTimeout(() => {
+            if (object.isConnected) {
+              object.classList.remove(
+                "week5-scroll-drag-wrong"
+              );
+            }
+          }, 300);
+
+          return;
+        }
+
+        event.preventDefault();
+
+        activeObject = object;
+        dragging = true;
+
+        const rect =
+          object.getBoundingClientRect();
+
+        offsetX =
+          event.clientX - rect.left;
+
+        offsetY =
+          event.clientY - rect.top;
+
+        /*
+         * IMPORTANT:
+         * The scrolling scene uses transform: translateY().
+         * Fixed-position children of transformed elements
+         * use that transformed element as their coordinate
+         * system, which causes the jump.
+         *
+         * Temporarily move the actual object to document.body
+         * so fixed positioning uses true screen coordinates.
+         */
+        dragOriginalParent =
+          object.parentNode;
+
+        dragOriginalNextSibling =
+          object.nextSibling;
+
+        object.style.width =
+          `${rect.width}px`;
+
+        object.style.height =
+          `${rect.height}px`;
+
+        object.style.position =
+          "fixed";
+
+        object.style.left =
+          `${rect.left}px`;
+
+        object.style.top =
+          `${rect.top}px`;
+
+        object.style.margin =
+          "0";
+
+        object.style.transform =
+          "none";
+
+        object.style.zIndex =
+          "9999";
+
+        object.classList.add(
+          "week5-scroll-drag-held",
+          "week5-scroll-drag-floating"
+        );
+
+        document.body.appendChild(
+          object
+        );
+
+        playSound(
+          "/sounds/mouseclick.mp3",
+          0.45
+        );
+
+        status.textContent =
+          "Keep holding and drag it!";
+      };
+
+    const moveHandler =
+      event => {
+        if (
+          !dragging ||
+          !activeObject
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        activeObject.style.left =
+          `${event.clientX - offsetX}px`;
+
+        activeObject.style.top =
+          `${event.clientY - offsetY}px`;
+      };
+
+    const upHandler =
+      event => {
+        if (
+          !dragging ||
+          !activeObject ||
+          event.button !== 0
+        ) {
+          return;
+        }
+
+        const object =
+          activeObject;
+
+        dragging = false;
+        activeObject = null;
+
+        object.classList.remove(
+          "week5-scroll-drag-held"
+        );
+
+        if (
+          pointInsideDestination(
+            event.clientX,
+            event.clientY
+          )
+        ) {
+          object.classList.remove(
+            "week5-scroll-drag-floating"
+          );
+
+          /*
+           * This target is finished for good,
+           * so remove the floating copy entirely.
+           */
+          object.remove();
+
+          dragOriginalParent = null;
+          dragOriginalNextSibling = null;
+
+          completeRound(object);
+          return;
+        }
+
+        object.classList.add(
+          "week5-scroll-drag-wrong"
+        );
+
+        object.classList.remove(
+          "week5-scroll-drag-floating"
+        );
+
+        /*
+         * Put the object back into its original place
+         * in the scrolling scene.
+         */
+        if (dragOriginalParent) {
+          if (
+            dragOriginalNextSibling &&
+            dragOriginalNextSibling.parentNode ===
+              dragOriginalParent
+          ) {
+            dragOriginalParent.insertBefore(
+              object,
+              dragOriginalNextSibling
+            );
+          } else {
+            dragOriginalParent.appendChild(
+              object
+            );
+          }
+        }
+
+        object.style.position = "";
+        object.style.left = "";
+        object.style.top = "";
+        object.style.width = "";
+        object.style.height = "";
+        object.style.margin = "";
+        object.style.transform = "";
+        object.style.zIndex = "";
+
+        dragOriginalParent = null;
+        dragOriginalNextSibling = null;
+
+        status.textContent =
+          "Try the drop again.";
+
+        setTimeout(() => {
+          if (object.isConnected) {
+            object.classList.remove(
+              "week5-scroll-drag-wrong"
+            );
+          }
+        }, 350);
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    viewport.addEventListener(
+      "mousedown",
+      downHandler
+    );
+
+    window.addEventListener(
+      "mousemove",
+      moveHandler,
+      true
+    );
+
+    window.addEventListener(
+      "mouseup",
+      upHandler,
+      true
+    );
+
+    removeWeek5ScrollDragWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+      };
+
+    removeWeek5ScrollDragDownListener =
+      () => {
+        viewport.removeEventListener(
+          "mousedown",
+          downHandler
+        );
+      };
+
+    removeWeek5ScrollDragMoveListener =
+      () => {
+        window.removeEventListener(
+          "mousemove",
+          moveHandler,
+          true
+        );
+      };
+
+    removeWeek5ScrollDragUpListener =
+      () => {
+        window.removeEventListener(
+          "mouseup",
+          upHandler,
+          true
+        );
+      };
+
+    updateScene();
+    loadRound();
+  }
+
+  function startWeek5ScrollClickBehavior() {
+    stopWeek5ScrollClickBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week5ScrollClickViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week5ScrollClickScene"
+      );
+
+    const targetDisplay =
+      document.getElementById(
+        "week5ScrollClickTarget"
+      );
+
+    const progress =
+      document.getElementById(
+        "week5ScrollClickProgress"
+      );
+
+    const status =
+      document.getElementById(
+        "week5ScrollClickStatus"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !targetDisplay ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const objects =
+      Array.from(
+        scene.querySelectorAll(
+          "[data-scroll-click-object]"
+        )
+      );
+
+    const rounds = [
+      {
+        id: "balloon",
+        emoji: "🎈",
+        name: "RED BALLOON"
+      },
+      {
+        id: "star",
+        emoji: "⭐",
+        name: "STAR"
+      },
+      {
+        id: "apple",
+        emoji: "🍎",
+        name: "APPLE"
+      },
+      {
+        id: "rocket",
+        emoji: "🚀",
+        name: "ROCKET"
+      }
+    ];
+
+    const MAX_SCROLL = 900;
+
+    let scrollPosition = 360;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+    function stopScrollSound() {
+      if (week5ScrollClickSoundTimer) {
+        clearTimeout(
+          week5ScrollClickSoundTimer
+        );
+
+        week5ScrollClickSoundTimer = null;
+      }
+
+      if (week5ScrollClickSound) {
+        week5ScrollClickSound.pause();
+        week5ScrollClickSound.currentTime = 0;
+        week5ScrollClickSound.loop = false;
+        week5ScrollClickSound = null;
+      }
+    }
+
+    function playSound(
+      src,
+      volume = 0.5
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(src);
+
+      sound.volume = volume;
+      sound.currentTime = 0;
+
+      week5ScrollClickActiveSounds.push(
+        sound
+      );
+
+      sound
+        .play()
+        .catch(() => {});
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          week5ScrollClickActiveSounds =
+            week5ScrollClickActiveSounds.filter(
+              item => item !== sound
+            );
+        },
+        { once: true }
+      );
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week5ScrollClickSound) {
+        week5ScrollClickSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week5ScrollClickSound.volume = 0.42;
+        week5ScrollClickSound.loop = true;
+
+        week5ScrollClickActiveSounds.push(
+          week5ScrollClickSound
+        );
+
+        week5ScrollClickSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week5ScrollClickSoundTimer) {
+        clearTimeout(
+          week5ScrollClickSoundTimer
+        );
+      }
+
+      week5ScrollClickSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+
+      const round =
+        rounds[roundIndex];
+
+      targetDisplay.innerHTML = `
+        <span>${round.emoji}</span>
+        <strong>${round.name}</strong>
+      `;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Find and CLICK the ${round.name}.`;
+
+      objects.forEach((object) => {
+        object.classList.remove(
+          "week5-scroll-click-correct",
+          "week5-scroll-click-wrong"
+        );
+      });
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Great job!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week5-scroll-click-celebration";
+
+      celebration.innerHTML = `
+        <div class="week5-scroll-click-celebration-card">
+          <div>⭐</div>
+          <strong>GREAT JOB!</strong>
+          <span>You scrolled and clicked!</span>
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week5-scroll-click-celebration-show"
+        );
+      });
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.6
+      );
+    }
+
+    function completeRound(object) {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+
+      stopScrollSound();
+
+      object.classList.add(
+        "week5-scroll-click-correct"
+      );
+
+      status.textContent =
+        "You found it!";
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      week5ScrollClickRoundTimer =
+        setTimeout(() => {
+          if (!viewport.isConnected) {
+            return;
+          }
+
+          object.classList.remove(
+            "week5-scroll-click-correct"
+          );
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 850);
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          viewport.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              22
+            ),
+            65
+          );
+
+        if (event.deltaY > 0) {
+          scrollPosition =
+            Math.min(
+              scrollPosition + amount,
+              MAX_SCROLL
+            );
+
+          status.textContent =
+            "Scroll, look, then click!";
+        } else {
+          scrollPosition =
+            Math.max(
+              scrollPosition - amount,
+              0
+            );
+
+          status.textContent =
+            "Scroll, look, then click!";
+        }
+
+        updateScene();
+      };
+
+    const clickHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          return;
+        }
+
+        const object =
+          event.target.closest(
+            "[data-scroll-click-object]"
+          );
+
+        if (!object) {
+          return;
+        }
+
+        playSound(
+          "/sounds/mouseclick.mp3",
+          0.45
+        );
+
+        const round =
+          rounds[roundIndex];
+
+        if (
+          object.dataset.scrollClickObject ===
+          round.id
+        ) {
+          completeRound(object);
+          return;
+        }
+
+        object.classList.add(
+          "week5-scroll-click-wrong"
+        );
+
+        status.textContent =
+          "Try another one.";
+
+        setTimeout(() => {
+          if (object.isConnected) {
+            object.classList.remove(
+              "week5-scroll-click-wrong"
+            );
+          }
+        }, 350);
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    viewport.addEventListener(
+      "click",
+      clickHandler
+    );
+
+    removeWeek5ScrollClickWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+      };
+
+    removeWeek5ScrollClickClickListener =
+      () => {
+        viewport.removeEventListener(
+          "click",
+          clickHandler
+        );
+      };
+
+    updateScene();
+    loadRound();
+  }
+
+  function startWeek5StopTargetBehavior() {
+    stopWeek5StopTargetBehavior();
+
+    const area =
+      document.getElementById(
+        "week5StopTargetArea"
+      );
+
+    const elevator =
+      document.getElementById(
+        "week5StopTargetElevator"
+      );
+
+    const target =
+      document.getElementById(
+        "week5StopTargetFloor"
+      );
+
+    const status =
+      document.getElementById(
+        "week5StopTargetStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week5StopTargetProgress"
+      );
+
+    if (
+      !area ||
+      !elevator ||
+      !target ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    /*
+     * y values are measured from the TOP.
+     */
+    const rounds = [
+      {
+        start: 270,
+        target: 75,
+        floor: "4"
+      },
+      {
+        start: 65,
+        target: 235,
+        floor: "1"
+      },
+      {
+        start: 250,
+        target: 135,
+        floor: "3"
+      },
+      {
+        start: 95,
+        target: 195,
+        floor: "2"
+      }
+    ];
+
+    const MIN_Y = 45;
+    const MAX_Y = 275;
+    const TOLERANCE = 13;
+
+    let roundIndex = 0;
+    let elevatorY = 0;
+    let locked = false;
+    let finished = false;
+
+    function stopScrollSound() {
+      if (week5StopTargetSoundTimer) {
+        clearTimeout(
+          week5StopTargetSoundTimer
+        );
+
+        week5StopTargetSoundTimer = null;
+      }
+
+      if (week5StopTargetSound) {
+        week5StopTargetSound.pause();
+        week5StopTargetSound.currentTime = 0;
+        week5StopTargetSound.loop = false;
+        week5StopTargetSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week5StopTargetSound) {
+        week5StopTargetSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week5StopTargetSound.volume = 0.42;
+        week5StopTargetSound.loop = true;
+
+        week5StopTargetSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week5StopTargetSoundTimer) {
+        clearTimeout(
+          week5StopTargetSoundTimer
+        );
+      }
+
+      week5StopTargetSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function playCorrect() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(
+          "/sounds/correct.mp3"
+        );
+
+      sound.volume = 0.55;
+      sound.currentTime = 0;
+
+      sound
+        .play()
+        .catch(() => {});
+    }
+
+    function updateElevator() {
+      elevator.style.top =
+        `${elevatorY}px`;
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+
+      const round =
+        rounds[roundIndex];
+
+      elevatorY =
+        round.start;
+
+      elevator.style.top =
+        `${round.start}px`;
+
+      target.style.top =
+        `${round.target}px`;
+
+      target.querySelector(
+        "strong"
+      ).textContent =
+        `FLOOR ${round.floor}`;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Stop at FLOOR ${round.floor}.`;
+
+      elevator.classList.remove(
+        "week5-stop-target-correct"
+      );
+
+      target.classList.remove(
+        "week5-stop-target-floor-correct"
+      );
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Great control!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week5-stop-target-celebration";
+
+      celebration.innerHTML = `
+        <div class="week5-stop-target-celebration-card">
+          <div>⭐</div>
+          <strong>GREAT CONTROL!</strong>
+          <span>You stopped right on target!</span>
+        </div>
+      `;
+
+      area.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week5-stop-target-celebration-show"
+        );
+      });
+
+      playCorrect();
+    }
+
+    function completeRound() {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+
+      stopScrollSound();
+
+      elevator.classList.add(
+        "week5-stop-target-correct"
+      );
+
+      target.classList.add(
+        "week5-stop-target-floor-correct"
+      );
+
+      status.textContent =
+        "Perfect stop!";
+
+      playCorrect();
+
+      week5StopTargetRoundTimer =
+        setTimeout(() => {
+          if (!area.isConnected) {
+            return;
+          }
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 900);
+    }
+
+    function scheduleStopCheck() {
+      if (week5StopTargetCheckTimer) {
+        clearTimeout(
+          week5StopTargetCheckTimer
+        );
+      }
+
+      week5StopTargetCheckTimer =
+        setTimeout(() => {
+          if (
+            locked ||
+            finished ||
+            !area.isConnected
+          ) {
+            return;
+          }
+
+          const round =
+            rounds[roundIndex];
+
+          const distance =
+            Math.abs(
+              elevatorY -
+              round.target
+            );
+
+          if (
+            distance <=
+            TOLERANCE
+          ) {
+            completeRound();
+          } else {
+            status.textContent =
+              elevatorY <
+              round.target
+                ? "A little lower..."
+                : "A little higher...";
+          }
+        }, 300);
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        /*
+         * Keep movement small here.
+         * This step is about precision.
+         */
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY) * 0.28,
+              7
+            ),
+            18
+          );
+
+        if (event.deltaY > 0) {
+          elevatorY =
+            Math.min(
+              elevatorY + amount,
+              MAX_Y
+            );
+
+          status.textContent =
+            "Moving DOWN...";
+        } else {
+          elevatorY =
+            Math.max(
+              elevatorY - amount,
+              MIN_Y
+            );
+
+          status.textContent =
+            "Moving UP...";
+        }
+
+        updateElevator();
+        scheduleStopCheck();
+      };
+
+    area.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    removeWeek5StopTargetWheelListener =
+      () => {
+        area.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    loadRound();
+  }
+
+  function startWeek5ScrollPracticeBehavior() {
+    stopWeek5ScrollPracticeBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week5ScrollPracticeViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week5ScrollPracticeScene"
+      );
+
+    const targetDisplay =
+      document.getElementById(
+        "week5ScrollPracticeTarget"
+      );
+
+    const progress =
+      document.getElementById(
+        "week5ScrollPracticeProgress"
+      );
+
+    const status =
+      document.getElementById(
+        "week5ScrollPracticeStatus"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !targetDisplay ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        id: "frog",
+        emoji: "🐸",
+        name: "FROG",
+        y: 150
+      },
+      {
+        id: "penguin",
+        emoji: "🐧",
+        name: "PENGUIN",
+        y: 980
+      },
+      {
+        id: "monkey",
+        emoji: "🐵",
+        name: "MONKEY",
+        y: 430
+      },
+      {
+        id: "lion",
+        emoji: "🦁",
+        name: "LION",
+        y: 780
+      }
+    ];
+
+    const MAX_SCROLL = 900;
+    const VIEW_CENTER = 170;
+    const TARGET_TOLERANCE = 22;
+
+    let scrollPosition = 390;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+    function stopScrollSound() {
+      if (week5ScrollPracticeSoundTimer) {
+        clearTimeout(
+          week5ScrollPracticeSoundTimer
+        );
+
+        week5ScrollPracticeSoundTimer = null;
+      }
+
+      if (week5ScrollPracticeSound) {
+        week5ScrollPracticeSound.pause();
+        week5ScrollPracticeSound.currentTime = 0;
+        week5ScrollPracticeSound.loop = false;
+        week5ScrollPracticeSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week5ScrollPracticeSound) {
+        week5ScrollPracticeSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week5ScrollPracticeSound.volume = 0.42;
+        week5ScrollPracticeSound.loop = true;
+
+        week5ScrollPracticeSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week5ScrollPracticeSoundTimer) {
+        clearTimeout(
+          week5ScrollPracticeSoundTimer
+        );
+      }
+
+      week5ScrollPracticeSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function playCorrect() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(
+          "/sounds/correct.mp3"
+        );
+
+      sound.volume = 0.55;
+      sound.currentTime = 0;
+
+      sound
+        .play()
+        .catch(() => {});
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+
+      const round =
+        rounds[roundIndex];
+
+      targetDisplay.innerHTML =
+        `
+          <span>${round.emoji}</span>
+          <strong>${round.name}</strong>
+        `;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Find the ${round.name}.`;
+    }
+
+    function finish() {
+      finished = true;
+      locked = true;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Great scrolling!";
+
+      const box =
+        document.createElement("div");
+
+      box.className =
+        "week5-scroll-practice-celebration";
+
+      box.innerHTML = `
+        <div class="week5-scroll-practice-celebration-card">
+          <div>⭐</div>
+          <strong>GREAT SCROLLING!</strong>
+          <span>You can scroll UP and DOWN!</span>
+        </div>
+      `;
+
+      viewport.appendChild(box);
+
+      requestAnimationFrame(() => {
+        box.classList.add(
+          "week5-scroll-practice-celebration-show"
+        );
+      });
+
+      playCorrect();
+    }
+
+    function completeRound() {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+
+      stopScrollSound();
+
+      const round =
+        rounds[roundIndex];
+
+      const animal =
+        scene.querySelector(
+          `[data-scroll-animal="${round.id}"]`
+        );
+
+      animal?.classList.add(
+        "week5-scroll-practice-found"
+      );
+
+      status.textContent =
+        `You found the ${round.name}!`;
+
+      playCorrect();
+
+      week5ScrollPracticeRoundTimer =
+        setTimeout(() => {
+          if (!viewport.isConnected) {
+            return;
+          }
+
+          animal?.classList.remove(
+            "week5-scroll-practice-found"
+          );
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finish();
+            return;
+          }
+
+          loadRound();
+        }, 850);
+    }
+
+    function checkTarget() {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      if (week5ScrollPracticeTargetStopTimer) {
+        clearTimeout(
+          week5ScrollPracticeTargetStopTimer
+        );
+      }
+
+      week5ScrollPracticeTargetStopTimer =
+        setTimeout(() => {
+          if (
+            locked ||
+            finished ||
+            !viewport.isConnected
+          ) {
+            return;
+          }
+
+          const round =
+            rounds[roundIndex];
+
+          const visibleY =
+            round.y - scrollPosition;
+
+          if (
+            Math.abs(
+              visibleY - VIEW_CENTER
+            ) <= TARGET_TOLERANCE
+          ) {
+            completeRound();
+          }
+        }, 260);
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          viewport.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              22
+            ),
+            65
+          );
+
+        if (event.deltaY > 0) {
+          scrollPosition =
+            Math.min(
+              scrollPosition + amount,
+              MAX_SCROLL
+            );
+
+          status.textContent =
+            "Scrolling DOWN...";
+        } else {
+          scrollPosition =
+            Math.max(
+              scrollPosition - amount,
+              0
+            );
+
+          status.textContent =
+            "Scrolling UP...";
+        }
+
+        updateScene();
+        checkTarget();
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    removeWeek5ScrollPracticeWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    updateScene();
+    loadRound();
+  }
+
+  function startWeek5ScrollUpBehavior() {
+    stopWeek5ScrollUpBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week5ScrollUpViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week5ScrollUpScene"
+      );
+
+    const treehouse =
+      document.getElementById(
+        "week5ScrollUpTreehouse"
+      );
+
+    const status =
+      document.getElementById(
+        "week5ScrollUpStatus"
+      );
+
+    const arrow =
+      document.getElementById(
+        "week5ScrollUpArrow"
+      );
+
+    const progress =
+      document.getElementById(
+        "week5ScrollUpProgress"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !treehouse ||
+      !status ||
+      !arrow ||
+      !progress
+    ) {
+      return;
+    }
+
+    const MAX_SCROLL = 760;
+
+    /*
+     * Start at the BOTTOM.
+     */
+    let scrollPosition = MAX_SCROLL;
+    let completed = false;
+
+    function stopScrollSound() {
+      if (week5ScrollUpSoundTimer) {
+        clearTimeout(
+          week5ScrollUpSoundTimer
+        );
+
+        week5ScrollUpSoundTimer = null;
+      }
+
+      if (week5ScrollUpSound) {
+        week5ScrollUpSound.pause();
+        week5ScrollUpSound.currentTime = 0;
+        week5ScrollUpSound.loop = false;
+        week5ScrollUpSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week5ScrollUpSound) {
+        week5ScrollUpSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week5ScrollUpSound.volume = 0.45;
+        week5ScrollUpSound.loop = true;
+
+        week5ScrollUpActiveSounds.push(
+          week5ScrollUpSound
+        );
+
+        week5ScrollUpSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week5ScrollUpSoundTimer) {
+        clearTimeout(
+          week5ScrollUpSoundTimer
+        );
+      }
+
+      week5ScrollUpSoundTimer =
+        setTimeout(() => {
+          stopScrollSound();
+        }, 180);
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+
+      const percent =
+        Math.round(
+          (
+            (MAX_SCROLL - scrollPosition) /
+            MAX_SCROLL
+          ) * 100
+        );
+
+      progress.style.width =
+        `${percent}%`;
+
+      if (scrollPosition <= 0) {
+        finish();
+      }
+    }
+
+    function finish() {
+      if (completed) {
+        return;
+      }
+
+      completed = true;
+
+      stopScrollSound();
+
+      scene.style.transform =
+        "translateY(0px)";
+
+      progress.style.width =
+        "100%";
+
+      treehouse.classList.add(
+        "week5-scroll-treehouse-found"
+      );
+
+      arrow.classList.add(
+        "week5-scroll-up-arrow-complete"
+      );
+
+      status.textContent =
+        "You reached the treehouse!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week5-scroll-up-celebration";
+
+      celebration.innerHTML = `
+        <div class="week5-scroll-up-celebration-card">
+
+          <div class="week5-scroll-up-celebration-icon">
+            ⭐
+          </div>
+
+          <strong>
+            GOOD JOB!
+          </strong>
+
+          <span>
+            You scrolled UP!
+          </span>
+
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week5-scroll-up-celebration-show"
+        );
+      });
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio(
+            "/sounds/correct.mp3"
+          );
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        week5ScrollUpActiveSounds.push(
+          correctSound
+        );
+
+        week5ScrollUpSound =
+          correctSound;
+
+        correctSound
+          .play()
+          .catch(() => {});
+
+        correctSound.addEventListener(
+          "ended",
+          () => {
+            week5ScrollUpActiveSounds =
+              week5ScrollUpActiveSounds.filter(
+                sound =>
+                  sound !== correctSound
+              );
+
+            if (
+              week5ScrollUpSound ===
+              correctSound
+            ) {
+              week5ScrollUpSound = null;
+            }
+          },
+          { once: true }
+        );
+      }
+    }
+
+    const wheelHandler =
+      (event) => {
+        if (completed) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          viewport.getBoundingClientRect();
+
+        const inside =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        event.preventDefault();
+
+        /*
+         * Step 4 teaches UP only.
+         */
+        if (event.deltaY >= 0) {
+          status.textContent =
+            "Roll the wheel UP.";
+
+          arrow.classList.add(
+            "week5-scroll-up-arrow-wrong"
+          );
+
+          setTimeout(() => {
+            if (arrow.isConnected) {
+              arrow.classList.remove(
+                "week5-scroll-up-arrow-wrong"
+              );
+            }
+          }, 220);
+
+          return;
+        }
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              24
+            ),
+            70
+          );
+
+        scrollPosition =
+          Math.max(
+            scrollPosition - amount,
+            0
+          );
+
+        status.textContent =
+          "Keep rolling UP!";
+
+        arrow.classList.add(
+          "week5-scroll-up-arrow-active"
+        );
+
+        setTimeout(() => {
+          if (arrow.isConnected) {
+            arrow.classList.remove(
+              "week5-scroll-up-arrow-active"
+            );
+          }
+        }, 160);
+
+        updateScene();
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    removeWeek5ScrollUpWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    updateScene();
+  }
+
+  function startWeek5ScrollDownBehavior() {
+    stopWeek5ScrollDownBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week5ScrollDownViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week5ScrollDownScene"
+      );
+
+    const treasure =
+      document.getElementById(
+        "week5ScrollDownTreasure"
+      );
+
+    const status =
+      document.getElementById(
+        "week5ScrollDownStatus"
+      );
+
+    const arrow =
+      document.getElementById(
+        "week5ScrollDownArrow"
+      );
+
+    const progress =
+      document.getElementById(
+        "week5ScrollDownProgress"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !treasure ||
+      !status ||
+      !arrow ||
+      !progress
+    ) {
+      return;
+    }
+
+    let scrollPosition = 0;
+    let completed = false;
+
+    const MAX_SCROLL = 760;
+
+    function stopScrollSound() {
+      if (week5ScrollDownSoundTimer) {
+        clearTimeout(
+          week5ScrollDownSoundTimer
+        );
+
+        week5ScrollDownSoundTimer = null;
+      }
+
+      if (week5ScrollDownSound) {
+        week5ScrollDownSound.pause();
+        week5ScrollDownSound.currentTime = 0;
+        week5ScrollDownSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week5ScrollDownSound) {
+        week5ScrollDownSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week5ScrollDownSound.volume = 0.45;
+        week5ScrollDownSound.loop = true;
+
+        week5ScrollDownActiveSounds.push(
+          week5ScrollDownSound
+        );
+
+        week5ScrollDownSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week5ScrollDownSoundTimer) {
+        clearTimeout(
+          week5ScrollDownSoundTimer
+        );
+      }
+
+      week5ScrollDownSoundTimer =
+        setTimeout(() => {
+          stopScrollSound();
+        }, 180);
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+
+      const percent =
+        Math.round(
+          (scrollPosition / MAX_SCROLL) *
+          100
+        );
+
+      progress.style.width =
+        `${percent}%`;
+
+      if (
+        scrollPosition >=
+        MAX_SCROLL
+      ) {
+        finish();
+      }
+    }
+
+    function finish() {
+      if (completed) {
+        return;
+      }
+
+      completed = true;
+
+      stopScrollSound();
+
+      scene.style.transform =
+        `translateY(-${MAX_SCROLL}px)`;
+
+      progress.style.width =
+        "100%";
+
+      treasure.classList.add(
+        "week5-scroll-treasure-found"
+      );
+
+      arrow.classList.add(
+        "week5-scroll-down-arrow-complete"
+      );
+
+      status.textContent =
+        "You found the treasure!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week5-scroll-down-celebration";
+
+      celebration.innerHTML = `
+        <div class="week5-scroll-down-celebration-card">
+          <div class="week5-scroll-down-celebration-icon">
+            ⭐
+          </div>
+
+          <strong>
+            GOOD JOB!
+          </strong>
+
+          <span>
+            You scrolled DOWN!
+          </span>
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week5-scroll-down-celebration-show"
+        );
+      });
+
+      if (soundEnabled) {
+        const correctSound =
+          new Audio(
+            "/sounds/correct.mp3"
+          );
+
+        correctSound.volume = 0.6;
+        correctSound.currentTime = 0;
+
+        week5ScrollDownActiveSounds.push(
+          correctSound
+        );
+
+        week5ScrollDownSound =
+          correctSound;
+
+        correctSound
+          .play()
+          .catch(() => {});
+
+        correctSound.addEventListener(
+          "ended",
+          () => {
+            week5ScrollDownActiveSounds =
+              week5ScrollDownActiveSounds.filter(
+                sound =>
+                  sound !== correctSound
+              );
+
+            if (
+              week5ScrollDownSound ===
+              correctSound
+            ) {
+              week5ScrollDownSound = null;
+            }
+          },
+          { once: true }
+        );
+      }
+    }
+
+    const wheelHandler =
+      (event) => {
+        if (completed) {
+          event.preventDefault();
+          return;
+        }
+
+        /*
+         * Only capture the wheel while the
+         * pointer is inside this activity.
+         */
+        const rect =
+          viewport.getBoundingClientRect();
+
+        const inside =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+
+        if (!inside) {
+          return;
+        }
+
+        event.preventDefault();
+
+        /*
+         * Step 3 teaches DOWN only.
+         * Upward scrolling does not advance.
+         */
+        if (event.deltaY <= 0) {
+          status.textContent =
+            "Roll the wheel DOWN.";
+
+          arrow.classList.add(
+            "week5-scroll-down-arrow-wrong"
+          );
+
+          setTimeout(() => {
+            arrow.classList.remove(
+              "week5-scroll-down-arrow-wrong"
+            );
+          }, 220);
+
+          return;
+        }
+
+        playScrollSound();
+
+        /*
+         * Normalize different mouse-wheel
+         * hardware so progress feels consistent.
+         */
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              24
+            ),
+            70
+          );
+
+        scrollPosition =
+          Math.min(
+            scrollPosition + amount,
+            MAX_SCROLL
+          );
+
+        status.textContent =
+          "Keep rolling DOWN!";
+
+        arrow.classList.add(
+          "week5-scroll-down-arrow-active"
+        );
+
+        setTimeout(() => {
+          arrow.classList.remove(
+            "week5-scroll-down-arrow-active"
+          );
+        }, 160);
+
+        updateScene();
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    removeWeek5ScrollDownWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    updateScene();
+  }
+
+  function startWeek5MeetWheelAnimation() {
+    stopWeek5MeetWheelAnimation();
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week5-meet-wheel"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    const wheel =
+      document.getElementById(
+        "week5MeetWheel"
+      );
+
+    const finger =
+      document.getElementById(
+        "week5MeetWheelFinger"
+      );
+
+    const message =
+      document.getElementById(
+        "week5MeetWheelMessage"
+      );
+
+    const upArrow =
+      document.getElementById(
+        "week5MeetWheelUp"
+      );
+
+    const downArrow =
+      document.getElementById(
+        "week5MeetWheelDown"
+      );
+
+    if (
+      !wheel ||
+      !finger ||
+      !message ||
+      !upArrow ||
+      !downArrow
+    ) {
+      return;
+    }
+
+    function stopScrollSound() {
+      if (!week5MeetWheelSound) {
+        return;
+      }
+
+      week5MeetWheelSound.pause();
+      week5MeetWheelSound.currentTime = 0;
+      week5MeetWheelSound = null;
+    }
+
+    function playScrollSound() {
+      stopScrollSound();
+
+      if (!soundEnabled) {
+        return;
+      }
+
+      week5MeetWheelSound =
+        new Audio(
+          "/sounds/scroll.mp3"
+        );
+
+      week5MeetWheelSound.volume = 0.5;
+      week5MeetWheelSound.currentTime = 0;
+
+      week5MeetWheelSound
+        .play()
+        .catch(() => {});
+    }
+
+    function clearMotion() {
+      wheel.classList.remove(
+        "week5-wheel-roll-down",
+        "week5-wheel-roll-up"
+      );
+
+      finger.classList.remove(
+        "week5-wheel-hand-ready",
+        "week5-wheel-hand-down",
+        "week5-wheel-hand-up"
+      );
+
+      upArrow.classList.remove(
+        "week5-wheel-arrow-active"
+      );
+
+      downArrow.classList.remove(
+        "week5-wheel-arrow-active"
+      );
+
+      stopScrollSound();
+    }
+
+    function startSequence() {
+      clearMotion();
+
+      message.textContent =
+        "This is the SCROLL WHEEL.";
+
+      wheel.classList.add(
+        "week5-wheel-highlight"
+      );
+
+      /*
+       * Finger moves onto wheel.
+       */
+      week5MeetWheelTimers.push(
+        setTimeout(() => {
+          finger.classList.add(
+            "week5-wheel-hand-ready"
+          );
+
+          message.textContent =
+            "Put your finger on the wheel.";
+        }, 1200)
+      );
+
+      /*
+       * Roll down.
+       */
+      week5MeetWheelTimers.push(
+        setTimeout(() => {
+          wheel.classList.add(
+            "week5-wheel-roll-down"
+          );
+
+          finger.classList.add(
+            "week5-wheel-hand-down"
+          );
+
+          downArrow.classList.add(
+            "week5-wheel-arrow-active"
+          );
+
+          message.textContent =
+            "ROLL DOWN.";
+
+          playScrollSound();
+        }, 2600)
+      );
+
+      /*
+       * Stop after down motion.
+       */
+      week5MeetWheelTimers.push(
+        setTimeout(() => {
+          stopScrollSound();
+
+          wheel.classList.remove(
+            "week5-wheel-roll-down"
+          );
+
+          finger.classList.remove(
+            "week5-wheel-hand-down"
+          );
+
+          downArrow.classList.remove(
+            "week5-wheel-arrow-active"
+          );
+        }, 3900)
+      );
+
+      /*
+       * Roll up.
+       */
+      week5MeetWheelTimers.push(
+        setTimeout(() => {
+          wheel.classList.add(
+            "week5-wheel-roll-up"
+          );
+
+          finger.classList.add(
+            "week5-wheel-hand-up"
+          );
+
+          upArrow.classList.add(
+            "week5-wheel-arrow-active"
+          );
+
+          message.textContent =
+            "ROLL UP.";
+
+          playScrollSound();
+        }, 4550)
+      );
+
+      /*
+       * Finish and loop.
+       */
+      week5MeetWheelTimers.push(
+        setTimeout(() => {
+          clearMotion();
+
+          message.textContent =
+            "The wheel moves pages UP and DOWN.";
+        }, 5900)
+      );
+
+      week5MeetWheelTimers.push(
+        setTimeout(
+          startSequence,
+          7600
+        )
+      );
+    }
+
+    startSequence();
+  }
+
   function startWeek5QuickReviewAnimation() {
     stopWeek5QuickReviewAnimation();
 
     let activeReviewSounds = [];
 
     function playReviewSound(src, volume = 0.5, startTime = 0) {
-      if (!soundEnabled) {
+      /*
+       * Never allow an old Step 1 timer to start
+       * another sound after this slide is gone.
+       */
+      if (
+        !soundEnabled ||
+        !screen.isConnected
+      ) {
         return null;
       }
 
@@ -7675,6 +10822,7 @@
       sound.currentTime = startTime;
 
       activeReviewSounds.push(sound);
+      week5ReviewActiveSounds.push(sound);
 
       sound
         .play()
@@ -7685,6 +10833,11 @@
         () => {
           activeReviewSounds =
             activeReviewSounds.filter(
+              item => item !== sound
+            );
+
+          week5ReviewActiveSounds =
+            week5ReviewActiveSounds.filter(
               item => item !== sound
             );
         },
@@ -7792,6 +10945,15 @@
     }
 
     function startSequence() {
+      /*
+       * Step 1 loops while it is being displayed.
+       * The moment its screen is removed, the loop dies.
+       */
+      if (!screen.isConnected) {
+        stopReviewSounds();
+        return;
+      }
+
       resetVisuals();
 
       /*
@@ -11027,6 +14189,1011 @@
   }
 
   function getStepContent(step, safeIndex) {
+    if (step.id === "week5-scroll-drag") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-scroll-drag">
+
+          <div class="week5-scroll-drag-heading">
+
+            <span class="drag-review-badge">
+              SCROLL + DRAG
+            </span>
+
+            <h1>Find It and Drag It!</h1>
+
+            <p>
+              Scroll to find the object, then drag it to the box.
+            </p>
+
+          </div>
+
+          <div class="week5-scroll-drag-topbar">
+
+            <strong>
+              FIND:
+            </strong>
+
+            <div
+              id="week5ScrollDragTarget"
+              class="week5-scroll-drag-target"
+            >
+              <span>🎁</span>
+              <strong>PRESENT</strong>
+            </div>
+
+            <div
+              id="week5ScrollDragProgress"
+              class="week5-scroll-drag-progress"
+            >
+              1 of 4
+            </div>
+
+          </div>
+
+          <div class="week5-scroll-drag-layout">
+
+            <div class="week5-scroll-drag-guide">
+
+              <span>↑</span>
+
+              <div
+                class="week5-scroll-drag-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week5-scroll-drag-guide-left"></div>
+                <div class="week5-scroll-drag-guide-right"></div>
+
+                <div class="week5-scroll-drag-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <strong>
+                SCROLL
+              </strong>
+
+              <span>↓</span>
+
+              <div class="week5-scroll-drag-plus">
+                +
+              </div>
+
+              <div class="week5-scroll-drag-button">
+                HOLD + DRAG
+              </div>
+
+            </div>
+
+            <div
+              id="week5ScrollDragViewport"
+              class="week5-scroll-drag-viewport"
+            >
+
+              <div
+                id="week5ScrollDragDestination"
+                class="week5-scroll-drag-destination"
+              >
+                <span>🎂</span>
+                <strong>DROP HERE</strong>
+              </div>
+
+              <div
+                id="week5ScrollDragScene"
+                class="week5-scroll-drag-scene"
+              >
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="present"
+                  style="top: 130px; left: 30%;"
+                >
+                  🎁
+                </div>
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="duck"
+                  style="top: 280px; left: 68%;"
+                >
+                  🦆
+                </div>
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="book"
+                  style="top: 445px; left: 32%;"
+                >
+                  📘
+                </div>
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="frog"
+                  style="top: 610px; left: 70%;"
+                >
+                  🐸
+                </div>
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="ball"
+                  style="top: 775px; left: 31%;"
+                >
+                  ⚽
+                </div>
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="star"
+                  style="top: 915px; left: 69%;"
+                >
+                  ⭐
+                </div>
+
+                <div
+                  class="week5-scroll-drag-object"
+                  data-scroll-drag-object="flower"
+                  style="top: 1060px; left: 31%;"
+                >
+                  🌼
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week5ScrollDragStatus"
+            class="week5-scroll-drag-status"
+          >
+            Find the PRESENT, then drag it to the box.
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week5-scroll-click") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-scroll-click">
+
+          <div class="week5-scroll-click-heading">
+
+            <span class="drag-review-badge">
+              SCROLL + CLICK
+            </span>
+
+            <h1>Find It and Click It!</h1>
+
+            <p>
+              Scroll to find the object, then LEFT-CLICK it.
+            </p>
+
+          </div>
+
+          <div class="week5-scroll-click-topbar">
+
+            <strong>
+              FIND:
+            </strong>
+
+            <div
+              id="week5ScrollClickTarget"
+              class="week5-scroll-click-target"
+            >
+              <span>🎈</span>
+              <strong>RED BALLOON</strong>
+            </div>
+
+            <div
+              id="week5ScrollClickProgress"
+              class="week5-scroll-click-progress"
+            >
+              1 of 4
+            </div>
+
+          </div>
+
+          <div class="week5-scroll-click-layout">
+
+            <div class="week5-scroll-click-guide">
+
+              <span class="week5-scroll-click-up">
+                ↑
+              </span>
+
+              <div
+                class="week5-scroll-click-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week5-scroll-click-guide-left"></div>
+                <div class="week5-scroll-click-guide-right"></div>
+
+                <div class="week5-scroll-click-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <strong>
+                SCROLL
+              </strong>
+
+              <span class="week5-scroll-click-down">
+                ↓
+              </span>
+
+              <div class="week5-scroll-click-plus">
+                +
+              </div>
+
+              <div class="week5-scroll-click-button">
+                LEFT CLICK
+              </div>
+
+            </div>
+
+            <div
+              id="week5ScrollClickViewport"
+              class="week5-scroll-click-viewport"
+            >
+
+              <div
+                id="week5ScrollClickScene"
+                class="week5-scroll-click-scene"
+              >
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="balloon"
+                  style="top: 125px; left: 30%;"
+                >
+                  🎈
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="duck"
+                  style="top: 280px; left: 68%;"
+                >
+                  🦆
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="monkey"
+                  style="top: 420px; left: 32%;"
+                >
+                  🐵
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="star"
+                  style="top: 565px; left: 70%;"
+                >
+                  ⭐
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="apple"
+                  style="top: 735px; left: 31%;"
+                >
+                  🍎
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="frog"
+                  style="top: 875px; left: 69%;"
+                >
+                  🐸
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="rocket"
+                  style="top: 1030px; left: 32%;"
+                >
+                  🚀
+                </div>
+
+                <div
+                  class="week5-scroll-click-object"
+                  data-scroll-click-object="soccer"
+                  style="top: 1160px; left: 70%;"
+                >
+                  ⚽
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week5ScrollClickStatus"
+            class="week5-scroll-click-status"
+          >
+            Find and CLICK the RED BALLOON.
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week5-stop-target") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-stop-target">
+
+          <div class="week5-stop-target-heading">
+
+            <span class="drag-review-badge">
+              SCROLL CONTROL
+            </span>
+
+            <h1>Stop at the Target!</h1>
+
+            <p>
+              Scroll the elevator and stop on the glowing floor.
+            </p>
+
+          </div>
+
+          <div class="week5-stop-target-layout">
+
+            <div class="week5-stop-target-guide">
+
+              <div class="week5-stop-target-guide-direction">
+                <span>↑</span>
+                <strong>UP</strong>
+              </div>
+
+              <div
+                class="week5-stop-target-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week5-stop-target-guide-left"></div>
+                <div class="week5-stop-target-guide-right"></div>
+
+                <div class="week5-stop-target-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <div class="week5-stop-target-guide-direction">
+                <strong>DOWN</strong>
+                <span>↓</span>
+              </div>
+
+            </div>
+
+            <div
+              id="week5StopTargetArea"
+              class="week5-stop-target-area"
+            >
+
+              <div class="week5-stop-target-shaft">
+
+                <div class="week5-stop-target-line floor-4">
+                  <span>4</span>
+                </div>
+
+                <div class="week5-stop-target-line floor-3">
+                  <span>3</span>
+                </div>
+
+                <div class="week5-stop-target-line floor-2">
+                  <span>2</span>
+                </div>
+
+                <div class="week5-stop-target-line floor-1">
+                  <span>1</span>
+                </div>
+
+                <div
+                  id="week5StopTargetFloor"
+                  class="week5-stop-target-floor"
+                >
+                  <strong>
+                    FLOOR 4
+                  </strong>
+                </div>
+
+                <div
+                  id="week5StopTargetElevator"
+                  class="week5-stop-target-elevator"
+                >
+                  <div class="week5-stop-target-elevator-window">
+                    🙂
+                  </div>
+
+                  <strong>
+                    ELEVATOR
+                  </strong>
+                </div>
+
+              </div>
+
+              <div class="week5-stop-target-building">
+                🏢
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="week5-stop-target-footer">
+
+            <div
+              id="week5StopTargetStatus"
+              class="week5-stop-target-status"
+            >
+              Stop at FLOOR 4.
+            </div>
+
+            <div
+              id="week5StopTargetProgress"
+              class="week5-stop-target-progress"
+            >
+              1 of 4
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week5-scroll-practice") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-scroll-practice">
+
+          <div class="week5-scroll-practice-heading">
+            <span class="drag-review-badge">
+              SCROLL PRACTICE
+            </span>
+
+            <h1>Find the Animal!</h1>
+
+            <p>
+              Scroll UP or DOWN to find the animal.
+            </p>
+          </div>
+
+          <div class="week5-scroll-practice-layout">
+
+            <div class="week5-scroll-practice-guide">
+
+              <div class="week5-scroll-practice-directions">
+                <span>↑</span>
+                <strong>UP</strong>
+              </div>
+
+              <div
+                class="week5-scroll-practice-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week5-scroll-practice-guide-left"></div>
+                <div class="week5-scroll-practice-guide-right"></div>
+
+                <div class="week5-scroll-practice-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <div class="week5-scroll-practice-directions">
+                <strong>DOWN</strong>
+                <span>↓</span>
+              </div>
+
+            </div>
+
+            <div class="week5-scroll-practice-main">
+
+              <div class="week5-scroll-practice-topbar">
+
+                <strong>FIND:</strong>
+
+                <div
+                  id="week5ScrollPracticeTarget"
+                  class="week5-scroll-practice-target"
+                >
+                  <span>🐸</span>
+                  <strong>FROG</strong>
+                </div>
+
+                <div
+                  id="week5ScrollPracticeProgress"
+                  class="week5-scroll-practice-progress"
+                >
+                  1 of 4
+                </div>
+
+              </div>
+
+              <div
+                id="week5ScrollPracticeViewport"
+                class="week5-scroll-practice-viewport"
+              >
+
+                <div class="week5-scroll-practice-center-zone">
+                  <span>LOOK HERE</span>
+                </div>
+
+                <div
+                  id="week5ScrollPracticeScene"
+                  class="week5-scroll-practice-scene"
+                >
+
+                  <div
+                    class="week5-scroll-practice-animal"
+                    data-scroll-animal="frog"
+                    style="top: 150px;"
+                  >
+                    🐸
+                  </div>
+
+                  <div
+                    class="week5-scroll-practice-animal"
+                    data-scroll-animal="owl"
+                    style="top: 285px;"
+                  >
+                    🦉
+                  </div>
+
+                  <div
+                    class="week5-scroll-practice-animal"
+                    data-scroll-animal="monkey"
+                    style="top: 430px;"
+                  >
+                    🐵
+                  </div>
+
+                  <div
+                    class="week5-scroll-practice-animal"
+                    data-scroll-animal="fox"
+                    style="top: 600px;"
+                  >
+                    🦊
+                  </div>
+
+                  <div
+                    class="week5-scroll-practice-animal"
+                    data-scroll-animal="lion"
+                    style="top: 780px;"
+                  >
+                    🦁
+                  </div>
+
+                  <div
+                    class="week5-scroll-practice-animal"
+                    data-scroll-animal="penguin"
+                    style="top: 980px;"
+                  >
+                    🐧
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week5ScrollPracticeStatus"
+            class="week5-scroll-practice-status"
+          >
+            Find the FROG.
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week5-scroll-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-scroll-up">
+
+          <div class="week5-scroll-up-heading">
+
+            <span class="drag-review-badge">
+              SCROLL UP
+            </span>
+
+            <h1>Reach the Treehouse!</h1>
+
+            <p>
+              Put your pointer in the window and roll the wheel UP.
+            </p>
+
+          </div>
+
+          <div class="week5-scroll-up-layout">
+
+            <div class="week5-scroll-up-guide">
+
+              <div
+                id="week5ScrollUpArrow"
+                class="week5-scroll-up-arrow"
+              >
+                ↑
+              </div>
+
+              <strong>
+                ROLL UP
+              </strong>
+
+              <div
+                class="week5-scroll-up-guide-mouse"
+                aria-hidden="true"
+              >
+
+                <div class="week5-scroll-up-guide-left"></div>
+                <div class="week5-scroll-up-guide-right"></div>
+
+                <div class="week5-scroll-up-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              id="week5ScrollUpViewport"
+              class="week5-scroll-up-viewport"
+            >
+
+              <div
+                id="week5ScrollUpScene"
+                class="week5-scroll-up-scene"
+              >
+
+                <section class="week5-treehouse-top">
+
+                  <div
+                    id="week5ScrollUpTreehouse"
+                    class="week5-scroll-treehouse"
+                  >
+                    🛖
+                  </div>
+
+                  <strong>
+                    TREEHOUSE!
+                  </strong>
+
+                  <span class="week5-treehouse-bird">
+                    🐦
+                  </span>
+
+                </section>
+
+                <section class="week5-treehouse-high-branches">
+                  <span>🍃</span>
+                  <span>🐿️</span>
+                  <span>🍃</span>
+                  <span>🦉</span>
+                </section>
+
+                <section class="week5-treehouse-middle">
+                  <span>🌿</span>
+                  <span>🐦</span>
+                  <span>🌳</span>
+                  <span>🍎</span>
+                </section>
+
+                <section class="week5-treehouse-low-branches">
+                  <span>🍂</span>
+                  <span>🐛</span>
+                  <span>🍃</span>
+                  <span>🦋</span>
+                </section>
+
+                <section class="week5-treehouse-ground">
+
+                  <span>🌻</span>
+                  <span>🌳</span>
+                  <span>🌼</span>
+
+                  <strong>
+                    START HERE
+                  </strong>
+
+                </section>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="week5-scroll-up-progress-track">
+            <div
+              id="week5ScrollUpProgress"
+              class="week5-scroll-up-progress-fill"
+            ></div>
+          </div>
+
+          <div
+            id="week5ScrollUpStatus"
+            class="week5-scroll-up-status"
+          >
+            Roll the wheel UP.
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week5-scroll-down") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-scroll-down">
+
+          <div class="week5-scroll-down-heading">
+
+            <span class="drag-review-badge">
+              SCROLL DOWN
+            </span>
+
+            <h1>Find the Treasure!</h1>
+
+            <p>
+              Put your pointer in the window and roll the wheel DOWN.
+            </p>
+
+          </div>
+
+          <div class="week5-scroll-down-layout">
+
+            <div class="week5-scroll-down-guide">
+
+              <div
+                id="week5ScrollDownArrow"
+                class="week5-scroll-down-arrow"
+              >
+                ↓
+              </div>
+
+              <strong>
+                ROLL DOWN
+              </strong>
+
+              <div
+                class="week5-scroll-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week5-scroll-guide-left"></div>
+                <div class="week5-scroll-guide-right"></div>
+
+                <div class="week5-scroll-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+            </div>
+
+            <div
+              id="week5ScrollDownViewport"
+              class="week5-scroll-down-viewport"
+            >
+
+              <div
+                id="week5ScrollDownScene"
+                class="week5-scroll-down-scene"
+              >
+
+                <section class="week5-treasure-sky">
+                  <div class="week5-treasure-sun">
+                    ☀️
+                  </div>
+
+                  <div class="week5-treasure-cloud cloud-a">
+                    ☁️
+                  </div>
+
+                  <div class="week5-treasure-cloud cloud-b">
+                    ☁️
+                  </div>
+
+                  <strong>
+                    START HERE
+                  </strong>
+                </section>
+
+                <section class="week5-treasure-treetops">
+                  <span>🌴</span>
+                  <span>🦜</span>
+                  <span>🌴</span>
+                </section>
+
+                <section class="week5-treasure-jungle">
+                  <span>🌿</span>
+                  <span>🐒</span>
+                  <span>🌺</span>
+                  <span>🦋</span>
+                </section>
+
+                <section class="week5-treasure-beach">
+                  <span>🏝️</span>
+
+                  <div class="week5-treasure-path">
+                    • • • • •
+                  </div>
+                </section>
+
+                <section class="week5-treasure-bottom">
+
+                  <div
+                    id="week5ScrollDownTreasure"
+                    class="week5-scroll-treasure"
+                  >
+                    🧰
+                  </div>
+
+                  <strong>
+                    TREASURE!
+                  </strong>
+
+                </section>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="week5-scroll-down-progress-track">
+            <div
+              id="week5ScrollDownProgress"
+              class="week5-scroll-down-progress-fill"
+            ></div>
+          </div>
+
+          <div
+            id="week5ScrollDownStatus"
+            class="week5-scroll-down-status"
+          >
+            Roll the wheel DOWN.
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week5-meet-wheel") {
+      return `
+        <div class="lesson-screen lesson-screen-week5-meet-wheel">
+
+          <div class="week5-wheel-heading">
+
+            <span class="drag-review-badge">
+              NEW SKILL
+            </span>
+
+            <h1>Meet the Scroll Wheel</h1>
+
+            <p>
+              This little wheel moves a page up and down.
+            </p>
+
+          </div>
+
+          <div class="week5-wheel-demo">
+
+            <div
+              id="week5MeetWheelUp"
+              class="week5-wheel-direction week5-wheel-direction-up"
+            >
+              <span>▲</span>
+              <strong>UP</strong>
+            </div>
+
+            <div class="week5-wheel-mouse-wrap">
+
+              <div class="week5-wheel-mouse">
+
+                <div class="week5-wheel-left-button"></div>
+
+                <div class="week5-wheel-right-button"></div>
+
+                <div
+                  id="week5MeetWheel"
+                  class="week5-wheel-wheel"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+              </div>
+
+              <div
+                id="week5MeetWheelFinger"
+                class="week5-wheel-hand"
+                aria-hidden="true"
+              >
+                <div class="mouse-demo-palm"></div>
+
+                <div
+                  class="
+                    mouse-demo-finger
+                    mouse-demo-index
+                    week5-wheel-index
+                  "
+                ></div>
+
+                <div
+                  class="
+                    mouse-demo-finger
+                    mouse-demo-middle
+                  "
+                ></div>
+
+                <div
+                  class="
+                    mouse-demo-finger
+                    week5-wheel-ring
+                  "
+                ></div>
+
+                <div
+                  class="
+                    mouse-demo-finger
+                    mouse-demo-pinky
+                  "
+                ></div>
+
+                <div
+                  class="week5-wheel-thumb"
+                ></div>
+              </div>
+
+            </div>
+
+            <div
+              id="week5MeetWheelDown"
+              class="week5-wheel-direction week5-wheel-direction-down"
+            >
+              <strong>DOWN</strong>
+              <span>▼</span>
+            </div>
+
+          </div>
+
+          <div
+            id="week5MeetWheelMessage"
+            class="week5-wheel-message"
+          >
+            This is the SCROLL WHEEL.
+          </div>
+
+          <div class="week5-wheel-reminder">
+            <span>🖱️</span>
+            <strong>ROLL — DON'T CLICK</strong>
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id === "week5-quick-review") {
       return `
         <div class="lesson-screen lesson-screen-week5-quick-review">
@@ -14119,6 +18286,10 @@
 
 
   function stopStepBehavior() {
+    /*
+     * Universal audio cleanup.
+     */
+    stopAllLessonSounds();
 
     if (removeWeek4ChallengeBehavior) {
       removeWeek4ChallengeBehavior();
@@ -15929,6 +20100,40 @@
   }
 
   function renderStep(stepIndex, mode) {
+    stopWeek5ScrollDragBehavior();
+
+    stopWeek5ScrollClickBehavior();
+
+    stopWeek5StopTargetBehavior();
+
+    stopWeek5ScrollPracticeBehavior();
+
+    stopWeek5ScrollUpBehavior();
+
+    /*
+     * ALWAYS stop Week 5 looping demonstrations
+     * before replacing the current slide.
+     */
+    stopWeek5QuickReviewAnimation();
+    stopWeek5MeetWheelAnimation();
+    stopWeek5ScrollDownBehavior();
+
+    /*
+     * IMPORTANT:
+     * Completely tear down the OLD slide before
+     * building the new one. This stops timers,
+     * listeners, animations, and sounds from
+     * continuing in the background.
+     */
+    stopStepBehavior();
+
+    if (
+      typeof window.HandsOnMouseStopLessonSounds ===
+      "function"
+    ) {
+      window.HandsOnMouseStopLessonSounds();
+    }
+
     const safeIndex = Math.min(
       Math.max(stepIndex, 0),
       lesson.steps.length - 1
@@ -15979,6 +20184,34 @@
 
     if (step.id === "week5-quick-review") {
       startWeek5QuickReviewAnimation();
+    }
+
+    if (step.id === "week5-meet-wheel") {
+      startWeek5MeetWheelAnimation();
+    }
+
+    if (step.id === "week5-scroll-down") {
+      startWeek5ScrollDownBehavior();
+    }
+
+    if (step.id === "week5-scroll-up") {
+      startWeek5ScrollUpBehavior();
+    }
+
+    if (step.id === "week5-scroll-practice") {
+      startWeek5ScrollPracticeBehavior();
+    }
+
+    if (step.id === "week5-stop-target") {
+      startWeek5StopTargetBehavior();
+    }
+
+    if (step.id === "week5-scroll-click") {
+      startWeek5ScrollClickBehavior();
+    }
+
+    if (step.id === "week5-scroll-drag") {
+      startWeek5ScrollDragBehavior();
     }
 
     if (step.id === "week4-warm-up") {
