@@ -10862,6 +10862,911 @@
     startSequence();
   }
 
+  let removeWeek6WarmUpWheelListener = null;
+  let week6WarmUpScrollSound = null;
+  let week6WarmUpScrollSoundTimer = null;
+  let week6WarmUpStopTimer = null;
+  let week6WarmUpRoundTimer = null;
+
+  function stopWeek6WarmUpBehavior() {
+    removeWeek6WarmUpWheelListener?.();
+    removeWeek6WarmUpWheelListener = null;
+
+    if (week6WarmUpScrollSoundTimer) {
+      clearTimeout(
+        week6WarmUpScrollSoundTimer
+      );
+
+      week6WarmUpScrollSoundTimer = null;
+    }
+
+    if (week6WarmUpStopTimer) {
+      clearTimeout(
+        week6WarmUpStopTimer
+      );
+
+      week6WarmUpStopTimer = null;
+    }
+
+    if (week6WarmUpRoundTimer) {
+      clearTimeout(
+        week6WarmUpRoundTimer
+      );
+
+      week6WarmUpRoundTimer = null;
+    }
+
+    if (week6WarmUpScrollSound) {
+      week6WarmUpScrollSound.pause();
+      week6WarmUpScrollSound.currentTime = 0;
+      week6WarmUpScrollSound.loop = false;
+      week6WarmUpScrollSound = null;
+    }
+  }
+
+
+  let removeWeek6PrecisionWheelListener = null;
+  let week6PrecisionScrollSound = null;
+  let week6PrecisionSoundTimer = null;
+  let week6PrecisionStopTimer = null;
+  let week6PrecisionRoundTimer = null;
+
+  function stopWeek6PrecisionBehavior() {
+    removeWeek6PrecisionWheelListener?.();
+    removeWeek6PrecisionWheelListener = null;
+
+    if (week6PrecisionSoundTimer) {
+      clearTimeout(
+        week6PrecisionSoundTimer
+      );
+      week6PrecisionSoundTimer = null;
+    }
+
+    if (week6PrecisionStopTimer) {
+      clearTimeout(
+        week6PrecisionStopTimer
+      );
+      week6PrecisionStopTimer = null;
+    }
+
+    if (week6PrecisionRoundTimer) {
+      clearTimeout(
+        week6PrecisionRoundTimer
+      );
+      week6PrecisionRoundTimer = null;
+    }
+
+    if (week6PrecisionScrollSound) {
+      week6PrecisionScrollSound.pause();
+      week6PrecisionScrollSound.currentTime = 0;
+      week6PrecisionScrollSound.loop = false;
+      week6PrecisionScrollSound = null;
+    }
+  }
+
+  function startWeek6PrecisionBehavior() {
+    stopWeek6PrecisionBehavior();
+
+    const area =
+      document.getElementById(
+        "week6PrecisionArea"
+      );
+
+    const rocket =
+      document.getElementById(
+        "week6PrecisionRocket"
+      );
+
+    const target =
+      document.getElementById(
+        "week6PrecisionTarget"
+      );
+
+    const targetLabel =
+      document.getElementById(
+        "week6PrecisionTargetLabel"
+      );
+
+    const status =
+      document.getElementById(
+        "week6PrecisionStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week6PrecisionProgress"
+      );
+
+    if (
+      !area ||
+      !rocket ||
+      !target ||
+      !targetLabel ||
+      !status ||
+      !progress
+    ) {
+      return;
+    }
+
+    const MIN_Y = 48;
+    const MAX_Y = 292;
+
+    const rounds = [
+      {
+        start: 270,
+        target: 82,
+        tolerance: 25,
+        label: "LANDING ZONE"
+      },
+      {
+        start: 72,
+        target: 245,
+        tolerance: 20,
+        label: "SMALL ZONE"
+      },
+      {
+        start: 260,
+        target: 145,
+        tolerance: 16,
+        label: "TINY ZONE"
+      },
+      {
+        start: 82,
+        target: 205,
+        tolerance: 12,
+        label: "PRECISION ZONE"
+      }
+    ];
+
+    let rocketY = 0;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+    function stopScrollSound() {
+      if (week6PrecisionSoundTimer) {
+        clearTimeout(
+          week6PrecisionSoundTimer
+        );
+
+        week6PrecisionSoundTimer = null;
+      }
+
+      if (week6PrecisionScrollSound) {
+        week6PrecisionScrollSound.pause();
+        week6PrecisionScrollSound.currentTime = 0;
+        week6PrecisionScrollSound.loop = false;
+        week6PrecisionScrollSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6PrecisionScrollSound) {
+        week6PrecisionScrollSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6PrecisionScrollSound.volume = 0.4;
+        week6PrecisionScrollSound.loop = true;
+
+        week6PrecisionScrollSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6PrecisionSoundTimer) {
+        clearTimeout(
+          week6PrecisionSoundTimer
+        );
+      }
+
+      week6PrecisionSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function playCorrect() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(
+          "/sounds/correct.mp3"
+        );
+
+      sound.volume = 0.55;
+      sound.currentTime = 0;
+
+      sound.play().catch(() => {});
+    }
+
+    function updateRocket() {
+      rocket.style.top =
+        `${rocketY}px`;
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+
+      const round =
+        rounds[roundIndex];
+
+      rocketY =
+        round.start;
+
+      rocket.style.top =
+        `${round.start}px`;
+
+      target.style.top =
+        `${round.target}px`;
+
+      /*
+       * The visible target gets smaller as
+       * precision requirements increase.
+       */
+      target.style.height =
+        `${round.tolerance * 2 + 42}px`;
+
+      targetLabel.textContent =
+        round.label;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        "Scroll the rocket into the landing zone, then STOP.";
+
+      rocket.classList.remove(
+        "week6-precision-rocket-correct"
+      );
+
+      target.classList.remove(
+        "week6-precision-target-correct"
+      );
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Precision scrolling complete!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-precision-celebration";
+
+      celebration.innerHTML = `
+        <div class="week6-precision-celebration-card">
+          <div>🚀⭐</div>
+          <strong>
+            PRECISION COMPLETE!
+          </strong>
+          <span>
+            Amazing scroll control!
+          </span>
+        </div>
+      `;
+
+      area.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-precision-celebration-show"
+        );
+      });
+
+      playCorrect();
+    }
+
+    function completeRound() {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+      stopScrollSound();
+
+      rocket.classList.add(
+        "week6-precision-rocket-correct"
+      );
+
+      target.classList.add(
+        "week6-precision-target-correct"
+      );
+
+      status.textContent =
+        "Perfect landing!";
+
+      playCorrect();
+
+      week6PrecisionRoundTimer =
+        setTimeout(() => {
+          if (!area.isConnected) {
+            return;
+          }
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 850);
+    }
+
+    function scheduleStopCheck() {
+      if (week6PrecisionStopTimer) {
+        clearTimeout(
+          week6PrecisionStopTimer
+        );
+      }
+
+      week6PrecisionStopTimer =
+        setTimeout(() => {
+          if (
+            locked ||
+            finished ||
+            !area.isConnected
+          ) {
+            return;
+          }
+
+          const round =
+            rounds[roundIndex];
+
+          const distance =
+            Math.abs(
+              rocketY -
+              round.target
+            );
+
+          if (
+            distance <=
+            round.tolerance
+          ) {
+            completeRound();
+            return;
+          }
+
+          status.textContent =
+            rocketY < round.target
+              ? "A little lower..."
+              : "A little higher...";
+        }, 300);
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        /*
+         * Smaller movement than Step 2.
+         * This is the precision lesson.
+         */
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY) * 0.2,
+              5
+            ),
+            14
+          );
+
+        if (event.deltaY > 0) {
+          rocketY =
+            Math.min(
+              rocketY + amount,
+              MAX_Y
+            );
+
+          status.textContent =
+            "Moving DOWN...";
+        } else if (event.deltaY < 0) {
+          rocketY =
+            Math.max(
+              rocketY - amount,
+              MIN_Y
+            );
+
+          status.textContent =
+            "Moving UP...";
+        }
+
+        updateRocket();
+        scheduleStopCheck();
+      };
+
+    area.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    removeWeek6PrecisionWheelListener =
+      () => {
+        area.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    loadRound();
+  }
+
+
+  function startWeek6WarmUpBehavior() {
+    stopWeek6WarmUpBehavior();
+
+    const area =
+      document.getElementById(
+        "week6WarmUpArea"
+      );
+
+    const ball =
+      document.getElementById(
+        "week6WarmUpBall"
+      );
+
+    const topTarget =
+      document.getElementById(
+        "week6WarmUpTopTarget"
+      );
+
+    const bottomTarget =
+      document.getElementById(
+        "week6WarmUpBottomTarget"
+      );
+
+    const instruction =
+      document.getElementById(
+        "week6WarmUpInstruction"
+      );
+
+    const status =
+      document.getElementById(
+        "week6WarmUpStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week6WarmUpProgress"
+      );
+
+    if (
+      !area ||
+      !ball ||
+      !topTarget ||
+      !bottomTarget ||
+      !instruction ||
+      !status ||
+      !progress
+    ) {
+      console.warn(
+        "Week 6 warm-up elements missing."
+      );
+
+      return;
+    }
+
+    const TOP_Y = 62;
+    const BOTTOM_Y = 278;
+    const TOLERANCE = 20;
+
+    const rounds = [
+      {
+        target: "bottom",
+        label: "BOTTOM",
+        arrow: "↓"
+      },
+      {
+        target: "top",
+        label: "TOP",
+        arrow: "↑"
+      },
+      {
+        target: "bottom",
+        label: "BOTTOM",
+        arrow: "↓"
+      },
+      {
+        target: "top",
+        label: "TOP",
+        arrow: "↑"
+      }
+    ];
+
+    let ballY = 165;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+
+    function stopScrollSound() {
+      if (week6WarmUpScrollSoundTimer) {
+        clearTimeout(
+          week6WarmUpScrollSoundTimer
+        );
+
+        week6WarmUpScrollSoundTimer = null;
+      }
+
+      if (week6WarmUpScrollSound) {
+        week6WarmUpScrollSound.pause();
+        week6WarmUpScrollSound.currentTime = 0;
+        week6WarmUpScrollSound.loop = false;
+        week6WarmUpScrollSound = null;
+      }
+    }
+
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6WarmUpScrollSound) {
+        week6WarmUpScrollSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6WarmUpScrollSound.volume = 0.42;
+        week6WarmUpScrollSound.loop = true;
+
+        week6WarmUpScrollSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6WarmUpScrollSoundTimer) {
+        clearTimeout(
+          week6WarmUpScrollSoundTimer
+        );
+      }
+
+      week6WarmUpScrollSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+
+    function playCorrect() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(
+          "/sounds/correct.mp3"
+        );
+
+      sound.volume = 0.55;
+      sound.currentTime = 0;
+
+      sound
+        .play()
+        .catch(() => {});
+    }
+
+
+    function updateBall() {
+      ball.style.top =
+        `${ballY}px`;
+    }
+
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+
+      const round =
+        rounds[roundIndex];
+
+      instruction.innerHTML = `
+        <span>${round.arrow}</span>
+        <strong>
+          SCROLL TO THE ${round.label}
+        </strong>
+      `;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Scroll to the ${round.label}, then STOP.`;
+
+      topTarget.classList.toggle(
+        "week6-warm-up-target-active",
+        round.target === "top"
+      );
+
+      bottomTarget.classList.toggle(
+        "week6-warm-up-target-active",
+        round.target === "bottom"
+      );
+    }
+
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Great scrolling!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-warm-up-celebration";
+
+      celebration.innerHTML = `
+        <div class="week6-warm-up-celebration-card">
+          <div>⭐</div>
+          <strong>
+            WARM-UP COMPLETE!
+          </strong>
+          <span>
+            Great up-and-down scrolling!
+          </span>
+        </div>
+      `;
+
+      area.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-warm-up-celebration-show"
+        );
+      });
+
+      playCorrect();
+    }
+
+
+    function completeRound() {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+
+      stopScrollSound();
+
+      const round =
+        rounds[roundIndex];
+
+      const target =
+        round.target === "top"
+          ? topTarget
+          : bottomTarget;
+
+      target.classList.add(
+        "week6-warm-up-target-correct"
+      );
+
+      ball.classList.add(
+        "week6-warm-up-ball-correct"
+      );
+
+      status.textContent =
+        "Perfect stop!";
+
+      playCorrect();
+
+      week6WarmUpRoundTimer =
+        setTimeout(() => {
+          if (!area.isConnected) {
+            return;
+          }
+
+          target.classList.remove(
+            "week6-warm-up-target-correct"
+          );
+
+          ball.classList.remove(
+            "week6-warm-up-ball-correct"
+          );
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 750);
+    }
+
+
+    function scheduleStopCheck() {
+      if (week6WarmUpStopTimer) {
+        clearTimeout(
+          week6WarmUpStopTimer
+        );
+      }
+
+      week6WarmUpStopTimer =
+        setTimeout(() => {
+          if (
+            locked ||
+            finished ||
+            !area.isConnected
+          ) {
+            return;
+          }
+
+          const round =
+            rounds[roundIndex];
+
+          const targetY =
+            round.target === "top"
+              ? TOP_Y
+              : BOTTOM_Y;
+
+          if (
+            Math.abs(
+              ballY - targetY
+            ) <= TOLERANCE
+          ) {
+            completeRound();
+          }
+        }, 260);
+    }
+
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          area.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY) * 0.3,
+              8
+            ),
+            22
+          );
+
+        if (event.deltaY > 0) {
+          ballY =
+            Math.min(
+              ballY + amount,
+              BOTTOM_Y
+            );
+
+          status.textContent =
+            "Scrolling DOWN...";
+        } else if (event.deltaY < 0) {
+          ballY =
+            Math.max(
+              ballY - amount,
+              TOP_Y
+            );
+
+          status.textContent =
+            "Scrolling UP...";
+        }
+
+        updateBall();
+        scheduleStopCheck();
+      };
+
+
+    area.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    removeWeek6WarmUpWheelListener =
+      () => {
+        area.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    updateBall();
+    loadRound();
+  }
+
+
   function startWeek5QuickReviewAnimation() {
     stopWeek5QuickReviewAnimation();
 
@@ -18502,6 +19407,226 @@
       `;
     }
 
+    if (step.id === "week6-warm-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-warm-up">
+
+          <div class="week6-warm-up-heading">
+
+            <span class="drag-review-badge">
+              SCROLL WARM-UP
+            </span>
+
+            <h1>Up, Down, Stop!</h1>
+
+            <p>
+              Scroll the ball to the glowing target and stop.
+            </p>
+
+          </div>
+
+          <div class="week6-warm-up-layout">
+
+            <div class="week6-warm-up-guide">
+
+              <div
+                id="week6WarmUpInstruction"
+                class="week6-warm-up-instruction"
+              >
+                <span>↓</span>
+                <strong>
+                  SCROLL TO THE BOTTOM
+                </strong>
+              </div>
+
+              <div
+                class="week6-warm-up-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week6-warm-up-guide-left"></div>
+                <div class="week6-warm-up-guide-right"></div>
+
+                <div class="week6-warm-up-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <div
+                id="week6WarmUpProgress"
+                class="week6-warm-up-progress"
+              >
+                1 of 4
+              </div>
+
+            </div>
+
+            <div
+              id="week6WarmUpArea"
+              class="week6-warm-up-area"
+            >
+
+              <div
+                id="week6WarmUpTrack"
+                class="week6-warm-up-track"
+              >
+
+                <div
+                  id="week6WarmUpTopTarget"
+                  class="week6-warm-up-target week6-warm-up-target-top"
+                >
+                  <span>TOP</span>
+                </div>
+
+                <div class="week6-warm-up-track-line"></div>
+
+                <div
+                  id="week6WarmUpBall"
+                  class="week6-warm-up-ball"
+                >
+                  ⭐
+                </div>
+
+                <div
+                  id="week6WarmUpBottomTarget"
+                  class="week6-warm-up-target week6-warm-up-target-bottom"
+                >
+                  <span>BOTTOM</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week6WarmUpStatus"
+            class="week6-warm-up-status"
+          >
+            Scroll to the BOTTOM, then STOP.
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week6-precision") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-precision">
+
+          <div class="week6-precision-heading">
+
+            <span class="drag-review-badge">
+              PRECISION SCROLLING
+            </span>
+
+            <h1>Park the Rocket!</h1>
+
+            <p>
+              Use small scrolls and stop inside the landing zone.
+            </p>
+
+          </div>
+
+          <div class="week6-precision-layout">
+
+            <div class="week6-precision-guide">
+
+              <span class="week6-precision-arrow">
+                ↑
+              </span>
+
+              <div
+                class="week6-precision-guide-mouse"
+                aria-hidden="true"
+              >
+                <div class="week6-precision-guide-left"></div>
+                <div class="week6-precision-guide-right"></div>
+
+                <div class="week6-precision-guide-wheel">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <strong>
+                SMALL
+                <br>
+                SCROLLS
+              </strong>
+
+              <span class="week6-precision-arrow">
+                ↓
+              </span>
+
+              <div
+                id="week6PrecisionProgress"
+                class="week6-precision-progress"
+              >
+                1 of 4
+              </div>
+
+            </div>
+
+            <div
+              id="week6PrecisionArea"
+              class="week6-precision-area"
+            >
+
+              <div class="week6-precision-space-star star-one">
+                ✦
+              </div>
+
+              <div class="week6-precision-space-star star-two">
+                ✦
+              </div>
+
+              <div class="week6-precision-space-star star-three">
+                ✦
+              </div>
+
+              <div class="week6-precision-flight-line"></div>
+
+              <div
+                id="week6PrecisionTarget"
+                class="week6-precision-target"
+              >
+                <span>
+                  ◎
+                </span>
+
+                <strong
+                  id="week6PrecisionTargetLabel"
+                >
+                  LANDING ZONE
+                </strong>
+              </div>
+
+              <div
+                id="week6PrecisionRocket"
+                class="week6-precision-rocket"
+              >
+                🚀
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week6PrecisionStatus"
+            class="week6-precision-status"
+          >
+            Scroll the rocket into the landing zone, then STOP.
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week6-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -20370,6 +21495,9 @@
   }
 
   function renderStep(stepIndex, mode) {
+    stopWeek6WarmUpBehavior();
+    stopWeek6PrecisionBehavior();
+
     stopWeek5CompleteBehavior();
 
     stopWeek5ScrollDragBehavior();
@@ -20452,6 +21580,14 @@
 
     if (step.id === "week4-quick-review") {
       startWeek4QuickReviewAnimation();
+    }
+
+    if (step.id === "week6-warm-up") {
+      startWeek6WarmUpBehavior();
+    }
+
+    if (step.id === "week6-precision") {
+      startWeek6PrecisionBehavior();
     }
 
     if (step.id === "week5-quick-review") {
