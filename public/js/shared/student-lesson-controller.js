@@ -11218,6 +11218,936 @@
     }
   }
 
+  let removeWeek6MixedWheelListener = null;
+  let removeWeek6MixedMoveListener = null;
+  let removeWeek6MixedClickListener = null;
+  let removeWeek6MixedDownListener = null;
+  let removeWeek6MixedDragListener = null;
+  let removeWeek6MixedUpListener = null;
+
+  let week6MixedScrollSound = null;
+  let week6MixedScrollSoundTimer = null;
+  let week6MixedFloatingObject = null;
+
+  const week6MixedSounds = new Set();
+  const week6MixedTimers = new Set();
+
+  function stopWeek6MixedBehavior() {
+    removeWeek6MixedWheelListener?.();
+    removeWeek6MixedMoveListener?.();
+    removeWeek6MixedClickListener?.();
+    removeWeek6MixedDownListener?.();
+    removeWeek6MixedDragListener?.();
+    removeWeek6MixedUpListener?.();
+
+    removeWeek6MixedWheelListener = null;
+    removeWeek6MixedMoveListener = null;
+    removeWeek6MixedClickListener = null;
+    removeWeek6MixedDownListener = null;
+    removeWeek6MixedDragListener = null;
+    removeWeek6MixedUpListener = null;
+
+    if (week6MixedScrollSoundTimer) {
+      clearTimeout(
+        week6MixedScrollSoundTimer
+      );
+      week6MixedScrollSoundTimer = null;
+    }
+
+    if (week6MixedScrollSound) {
+      week6MixedScrollSound.pause();
+      week6MixedScrollSound.currentTime = 0;
+      week6MixedScrollSound.loop = false;
+      week6MixedScrollSound = null;
+    }
+
+    week6MixedTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+    week6MixedTimers.clear();
+
+    week6MixedSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+    week6MixedSounds.clear();
+
+    if (
+      week6MixedFloatingObject &&
+      week6MixedFloatingObject.isConnected
+    ) {
+      week6MixedFloatingObject.remove();
+    }
+
+    week6MixedFloatingObject = null;
+  }
+
+  function startWeek6MixedBehavior() {
+    stopWeek6MixedBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week6MixedViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week6MixedScene"
+      );
+
+    const task =
+      document.getElementById(
+        "week6MixedTask"
+      );
+
+    const progress =
+      document.getElementById(
+        "week6MixedProgress"
+      );
+
+    const status =
+      document.getElementById(
+        "week6MixedStatus"
+      );
+
+    const repairBay =
+      document.querySelector(
+        ".week6-mixed-repair-bay"
+      );
+
+    const robot =
+      document.getElementById(
+        "week6MixedRobot"
+      );
+
+    const robotFace =
+      document.getElementById(
+        "week6MixedRobotFace"
+      );
+
+    const blueButton =
+      document.getElementById(
+        "week6MixedBlueButton"
+      );
+
+    const batterySlot =
+      document.getElementById(
+        "week6MixedBatterySlot"
+      );
+
+    const antennaSlot =
+      document.getElementById(
+        "week6MixedAntennaSlot"
+      );
+
+    const reactorSlot =
+      document.getElementById(
+        "week6MixedReactorSlot"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !task ||
+      !progress ||
+      !status ||
+      !repairBay ||
+      !robot ||
+      !robotFace ||
+      !blueButton ||
+      !batterySlot ||
+      !antennaSlot ||
+      !reactorSlot
+    ) {
+      return;
+    }
+
+    const missions = [
+      {
+        id: "wake",
+        task: "Wake up the sleeping robot!",
+        success: "The robot is awake!"
+      },
+      {
+        id: "power",
+        task: "Turn on the robot with the BLUE button!",
+        success: "The robot is turned on!"
+      },
+      {
+        id: "battery",
+        task: "Find the BATTERY and put it inside the robot!",
+        success: "The robot has its battery!"
+      },
+      {
+        id: "antenna",
+        task: "Find the ANTENNA and put it on the robot!",
+        success: "The robot can communicate!"
+      },
+      {
+        id: "crystal",
+        task: "Find the ENERGY CRYSTAL and install it!",
+        success: "The robot is fully powered!"
+      }
+    ];
+
+    const destinations = {
+      battery: batterySlot,
+      antenna: antennaSlot,
+      crystal: reactorSlot
+    };
+
+    const MAX_SCROLL = 1320;
+
+    let missionIndex = 0;
+    let scrollPosition = 0;
+    let robotScrollPosition = 0;
+    let locked = false;
+    let finished = false;
+    let dragging = false;
+    let activeObject = null;
+    let originalParent = null;
+    let originalNextSibling = null;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week6MixedTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week6MixedTimers.add(timer);
+      return timer;
+    }
+
+    function playSound(src, volume) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(src);
+      sound.volume = volume;
+      week6MixedSounds.add(sound);
+
+      const forgetSound = () => {
+        week6MixedSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(forgetSound);
+    }
+
+    function stopScrollSound() {
+      if (week6MixedScrollSoundTimer) {
+        clearTimeout(
+          week6MixedScrollSoundTimer
+        );
+        week6MixedScrollSoundTimer = null;
+      }
+
+      if (week6MixedScrollSound) {
+        week6MixedScrollSound.pause();
+        week6MixedScrollSound.currentTime = 0;
+        week6MixedScrollSound.loop = false;
+        week6MixedScrollSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6MixedScrollSound) {
+        week6MixedScrollSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6MixedScrollSound.volume = 0.4;
+        week6MixedScrollSound.loop = true;
+
+        week6MixedScrollSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6MixedScrollSoundTimer) {
+        clearTimeout(
+          week6MixedScrollSoundTimer
+        );
+      }
+
+      week6MixedScrollSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+    }
+
+    function updateRobotPosition() {
+      robot.style.marginTop =
+        `-${robotScrollPosition}px`;
+    }
+
+    function currentMission() {
+      return missions[missionIndex];
+    }
+
+    function updatePartVisibility() {
+      scene
+        .querySelectorAll(
+          "[data-week6-mixed-part]"
+        )
+        .forEach(part => {
+          const firstMission =
+            Number(
+              part.dataset.mixedMission
+            );
+
+          part.hidden =
+            firstMission > missionIndex;
+
+          part.classList.remove(
+            "week6-mixed-wrong",
+            "week6-mixed-correct"
+          );
+        });
+    }
+
+    function loadMission() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+      dragging = false;
+      activeObject = null;
+
+      const mission = currentMission();
+
+      task.textContent = mission.task;
+
+      progress.textContent =
+        `${missionIndex + 1} of ${missions.length}`;
+
+      status.textContent =
+        "What should you do? You decide!";
+
+      if (
+        mission.id === "battery" ||
+        mission.id === "antenna" ||
+        mission.id === "crystal"
+      ) {
+        scrollPosition = 0;
+      }
+
+      robot
+        .querySelectorAll(
+          ".week6-mixed-slot"
+        )
+        .forEach(slot => {
+          slot.classList.remove(
+            "week6-mixed-slot-active"
+          );
+        });
+
+      destinations[
+        mission.id
+      ]?.classList.add(
+        "week6-mixed-slot-active"
+      );
+
+      updatePartVisibility();
+      updateScene();
+    }
+
+    function showWrong(object, message) {
+      object?.classList.add(
+        "week6-mixed-wrong"
+      );
+
+      status.textContent = message;
+
+      playSound(
+        "/sounds/buzzer.mp3",
+        0.55
+      );
+
+      schedule(() => {
+        if (object?.isConnected) {
+          object.classList.remove(
+            "week6-mixed-wrong"
+          );
+        }
+      }, 350);
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+      dragging = false;
+
+      stopScrollSound();
+
+      robot.classList.add(
+        "week6-mixed-robot-complete"
+      );
+
+      status.textContent =
+        "Robot repair complete!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-mixed-celebration";
+
+      celebration.innerHTML = `
+        <div class="week6-mixed-celebration-card">
+          <div>🤖✨</div>
+          <strong>ROBOT COMPLETE!</strong>
+          <span>
+            You knew exactly what to do!
+          </span>
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-mixed-celebration-show"
+        );
+      });
+
+      playSound(
+        "/sounds/complete.mp3",
+        0.65
+      );
+    }
+
+    function completeMission(object) {
+      if (locked || finished) {
+        return;
+      }
+
+      locked = true;
+      dragging = false;
+
+      const mission = currentMission();
+
+      object?.classList.add(
+        "week6-mixed-correct"
+      );
+
+      status.textContent =
+        mission.success;
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      schedule(() => {
+        if (!viewport.isConnected) {
+          return;
+        }
+
+        missionIndex += 1;
+
+        if (
+          missionIndex >=
+          missions.length
+        ) {
+          finishActivity();
+          return;
+        }
+
+        loadMission();
+      }, 850);
+    }
+
+    function pointInside(element, x, y) {
+      const rect =
+        element.getBoundingClientRect();
+
+      return (
+        x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom
+      );
+    }
+
+    function returnDraggedObject(object) {
+      if (!object) {
+        return;
+      }
+
+      object.classList.remove(
+        "week6-mixed-held"
+      );
+
+      if (originalParent) {
+        if (
+          originalNextSibling &&
+          originalNextSibling.parentNode ===
+            originalParent
+        ) {
+          originalParent.insertBefore(
+            object,
+            originalNextSibling
+          );
+        } else {
+          originalParent.appendChild(
+            object
+          );
+        }
+      }
+
+      object.style.position = "";
+      object.style.left = "";
+      object.style.top = "";
+      object.style.width = "";
+      object.style.height = "";
+      object.style.margin = "";
+      object.style.transform = "";
+      object.style.zIndex = "";
+
+      originalParent = null;
+      originalNextSibling = null;
+      week6MixedFloatingObject = null;
+    }
+
+    function installPart(
+      object,
+      destination,
+      missionId
+    ) {
+      object.classList.remove(
+        "week6-mixed-held"
+      );
+
+      object.remove();
+
+      originalParent = null;
+      originalNextSibling = null;
+      week6MixedFloatingObject = null;
+
+      destination.classList.remove(
+        "week6-mixed-slot-active"
+      );
+
+      destination.classList.add(
+        "week6-mixed-slot-installed"
+      );
+
+      if (missionId === "battery") {
+        destination.innerHTML =
+          "<span>🔋</span>";
+        robot.classList.add(
+          "week6-mixed-has-battery"
+        );
+      }
+
+      if (missionId === "antenna") {
+        destination.innerHTML =
+          '<span class="week6-mixed-installed-antenna">📡</span>';
+        robot.classList.add(
+          "week6-mixed-has-antenna"
+        );
+      }
+
+      if (missionId === "crystal") {
+        destination.innerHTML =
+          "<span>💎</span>";
+        robot.classList.add(
+          "week6-mixed-has-crystal"
+        );
+      }
+
+      completeMission(destination);
+    }
+
+    const wheelHandler = event => {
+      if (locked || finished || dragging) {
+        event.preventDefault();
+        return;
+      }
+
+      const rect =
+        viewport.getBoundingClientRect();
+
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      playScrollSound();
+
+      const amount =
+        Math.min(
+          Math.max(
+            Math.abs(event.deltaY),
+            22
+          ),
+          65
+        );
+
+      const repairRect =
+        repairBay.getBoundingClientRect();
+
+      if (
+        event.clientX >= repairRect.left &&
+        event.clientX <= repairRect.right
+      ) {
+        if (event.deltaY > 0) {
+          robotScrollPosition =
+            Math.min(
+              robotScrollPosition + amount,
+              95
+            );
+        } else if (event.deltaY < 0) {
+          robotScrollPosition =
+            Math.max(
+              robotScrollPosition - amount,
+              0
+            );
+        }
+
+        updateRobotPosition();
+        return;
+      }
+
+      if (event.deltaY > 0) {
+        scrollPosition =
+          Math.min(
+            scrollPosition + amount,
+            MAX_SCROLL
+          );
+      } else if (event.deltaY < 0) {
+        scrollPosition =
+          Math.max(
+            scrollPosition - amount,
+            0
+          );
+      }
+
+      updateScene();
+    };
+
+    const moveHandler = event => {
+      if (
+        locked ||
+        finished ||
+        currentMission().id !== "wake"
+      ) {
+        return;
+      }
+
+      if (
+        !event.target.closest(
+          "#week6MixedRobotFace"
+        )
+      ) {
+        return;
+      }
+
+      robotFace.classList.add(
+        "week6-mixed-face-awake"
+      );
+
+      robot.classList.add(
+        "week6-mixed-robot-awake"
+      );
+
+      completeMission(robotFace);
+    };
+
+    const clickHandler = event => {
+      if (locked || finished || dragging) {
+        return;
+      }
+
+      if (currentMission().id !== "power") {
+        return;
+      }
+
+      const button =
+        event.target.closest(
+          "[data-week6-robot-button]"
+        );
+
+      if (!button) {
+        return;
+      }
+
+      playSound(
+        "/sounds/mouseclick.mp3",
+        0.45
+      );
+
+      if (
+        button.dataset.week6RobotButton !==
+        "blue"
+      ) {
+        showWrong(
+          button,
+          "That is not the blue button."
+        );
+        return;
+      }
+
+      button.classList.add(
+        "week6-mixed-button-on"
+      );
+
+      robot.classList.add(
+        "week6-mixed-robot-powered"
+      );
+
+      completeMission(button);
+    };
+
+    const downHandler = event => {
+      if (
+        locked ||
+        finished ||
+        event.button !== 0
+      ) {
+        return;
+      }
+
+      const part =
+        event.target.closest(
+          "[data-week6-mixed-part]"
+        );
+
+      if (!part) {
+        return;
+      }
+
+      const mission = currentMission();
+
+      if (
+        mission.id !== "battery" &&
+        mission.id !== "antenna" &&
+        mission.id !== "crystal"
+      ) {
+        return;
+      }
+
+      if (
+        part.dataset.week6MixedPart !==
+        mission.id
+      ) {
+        showWrong(
+          part,
+          "That is not the part the robot needs."
+        );
+        return;
+      }
+
+      event.preventDefault();
+
+      const rect =
+        part.getBoundingClientRect();
+
+      offsetX =
+        event.clientX - rect.left;
+
+      offsetY =
+        event.clientY - rect.top;
+
+      originalParent = part.parentNode;
+      originalNextSibling =
+        part.nextSibling;
+
+      activeObject = part;
+      dragging = true;
+      week6MixedFloatingObject = part;
+
+      part.style.position = "fixed";
+      part.style.left = `${rect.left}px`;
+      part.style.top = `${rect.top}px`;
+      part.style.width = `${rect.width}px`;
+      part.style.height = `${rect.height}px`;
+      part.style.margin = "0";
+      part.style.transform = "none";
+      part.style.zIndex = "9999";
+
+      part.classList.add(
+        "week6-mixed-held"
+      );
+
+      document.body.appendChild(part);
+
+      playSound(
+        "/sounds/mouseclick.mp3",
+        0.45
+      );
+
+      status.textContent =
+        "Bring the part to its glowing place on the robot.";
+    };
+
+    const dragHandler = event => {
+      if (!dragging || !activeObject) {
+        return;
+      }
+
+      event.preventDefault();
+
+      activeObject.style.left =
+        `${event.clientX - offsetX}px`;
+
+      activeObject.style.top =
+        `${event.clientY - offsetY}px`;
+    };
+
+    const upHandler = event => {
+      if (
+        !dragging ||
+        !activeObject ||
+        event.button !== 0
+      ) {
+        return;
+      }
+
+      const object = activeObject;
+      const mission = currentMission();
+      const destination =
+        destinations[mission.id];
+
+      dragging = false;
+      activeObject = null;
+
+      if (
+        destination &&
+        pointInside(
+          destination,
+          event.clientX,
+          event.clientY
+        )
+      ) {
+        installPart(
+          object,
+          destination,
+          mission.id
+        );
+        return;
+      }
+
+      returnDraggedObject(object);
+
+      showWrong(
+        object,
+        "That part does not go there. Try again!"
+      );
+    };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      { passive: false }
+    );
+
+    viewport.addEventListener(
+      "mouseover",
+      moveHandler
+    );
+
+    viewport.addEventListener(
+      "click",
+      clickHandler
+    );
+
+    viewport.addEventListener(
+      "mousedown",
+      downHandler
+    );
+
+    window.addEventListener(
+      "mousemove",
+      dragHandler,
+      true
+    );
+
+    window.addEventListener(
+      "mouseup",
+      upHandler,
+      true
+    );
+
+    removeWeek6MixedWheelListener = () => {
+      viewport.removeEventListener(
+        "wheel",
+        wheelHandler
+      );
+
+      stopScrollSound();
+    };
+
+    removeWeek6MixedMoveListener = () => {
+      viewport.removeEventListener(
+        "mouseover",
+        moveHandler
+      );
+    };
+
+    removeWeek6MixedClickListener = () => {
+      viewport.removeEventListener(
+        "click",
+        clickHandler
+      );
+    };
+
+    removeWeek6MixedDownListener = () => {
+      viewport.removeEventListener(
+        "mousedown",
+        downHandler
+      );
+    };
+
+    removeWeek6MixedDragListener = () => {
+      window.removeEventListener(
+        "mousemove",
+        dragHandler,
+        true
+      );
+    };
+
+    removeWeek6MixedUpListener = () => {
+      window.removeEventListener(
+        "mouseup",
+        upHandler,
+        true
+      );
+    };
+
+    updatePartVisibility();
+    updateScene();
+    updateRobotPosition();
+    loadMission();
+  }
   let removeWeek6ScrollDragWheelListener = null;
   let removeWeek6ScrollDragDownListener = null;
   let removeWeek6ScrollDragMoveListener = null;
@@ -21603,6 +22533,230 @@ const status =
         </div>
       `;
     }
+    if (step.id === "week6-mixed-skills") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-mixed">
+
+          <div class="week6-mixed-heading">
+            <span class="drag-review-badge">
+              ROBOT REPAIR LAB
+            </span>
+
+            <h1>Build the Robot!</h1>
+
+            <p>
+              Read each mission and decide what to do.
+            </p>
+          </div>
+
+          <div class="week6-mixed-topbar">
+            <div
+              id="week6MixedTask"
+              class="week6-mixed-task"
+            >
+              Wake up the sleeping robot!
+            </div>
+
+            <div
+              id="week6MixedProgress"
+              class="week6-mixed-progress"
+            >
+              1 of 5
+            </div>
+          </div>
+
+          <div
+            id="week6MixedViewport"
+            class="week6-mixed-viewport"
+          >
+            <div class="week6-mixed-supply-side">
+              <div class="week6-mixed-supply-title">
+                PARTS STORAGE
+              </div>
+
+              <div
+                id="week6MixedScene"
+                class="week6-mixed-scene"
+              >
+                <div class="week6-mixed-shelf shelf-a"></div>
+                <div class="week6-mixed-shelf shelf-b"></div>
+                <div class="week6-mixed-shelf shelf-c"></div>
+                <div class="week6-mixed-shelf shelf-d"></div>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="gear"
+                  data-mixed-mission="2"
+                  style="top: 190px; left: 30%;"
+                >⚙️</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="flashlight"
+                  data-mixed-mission="2"
+                  style="top: 350px; left: 70%;"
+                >🔦</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="battery"
+                  data-mixed-mission="2"
+                  style="top: 620px; left: 32%;"
+                >🔋</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="wrench"
+                  data-mixed-mission="2"
+                  style="top: 760px; left: 72%;"
+                >🔧</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="satellite"
+                  data-mixed-mission="3"
+                  style="top: 900px; left: 28%;"
+                >🛰️</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="antenna"
+                  data-mixed-mission="3"
+                  style="top: 1080px; left: 68%;"
+                >📡</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="star"
+                  data-mixed-mission="4"
+                  style="top: 1240px; left: 32%;"
+                >⭐</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="moon"
+                  data-mixed-mission="4"
+                  style="top: 1390px; left: 72%;"
+                >🌙</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part week6-mixed-crystal"
+                  data-week6-mixed-part="crystal"
+                  data-mixed-mission="4"
+                  style="top: 1580px; left: 34%;"
+                >💎</button>
+
+                <button
+                  type="button"
+                  class="week6-mixed-part"
+                  data-week6-mixed-part="planet"
+                  data-mixed-mission="4"
+                  style="top: 1690px; left: 70%;"
+                >🪐</button>
+              </div>
+            </div>
+
+            <div class="week6-mixed-repair-bay">
+              <div class="week6-mixed-bay-title">
+                REPAIR BAY
+              </div>
+
+              <div
+                id="week6MixedRobot"
+                class="week6-mixed-robot"
+              >
+                <div
+                  id="week6MixedAntennaSlot"
+                  class="week6-mixed-slot week6-mixed-antenna-slot"
+                >
+                  <span>+</span>
+                </div>
+
+                <div class="week6-mixed-robot-ear ear-left"></div>
+                <div class="week6-mixed-robot-ear ear-right"></div>
+
+                <div
+                  id="week6MixedRobotFace"
+                  class="week6-mixed-robot-head"
+                >
+                  <div class="week6-mixed-eye eye-left"></div>
+                  <div class="week6-mixed-eye eye-right"></div>
+                  <div class="week6-mixed-robot-mouth"></div>
+                </div>
+
+                <div class="week6-mixed-robot-neck"></div>
+
+                <div class="week6-mixed-robot-arm arm-left">
+                  <div class="week6-mixed-robot-hand"></div>
+                </div>
+
+                <div class="week6-mixed-robot-arm arm-right">
+                  <div class="week6-mixed-robot-hand"></div>
+                </div>
+
+                <div class="week6-mixed-robot-body">
+                  <div class="week6-mixed-button-row">
+                    <button
+                      id="week6MixedBlueButton"
+                      type="button"
+                      class="week6-mixed-robot-button button-blue"
+                      data-week6-robot-button="blue"
+                      aria-label="Blue robot button"
+                    ></button>
+
+                    <button
+                      type="button"
+                      class="week6-mixed-robot-button button-red"
+                      data-week6-robot-button="red"
+                      aria-label="Red robot button"
+                    ></button>
+                  </div>
+
+                  <div
+                    id="week6MixedReactorSlot"
+                    class="week6-mixed-slot week6-mixed-reactor-slot"
+                  >
+                    <span>+</span>
+                  </div>
+
+                  <div
+                    id="week6MixedBatterySlot"
+                    class="week6-mixed-slot week6-mixed-battery-slot"
+                  >
+                    <span>+</span>
+                  </div>
+                </div>
+
+                <div class="week6-mixed-robot-leg leg-left">
+                  <div class="week6-mixed-robot-foot"></div>
+                </div>
+
+                <div class="week6-mixed-robot-leg leg-right">
+                  <div class="week6-mixed-robot-foot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="week6MixedStatus"
+            class="week6-mixed-status"
+          >
+            What should you do? You decide!
+          </div>
+
+        </div>
+      `;
+    }
     if (step.id.startsWith("week6-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -23574,6 +24728,10 @@ const status =
       startWeek6ScrollDragBehavior();
     }
 
+    if (step.id === "week6-mixed-skills") {
+      startWeek6MixedBehavior();
+    }
+
     if (step.id === "week5-quick-review") {
       startWeek5QuickReviewAnimation();
     }
@@ -24058,3 +25216,6 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
