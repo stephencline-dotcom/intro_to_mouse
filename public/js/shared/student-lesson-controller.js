@@ -11227,6 +11227,23 @@
   let week6OceanScrollSound = null;
   let week6OceanScrollSoundTimer = null;
 
+  let removeWeek6TreeWheelListener = null;
+  let removeWeek6TreeDownListener = null;
+  let removeWeek6TreeMoveListener = null;
+  let removeWeek6TreeUpListener = null;
+  let week6TreeResetGame = null;
+  let week6TreeScrollSound = null;
+  let week6TreeScrollSoundTimer = null;
+
+  let removeWeek6BasketballWheelListener = null;
+  let removeWeek6BasketballDownListener = null;
+  let removeWeek6BasketballMoveListener = null;
+  let removeWeek6BasketballUpListener = null;
+  let week6BasketballResetGame = null;
+  let week6BasketballScrollSound = null;
+  let week6BasketballScrollSoundTimer = null;
+  let week6BasketballStopTimer = null;
+
   const week6ActivitySounds = new Set();
   const week6ActivityTimers = new Set();
 
@@ -11243,6 +11260,67 @@
     removeWeek6OceanDownListener = null;
     removeWeek6OceanMoveListener = null;
     removeWeek6OceanUpListener = null;
+
+    removeWeek6TreeWheelListener?.();
+    removeWeek6TreeDownListener?.();
+    removeWeek6TreeMoveListener?.();
+    removeWeek6TreeUpListener?.();
+
+    removeWeek6TreeWheelListener = null;
+    removeWeek6TreeDownListener = null;
+    removeWeek6TreeMoveListener = null;
+    removeWeek6TreeUpListener = null;
+
+    removeWeek6BasketballWheelListener?.();
+    removeWeek6BasketballDownListener?.();
+    removeWeek6BasketballMoveListener?.();
+    removeWeek6BasketballUpListener?.();
+
+    removeWeek6BasketballWheelListener = null;
+    removeWeek6BasketballDownListener = null;
+    removeWeek6BasketballMoveListener = null;
+    removeWeek6BasketballUpListener = null;
+
+    week6BasketballResetGame?.();
+    week6BasketballResetGame = null;
+
+    if (week6BasketballStopTimer) {
+      clearTimeout(
+        week6BasketballStopTimer
+      );
+      week6BasketballStopTimer = null;
+    }
+
+    if (week6BasketballScrollSoundTimer) {
+      clearTimeout(
+        week6BasketballScrollSoundTimer
+      );
+      week6BasketballScrollSoundTimer = null;
+    }
+
+    if (week6BasketballScrollSound) {
+      week6BasketballScrollSound.pause();
+      week6BasketballScrollSound.currentTime = 0;
+      week6BasketballScrollSound.loop = false;
+      week6BasketballScrollSound = null;
+    }
+
+    week6TreeResetGame?.();
+    week6TreeResetGame = null;
+
+    if (week6TreeScrollSoundTimer) {
+      clearTimeout(
+        week6TreeScrollSoundTimer
+      );
+      week6TreeScrollSoundTimer = null;
+    }
+
+    if (week6TreeScrollSound) {
+      week6TreeScrollSound.pause();
+      week6TreeScrollSound.currentTime = 0;
+      week6TreeScrollSound.loop = false;
+      week6TreeScrollSound = null;
+    }
 
     week6OceanResetGame?.();
     week6OceanResetGame = null;
@@ -11805,10 +11883,6 @@
 
       document.body.appendChild(diver);
 
-      playActivitySound(
-        "/sounds/mouseclick.mp3",
-        0.42
-      );
     };
 
     const oceanMoveHandler = event => {
@@ -11957,6 +12031,1288 @@
       };
     }
 
+    const treeViewport =
+      document.getElementById(
+        "week6TreeViewport"
+      );
+
+    const treeScene =
+      document.getElementById(
+        "week6TreeScene"
+      );
+
+    const treeMonkey =
+      document.getElementById(
+        "week6TreeMonkey"
+      );
+
+    const treeTarget =
+      document.getElementById(
+        "week6TreeTarget"
+      );
+
+    const treeProgress =
+      document.getElementById(
+        "week6TreeProgress"
+      );
+
+    const treeStatus =
+      document.getElementById(
+        "week6TreeStatus"
+      );
+
+    const treeRounds = [
+      {
+        id: "banana",
+        emoji: "🍌"
+      },
+      {
+        id: "key",
+        emoji: "🔑"
+      },
+      {
+        id: "apple",
+        emoji: "🍎"
+      },
+      {
+        id: "gift",
+        emoji: "🎁"
+      },
+      {
+        id: "nest",
+        emoji: "🪺"
+      }
+    ];
+
+    const TREE_MAX_SCROLL = 1830;
+
+    let treeRoundIndex = 0;
+    let treeScrollPosition =
+      TREE_MAX_SCROLL;
+    let treeDragging = false;
+    let treeLocked = false;
+    let treeFinished = false;
+    let treeOffsetX = 0;
+    let treeOffsetY = 0;
+    let treeLastPointerX = 0;
+
+    function stopTreeScrollSound() {
+      if (week6TreeScrollSoundTimer) {
+        clearTimeout(
+          week6TreeScrollSoundTimer
+        );
+        week6TreeScrollSoundTimer = null;
+      }
+
+      if (week6TreeScrollSound) {
+        week6TreeScrollSound.pause();
+        week6TreeScrollSound.currentTime = 0;
+        week6TreeScrollSound.loop = false;
+        week6TreeScrollSound = null;
+      }
+    }
+
+    function playTreeScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6TreeScrollSound) {
+        week6TreeScrollSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6TreeScrollSound.volume = 0.37;
+        week6TreeScrollSound.loop = true;
+
+        week6TreeScrollSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6TreeScrollSoundTimer) {
+        clearTimeout(
+          week6TreeScrollSoundTimer
+        );
+      }
+
+      week6TreeScrollSoundTimer =
+        setTimeout(
+          stopTreeScrollSound,
+          180
+        );
+    }
+
+    function updateTreePosition() {
+      if (!treeScene || !treeMonkey) {
+        return;
+      }
+
+      treeScene.style.transform =
+        `translateY(-${treeScrollPosition}px)`;
+
+      if (!treeDragging) {
+        treeMonkey.style.top =
+          `${treeScrollPosition + 230}px`;
+      }
+    }
+
+    function restoreTreeMonkey() {
+      if (!treeMonkey || !treeScene) {
+        return;
+      }
+
+      treeDragging = false;
+
+      treeMonkey.classList.remove(
+        "week6-tree-monkey-held",
+        "week6-tree-wrong"
+      );
+
+      if (
+        treeMonkey.parentNode !==
+        treeScene
+      ) {
+        treeScene.appendChild(
+          treeMonkey
+        );
+      }
+
+      treeMonkey.style.position = "";
+      treeMonkey.style.left = "";
+      treeMonkey.style.width = "";
+      treeMonkey.style.height = "";
+      treeMonkey.style.margin = "";
+      treeMonkey.style.transform = "";
+      treeMonkey.style.zIndex = "";
+
+      updateTreePosition();
+    }
+
+    function currentTreeObject() {
+      if (!treeScene) {
+        return null;
+      }
+
+      const round =
+        treeRounds[treeRoundIndex];
+
+      return treeScene.querySelector(
+        `[data-week6-tree-target="${round.id}"]`
+      );
+    }
+
+    function loadTreeRound() {
+      if (
+        !treeTarget ||
+        !treeProgress ||
+        !treeStatus ||
+        treeFinished
+      ) {
+        return;
+      }
+
+      treeLocked = false;
+      treeDragging = false;
+
+      const round =
+        treeRounds[treeRoundIndex];
+
+      treeTarget.innerHTML =
+        `🐒　→　${round.emoji}`;
+
+      treeProgress.textContent =
+        `${treeRoundIndex + 1} of ${treeRounds.length}`;
+
+      treeStatus.innerHTML =
+        `🖱️↕️　　🐒 → ${round.emoji}`;
+
+      updateTreePosition();
+    }
+
+    function startTreeGame() {
+      if (
+        !treeViewport ||
+        !treeScene ||
+        !treeMonkey ||
+        !treeTarget ||
+        !treeProgress ||
+        !treeStatus
+      ) {
+        return;
+      }
+
+      stopTreeScrollSound();
+      restoreTreeMonkey();
+
+      treeRoundIndex = 0;
+      treeScrollPosition =
+        TREE_MAX_SCROLL;
+      treeLocked = false;
+      treeFinished = false;
+
+      treeMonkey.classList.remove(
+        "week6-tree-facing-left"
+      );
+
+      treeScene
+        .querySelectorAll(
+          "[data-week6-tree-target]"
+        )
+        .forEach(object => {
+          object.style.visibility = "";
+          object.classList.remove(
+            "week6-tree-object-found"
+          );
+        });
+
+      const oldCelebration =
+        treeViewport.querySelector(
+          ".week6-tree-celebration"
+        );
+
+      oldCelebration?.remove();
+
+      loadTreeRound();
+    }
+
+    function treeObjectsOverlap(
+      first,
+      second
+    ) {
+      const firstRect =
+        first.getBoundingClientRect();
+
+      const secondRect =
+        second.getBoundingClientRect();
+
+      return !(
+        firstRect.right <
+          secondRect.left ||
+        firstRect.left >
+          secondRect.right ||
+        firstRect.bottom <
+          secondRect.top ||
+        firstRect.top >
+          secondRect.bottom
+      );
+    }
+
+    function finishTreeGame() {
+      treeFinished = true;
+      treeLocked = true;
+      treeDragging = false;
+
+      stopTreeScrollSound();
+      restoreTreeMonkey();
+
+      treeStatus.textContent = "🏆";
+
+      completeActivity("tree");
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-tree-celebration";
+
+      celebration.innerHTML = `
+        <div>
+          <span>🐒</span>
+          <strong>⭐</strong>
+          <span>🌳</span>
+        </div>
+      `;
+
+      treeViewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-tree-celebration-show"
+        );
+      });
+    }
+
+    function completeTreeRound() {
+      if (treeLocked || treeFinished) {
+        return;
+      }
+
+      const object =
+        currentTreeObject();
+
+      if (!object) {
+        return;
+      }
+
+      treeLocked = true;
+
+      object.classList.add(
+        "week6-tree-object-found"
+      );
+
+      treeStatus.textContent = "✅";
+
+      playActivitySound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      scheduleActivity(() => {
+        if (!treeViewport.isConnected) {
+          return;
+        }
+
+        object.style.visibility =
+          "hidden";
+
+        treeRoundIndex += 1;
+
+        if (
+          treeRoundIndex >=
+          treeRounds.length
+        ) {
+          finishTreeGame();
+          return;
+        }
+
+        loadTreeRound();
+      }, 750);
+    }
+
+    const treeWheelHandler = event => {
+      if (
+        treeViewport?.closest(
+          "[data-week6-activity-panel]"
+        )?.hidden ||
+        treeLocked ||
+        treeFinished ||
+        treeDragging
+      ) {
+        return;
+      }
+
+      const rect =
+        treeViewport.getBoundingClientRect();
+
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      playTreeScrollSound();
+
+      const amount =
+        Math.min(
+          Math.max(
+            Math.abs(event.deltaY),
+            22
+          ),
+          65
+        );
+
+      if (event.deltaY > 0) {
+        treeScrollPosition =
+          Math.min(
+            treeScrollPosition + amount,
+            TREE_MAX_SCROLL
+          );
+      } else if (event.deltaY < 0) {
+        treeScrollPosition =
+          Math.max(
+            treeScrollPosition - amount,
+            0
+          );
+      }
+
+      updateTreePosition();
+    };
+
+    const treeDownHandler = event => {
+      if (
+        event.button !== 0 ||
+        treeLocked ||
+        treeFinished ||
+        treeDragging ||
+        event.target.closest(
+          "[data-week6-activity-home]"
+        )
+      ) {
+        return;
+      }
+
+      const monkey =
+        event.target.closest(
+          "#week6TreeMonkey"
+        );
+
+      if (!monkey) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const rect =
+        monkey.getBoundingClientRect();
+
+      treeOffsetX =
+        event.clientX - rect.left;
+
+      treeOffsetY =
+        event.clientY - rect.top;
+
+      treeLastPointerX =
+        event.clientX;
+
+      treeDragging = true;
+
+      monkey.style.position = "fixed";
+      monkey.style.left = `${rect.left}px`;
+      monkey.style.top = `${rect.top}px`;
+      monkey.style.width = `${rect.width}px`;
+      monkey.style.height = `${rect.height}px`;
+      monkey.style.margin = "0";
+      monkey.style.transform = "none";
+      monkey.style.zIndex = "9999";
+
+      monkey.classList.add(
+        "week6-tree-monkey-held"
+      );
+
+      document.body.appendChild(monkey);
+
+    };
+
+    const treeMoveHandler = event => {
+      if (
+        !treeDragging ||
+        !treeMonkey
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const horizontalChange =
+        event.clientX -
+        treeLastPointerX;
+
+      if (horizontalChange < -1) {
+        treeMonkey.classList.add(
+          "week6-tree-facing-left"
+        );
+      } else if (horizontalChange > 1) {
+        treeMonkey.classList.remove(
+          "week6-tree-facing-left"
+        );
+      }
+
+      treeLastPointerX =
+        event.clientX;
+
+      treeMonkey.style.left =
+        `${event.clientX - treeOffsetX}px`;
+
+      treeMonkey.style.top =
+        `${event.clientY - treeOffsetY}px`;
+    };
+
+    const treeUpHandler = event => {
+      if (
+        event.button !== 0 ||
+        !treeDragging ||
+        !treeMonkey
+      ) {
+        return;
+      }
+
+      const object =
+        currentTreeObject();
+
+      const foundTarget =
+        object &&
+        treeObjectsOverlap(
+          treeMonkey,
+          object
+        );
+
+      restoreTreeMonkey();
+
+      if (foundTarget) {
+        completeTreeRound();
+        return;
+      }
+
+      treeMonkey.classList.add(
+        "week6-tree-wrong"
+      );
+
+      treeStatus.textContent =
+        "❌　↩️";
+
+      playActivitySound(
+        "/sounds/buzzer.mp3",
+        0.5
+      );
+
+      scheduleActivity(() => {
+        treeMonkey.classList.remove(
+          "week6-tree-wrong"
+        );
+      }, 350);
+    };
+
+    if (
+      treeViewport &&
+      treeMonkey
+    ) {
+      treeViewport.addEventListener(
+        "wheel",
+        treeWheelHandler,
+        { passive: false }
+      );
+
+      treeViewport.addEventListener(
+        "mousedown",
+        treeDownHandler
+      );
+
+      window.addEventListener(
+        "mousemove",
+        treeMoveHandler,
+        true
+      );
+
+      window.addEventListener(
+        "mouseup",
+        treeUpHandler,
+        true
+      );
+
+      removeWeek6TreeWheelListener =
+        () => {
+          treeViewport.removeEventListener(
+            "wheel",
+            treeWheelHandler
+          );
+        };
+
+      removeWeek6TreeDownListener =
+        () => {
+          treeViewport.removeEventListener(
+            "mousedown",
+            treeDownHandler
+          );
+        };
+
+      removeWeek6TreeMoveListener =
+        () => {
+          window.removeEventListener(
+            "mousemove",
+            treeMoveHandler,
+            true
+          );
+        };
+
+      removeWeek6TreeUpListener =
+        () => {
+          window.removeEventListener(
+            "mouseup",
+            treeUpHandler,
+            true
+          );
+        };
+
+      week6TreeResetGame = () => {
+        stopTreeScrollSound();
+        restoreTreeMonkey();
+      };
+    }
+
+    const basketballCourt =
+      document.getElementById(
+        "week6BasketballCourt"
+      );
+
+    const basketballHoop =
+      document.getElementById(
+        "week6BasketballHoop"
+      );
+
+    const basketballRim =
+      document.getElementById(
+        "week6BasketballRim"
+      );
+
+    const basketballBall =
+      document.getElementById(
+        "week6BasketballBall"
+      );
+
+    const basketballAimLine =
+      document.getElementById(
+        "week6BasketballAimLine"
+      );
+
+    const basketballProgress =
+      document.getElementById(
+        "week6BasketballProgress"
+      );
+
+    const basketballScore =
+      document.getElementById(
+        "week6BasketballScore"
+      );
+
+    const basketballStatus =
+      document.getElementById(
+        "week6BasketballStatus"
+      );
+
+    const basketballRounds = [
+      {
+        hoopLeft: 25,
+        toleranceX: 58
+      },
+      {
+        hoopLeft: 72,
+        toleranceX: 52
+      },
+      {
+        hoopLeft: 42,
+        toleranceX: 46
+      },
+      {
+        hoopLeft: 80,
+        toleranceX: 41
+      },
+      {
+        hoopLeft: 20,
+        toleranceX: 36
+      }
+    ];
+
+    let basketballRoundIndex = 0;
+    let basketballBallX = 0;
+    let basketballBallY = 0;
+    let basketballDragging = false;
+    let basketballLocked = false;
+    let basketballFinished = false;
+    let basketballOffsetX = 0;
+    let basketballMadeShots = 0;
+
+    function stopBasketballScrollSound() {
+      if (week6BasketballScrollSoundTimer) {
+        clearTimeout(
+          week6BasketballScrollSoundTimer
+        );
+        week6BasketballScrollSoundTimer = null;
+      }
+
+      if (week6BasketballScrollSound) {
+        week6BasketballScrollSound.pause();
+        week6BasketballScrollSound.currentTime = 0;
+        week6BasketballScrollSound.loop = false;
+        week6BasketballScrollSound = null;
+      }
+    }
+
+    function playBasketballScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6BasketballScrollSound) {
+        week6BasketballScrollSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6BasketballScrollSound.volume =
+          0.37;
+
+        week6BasketballScrollSound.loop =
+          true;
+
+        week6BasketballScrollSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6BasketballScrollSoundTimer) {
+        clearTimeout(
+          week6BasketballScrollSoundTimer
+        );
+      }
+
+      week6BasketballScrollSoundTimer =
+        setTimeout(
+          stopBasketballScrollSound,
+          180
+        );
+    }
+
+    function basketballCourtSize() {
+      const rect =
+        basketballCourt
+          ?.getBoundingClientRect();
+
+      return {
+        width: rect?.width || 900,
+        height: rect?.height || 465
+      };
+    }
+
+    function updateBasketballBall() {
+      if (
+        !basketballBall ||
+        !basketballAimLine
+      ) {
+        return;
+      }
+
+      basketballBall.style.left =
+        `${basketballBallX}px`;
+
+      basketballBall.style.top =
+        `${basketballBallY}px`;
+
+      basketballAimLine.style.left =
+        `${basketballBallX}px`;
+    }
+
+    function resetBasketballBall() {
+      const size =
+        basketballCourtSize();
+
+      basketballBallX =
+        size.width / 2;
+
+      basketballBallY =
+        Math.max(
+          size.height - 72,
+          300
+        );
+
+      basketballDragging = false;
+
+      basketballBall?.classList.remove(
+        "week6-basketball-ball-held",
+        "week6-basketball-swished",
+        "week6-basketball-ball-wrong"
+      );
+
+      updateBasketballBall();
+    }
+
+    function loadBasketballRound() {
+      if (
+        !basketballHoop ||
+        !basketballProgress ||
+        !basketballStatus ||
+        basketballFinished
+      ) {
+        return;
+      }
+
+      basketballLocked = false;
+      basketballDragging = false;
+
+      const round =
+        basketballRounds[
+          basketballRoundIndex
+        ];
+
+      basketballHoop.style.left =
+        `${round.hoopLeft}%`;
+
+      basketballProgress.textContent =
+        `${basketballRoundIndex + 1} of ${basketballRounds.length}`;
+
+      basketballStatus.innerHTML =
+        "🏀　↔️　　🖱️↕️　⬆️";
+
+      resetBasketballBall();
+    }
+
+    function startBasketballGame() {
+      if (
+        !basketballCourt ||
+        !basketballHoop ||
+        !basketballRim ||
+        !basketballBall ||
+        !basketballAimLine ||
+        !basketballProgress ||
+        !basketballScore ||
+        !basketballStatus
+      ) {
+        return;
+      }
+
+      stopBasketballScrollSound();
+
+      if (week6BasketballStopTimer) {
+        clearTimeout(
+          week6BasketballStopTimer
+        );
+        week6BasketballStopTimer = null;
+      }
+
+      basketballRoundIndex = 0;
+      basketballMadeShots = 0;
+      basketballLocked = false;
+      basketballFinished = false;
+
+      basketballScore.textContent = "0";
+
+      const oldCelebration =
+        basketballCourt.querySelector(
+          ".week6-basketball-celebration"
+        );
+
+      oldCelebration?.remove();
+
+      loadBasketballRound();
+    }
+
+    function basketballCenters() {
+      const ballRect =
+        basketballBall.getBoundingClientRect();
+
+      const rimRect =
+        basketballRim.getBoundingClientRect();
+
+      return {
+        ballX:
+          ballRect.left +
+          ballRect.width / 2,
+        ballY:
+          ballRect.top +
+          ballRect.height / 2,
+        rimX:
+          rimRect.left +
+          rimRect.width / 2,
+        rimY:
+          rimRect.top +
+          rimRect.height / 2
+      };
+    }
+
+    function finishBasketballGame() {
+      basketballFinished = true;
+      basketballLocked = true;
+      basketballDragging = false;
+
+      stopBasketballScrollSound();
+
+      basketballStatus.textContent =
+        "🏆";
+
+      completeActivity(
+        "basketball"
+      );
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-basketball-celebration";
+
+      celebration.innerHTML = `
+        <div>
+          <span>🏀</span>
+          <strong>⭐</strong>
+          <span>🏆</span>
+        </div>
+      `;
+
+      basketballCourt.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-basketball-celebration-show"
+        );
+      });
+    }
+
+    function completeBasketballRound() {
+      if (
+        basketballLocked ||
+        basketballFinished
+      ) {
+        return;
+      }
+
+      basketballLocked = true;
+      basketballDragging = false;
+      basketballMadeShots += 1;
+
+      basketballScore.textContent =
+        String(basketballMadeShots);
+
+      basketballStatus.textContent =
+        "🏀　✅";
+
+      basketballBall.classList.add(
+        "week6-basketball-swished"
+      );
+
+      playActivitySound(
+        "/sounds/correct.mp3",
+        0.58
+      );
+
+      scheduleActivity(() => {
+        if (!basketballCourt.isConnected) {
+          return;
+        }
+
+        basketballRoundIndex += 1;
+
+        if (
+          basketballRoundIndex >=
+          basketballRounds.length
+        ) {
+          finishBasketballGame();
+          return;
+        }
+
+        loadBasketballRound();
+      }, 850);
+    }
+
+    function checkBasketballShot() {
+      if (
+        basketballLocked ||
+        basketballFinished ||
+        basketballDragging
+      ) {
+        return;
+      }
+
+      const centers =
+        basketballCenters();
+
+      const round =
+        basketballRounds[
+          basketballRoundIndex
+        ];
+
+      const horizontalDistance =
+        Math.abs(
+          centers.ballX -
+          centers.rimX
+        );
+
+      const verticalDistance =
+        Math.abs(
+          centers.ballY -
+          centers.rimY
+        );
+
+      if (
+        horizontalDistance <=
+          round.toleranceX &&
+        verticalDistance <= 38
+      ) {
+        completeBasketballRound();
+        return;
+      }
+
+      /*
+       * The ball passed above the basket.
+       * Return it to the floor for another try.
+       */
+      if (
+        centers.ballY <
+        centers.rimY - 55
+      ) {
+        basketballStatus.textContent =
+          horizontalDistance <=
+            round.toleranceX
+            ? "↩️　🏀"
+            : "❌　↔️";
+
+        playActivitySound(
+          "/sounds/buzzer.mp3",
+          0.48
+        );
+
+        basketballBall.classList.add(
+          "week6-basketball-ball-wrong"
+        );
+
+        scheduleActivity(() => {
+          basketballBall.classList.remove(
+            "week6-basketball-ball-wrong"
+          );
+
+          resetBasketballBall();
+        }, 420);
+      }
+    }
+
+    const basketballWheelHandler =
+      event => {
+        if (
+          basketballCourt?.closest(
+            "[data-week6-activity-panel]"
+          )?.hidden ||
+          basketballLocked ||
+          basketballFinished ||
+          basketballDragging
+        ) {
+          return;
+        }
+
+        const rect =
+          basketballCourt
+            .getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+        playBasketballScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              15
+            ),
+            42
+          );
+
+        if (event.deltaY < 0) {
+          basketballBallY =
+            Math.max(
+              basketballBallY - amount,
+              55
+            );
+        } else if (event.deltaY > 0) {
+          const size =
+            basketballCourtSize();
+
+          basketballBallY =
+            Math.min(
+              basketballBallY + amount,
+              size.height - 65
+            );
+        }
+
+        updateBasketballBall();
+
+        if (week6BasketballStopTimer) {
+          clearTimeout(
+            week6BasketballStopTimer
+          );
+        }
+
+        week6BasketballStopTimer =
+          setTimeout(() => {
+            week6BasketballStopTimer =
+              null;
+
+            checkBasketballShot();
+          }, 290);
+      };
+
+    const basketballDownHandler =
+      event => {
+        if (
+          event.button !== 0 ||
+          basketballLocked ||
+          basketballFinished ||
+          basketballDragging ||
+          event.target.closest(
+            "[data-week6-activity-home]"
+          )
+        ) {
+          return;
+        }
+
+        const ball =
+          event.target.closest(
+            "#week6BasketballBall"
+          );
+
+        if (!ball) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const rect =
+          ball.getBoundingClientRect();
+
+        basketballOffsetX =
+          event.clientX - rect.left;
+
+        basketballDragging = true;
+
+        ball.classList.add(
+          "week6-basketball-ball-held"
+        );
+      };
+
+    const basketballMoveHandler =
+      event => {
+        if (
+          !basketballDragging ||
+          !basketballBall ||
+          !basketballCourt
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const courtRect =
+          basketballCourt
+            .getBoundingClientRect();
+
+        const ballRect =
+          basketballBall
+            .getBoundingClientRect();
+
+        const proposedLeft =
+          event.clientX -
+          courtRect.left -
+          basketballOffsetX +
+          ballRect.width / 2;
+
+        basketballBallX =
+          Math.min(
+            Math.max(
+              proposedLeft,
+              ballRect.width / 2 + 10
+            ),
+            courtRect.width -
+              ballRect.width / 2 -
+              10
+          );
+
+        updateBasketballBall();
+      };
+
+    const basketballUpHandler =
+      event => {
+        if (
+          event.button !== 0 ||
+          !basketballDragging ||
+          !basketballBall
+        ) {
+          return;
+        }
+
+        basketballDragging = false;
+
+        basketballBall.classList.remove(
+          "week6-basketball-ball-held"
+        );
+
+        basketballStatus.textContent =
+          "🖱️↕️　🏀⬆️";
+      };
+
+    if (
+      basketballCourt &&
+      basketballBall
+    ) {
+      basketballCourt.addEventListener(
+        "wheel",
+        basketballWheelHandler,
+        { passive: false }
+      );
+
+      basketballCourt.addEventListener(
+        "mousedown",
+        basketballDownHandler
+      );
+
+      window.addEventListener(
+        "mousemove",
+        basketballMoveHandler,
+        true
+      );
+
+      window.addEventListener(
+        "mouseup",
+        basketballUpHandler,
+        true
+      );
+
+      removeWeek6BasketballWheelListener =
+        () => {
+          basketballCourt.removeEventListener(
+            "wheel",
+            basketballWheelHandler
+          );
+        };
+
+      removeWeek6BasketballDownListener =
+        () => {
+          basketballCourt.removeEventListener(
+            "mousedown",
+            basketballDownHandler
+          );
+        };
+
+      removeWeek6BasketballMoveListener =
+        () => {
+          window.removeEventListener(
+            "mousemove",
+            basketballMoveHandler,
+            true
+          );
+        };
+
+      removeWeek6BasketballUpListener =
+        () => {
+          window.removeEventListener(
+            "mouseup",
+            basketballUpHandler,
+            true
+          );
+        };
+
+      week6BasketballResetGame = () => {
+        stopBasketballScrollSound();
+
+        if (week6BasketballStopTimer) {
+          clearTimeout(
+            week6BasketballStopTimer
+          );
+
+          week6BasketballStopTimer =
+            null;
+        }
+
+        basketballDragging = false;
+
+        basketballBall.classList.remove(
+          "week6-basketball-ball-held"
+        );
+      };
+    }
+
     function updateStars() {
       cards.forEach(card => {
         const star =
@@ -12016,10 +13372,6 @@
       screen.dataset.activeActivity =
         activityId;
 
-      playActivitySound(
-        "/sounds/mouseclick.mp3",
-        0.42
-      );
     }
 
     /*
@@ -12056,6 +13408,17 @@
           startOceanGame();
         }
 
+        if (activityId === "tree") {
+          startTreeGame();
+        }
+
+        if (
+          activityId ===
+          "basketball"
+        ) {
+          startBasketballGame();
+        }
+
         return;
       }
 
@@ -12072,6 +13435,23 @@
 
         stopOceanScrollSound();
         restoreOceanDiver();
+
+        stopTreeScrollSound();
+        restoreTreeMonkey();
+
+        stopBasketballScrollSound();
+
+        if (week6BasketballStopTimer) {
+          clearTimeout(
+            week6BasketballStopTimer
+          );
+
+          week6BasketballStopTimer =
+            null;
+        }
+
+        basketballDragging = false;
+
         showHub();
         return;
       }
@@ -24022,24 +25402,191 @@ const status =
               🏠
             </button>
 
-            <div class="week6-activity-preview">
-              <div class="week6-activity-preview-picture">
-                🐒　🌳　🍌
-              </div>
-
-              <strong>TREEHOUSE CLIMBER</strong>
-
-              <div class="week6-activity-preview-ready">
-                🚧
-              </div>
-
-              <button
-                type="button"
-                class="week6-activity-test-complete"
-                data-week6-test-complete="tree"
+            <div class="week6-tree-header">
+              <div
+                id="week6TreeTarget"
+                class="week6-tree-target"
               >
-                ⭐
-              </button>
+                🐒　→　🍌
+              </div>
+
+              <div
+                id="week6TreeProgress"
+                class="week6-tree-progress"
+              >
+                1 of 5
+              </div>
+            </div>
+
+            <div
+              id="week6TreeViewport"
+              class="week6-tree-viewport"
+            >
+              <div
+                id="week6TreeScene"
+                class="week6-tree-scene"
+              >
+                <div class="week6-tree-cloud cloud-one"></div>
+                <div class="week6-tree-cloud cloud-two"></div>
+                <div class="week6-tree-cloud cloud-three"></div>
+
+                <div class="week6-tree-canopy canopy-one"></div>
+                <div class="week6-tree-canopy canopy-two"></div>
+                <div class="week6-tree-canopy canopy-three"></div>
+                <div class="week6-tree-canopy canopy-four"></div>
+                <div class="week6-tree-canopy canopy-five"></div>
+
+                <div class="week6-tree-trunk"></div>
+
+                <div
+                  class="week6-tree-platform"
+                  style="top: 340px;"
+                >
+                  <div class="week6-treehouse-room">
+                    <span>🪟</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="week6-tree-object"
+                  data-week6-tree-target="nest"
+                  style="top: 300px; left: 82%;"
+                  aria-label="Bird nest"
+                >
+                  🪺
+                </button>
+
+                <div
+                  class="week6-tree-platform-placeholder"
+                  aria-hidden="true"
+                >
+                </div>
+
+                <div
+                  class="week6-tree-platform platform-right"
+                  style="top: 760px;"
+                >
+                  <div class="week6-treehouse-room">
+                    <span>🪟</span>
+                  </div>
+                </div>
+
+                <div
+                  class="week6-tree-platform"
+                  style="top: 1180px;"
+                >
+                  <div class="week6-treehouse-room">
+                    <span>🏠</span>
+                  </div>
+                </div>
+
+                <div
+                  class="week6-tree-platform platform-right"
+                  style="top: 1600px;"
+                >
+                  <div class="week6-treehouse-room">
+                    <span>🪟</span>
+                  </div>
+                </div>
+
+
+                <button
+                  type="button"
+                  class="week6-tree-object"
+                  data-week6-tree-target="gift"
+                  style="top: 700px; left: 27%;"
+                >
+                  🎁
+                </button>
+
+                <button
+                  type="button"
+                  class="week6-tree-object"
+                  data-week6-tree-target="apple"
+                  style="top: 1100px; left: 72%;"
+                >
+                  🍎
+                </button>
+
+                <button
+                  type="button"
+                  class="week6-tree-object"
+                  data-week6-tree-target="key"
+                  style="top: 1500px; left: 28%;"
+                >
+                  🔑
+                </button>
+
+                <button
+                  type="button"
+                  class="week6-tree-object"
+                  data-week6-tree-target="banana"
+                  style="top: 1960px; left: 70%;"
+                >
+                  🍌
+                </button>
+
+                <span
+                  class="week6-tree-friend"
+                  style="top: 520px; left: 25%;"
+                >🦉</span>
+
+                <span
+                  class="week6-tree-friend"
+                  style="top: 920px; left: 73%;"
+                >🐿️</span>
+
+                <span
+                  class="week6-tree-friend"
+                  style="top: 1340px; left: 27%;"
+                >🐦</span>
+
+                <span
+                  class="week6-tree-friend"
+                  style="top: 1780px; left: 72%;"
+                >🦜</span>
+
+                <div class="week6-tree-ground">
+                  🌼　🌿　🌻　🌱　🌼
+                </div>
+
+                <button
+                  id="week6TreeMonkey"
+                  type="button"
+                  class="week6-tree-monkey"
+                  aria-label="Monkey"
+                >
+                  <span
+                    class="week6-tree-monkey-character"
+                    aria-hidden="true"
+                  >
+                    <span class="week6-monkey-tail"></span>
+                    <span class="week6-monkey-leg leg-one"></span>
+                    <span class="week6-monkey-leg leg-two"></span>
+                    <span class="week6-monkey-body"></span>
+                    <span class="week6-monkey-arm arm-one"></span>
+                    <span class="week6-monkey-arm arm-two"></span>
+
+                    <span class="week6-monkey-head">
+                      <span class="week6-monkey-ear ear-one"></span>
+                      <span class="week6-monkey-ear ear-two"></span>
+                      <span class="week6-monkey-face">
+                        <i></i>
+                        <i></i>
+                        <b></b>
+                      </span>
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="week6TreeStatus"
+              class="week6-tree-status"
+            >
+              🖱️↕️　　🐒 → 🍌
             </div>
           </section>
 
@@ -24057,24 +25604,91 @@ const status =
               🏠
             </button>
 
-            <div class="week6-activity-preview">
-              <div class="week6-activity-preview-picture">
-                🏀　⛹️　🏆
+            <div class="week6-basketball-header">
+              <div class="week6-basketball-picture-clue">
+                🏀　↔️　　🖱️↕️　　🏀⬆️
               </div>
 
-              <strong>SCROLL BASKETBALL</strong>
+              <div
+                id="week6BasketballProgress"
+                class="week6-basketball-progress"
+              >
+                1 of 5
+              </div>
+            </div>
 
-              <div class="week6-activity-preview-ready">
-                🚧
+            <div
+              id="week6BasketballCourt"
+              class="week6-basketball-court"
+            >
+              <div class="week6-basketball-crowd">
+                <span>😀</span>
+                <span>😃</span>
+                <span>🥳</span>
+                <span>😄</span>
+                <span>🤩</span>
+                <span>😁</span>
+                <span>🥳</span>
+                <span>😃</span>
+              </div>
+
+              <div class="week6-basketball-scoreboard">
+                <span>HOME</span>
+                <strong id="week6BasketballScore">0</strong>
+                <span>GUEST</span>
+              </div>
+
+              <div class="week6-basketball-wall-line line-one"></div>
+              <div class="week6-basketball-wall-line line-two"></div>
+
+              <div
+                id="week6BasketballHoop"
+                class="week6-basketball-hoop"
+              >
+                <div class="week6-basketball-backboard">
+                  <div></div>
+                </div>
+
+                <div
+                  id="week6BasketballRim"
+                  class="week6-basketball-rim"
+                ></div>
+
+                <div class="week6-basketball-net">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+              </div>
+
+              <div class="week6-basketball-floor">
+                <div class="week6-basketball-key"></div>
+                <div class="week6-basketball-center-line"></div>
               </div>
 
               <button
+                id="week6BasketballBall"
                 type="button"
-                class="week6-activity-test-complete"
-                data-week6-test-complete="basketball"
+                class="week6-basketball-ball"
+                aria-label="Basketball"
               >
-                ⭐
+                <span></span>
+                <i></i>
+                <b></b>
               </button>
+
+              <div
+                id="week6BasketballAimLine"
+                class="week6-basketball-aim-line"
+              ></div>
+
+              <div
+                id="week6BasketballStatus"
+                class="week6-basketball-status"
+              >
+                🏀　↔️
+              </div>
             </div>
           </section>
         </div>
@@ -26543,6 +28157,14 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
+
+
+
+
+
 
 
 
