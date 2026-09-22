@@ -11365,28 +11365,86 @@
     const missions = [
       {
         id: "wake",
-        task: "Wake up the sleeping robot!",
-        success: "The robot is awake!"
+        task: `
+          <span class="week6-mixed-picture-clue">
+            <span>🤖💤</span>
+
+            <b>+</b>
+
+            <span
+              class="week6-mixed-click-mouse"
+              aria-label="Click"
+            >
+              <i class="week6-mixed-click-left"></i>
+              <i class="week6-mixed-click-right"></i>
+              <i class="week6-mixed-click-wheel"></i>
+              <em>↓</em>
+            </span>
+
+            <b>→</b>
+
+            <span>🤖👀</span>
+          </span>
+        `,
+        success: "✅ 🤖👀"
       },
       {
         id: "power",
-        task: "Turn on the robot with the BLUE button!",
-        success: "The robot is turned on!"
+        task: `
+          <span class="week6-mixed-picture-clue">
+            <span
+              class="week6-mixed-click-mouse"
+              aria-label="Click"
+            >
+              <i class="week6-mixed-click-left"></i>
+              <i class="week6-mixed-click-right"></i>
+              <i class="week6-mixed-click-wheel"></i>
+              <em>↓</em>
+            </span>
+
+            <b>+</b>
+
+            <span class="week6-mixed-blue-clue"></span>
+
+            <b>→</b>
+
+            <span>🤖⚡</span>
+          </span>
+        `,
+        success: "✅ 🤖⚡"
       },
       {
         id: "battery",
-        task: "Find the BATTERY and put it inside the robot!",
-        success: "The robot has its battery!"
+        task: `
+          <span class="week6-mixed-picture-clue">
+            🖱️↕️ <b>→</b> 🔋 <b>→</b> 🤖
+          </span>
+        `,
+        success: "✅ 🔋🤖"
       },
       {
         id: "antenna",
-        task: "Find the ANTENNA and put it on the robot!",
-        success: "The robot can communicate!"
+        task: `
+          <span class="week6-mixed-picture-clue">
+            <span
+              class="week6-mixed-antenna-piece week6-mixed-clue-antenna"
+              aria-label="Robot antennas"
+            >
+              <i></i>
+              <i></i>
+            </span>
+          </span>
+        `,
+        success: "✅ 📶🤖"
       },
       {
         id: "crystal",
-        task: "Find the ENERGY CRYSTAL and install it!",
-        success: "The robot is fully powered!"
+        task: `
+          <span class="week6-mixed-picture-clue">
+            🖱️↕️ <b>→</b> 💎 <b>→</b> 🤖✨
+          </span>
+        `,
+        success: "✅ 💎🤖✨"
       }
     ];
 
@@ -11407,6 +11465,7 @@
     let activeObject = null;
     let originalParent = null;
     let originalNextSibling = null;
+    let originalStyleText = null;
     let offsetX = 0;
     let offsetY = 0;
 
@@ -11536,13 +11595,13 @@
 
       const mission = currentMission();
 
-      task.textContent = mission.task;
+      task.innerHTML = mission.task;
 
       progress.textContent =
         `${missionIndex + 1} of ${missions.length}`;
 
       status.textContent =
-        "What should you do? You decide!";
+        "👀　💭";
 
       if (
         mission.id === "battery" ||
@@ -11718,17 +11777,18 @@
         }
       }
 
-      object.style.position = "";
-      object.style.left = "";
-      object.style.top = "";
-      object.style.width = "";
-      object.style.height = "";
-      object.style.margin = "";
-      object.style.transform = "";
-      object.style.zIndex = "";
+      if (originalStyleText === null) {
+        object.removeAttribute("style");
+      } else {
+        object.setAttribute(
+          "style",
+          originalStyleText
+        );
+      }
 
       originalParent = null;
       originalNextSibling = null;
+      originalStyleText = null;
       week6MixedFloatingObject = null;
     }
 
@@ -11745,6 +11805,7 @@
 
       originalParent = null;
       originalNextSibling = null;
+      originalStyleText = null;
       week6MixedFloatingObject = null;
 
       destination.classList.remove(
@@ -11764,8 +11825,15 @@
       }
 
       if (missionId === "antenna") {
-        destination.innerHTML =
-          '<span class="week6-mixed-installed-antenna">📡</span>';
+        destination.innerHTML = `
+          <span
+            class="week6-mixed-antenna-piece week6-mixed-installed-antenna"
+            aria-hidden="true"
+          >
+            <i></i>
+            <i></i>
+          </span>
+        `;
         robot.classList.add(
           "week6-mixed-has-antenna"
         );
@@ -11854,40 +11922,41 @@
       updateScene();
     };
 
-    const moveHandler = event => {
-      if (
-        locked ||
-        finished ||
-        currentMission().id !== "wake"
-      ) {
-        return;
-      }
-
-      if (
-        !event.target.closest(
-          "#week6MixedRobotFace"
-        )
-      ) {
-        return;
-      }
-
-      robotFace.classList.add(
-        "week6-mixed-face-awake"
-      );
-
-      robot.classList.add(
-        "week6-mixed-robot-awake"
-      );
-
-      completeMission(robotFace);
-    };
-
     const clickHandler = event => {
       if (locked || finished || dragging) {
         return;
       }
 
-      if (currentMission().id !== "power") {
+      const mission = currentMission();
+
+      if (mission.id === "wake") {
+        const clickedFace =
+          event.target.closest(
+            "#week6MixedRobotFace"
+          );
+
+        if (!clickedFace) {
+          return;
+        }
+
+        playSound(
+          "/sounds/mouseclick.mp3",
+          0.45
+        );
+
+        robotFace.classList.add(
+          "week6-mixed-face-awake"
+        );
+
+        robot.classList.add(
+          "week6-mixed-robot-awake"
+        );
+
+        completeMission(robotFace);
+        return;
+      }
+
+      if (mission.id !== "power") {
         return;
       }
 
@@ -11911,7 +11980,7 @@
       ) {
         showWrong(
           button,
-          "That is not the blue button."
+          "❌　🔴　　👀　🔵"
         );
         return;
       }
@@ -11961,7 +12030,7 @@
       ) {
         showWrong(
           part,
-          "That is not the part the robot needs."
+          "❌　🧩"
         );
         return;
       }
@@ -11980,6 +12049,8 @@
       originalParent = part.parentNode;
       originalNextSibling =
         part.nextSibling;
+      originalStyleText =
+        part.getAttribute("style");
 
       activeObject = part;
       dragging = true;
@@ -12006,7 +12077,7 @@
       );
 
       status.textContent =
-        "Bring the part to its glowing place on the robot.";
+        "✋　🧩　→　✨🤖";
     };
 
     const dragHandler = event => {
@@ -12060,7 +12131,7 @@
 
       showWrong(
         object,
-        "That part does not go there. Try again!"
+        "❌　↩️"
       );
     };
 
@@ -12070,10 +12141,6 @@
       { passive: false }
     );
 
-    viewport.addEventListener(
-      "mouseover",
-      moveHandler
-    );
 
     viewport.addEventListener(
       "click",
@@ -12106,12 +12173,6 @@
       stopScrollSound();
     };
 
-    removeWeek6MixedMoveListener = () => {
-      viewport.removeEventListener(
-        "mouseover",
-        moveHandler
-      );
-    };
 
     removeWeek6MixedClickListener = () => {
       viewport.removeEventListener(
@@ -22545,7 +22606,7 @@ const status =
             <h1>Build the Robot!</h1>
 
             <p>
-              Read each mission and decide what to do.
+              👀　💭　🤖
             </p>
           </div>
 
@@ -22554,7 +22615,9 @@ const status =
               id="week6MixedTask"
               class="week6-mixed-task"
             >
-              Wake up the sleeping robot!
+              <span class="week6-mixed-picture-clue">
+                🤖💤 <b>→</b> 🤖👀
+              </span>
             </div>
 
             <div
@@ -22629,7 +22692,16 @@ const status =
                   data-week6-mixed-part="antenna"
                   data-mixed-mission="3"
                   style="top: 1080px; left: 68%;"
-                >📡</button>
+                  aria-label="Robot antennas"
+                >
+                  <span
+                    class="week6-mixed-antenna-piece"
+                    aria-hidden="true"
+                  >
+                    <i></i>
+                    <i></i>
+                  </span>
+                </button>
 
                 <button
                   type="button"
@@ -22652,7 +22724,7 @@ const status =
                   class="week6-mixed-part week6-mixed-crystal"
                   data-week6-mixed-part="crystal"
                   data-mixed-mission="4"
-                  style="top: 1580px; left: 34%;"
+                  style="top: 1490px; left: 34%;"
                 >💎</button>
 
                 <button
@@ -22751,7 +22823,7 @@ const status =
             id="week6MixedStatus"
             class="week6-mixed-status"
           >
-            What should you do? You decide!
+            👀　💭
           </div>
 
         </div>
@@ -25216,6 +25288,9 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
 
 
 

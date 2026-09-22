@@ -28439,3 +28439,189 @@ body.teacher-session
   }
 }
 
+
+/* Week 6 Step 6 - custom robot antennas */
+
+.week6-mixed-picture-clue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 27px;
+  line-height: 1;
+}
+
+.week6-mixed-picture-clue b {
+  color: #4f46e5;
+  font-size: 25px;
+}
+
+.week6-mixed-antenna-piece {
+  position: relative;
+  display: block;
+  width: 62px;
+  height: 55px;
+}
+
+.week6-mixed-antenna-piece::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 50px;
+  height: 18px;
+  transform: translateX(-50%);
+  border: 4px solid #334155;
+  border-radius: 12px 12px 5px 5px;
+  background: #94a3b8;
+}
+
+.week6-mixed-antenna-piece i {
+  position: absolute;
+  bottom: 18px;
+  width: 7px;
+  height: 34px;
+  border: 3px solid #334155;
+  border-radius: 999px;
+  background: #64748b;
+  transform-origin: bottom center;
+}
+
+.week6-mixed-antenna-piece i:first-child {
+  left: 18px;
+  transform: rotate(-24deg);
+}
+
+.week6-mixed-antenna-piece i:last-child {
+  right: 18px;
+  transform: rotate(24deg);
+}
+
+.week6-mixed-antenna-piece i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  width: 15px;
+  height: 15px;
+  transform: translateX(-50%);
+  border: 3px solid #334155;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 9px #38bdf8;
+}
+
+.week6-mixed-installed-antenna {
+  transform: translateY(-13px);
+}
+
+/* Week 6 Step 6 - clear click clues */
+
+.week6-mixed-click-mouse {
+  position: relative;
+  width: 55px;
+  height: 68px;
+  display: inline-block;
+  flex: 0 0 auto;
+  overflow: visible;
+  border: 4px solid #334155;
+  border-radius: 25px 25px 21px 21px;
+  background: #e2e8f0;
+  box-shadow: 0 5px 0 #94a3b8;
+}
+
+.week6-mixed-click-left,
+.week6-mixed-click-right {
+  position: absolute;
+  top: -1px;
+  width: 23px;
+  height: 30px;
+  border-bottom: 3px solid #334155;
+}
+
+.week6-mixed-click-left {
+  left: 0;
+  border-right: 2px solid #334155;
+  border-radius: 20px 3px 3px 3px;
+  background: #facc15;
+  animation:
+    week6MixedLeftClick
+    700ms ease-in-out infinite;
+}
+
+.week6-mixed-click-right {
+  right: 0;
+  border-left: 2px solid #334155;
+  border-radius: 3px 20px 3px 3px;
+  background: #f8fafc;
+}
+
+.week6-mixed-click-wheel {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  z-index: 4;
+  width: 7px;
+  height: 17px;
+  transform: translateX(-50%);
+  border: 2px solid #334155;
+  border-radius: 999px;
+  background: #64748b;
+}
+
+.week6-mixed-click-mouse em {
+  position: absolute;
+  left: 7px;
+  top: -24px;
+  z-index: 6;
+  color: #dc2626;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 1000;
+  line-height: 1;
+  animation:
+    week6MixedClickArrow
+    700ms ease-in-out infinite;
+}
+
+@keyframes week6MixedLeftClick {
+  0%,
+  100% {
+    transform: translateY(0);
+    background: #facc15;
+  }
+
+  50% {
+    transform: translateY(5px);
+    background: #f97316;
+  }
+}
+
+@keyframes week6MixedClickArrow {
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.week6-mixed-blue-clue {
+  width: 47px;
+  height: 47px;
+  display: inline-block;
+  flex: 0 0 auto;
+  border: 5px solid #1e3a8a;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow:
+    0 5px 0 #1e3a8a,
+    0 0 13px rgba(59,130,246,0.65);
+}
+
+.week6-mixed-clue-antenna {
+  transform: scale(0.82);
+  transform-origin: center;
+}
