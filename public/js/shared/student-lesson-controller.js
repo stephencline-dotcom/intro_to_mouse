@@ -25694,6 +25694,109 @@ const status =
         </div>
       `;
     }
+    if (step.id === "week6-wrap-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-scroll-review">
+
+          <div class="week6-scroll-review-heading">
+            <span class="drag-review-badge">
+              WEEK 6 REVIEW
+            </span>
+
+            <h1>Scroll Up & Down</h1>
+          </div>
+
+          <div class="week6-scroll-review-cards">
+
+            <div class="week6-scroll-review-card scroll-down-card">
+              <div class="week6-scroll-review-word">
+                DOWN
+              </div>
+
+              <div class="week6-scroll-review-action">
+                <div class="week6-scroll-review-mouse">
+                  <div class="week6-scroll-review-left"></div>
+                  <div class="week6-scroll-review-right"></div>
+
+                  <div class="week6-scroll-review-wheel wheel-down">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </div>
+                </div>
+
+                <div class="week6-scroll-review-big-arrow">
+                  ↓
+                </div>
+
+                <div class="week6-scroll-review-page">
+                  <div class="week6-scroll-review-page-content content-down">
+                    <span>☀️</span>
+                    <span>🏠</span>
+                    <span>🌳</span>
+                    <span>🚗</span>
+                    <span>🐶</span>
+                    <span>⭐</span>
+                  </div>
+
+                  <div class="week6-scroll-review-page-bar">
+                    <i class="bar-down"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="week6-scroll-review-card scroll-up-card">
+              <div class="week6-scroll-review-word">
+                UP
+              </div>
+
+              <div class="week6-scroll-review-action">
+                <div class="week6-scroll-review-mouse">
+                  <div class="week6-scroll-review-left"></div>
+                  <div class="week6-scroll-review-right"></div>
+
+                  <div class="week6-scroll-review-wheel wheel-up">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </div>
+                </div>
+
+                <div class="week6-scroll-review-big-arrow">
+                  ↑
+                </div>
+
+                <div class="week6-scroll-review-page">
+                  <div class="week6-scroll-review-page-content content-up">
+                    <span>☀️</span>
+                    <span>🏠</span>
+                    <span>🌳</span>
+                    <span>🚗</span>
+                    <span>🐶</span>
+                    <span>⭐</span>
+                  </div>
+
+                  <div class="week6-scroll-review-page-bar">
+                    <i class="bar-up"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="week6-scroll-review-footer">
+            <span>🖱️</span>
+            <strong>↕️</strong>
+            <span>📄</span>
+            <strong>↕️</strong>
+            <span>✅</span>
+          </div>
+
+        </div>
+      `;
+    }
     if (step.id.startsWith("week6-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -28157,6 +28260,8 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
 
 
 

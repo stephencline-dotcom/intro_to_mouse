@@ -30801,3 +30801,601 @@ body.teacher-session
     transform: scale(1.15) rotate(7deg);
   }
 }
+
+/* Week 6 Step 8 - Wrap-Up Review */
+
+.lesson-screen-week6-wrap-up {
+  position: relative;
+  min-height: 620px;
+  padding: 13px 24px 20px;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 14% 17%,
+      rgba(250,204,21,0.27),
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 87% 18%,
+      rgba(56,189,248,0.25),
+      transparent 21%
+    ),
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eef2ff
+    );
+}
+
+.week6-wrap-up-heading h1 {
+  margin: 4px 0;
+  color: #172554;
+  font-size: clamp(38px, 5.4vh, 55px);
+  font-weight: 1000;
+}
+
+.week6-wrap-up-trophy {
+  margin: 3px auto 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 19px;
+  border: 4px solid #d97706;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  box-shadow:
+    0 6px 0 #f59e0b,
+    0 10px 18px rgba(146,64,14,0.2);
+}
+
+.week6-wrap-up-trophy span {
+  font-size: 40px;
+}
+
+.week6-wrap-up-trophy strong {
+  font-size: 20px;
+  font-weight: 1000;
+  letter-spacing: 1px;
+}
+
+.week6-wrap-up-skills {
+  width: min(930px, 96%);
+  margin: 9px auto;
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.week6-wrap-up-card {
+  position: relative;
+  min-height: 150px;
+  padding: 17px 47px 14px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border: 5px solid #475569;
+  border-radius: 25px;
+  box-shadow:
+    0 8px 0 rgba(71,85,105,0.35),
+    0 12px 20px rgba(15,23,42,0.14);
+}
+
+.week6-wrap-up-card.wheel-card {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+
+.week6-wrap-up-card.click-card {
+  background: #dcfce7;
+  border-color: #16a34a;
+}
+
+.week6-wrap-up-card.drag-card {
+  background: #fef3c7;
+  border-color: #d97706;
+}
+
+.week6-wrap-up-card.think-card {
+  background: #f3e8ff;
+  border-color: #9333ea;
+}
+
+.week6-wrap-up-card-picture {
+  font-size: 52px;
+  line-height: 1;
+}
+
+.week6-wrap-up-arrows {
+  color: #334155;
+  font-size: 37px;
+  font-weight: 1000;
+  line-height: 1;
+}
+
+.week6-wrap-up-check {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 35px;
+}
+
+.week6-wrap-up-footer {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 46px;
+}
+
+.week6-wrap-up-footer strong {
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: white;
+  font-size: 29px;
+  letter-spacing: 5px;
+  box-shadow: 0 5px 14px rgba(15,23,42,0.15);
+}
+
+.week6-wrap-up-confetti {
+  position: absolute;
+  z-index: 2;
+  font-size: 28px;
+  animation:
+    week6WrapUpFloat
+    1.8s ease-in-out infinite alternate;
+}
+
+.week6-wrap-up-confetti.confetti-one {
+  left: 5%;
+  top: 15%;
+  color: #facc15;
+}
+
+.week6-wrap-up-confetti.confetti-two {
+  left: 10%;
+  top: 62%;
+  color: #38bdf8;
+  animation-delay: -0.3s;
+}
+
+.week6-wrap-up-confetti.confetti-three {
+  left: 3%;
+  bottom: 8%;
+  color: #a855f7;
+  animation-delay: -0.7s;
+}
+
+.week6-wrap-up-confetti.confetti-four {
+  right: 6%;
+  top: 17%;
+  color: #fb7185;
+  animation-delay: -1s;
+}
+
+.week6-wrap-up-confetti.confetti-five {
+  right: 9%;
+  top: 61%;
+  color: #22c55e;
+  animation-delay: -1.3s;
+}
+
+.week6-wrap-up-confetti.confetti-six {
+  right: 3%;
+  bottom: 8%;
+  color: #f97316;
+  animation-delay: -1.6s;
+}
+
+@keyframes week6WrapUpFloat {
+  from {
+    transform:
+      translateY(-5px)
+      rotate(-8deg)
+      scale(0.9);
+  }
+
+  to {
+    transform:
+      translateY(7px)
+      rotate(8deg)
+      scale(1.12);
+  }
+}
+
+@media (max-height: 760px) {
+  .lesson-screen-week6-wrap-up {
+    min-height: 540px;
+    padding-top: 7px;
+  }
+
+  .week6-wrap-up-heading h1 {
+    font-size: 38px;
+  }
+
+  .week6-wrap-up-card {
+    min-height: 125px;
+  }
+
+  .week6-wrap-up-card-picture {
+    font-size: 43px;
+  }
+
+  .week6-wrap-up-footer {
+    margin-top: 9px;
+    font-size: 38px;
+  }
+}
+
+/* Week 6 Step 8 - Scroll Wheel Review */
+
+.lesson-screen-week6-scroll-review {
+  min-height: 620px;
+  padding: 12px 24px 20px;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(56,189,248,0.2),
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 85% 18%,
+      rgba(167,139,250,0.2),
+      transparent 20%
+    ),
+    linear-gradient(
+      180deg,
+      #f8fafc,
+      #eef2ff
+    );
+}
+
+.week6-scroll-review-heading h1 {
+  margin: 5px 0 12px;
+  color: #172554;
+  font-size: clamp(38px, 5.2vh, 54px);
+  font-weight: 1000;
+}
+
+.week6-scroll-review-cards {
+  width: min(980px, 96%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.week6-scroll-review-card {
+  min-height: 405px;
+  padding: 13px 15px 18px;
+  border: 6px solid #475569;
+  border-radius: 28px;
+  box-shadow:
+    0 9px 0 rgba(71,85,105,0.35),
+    0 14px 23px rgba(15,23,42,0.16);
+}
+
+.week6-scroll-review-card.scroll-down-card {
+  border-color: #2563eb;
+  background: #dbeafe;
+}
+
+.week6-scroll-review-card.scroll-up-card {
+  border-color: #7c3aed;
+  background: #ede9fe;
+}
+
+.week6-scroll-review-word {
+  display: inline-block;
+  min-width: 125px;
+  padding: 5px 18px;
+  border-radius: 999px;
+  background: white;
+  color: #172554;
+  font-size: 25px;
+  font-weight: 1000;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 0 rgba(71,85,105,0.25);
+}
+
+.week6-scroll-review-action {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns:
+    120px 55px 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+/* Review mouse */
+
+.week6-scroll-review-mouse {
+  position: relative;
+  width: 106px;
+  height: 157px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 6px solid #334155;
+  border-radius: 52px 52px 45px 45px;
+  background: #e2e8f0;
+  box-shadow:
+    0 8px 0 #94a3b8,
+    0 12px 18px rgba(15,23,42,0.2);
+}
+
+.week6-scroll-review-left,
+.week6-scroll-review-right {
+  position: absolute;
+  top: -2px;
+  width: 48px;
+  height: 67px;
+  border-bottom: 4px solid #334155;
+  background: #f8fafc;
+}
+
+.week6-scroll-review-left {
+  left: 0;
+  border-right: 2px solid #334155;
+  border-radius: 45px 4px 5px 4px;
+}
+
+.week6-scroll-review-right {
+  right: 0;
+  border-left: 2px solid #334155;
+  border-radius: 4px 45px 4px 5px;
+}
+
+.week6-scroll-review-wheel {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  z-index: 5;
+  width: 22px;
+  height: 47px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 4px solid #334155;
+  border-radius: 999px;
+  background: #facc15;
+}
+
+.week6-scroll-review-wheel i {
+  width: 10px;
+  height: 3px;
+  border-radius: 999px;
+  background: #92400e;
+}
+
+.week6-scroll-review-wheel.wheel-down {
+  animation:
+    week6ReviewWheelDown
+    1.2s ease-in-out infinite;
+}
+
+.week6-scroll-review-wheel.wheel-up {
+  animation:
+    week6ReviewWheelUp
+    1.2s ease-in-out infinite;
+}
+
+@keyframes week6ReviewWheelDown {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      translateY(-5px);
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      translateY(9px);
+  }
+}
+
+@keyframes week6ReviewWheelUp {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      translateY(9px);
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      translateY(-5px);
+  }
+}
+
+.week6-scroll-review-big-arrow {
+  color: #1e40af;
+  font-size: 68px;
+  font-weight: 1000;
+  line-height: 1;
+  animation:
+    week6ReviewArrowPulse
+    1.2s ease-in-out infinite alternate;
+}
+
+.scroll-up-card
+.week6-scroll-review-big-arrow {
+  color: #6d28d9;
+}
+
+@keyframes week6ReviewArrowPulse {
+  from {
+    transform: scale(0.88);
+    opacity: 0.72;
+  }
+
+  to {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+/* Moving page example */
+
+.week6-scroll-review-page {
+  position: relative;
+  height: 275px;
+  overflow: hidden;
+  border: 6px solid #334155;
+  border-radius: 18px;
+  background: white;
+  box-shadow:
+    inset 0 0 0 5px #e2e8f0,
+    0 7px 0 rgba(71,85,105,0.28);
+}
+
+.week6-scroll-review-page-content {
+  position: absolute;
+  left: 10px;
+  right: 25px;
+  top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  font-size: 43px;
+}
+
+.week6-scroll-review-page-content.content-down {
+  animation:
+    week6ReviewPageDown
+    3s ease-in-out infinite;
+}
+
+.week6-scroll-review-page-content.content-up {
+  animation:
+    week6ReviewPageUp
+    3s ease-in-out infinite;
+}
+
+@keyframes week6ReviewPageDown {
+  0%,
+  18% {
+    transform: translateY(0);
+  }
+
+  72%,
+  100% {
+    transform: translateY(-185px);
+  }
+}
+
+@keyframes week6ReviewPageUp {
+  0%,
+  18% {
+    transform: translateY(-185px);
+  }
+
+  72%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.week6-scroll-review-page-bar {
+  position: absolute;
+  right: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 12px;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.week6-scroll-review-page-bar i {
+  position: absolute;
+  left: 1px;
+  width: 10px;
+  height: 62px;
+  border-radius: 999px;
+  background: #64748b;
+}
+
+.week6-scroll-review-page-bar .bar-down {
+  animation:
+    week6ReviewBarDown
+    3s ease-in-out infinite;
+}
+
+.week6-scroll-review-page-bar .bar-up {
+  animation:
+    week6ReviewBarUp
+    3s ease-in-out infinite;
+}
+
+@keyframes week6ReviewBarDown {
+  0%,
+  18% {
+    top: 0;
+  }
+
+  72%,
+  100% {
+    top: calc(100% - 62px);
+  }
+}
+
+@keyframes week6ReviewBarUp {
+  0%,
+  18% {
+    top: calc(100% - 62px);
+  }
+
+  72%,
+  100% {
+    top: 0;
+  }
+}
+
+.week6-scroll-review-footer {
+  margin: 22px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 44px;
+}
+
+.week6-scroll-review-footer strong {
+  color: #1e40af;
+  font-size: 44px;
+}
+
+@media (max-height: 760px) {
+  .lesson-screen-week6-scroll-review {
+    min-height: 540px;
+    padding-top: 7px;
+  }
+
+  .week6-scroll-review-heading h1 {
+    margin-bottom: 6px;
+    font-size: 36px;
+  }
+
+  .week6-scroll-review-card {
+    min-height: 335px;
+  }
+
+  .week6-scroll-review-page {
+    height: 225px;
+  }
+
+  .week6-scroll-review-footer {
+    margin-top: 12px;
+  }
+}

@@ -264,17 +264,14 @@ const mouseLessons = {
         type: "practice"
       },
       {
-        id: "week6-challenge",
-        title: "Scroll Master Challenge",
-        type: "practice"
-      },
-      {
-        id: "week6-complete",
-        title: "Week 6 Complete!",
-        type: "complete"
+        id: "week6-wrap-up",
+        title: "Week 6 Wrap-Up",
+        type: "review"
       }
     ]
   }
 };
 
 window.HandsOnMouseLessons = mouseLessons;
+
+
