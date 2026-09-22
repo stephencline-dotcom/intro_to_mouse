@@ -8194,6 +8194,85 @@
     ];
 
     const MAX_SCROLL = 900;
+    /*
+     * Guarantee that every object used by the hunt
+     * actually exists in the scrolling scene.
+     */
+    const requiredTargets = [
+      {
+        id: "key",
+        emoji: "🔑",
+        top: 160,
+        left: 24
+      },
+      {
+        id: "map",
+        emoji: "🗺️",
+        top: 500,
+        left: 34
+      },
+      {
+        id: "chest",
+        emoji: "🧰",
+        top: 860,
+        left: 25
+      },
+      {
+        id: "gem",
+        emoji: "💎",
+        top: 1220,
+        left: 32
+      },
+      {
+        id: "crown",
+        emoji: "👑",
+        top: 1540,
+        left: 28
+      }
+    ];
+
+    requiredTargets.forEach(
+      targetInfo => {
+        let item =
+          scene.querySelector(
+            `[data-week6-treasure="${targetInfo.id}"]`
+          );
+
+        if (!item) {
+          item =
+            document.createElement(
+              "button"
+            );
+
+          item.type =
+            "button";
+
+          item.className =
+            "week6-treasure-item";
+
+          item.dataset.week6Treasure =
+            targetInfo.id;
+
+          item.textContent =
+            targetInfo.emoji;
+
+          scene.appendChild(
+            item
+          );
+        }
+
+        /*
+         * Also force every required target to a
+         * known reachable location.
+         */
+        item.style.top =
+          `${targetInfo.top}px`;
+
+        item.style.left =
+          `${targetInfo.left}%`;
+      }
+    );
+
 
     let scrollPosition = 350;
     let roundIndex = 0;
@@ -8874,6 +8953,85 @@
     ];
 
     const MAX_SCROLL = 900;
+    /*
+     * Guarantee that every object used by the hunt
+     * actually exists in the scrolling scene.
+     */
+    const requiredTargets = [
+      {
+        id: "key",
+        emoji: "🔑",
+        top: 160,
+        left: 24
+      },
+      {
+        id: "map",
+        emoji: "🗺️",
+        top: 500,
+        left: 34
+      },
+      {
+        id: "chest",
+        emoji: "🧰",
+        top: 860,
+        left: 25
+      },
+      {
+        id: "gem",
+        emoji: "💎",
+        top: 1220,
+        left: 32
+      },
+      {
+        id: "crown",
+        emoji: "👑",
+        top: 1540,
+        left: 28
+      }
+    ];
+
+    requiredTargets.forEach(
+      targetInfo => {
+        let item =
+          scene.querySelector(
+            `[data-week6-treasure="${targetInfo.id}"]`
+          );
+
+        if (!item) {
+          item =
+            document.createElement(
+              "button"
+            );
+
+          item.type =
+            "button";
+
+          item.className =
+            "week6-treasure-item";
+
+          item.dataset.week6Treasure =
+            targetInfo.id;
+
+          item.textContent =
+            targetInfo.emoji;
+
+          scene.appendChild(
+            item
+          );
+        }
+
+        /*
+         * Also force every required target to a
+         * known reachable location.
+         */
+        item.style.top =
+          `${targetInfo.top}px`;
+
+        item.style.left =
+          `${targetInfo.left}%`;
+      }
+    );
+
 
     let scrollPosition = 360;
     let roundIndex = 0;
@@ -9685,6 +9843,85 @@
     ];
 
     const MAX_SCROLL = 900;
+    /*
+     * Guarantee that every object used by the hunt
+     * actually exists in the scrolling scene.
+     */
+    const requiredTargets = [
+      {
+        id: "key",
+        emoji: "🔑",
+        top: 160,
+        left: 24
+      },
+      {
+        id: "map",
+        emoji: "🗺️",
+        top: 500,
+        left: 34
+      },
+      {
+        id: "chest",
+        emoji: "🧰",
+        top: 860,
+        left: 25
+      },
+      {
+        id: "gem",
+        emoji: "💎",
+        top: 1220,
+        left: 32
+      },
+      {
+        id: "crown",
+        emoji: "👑",
+        top: 1540,
+        left: 28
+      }
+    ];
+
+    requiredTargets.forEach(
+      targetInfo => {
+        let item =
+          scene.querySelector(
+            `[data-week6-treasure="${targetInfo.id}"]`
+          );
+
+        if (!item) {
+          item =
+            document.createElement(
+              "button"
+            );
+
+          item.type =
+            "button";
+
+          item.className =
+            "week6-treasure-item";
+
+          item.dataset.week6Treasure =
+            targetInfo.id;
+
+          item.textContent =
+            targetInfo.emoji;
+
+          scene.appendChild(
+            item
+          );
+        }
+
+        /*
+         * Also force every required target to a
+         * known reachable location.
+         */
+        item.style.top =
+          `${targetInfo.top}px`;
+
+        item.style.left =
+          `${targetInfo.left}%`;
+      }
+    );
+
     const VIEW_CENTER = 170;
     const TARGET_TOLERANCE = 22;
 
@@ -10944,6 +11181,1295 @@
     }
   }
 
+  let removeWeek6ScrollClickWheelListener = null;
+  let removeWeek6ScrollClickClickListener = null;
+  let week6ScrollClickSound = null;
+  let week6ScrollClickSoundTimer = null;
+  let week6ScrollClickRoundTimer = null;
+
+  function stopWeek6ScrollClickBehavior() {
+    removeWeek6ScrollClickWheelListener?.();
+    removeWeek6ScrollClickWheelListener = null;
+
+    removeWeek6ScrollClickClickListener?.();
+    removeWeek6ScrollClickClickListener = null;
+
+    if (week6ScrollClickSoundTimer) {
+      clearTimeout(
+        week6ScrollClickSoundTimer
+      );
+
+      week6ScrollClickSoundTimer = null;
+    }
+
+    if (week6ScrollClickRoundTimer) {
+      clearTimeout(
+        week6ScrollClickRoundTimer
+      );
+
+      week6ScrollClickRoundTimer = null;
+    }
+
+    if (week6ScrollClickSound) {
+      week6ScrollClickSound.pause();
+      week6ScrollClickSound.currentTime = 0;
+      week6ScrollClickSound.loop = false;
+      week6ScrollClickSound = null;
+    }
+  }
+
+  let removeWeek6ScrollDragWheelListener = null;
+  let removeWeek6ScrollDragDownListener = null;
+  let removeWeek6ScrollDragMoveListener = null;
+  let removeWeek6ScrollDragUpListener = null;
+
+  let week6ScrollDragSound = null;
+  let week6ScrollDragSoundTimer = null;
+  let week6ScrollDragRoundTimer = null;
+
+  function stopWeek6ScrollDragBehavior() {
+    removeWeek6ScrollDragWheelListener?.();
+    removeWeek6ScrollDragWheelListener = null;
+
+    removeWeek6ScrollDragDownListener?.();
+    removeWeek6ScrollDragDownListener = null;
+
+    removeWeek6ScrollDragMoveListener?.();
+    removeWeek6ScrollDragMoveListener = null;
+
+    removeWeek6ScrollDragUpListener?.();
+    removeWeek6ScrollDragUpListener = null;
+
+    if (week6ScrollDragSoundTimer) {
+      clearTimeout(
+        week6ScrollDragSoundTimer
+      );
+
+      week6ScrollDragSoundTimer = null;
+    }
+
+    if (week6ScrollDragRoundTimer) {
+      clearTimeout(
+        week6ScrollDragRoundTimer
+      );
+
+      week6ScrollDragRoundTimer = null;
+    }
+
+    if (week6ScrollDragSound) {
+      week6ScrollDragSound.pause();
+      week6ScrollDragSound.currentTime = 0;
+      week6ScrollDragSound.loop = false;
+      week6ScrollDragSound = null;
+    }
+  }
+
+  function startWeek6ScrollDragBehavior() {
+    stopWeek6ScrollDragBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week6DeliveryViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week6DeliveryScene"
+      );
+
+    const destination =
+      document.getElementById(
+        "week6DeliveryDestination"
+      );
+
+    const targetDisplay =
+      document.getElementById(
+        "week6DeliveryTarget"
+      );
+
+    const progress =
+      document.getElementById(
+        "week6DeliveryProgress"
+      );
+
+    const status =
+      document.getElementById(
+        "week6DeliveryStatus"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !destination ||
+      !targetDisplay ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        id: "backpack",
+        emoji: "🎒",
+        name: "BACKPACK",
+        destination: "🚌",
+        destinationName: "BUS"
+      },
+      {
+        id: "book",
+        emoji: "📘",
+        name: "BOOK",
+        destination: "📚",
+        destinationName: "BOOKSHELF"
+      },
+      {
+        id: "apple",
+        emoji: "🍎",
+        name: "APPLE",
+        destination: "🧺",
+        destinationName: "BASKET"
+      },
+      {
+        id: "ball",
+        emoji: "⚽",
+        name: "BALL",
+        destination: "🥅",
+        destinationName: "GOAL"
+      }
+    ];
+
+    const MAX_SCROLL = 1450;
+    /*
+     * Guarantee every item requested by the
+     * delivery challenge exists and is reachable.
+     */
+    const requiredDeliveryItems = [
+      {
+        id: "backpack",
+        emoji: "🎒",
+        top: 170,
+        left: 28
+      },
+      {
+        id: "book",
+        emoji: "📘",
+        top: 520,
+        left: 35
+      },
+      {
+        id: "apple",
+        emoji: "🍎",
+        top: 930,
+        left: 30
+      },
+      {
+        id: "ball",
+        emoji: "⚽",
+        top: 1380,
+        left: 34
+      }
+    ];
+
+    requiredDeliveryItems.forEach(
+      itemInfo => {
+        let item =
+          scene.querySelector(
+            `[data-week6-delivery="${itemInfo.id}"]`
+          );
+
+        if (!item) {
+          item =
+            document.createElement(
+              "button"
+            );
+
+          item.type = "button";
+
+          item.className =
+            "week6-delivery-item";
+
+          item.dataset.week6Delivery =
+            itemInfo.id;
+
+          item.textContent =
+            itemInfo.emoji;
+
+          scene.appendChild(item);
+        }
+
+        item.style.top =
+          `${itemInfo.top}px`;
+
+        item.style.left =
+          `${itemInfo.left}%`;
+      }
+    );
+
+
+    let scrollPosition = 500;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+    let activeObject = null;
+    let dragging = false;
+
+    let offsetX = 0;
+    let offsetY = 0;
+
+    let originalParent = null;
+    let originalNextSibling = null;
+
+    function stopScrollSound() {
+      if (week6ScrollDragSoundTimer) {
+        clearTimeout(
+          week6ScrollDragSoundTimer
+        );
+
+        week6ScrollDragSoundTimer = null;
+      }
+
+      if (week6ScrollDragSound) {
+        week6ScrollDragSound.pause();
+        week6ScrollDragSound.currentTime = 0;
+        week6ScrollDragSound.loop = false;
+        week6ScrollDragSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6ScrollDragSound) {
+        week6ScrollDragSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6ScrollDragSound.volume = 0.4;
+        week6ScrollDragSound.loop = true;
+
+        week6ScrollDragSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6ScrollDragSoundTimer) {
+        clearTimeout(
+          week6ScrollDragSoundTimer
+        );
+      }
+
+      week6ScrollDragSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function playSound(src, volume) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(src);
+
+      sound.volume = volume;
+      sound.currentTime = 0;
+
+      sound.play().catch(() => {});
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+    }
+
+    function resetFloatingObject(object) {
+      if (!object) {
+        return;
+      }
+
+      object.classList.remove(
+        "week6-delivery-held"
+      );
+
+      if (originalParent) {
+        if (
+          originalNextSibling &&
+          originalNextSibling.parentNode ===
+            originalParent
+        ) {
+          originalParent.insertBefore(
+            object,
+            originalNextSibling
+          );
+        } else {
+          originalParent.appendChild(
+            object
+          );
+        }
+      }
+
+      object.style.position = "";
+      object.style.left = "";
+      object.style.top = "";
+      object.style.width = "";
+      object.style.height = "";
+      object.style.margin = "";
+      object.style.transform = "";
+      object.style.zIndex = "";
+
+      originalParent = null;
+      originalNextSibling = null;
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+      dragging = false;
+      activeObject = null;
+
+      const round =
+        rounds[roundIndex];
+
+      targetDisplay.innerHTML = `
+        <span>${round.emoji}</span>
+        <strong>${round.name}</strong>
+      `;
+
+      destination.innerHTML = `
+        <span>${round.destination}</span>
+        <strong>
+          ${round.destinationName}
+        </strong>
+      `;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Find the ${round.name}, then drag it to the ${round.destinationName}.`;
+
+      scene
+        .querySelectorAll(
+          "[data-week6-delivery]"
+        )
+        .forEach(item => {
+          item.classList.remove(
+            "week6-delivery-correct",
+            "week6-delivery-wrong"
+          );
+
+          item.style.display = "";
+        });
+
+      destination.classList.remove(
+        "week6-delivery-destination-correct"
+      );
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+      dragging = false;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Delivery challenge complete!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-delivery-celebration";
+
+      celebration.innerHTML = `
+        <div class="week6-delivery-celebration-card">
+          <div>🏆</div>
+          <strong>
+            DELIVERY COMPLETE!
+          </strong>
+          <span>
+            Great scrolling and dragging!
+          </span>
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-delivery-celebration-show"
+        );
+      });
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.6
+      );
+    }
+
+    function completeRound(object) {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+      dragging = false;
+
+      destination.classList.add(
+        "week6-delivery-destination-correct"
+      );
+
+      status.textContent =
+        "Great delivery!";
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      object.remove();
+
+      originalParent = null;
+      originalNextSibling = null;
+
+      week6ScrollDragRoundTimer =
+        setTimeout(() => {
+          if (!viewport.isConnected) {
+            return;
+          }
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 850);
+    }
+
+    function pointInsideDestination(
+      x,
+      y
+    ) {
+      const rect =
+        destination.getBoundingClientRect();
+
+      return (
+        x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom
+      );
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished ||
+          dragging
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          viewport.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              22
+            ),
+            65
+          );
+
+        if (event.deltaY > 0) {
+          scrollPosition =
+            Math.min(
+              scrollPosition + amount,
+              MAX_SCROLL
+            );
+        } else if (event.deltaY < 0) {
+          scrollPosition =
+            Math.max(
+              scrollPosition - amount,
+              0
+            );
+        }
+
+        status.textContent =
+          "Keep searching...";
+
+        updateScene();
+      };
+
+    const downHandler =
+      event => {
+        if (
+          locked ||
+          finished ||
+          event.button !== 0
+        ) {
+          return;
+        }
+
+        const object =
+          event.target.closest(
+            "[data-week6-delivery]"
+          );
+
+        if (!object) {
+          return;
+        }
+
+        const round =
+          rounds[roundIndex];
+
+        if (
+          object.dataset.week6Delivery !==
+          round.id
+        ) {
+          object.classList.add(
+            "week6-delivery-wrong"
+          );
+
+          playSound(
+            "/sounds/buzzer.mp3",
+            0.55
+          );
+
+          status.textContent =
+            `That's not the ${round.name}.`;
+
+          setTimeout(() => {
+            if (object.isConnected) {
+              object.classList.remove(
+                "week6-delivery-wrong"
+              );
+            }
+          }, 350);
+
+          return;
+        }
+
+        event.preventDefault();
+
+        const rect =
+          object.getBoundingClientRect();
+
+        offsetX =
+          event.clientX - rect.left;
+
+        offsetY =
+          event.clientY - rect.top;
+
+        originalParent =
+          object.parentNode;
+
+        originalNextSibling =
+          object.nextSibling;
+
+        activeObject =
+          object;
+
+        dragging =
+          true;
+
+        object.style.position =
+          "fixed";
+
+        object.style.left =
+          `${rect.left}px`;
+
+        object.style.top =
+          `${rect.top}px`;
+
+        object.style.width =
+          `${rect.width}px`;
+
+        object.style.height =
+          `${rect.height}px`;
+
+        object.style.margin =
+          "0";
+
+        object.style.transform =
+          "none";
+
+        object.style.zIndex =
+          "9999";
+
+        object.classList.add(
+          "week6-delivery-held"
+        );
+
+        document.body.appendChild(
+          object
+        );
+
+        playSound(
+          "/sounds/mouseclick.mp3",
+          0.45
+        );
+
+        status.textContent =
+          `Drag it to the ${round.destinationName}!`;
+      };
+
+    const moveHandler =
+      event => {
+        if (
+          !dragging ||
+          !activeObject
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        activeObject.style.left =
+          `${event.clientX - offsetX}px`;
+
+        activeObject.style.top =
+          `${event.clientY - offsetY}px`;
+      };
+
+    const upHandler =
+      event => {
+        if (
+          !dragging ||
+          !activeObject ||
+          event.button !== 0
+        ) {
+          return;
+        }
+
+        const object =
+          activeObject;
+
+        dragging = false;
+        activeObject = null;
+
+        object.classList.remove(
+          "week6-delivery-held"
+        );
+
+        if (
+          pointInsideDestination(
+            event.clientX,
+            event.clientY
+          )
+        ) {
+          completeRound(object);
+          return;
+        }
+
+        object.classList.add(
+          "week6-delivery-wrong"
+        );
+
+        playSound(
+          "/sounds/buzzer.mp3",
+          0.5
+        );
+
+        resetFloatingObject(
+          object
+        );
+
+        status.textContent =
+          "Try that drop again.";
+
+        setTimeout(() => {
+          if (object.isConnected) {
+            object.classList.remove(
+              "week6-delivery-wrong"
+            );
+          }
+        }, 350);
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    viewport.addEventListener(
+      "mousedown",
+      downHandler
+    );
+
+    window.addEventListener(
+      "mousemove",
+      moveHandler,
+      true
+    );
+
+    window.addEventListener(
+      "mouseup",
+      upHandler,
+      true
+    );
+
+    removeWeek6ScrollDragWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    removeWeek6ScrollDragDownListener =
+      () => {
+        viewport.removeEventListener(
+          "mousedown",
+          downHandler
+        );
+      };
+
+    removeWeek6ScrollDragMoveListener =
+      () => {
+        window.removeEventListener(
+          "mousemove",
+          moveHandler,
+          true
+        );
+      };
+
+    removeWeek6ScrollDragUpListener =
+      () => {
+        window.removeEventListener(
+          "mouseup",
+          upHandler,
+          true
+        );
+      };
+
+    updateScene();
+    loadRound();
+  }
+
+  function startWeek6ScrollClickBehavior() {
+    stopWeek6ScrollClickBehavior();
+
+    const viewport =
+      document.getElementById(
+        "week6TreasureViewport"
+      );
+
+    const scene =
+      document.getElementById(
+        "week6TreasureScene"
+      );
+
+    const targetDisplay =
+      document.getElementById(
+        "week6TreasureTarget"
+      );
+
+    const progress =
+      document.getElementById(
+        "week6TreasureProgress"
+      );
+
+    const status =
+      document.getElementById(
+        "week6TreasureStatus"
+      );
+
+    if (
+      !viewport ||
+      !scene ||
+      !targetDisplay ||
+      !progress ||
+      !status
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        id: "key",
+        emoji: "🔑",
+        name: "KEY"
+      },
+      {
+        id: "gem",
+        emoji: "💎",
+        name: "GEM"
+      },
+      {
+        id: "map",
+        emoji: "🗺️",
+        name: "MAP"
+      },
+      {
+        id: "crown",
+        emoji: "👑",
+        name: "CROWN"
+      },
+      {
+        id: "chest",
+        emoji: "🧰",
+        name: "TREASURE CHEST"
+      }
+    ];
+
+    const MAX_SCROLL = 1390;
+    /*
+     * Guarantee that every object used by the hunt
+     * actually exists in the scrolling scene.
+     */
+    const requiredTargets = [
+      {
+        id: "key",
+        emoji: "🔑",
+        top: 160,
+        left: 24
+      },
+      {
+        id: "map",
+        emoji: "🗺️",
+        top: 500,
+        left: 34
+      },
+      {
+        id: "chest",
+        emoji: "🧰",
+        top: 860,
+        left: 25
+      },
+      {
+        id: "gem",
+        emoji: "💎",
+        top: 1220,
+        left: 32
+      },
+      {
+        id: "crown",
+        emoji: "👑",
+        top: 1540,
+        left: 28
+      }
+    ];
+
+    requiredTargets.forEach(
+      targetInfo => {
+        let item =
+          scene.querySelector(
+            `[data-week6-treasure="${targetInfo.id}"]`
+          );
+
+        if (!item) {
+          item =
+            document.createElement(
+              "button"
+            );
+
+          item.type =
+            "button";
+
+          item.className =
+            "week6-treasure-item";
+
+          item.dataset.week6Treasure =
+            targetInfo.id;
+
+          item.textContent =
+            targetInfo.emoji;
+
+          scene.appendChild(
+            item
+          );
+        }
+
+        /*
+         * Also force every required target to a
+         * known reachable location.
+         */
+        item.style.top =
+          `${targetInfo.top}px`;
+
+        item.style.left =
+          `${targetInfo.left}%`;
+      }
+    );
+
+
+    let scrollPosition = 430;
+    let roundIndex = 0;
+    let locked = false;
+    let finished = false;
+
+    function stopScrollSound() {
+      if (week6ScrollClickSoundTimer) {
+        clearTimeout(
+          week6ScrollClickSoundTimer
+        );
+
+        week6ScrollClickSoundTimer = null;
+      }
+
+      if (week6ScrollClickSound) {
+        week6ScrollClickSound.pause();
+        week6ScrollClickSound.currentTime = 0;
+        week6ScrollClickSound.loop = false;
+        week6ScrollClickSound = null;
+      }
+    }
+
+    function playScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6ScrollClickSound) {
+        week6ScrollClickSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6ScrollClickSound.volume = 0.4;
+        week6ScrollClickSound.loop = true;
+
+        week6ScrollClickSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6ScrollClickSoundTimer) {
+        clearTimeout(
+          week6ScrollClickSoundTimer
+        );
+      }
+
+      week6ScrollClickSoundTimer =
+        setTimeout(
+          stopScrollSound,
+          180
+        );
+    }
+
+    function playSound(src, volume) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound =
+        new Audio(src);
+
+      sound.volume = volume;
+      sound.currentTime = 0;
+
+      sound.play().catch(() => {});
+    }
+
+    function updateScene() {
+      scene.style.transform =
+        `translateY(-${scrollPosition}px)`;
+    }
+
+    function loadRound() {
+      if (finished) {
+        return;
+      }
+
+      locked = false;
+
+      const round =
+        rounds[roundIndex];
+
+      targetDisplay.innerHTML = `
+        <span>${round.emoji}</span>
+        <strong>${round.name}</strong>
+      `;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent =
+        `Find and LEFT-CLICK the ${round.name}.`;
+
+      scene
+        .querySelectorAll(
+          "[data-week6-treasure]"
+        )
+        .forEach(item => {
+          item.classList.remove(
+            "week6-treasure-correct",
+            "week6-treasure-wrong"
+          );
+        });
+    }
+
+    function finishActivity() {
+      finished = true;
+      locked = true;
+
+      stopScrollSound();
+
+      status.textContent =
+        "Treasure hunt complete!";
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-treasure-celebration";
+
+      celebration.innerHTML = `
+        <div class="week6-treasure-celebration-card">
+          <div>🏆</div>
+          <strong>TREASURE HUNT COMPLETE!</strong>
+          <span>Great scrolling and clicking!</span>
+        </div>
+      `;
+
+      viewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-treasure-celebration-show"
+        );
+      });
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.6
+      );
+    }
+
+    function completeRound(item) {
+      if (
+        locked ||
+        finished
+      ) {
+        return;
+      }
+
+      locked = true;
+      stopScrollSound();
+
+      item.classList.add(
+        "week6-treasure-correct"
+      );
+
+      status.textContent =
+        "You found it!";
+
+      playSound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      week6ScrollClickRoundTimer =
+        setTimeout(() => {
+          if (!viewport.isConnected) {
+            return;
+          }
+
+          roundIndex += 1;
+
+          if (
+            roundIndex >=
+            rounds.length
+          ) {
+            finishActivity();
+            return;
+          }
+
+          loadRound();
+        }, 800);
+    }
+
+    const wheelHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const rect =
+          viewport.getBoundingClientRect();
+
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        playScrollSound();
+
+        const amount =
+          Math.min(
+            Math.max(
+              Math.abs(event.deltaY),
+              22
+            ),
+            65
+          );
+
+        if (event.deltaY > 0) {
+          scrollPosition =
+            Math.min(
+              scrollPosition + amount,
+              MAX_SCROLL
+            );
+        } else if (event.deltaY < 0) {
+          scrollPosition =
+            Math.max(
+              scrollPosition - amount,
+              0
+            );
+        }
+
+        status.textContent =
+          "Keep searching...";
+
+        updateScene();
+      };
+
+    const clickHandler =
+      event => {
+        if (
+          locked ||
+          finished
+        ) {
+          return;
+        }
+
+        const item =
+          event.target.closest(
+            "[data-week6-treasure]"
+          );
+
+        if (!item) {
+          return;
+        }
+
+        playSound(
+          "/sounds/mouseclick.mp3",
+          0.45
+        );
+
+        const round =
+          rounds[roundIndex];
+
+        if (
+          item.dataset.week6Treasure ===
+          round.id
+        ) {
+          completeRound(item);
+          return;
+        }
+
+        item.classList.add(
+          "week6-treasure-wrong"
+        );
+
+        playSound(
+          "/sounds/buzzer.mp3",
+          0.55
+        );
+
+        status.textContent =
+          `That's not the ${round.name}. Keep looking!`;
+
+        setTimeout(() => {
+          if (item.isConnected) {
+            item.classList.remove(
+              "week6-treasure-wrong"
+            );
+          }
+        }, 350);
+      };
+
+    viewport.addEventListener(
+      "wheel",
+      wheelHandler,
+      {
+        passive: false
+      }
+    );
+
+    viewport.addEventListener(
+      "click",
+      clickHandler
+    );
+
+    removeWeek6ScrollClickWheelListener =
+      () => {
+        viewport.removeEventListener(
+          "wheel",
+          wheelHandler
+        );
+
+        stopScrollSound();
+      };
+
+    removeWeek6ScrollClickClickListener =
+      () => {
+        viewport.removeEventListener(
+          "click",
+          clickHandler
+        );
+      };
+
+    updateScene();
+    loadRound();
+  }
+
   function startWeek6PrecisionBehavior() {
     stopWeek6PrecisionBehavior();
 
@@ -10967,7 +12493,12 @@
         "week6PrecisionTargetLabel"
       );
 
-    const status =
+    
+    const targetBand =
+      document.getElementById(
+        "week6PrecisionBand"
+      );
+const status =
       document.getElementById(
         "week6PrecisionStatus"
       );
@@ -11116,8 +12647,18 @@
        * The visible target gets smaller as
        * precision requirements increase.
        */
+      const bandHeights = [
+        70,
+        48,
+        28,
+        12
+      ];
+
       target.style.height =
-        `${round.tolerance * 2 + 42}px`;
+        "96px";
+
+      targetBand.style.height =
+        `${bandHeights[roundIndex]}px`;
 
       targetLabel.textContent =
         round.label;
@@ -19594,6 +21135,10 @@
                 id="week6PrecisionTarget"
                 class="week6-precision-target"
               >
+                <div
+                  id="week6PrecisionBand"
+                  class="week6-precision-band"
+                ></div>
                 <span>
                   ◎
                 </span>
@@ -19627,6 +21172,437 @@
       `;
     }
 
+    if (step.id === "week6-scroll-click") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-treasure">
+
+          <div class="week6-treasure-heading">
+
+            <span class="drag-review-badge">
+              SCROLL + CLICK
+            </span>
+
+            <h1>Treasure Hunt!</h1>
+
+            <p>
+              Scroll to search, then left-click the treasure.
+            </p>
+
+          </div>
+
+          <div class="week6-treasure-topbar">
+
+            <strong>FIND:</strong>
+
+            <div
+              id="week6TreasureTarget"
+              class="week6-treasure-target-display"
+            >
+              <span>🔑</span>
+              <strong>KEY</strong>
+            </div>
+
+            <div
+              id="week6TreasureProgress"
+              class="week6-treasure-progress"
+            >
+              1 of 5
+            </div>
+
+          </div>
+
+          <div
+            id="week6TreasureViewport"
+            class="week6-treasure-viewport"
+          >
+
+            <div
+              id="week6TreasureScene"
+              class="week6-treasure-scene"
+            >
+
+              <div class="week6-treasure-shelf shelf-one"></div>
+              <div class="week6-treasure-shelf shelf-two"></div>
+              <div class="week6-treasure-shelf shelf-three"></div>
+              <div class="week6-treasure-shelf shelf-four"></div>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="key"
+                style="top: 160px; left: 24%;"
+              >🔑</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="book"
+                style="top: 320px; left: 67%;"
+              >📕</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="map"
+                style="top: 500px; left: 34%;"
+              >🗺️</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="apple"
+                style="top: 680px; left: 72%;"
+              >🍎</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="chest"
+                style="top: 860px; left: 25%;"
+              >🧰</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="ball"
+                style="top: 1040px; left: 69%;"
+              >⚽</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="gem"
+                style="top: 1220px; left: 32%;"
+              >💎</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="frog"
+                style="top: 1380px; left: 71%;"
+              >🐸</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="crown"
+                style="top: 1540px; left: 28%;"
+              >👑</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="star"
+                style="top: 1660px; left: 68%;"
+              >⭐</button>
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="banana"
+                style="top: 245px; left: 42%;"
+              >🍌</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="clock"
+                style="top: 410px; left: 82%;"
+              >⏰</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="pencil"
+                style="top: 560px; left: 58%;"
+              >✏️</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="cookie"
+                style="top: 645px; left: 18%;"
+              >🍪</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="trophy"
+                style="top: 760px; left: 47%;"
+              >🏆</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="umbrella"
+                style="top: 930px; left: 50%;"
+              >☂️</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="car"
+                style="top: 1005px; left: 18%;"
+              >🚗</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="pizza"
+                style="top: 1135px; left: 52%;"
+              >🍕</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="bell"
+                style="top: 1290px; left: 78%;"
+              >🔔</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="fish"
+                style="top: 1430px; left: 45%;"
+              >🐟</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="moon"
+                style="top: 1580px; left: 82%;"
+              >🌙</button>
+
+              <button
+                type="button"
+                class="week6-treasure-item"
+                data-week6-treasure="gift"
+                style="top: 1710px; left: 44%;"
+              >🎁</button>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week6TreasureStatus"
+            class="week6-treasure-status"
+          >
+            Find and LEFT-CLICK the KEY.
+          </div>
+
+        </div>
+      `;
+    }
+    if (step.id === "week6-scroll-drag") {
+      return `
+        <div class="lesson-screen lesson-screen-week6-delivery">
+
+          <div class="week6-delivery-heading">
+
+            <span class="drag-review-badge">
+              SCROLL + DRAG
+            </span>
+
+            <h1>Deliver the Supplies!</h1>
+
+            <p>
+              Scroll to find the item, then drag it to the matching place.
+            </p>
+
+          </div>
+
+          <div class="week6-delivery-topbar">
+
+            <strong>FIND:</strong>
+
+            <div
+              id="week6DeliveryTarget"
+              class="week6-delivery-target"
+            >
+              <span>🎒</span>
+              <strong>BACKPACK</strong>
+            </div>
+
+            <div
+              id="week6DeliveryProgress"
+              class="week6-delivery-progress"
+            >
+              1 of 4
+            </div>
+
+          </div>
+
+          <div
+            id="week6DeliveryViewport"
+            class="week6-delivery-viewport"
+          >
+
+            <div
+              id="week6DeliveryDestination"
+              class="week6-delivery-destination"
+            >
+              <span>🚌</span>
+              <strong>BUS</strong>
+            </div>
+
+            <div
+              id="week6DeliveryScene"
+              class="week6-delivery-scene"
+            >
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="backpack"
+                style="top: 170px; left: 28%;"
+              >🎒</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="pencil"
+                style="top: 310px; left: 62%;"
+              >✏️</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="book"
+                style="top: 520px; left: 35%;"
+              >📘</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="cookie"
+                style="top: 700px; left: 68%;"
+              >🍪</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="apple"
+                style="top: 930px; left: 30%;"
+              >🍎</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="star"
+                style="top: 1120px; left: 67%;"
+              >⭐</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="ball"
+                style="top: 1380px; left: 34%;"
+              >⚽</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="frog"
+                style="top: 1580px; left: 69%;"
+              >🐸</button>
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="banana"
+                style="top: 245px; left: 52%;"
+              >🍌</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="clock"
+                style="top: 390px; left: 20%;"
+              >⏰</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="car"
+                style="top: 455px; left: 72%;"
+              >🚗</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="pizza"
+                style="top: 620px; left: 27%;"
+              >🍕</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="gift"
+                style="top: 785px; left: 54%;"
+              >🎁</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="bell"
+                style="top: 850px; left: 76%;"
+              >🔔</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="fish"
+                style="top: 1010px; left: 53%;"
+              >🐟</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="umbrella"
+                style="top: 1190px; left: 24%;"
+              >☂️</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="trophy"
+                style="top: 1265px; left: 73%;"
+              >🏆</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="moon"
+                style="top: 1435px; left: 57%;"
+              >🌙</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="cookie-two"
+                style="top: 1515px; left: 19%;"
+              >🍪</button>
+
+              <button
+                type="button"
+                class="week6-delivery-item"
+                data-week6-delivery="flower"
+                style="top: 1680px; left: 48%;"
+              >🌻</button>
+
+            </div>
+
+          </div>
+
+          <div
+            id="week6DeliveryStatus"
+            class="week6-delivery-status"
+          >
+            Find the BACKPACK, then drag it to the BUS.
+          </div>
+
+        </div>
+      `;
+    }
     if (step.id.startsWith("week6-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -21588,6 +23564,14 @@
 
     if (step.id === "week6-precision") {
       startWeek6PrecisionBehavior();
+    }
+
+    if (step.id === "week6-scroll-click") {
+      startWeek6ScrollClickBehavior();
+    }
+
+    if (step.id === "week6-scroll-drag") {
+      startWeek6ScrollDragBehavior();
     }
 
     if (step.id === "week5-quick-review") {

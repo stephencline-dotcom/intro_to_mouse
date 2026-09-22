@@ -26620,3 +26620,1010 @@ body.teacher-session
   height: 300px;
 }
 
+
+/* ========================================
+   Week 6 Step 3 - precision band refinement
+======================================== */
+
+.week6-precision-target {
+  height: 96px !important;
+
+  overflow: hidden;
+}
+
+.week6-precision-band {
+  position: absolute;
+
+  left: 10px;
+  right: 10px;
+
+  top: 50%;
+
+  height: 70px;
+
+  transform:
+    translateY(-50%);
+
+  border-top:
+    3px dashed #fde68a;
+
+  border-bottom:
+    3px dashed #fde68a;
+
+  background:
+    rgba(251,191,36,0.16);
+
+  border-radius:
+    12px;
+
+  transition:
+    height 0.3s ease,
+    background 0.2s ease;
+}
+
+.week6-precision-target > span,
+.week6-precision-target > strong {
+  position: relative;
+
+  z-index: 2;
+}
+
+.week6-precision-target-correct
+.week6-precision-band {
+  background:
+    rgba(74,222,128,0.24);
+
+  border-color:
+    #86efac;
+}
+
+
+/* ========================================
+   Week 6 Step 3 - obvious precision target
+======================================== */
+
+/* Outer box stays large enough for the rocket */
+
+.lesson-screen-week6-precision
+.week6-precision-target {
+  height: 96px !important;
+
+  overflow: visible !important;
+}
+
+
+/*
+ * THIS is the actual success/precision zone.
+ * It becomes shorter every round.
+ */
+
+.lesson-screen-week6-precision
+.week6-precision-band {
+  position: absolute !important;
+
+  left: 14px !important;
+  right: 14px !important;
+
+  top: 50% !important;
+
+  transform:
+    translateY(-50%) !important;
+
+  z-index: 3 !important;
+
+  box-sizing: border-box;
+
+  border:
+    4px solid #fbbf24 !important;
+
+  border-radius:
+    12px !important;
+
+  background:
+    rgba(251, 191, 36, 0.42) !important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(251, 191, 36, 0.14);
+
+  pointer-events: none;
+
+  transition:
+    height 0.3s ease !important;
+}
+
+
+/* Center line makes the goal extremely clear */
+
+.lesson-screen-week6-precision
+.week6-precision-band::before {
+  content: "";
+
+  position: absolute;
+
+  left: 8px;
+  right: 8px;
+
+  top: 50%;
+
+  height: 3px;
+
+  transform:
+    translateY(-50%);
+
+  border-radius:
+    999px;
+
+  background:
+    #fef3c7;
+}
+
+
+/* Clearly label the true stopping area */
+
+.lesson-screen-week6-precision
+.week6-precision-band::after {
+  content:
+    "STOP HERE";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  padding:
+    2px 7px;
+
+  border-radius:
+    999px;
+
+  background:
+    #92400e;
+
+  color:
+    white;
+
+  font-size:
+    9px;
+
+  font-weight:
+    1000;
+
+  white-space:
+    nowrap;
+}
+
+
+/*
+ * Keep the outer-zone label out of the
+ * center so it doesn't cover STOP HERE.
+ */
+
+.lesson-screen-week6-precision
+.week6-precision-target > strong {
+  position: absolute !important;
+
+  top: 5px !important;
+  left: 50% !important;
+
+  transform:
+    translateX(-50%) !important;
+
+  z-index:
+    5 !important;
+
+  white-space:
+    nowrap;
+}
+
+
+/* Successful stop */
+
+.lesson-screen-week6-precision
+.week6-precision-target-correct
+.week6-precision-band {
+  border-color:
+    #4ade80 !important;
+
+  background:
+    rgba(34, 197, 94, 0.48) !important;
+}
+
+.lesson-screen-week6-precision
+.week6-precision-target-correct
+.week6-precision-band::after {
+  content:
+    "PERFECT!";
+
+  background:
+    #166534;
+}
+
+
+/* ========================================
+   Week 6 Step 4 - Treasure Hunt
+======================================== */
+
+.lesson-screen-week6-treasure {
+  padding: 7px 20px 9px;
+  text-align: center;
+}
+
+.week6-treasure-heading h1 {
+  margin: 2px 0;
+
+  font-size:
+    clamp(30px, 4.1vh, 40px);
+}
+
+.week6-treasure-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.week6-treasure-topbar {
+  height: 43px;
+
+  margin:
+    4px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week6-treasure-target-display {
+  min-width: 160px;
+
+  padding:
+    4px 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border:
+    3px solid #fbbf24;
+
+  border-radius:
+    999px;
+
+  background:
+    #fffbeb;
+
+  color:
+    #92400e;
+}
+
+.week6-treasure-target-display span {
+  font-size: 25px;
+}
+
+.week6-treasure-progress {
+  padding:
+    6px 11px;
+
+  border-radius:
+    999px;
+
+  background:
+    #e0f2fe;
+
+  color:
+    #0369a1;
+}
+
+
+/* Search window */
+
+.week6-treasure-viewport {
+  position: relative;
+
+  width:
+    min(800px, 94%);
+
+  height: 330px;
+
+  margin:
+    0 auto;
+
+  overflow: hidden;
+
+  border:
+    5px solid #475569;
+
+  border-radius:
+    22px;
+
+  background:
+    #fef3c7;
+
+  box-shadow:
+    0 7px 16px
+    rgba(15,23,42,0.13);
+
+  overscroll-behavior:
+    contain;
+}
+
+.week6-treasure-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1260px;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #fef3c7 0 210px,
+      #dbeafe 210px 420px,
+      #dcfce7 420px 630px,
+      #fce7f3 630px 840px
+    );
+
+  transition:
+    transform 0.09s linear;
+
+  will-change:
+    transform;
+}
+
+
+/* Shelves */
+
+.week6-treasure-shelf {
+  position: absolute;
+
+  left: 8%;
+  right: 8%;
+
+  height: 13px;
+
+  border-radius:
+    7px;
+
+  background:
+    #92400e;
+
+  box-shadow:
+    0 5px 0 #78350f;
+}
+
+.week6-treasure-shelf.shelf-one {
+  top: 260px;
+}
+
+.week6-treasure-shelf.shelf-two {
+  top: 525px;
+}
+
+.week6-treasure-shelf.shelf-three {
+  top: 790px;
+}
+
+.week6-treasure-shelf.shelf-four {
+  top: 1085px;
+}
+
+
+/* Objects */
+
+.week6-treasure-item {
+  position: absolute;
+
+  width: 82px;
+  height: 82px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border:
+    4px solid rgba(255,255,255,0.8);
+
+  border-radius:
+    18px;
+
+  background:
+    rgba(255,255,255,0.9);
+
+  font-size: 46px;
+
+  box-shadow:
+    0 5px 12px
+    rgba(15,23,42,0.13);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease;
+}
+
+.week6-treasure-item:hover {
+  transform:
+    translate(-50%, -50%)
+    scale(1.07);
+
+  border-color:
+    #60a5fa;
+}
+
+.week6-treasure-correct {
+  border-color:
+    #16a34a !important;
+
+  background:
+    #dcfce7 !important;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.14) !important;
+}
+
+.week6-treasure-wrong {
+  border-color:
+    #ef4444 !important;
+
+  background:
+    #fee2e2 !important;
+}
+
+
+/* Status */
+
+.week6-treasure-status {
+  min-height: 23px;
+
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+
+/* Completion */
+
+.week6-treasure-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15,23,42,0.22);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week6-treasure-celebration-show {
+  opacity: 1;
+}
+
+.week6-treasure-celebration-card {
+  padding:
+    22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border:
+    4px solid #fde68a;
+
+  border-radius:
+    24px;
+
+  background:
+    white;
+
+  color:
+    #92400e;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15,23,42,0.25);
+}
+
+.week6-treasure-celebration-card div {
+  font-size: 50px;
+}
+
+.week6-treasure-celebration-card strong {
+  font-size: 24px;
+  font-weight: 1000;
+}
+
+.week6-treasure-celebration-card span {
+  color: #1e40af;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+
+/* Classroom screen fit */
+
+body.teacher-session
+.week6-treasure-viewport {
+  height: 290px;
+}
+
+
+/* ========================================
+   Week 6 Step 4 - longer treasure hunt
+======================================== */
+
+.week6-treasure-scene {
+  height: 1780px !important;
+}
+
+.week6-treasure-shelf.shelf-one {
+  top: 390px !important;
+}
+
+.week6-treasure-shelf.shelf-two {
+  top: 760px !important;
+}
+
+.week6-treasure-shelf.shelf-three {
+  top: 1130px !important;
+}
+
+.week6-treasure-shelf.shelf-four {
+  top: 1500px !important;
+}
+
+
+/* ========================================
+   Week 6 Step 4 - taller visible board
+======================================== */
+
+.lesson-screen-week6-treasure
+.week6-treasure-viewport {
+  height: 410px !important;
+}
+
+body.teacher-session
+.lesson-screen-week6-treasure
+.week6-treasure-viewport {
+  height: 365px !important;
+}
+
+/* Tighten the surrounding space so the taller
+   board still fits comfortably on one screen */
+
+.lesson-screen-week6-treasure
+.week6-treasure-topbar {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+.lesson-screen-week6-treasure
+.week6-treasure-status {
+  margin-top: 2px !important;
+}
+
+
+/* ========================================
+   Week 6 Step 4 - larger treasure viewport
+======================================== */
+
+.lesson-screen-week6-treasure
+.week6-treasure-viewport {
+  height: 470px !important;
+}
+
+body.teacher-session
+.lesson-screen-week6-treasure
+.week6-treasure-viewport {
+  height: 425px !important;
+}
+
+.lesson-screen-week6-treasure
+.week6-treasure-heading h1 {
+  margin-bottom: 0 !important;
+}
+
+.lesson-screen-week6-treasure
+.week6-treasure-heading p {
+  margin-bottom: 0 !important;
+}
+
+.lesson-screen-week6-treasure
+.week6-treasure-topbar {
+  height: 38px !important;
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
+}
+
+
+.lesson-screen-week6-treasure
+.week6-treasure-scene {
+  height: 1860px !important;
+}
+
+
+/* ========================================
+   Week 6 Step 5 - Deliver the Supplies
+======================================== */
+
+.lesson-screen-week6-delivery {
+  padding: 7px 20px 9px;
+  text-align: center;
+}
+
+.week6-delivery-heading h1 {
+  margin: 2px 0;
+  font-size: clamp(30px, 4.1vh, 40px);
+}
+
+.week6-delivery-heading p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.week6-delivery-topbar {
+  height: 40px;
+
+  margin: 3px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.week6-delivery-target {
+  min-width: 165px;
+
+  padding: 4px 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 3px solid #93c5fd;
+  border-radius: 999px;
+
+  background: white;
+
+  color: #1e40af;
+}
+
+.week6-delivery-target span {
+  font-size: 25px;
+}
+
+.week6-delivery-progress {
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #e0f2fe;
+
+  color: #0369a1;
+}
+
+
+/* Main board */
+
+.week6-delivery-viewport {
+  position: relative;
+
+  width: min(820px, 94%);
+  height: 455px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border: 5px solid #475569;
+  border-radius: 22px;
+
+  background: #f8fafc;
+
+  box-shadow:
+    0 7px 16px
+    rgba(15,23,42,0.13);
+
+  overscroll-behavior: contain;
+}
+
+.week6-delivery-scene {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 1780px;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #dbeafe 0 220px,
+      #dcfce7 220px 440px,
+      #fef3c7 440px 660px,
+      #fce7f3 660px 880px
+    );
+
+  transition:
+    transform 0.09s linear;
+
+  will-change: transform;
+}
+
+
+/* Destination remains fixed */
+
+.week6-delivery-destination {
+  position: absolute;
+
+  right: 18px;
+  top: 50%;
+
+  z-index: 80;
+
+  width: 145px;
+  height: 125px;
+
+  transform:
+    translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  border:
+    4px dashed #2563eb;
+
+  border-radius:
+    18px;
+
+  background:
+    rgba(219,234,254,0.95);
+
+  color: #1e40af;
+
+  pointer-events: none;
+}
+
+.week6-delivery-destination span {
+  font-size: 48px;
+}
+
+.week6-delivery-destination strong {
+  font-size: 11px;
+  font-weight: 1000;
+}
+
+.week6-delivery-destination-correct {
+  border-color: #16a34a;
+
+  background:
+    rgba(220,252,231,0.96);
+
+  color: #166534;
+}
+
+
+/* Search objects */
+
+.week6-delivery-item {
+  position: absolute;
+
+  width: 88px;
+  height: 88px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border:
+    4px solid rgba(255,255,255,0.9);
+
+  border-radius:
+    20px;
+
+  background: white;
+
+  font-size: 49px;
+
+  box-shadow:
+    0 6px 13px
+    rgba(15,23,42,0.14);
+
+  cursor: grab;
+
+  user-select: none;
+
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
+}
+
+.week6-delivery-item:hover {
+  border-color: #60a5fa;
+}
+
+.week6-delivery-held {
+  border-color:
+    #2563eb !important;
+
+  background:
+    #dbeafe !important;
+
+  pointer-events:
+    none !important;
+
+  cursor: grabbing;
+
+  transition:
+    none !important;
+}
+
+.week6-delivery-wrong {
+  border-color:
+    #ef4444 !important;
+
+  background:
+    #fee2e2 !important;
+}
+
+.week6-delivery-correct {
+  border-color:
+    #16a34a !important;
+
+  background:
+    #dcfce7 !important;
+}
+
+
+/* Status */
+
+.week6-delivery-status {
+  min-height: 23px;
+
+  margin-top: 3px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+
+/* Completion */
+
+.week6-delivery-celebration {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(15,23,42,0.2);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease;
+}
+
+.week6-delivery-celebration-show {
+  opacity: 1;
+}
+
+.week6-delivery-celebration-card {
+  padding: 22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 4px solid #86efac;
+  border-radius: 24px;
+
+  background: white;
+
+  color: #166534;
+
+  box-shadow:
+    0 16px 34px
+    rgba(15,23,42,0.25);
+}
+
+.week6-delivery-celebration-card div {
+  font-size: 50px;
+}
+
+.week6-delivery-celebration-card strong {
+  font-size: 24px;
+  font-weight: 1000;
+}
+
+.week6-delivery-celebration-card span {
+  color: #1e40af;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+
+/* Classroom fit */
+
+body.teacher-session
+.week6-delivery-viewport {
+  height: 410px;
+}
+
