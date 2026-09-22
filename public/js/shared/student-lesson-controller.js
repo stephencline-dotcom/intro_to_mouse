@@ -11218,6 +11218,898 @@
     }
   }
 
+  let removeWeek6ActivitiesClickListener = null;
+  let removeWeek6OceanWheelListener = null;
+  let removeWeek6OceanDownListener = null;
+  let removeWeek6OceanMoveListener = null;
+  let removeWeek6OceanUpListener = null;
+  let week6OceanResetGame = null;
+  let week6OceanScrollSound = null;
+  let week6OceanScrollSoundTimer = null;
+
+  const week6ActivitySounds = new Set();
+  const week6ActivityTimers = new Set();
+
+  function stopWeek6ActivitiesBehavior() {
+    removeWeek6ActivitiesClickListener?.();
+    removeWeek6ActivitiesClickListener = null;
+
+    removeWeek6OceanWheelListener?.();
+    removeWeek6OceanDownListener?.();
+    removeWeek6OceanMoveListener?.();
+    removeWeek6OceanUpListener?.();
+
+    removeWeek6OceanWheelListener = null;
+    removeWeek6OceanDownListener = null;
+    removeWeek6OceanMoveListener = null;
+    removeWeek6OceanUpListener = null;
+
+    week6OceanResetGame?.();
+    week6OceanResetGame = null;
+
+    if (week6OceanScrollSoundTimer) {
+      clearTimeout(
+        week6OceanScrollSoundTimer
+      );
+      week6OceanScrollSoundTimer = null;
+    }
+
+    if (week6OceanScrollSound) {
+      week6OceanScrollSound.pause();
+      week6OceanScrollSound.currentTime = 0;
+      week6OceanScrollSound.loop = false;
+      week6OceanScrollSound = null;
+    }
+
+    week6ActivityTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+    week6ActivityTimers.clear();
+
+    week6ActivitySounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+    week6ActivitySounds.clear();
+  }
+
+  function startWeek6ActivitiesBehavior() {
+    stopWeek6ActivitiesBehavior();
+
+    const screen =
+      document.getElementById(
+        "week6ActivitiesScreen"
+      );
+
+    const hub =
+      document.getElementById(
+        "week6ActivitiesHub"
+      );
+
+    const panels = Array.from(
+      document.querySelectorAll(
+        "[data-week6-activity-panel]"
+      )
+    );
+
+    const cards = Array.from(
+      document.querySelectorAll(
+        "[data-week6-activity-card]"
+      )
+    );
+
+    if (
+      !screen ||
+      !hub ||
+      panels.length !== 3 ||
+      cards.length !== 3
+    ) {
+      return;
+    }
+
+    const completedActivities =
+      new Set();
+
+    function playActivitySound(
+      src,
+      volume
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(src);
+      sound.volume = volume;
+
+      week6ActivitySounds.add(sound);
+
+      const forgetSound = () => {
+        week6ActivitySounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(forgetSound);
+    }
+
+    const oceanViewport =
+      document.getElementById(
+        "week6OceanViewport"
+      );
+
+    const oceanScene =
+      document.getElementById(
+        "week6OceanScene"
+      );
+
+    const oceanDiver =
+      document.getElementById(
+        "week6OceanDiver"
+      );
+
+    const oceanTarget =
+      document.getElementById(
+        "week6OceanTarget"
+      );
+
+    const oceanProgress =
+      document.getElementById(
+        "week6OceanProgress"
+      );
+
+    const oceanStatus =
+      document.getElementById(
+        "week6OceanStatus"
+      );
+
+    const oceanRounds = [
+      {
+        id: "shell",
+        emoji: "🐚"
+      },
+      {
+        id: "star",
+        emoji: "⭐"
+      },
+      {
+        id: "octopus",
+        emoji: "🐙"
+      },
+      {
+        id: "anchor",
+        emoji: "⚓"
+      },
+      {
+        id: "gem",
+        emoji: "💎"
+      }
+    ];
+
+    let oceanRoundIndex = 0;
+    let oceanScrollPosition = 0;
+    let oceanDragging = false;
+    let oceanLocked = false;
+    let oceanFinished = false;
+    let oceanOffsetX = 0;
+    let oceanOffsetY = 0;
+    let oceanLastPointerX = 0;
+
+    function scheduleActivity(
+      callback,
+      delay
+    ) {
+      const timer = setTimeout(() => {
+        week6ActivityTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week6ActivityTimers.add(timer);
+      return timer;
+    }
+
+    function stopOceanScrollSound() {
+      if (week6OceanScrollSoundTimer) {
+        clearTimeout(
+          week6OceanScrollSoundTimer
+        );
+        week6OceanScrollSoundTimer = null;
+      }
+
+      if (week6OceanScrollSound) {
+        week6OceanScrollSound.pause();
+        week6OceanScrollSound.currentTime = 0;
+        week6OceanScrollSound.loop = false;
+        week6OceanScrollSound = null;
+      }
+    }
+
+    function playOceanScrollSound() {
+      if (!soundEnabled) {
+        return;
+      }
+
+      if (!week6OceanScrollSound) {
+        week6OceanScrollSound =
+          new Audio(
+            "/sounds/scroll.mp3"
+          );
+
+        week6OceanScrollSound.volume = 0.37;
+        week6OceanScrollSound.loop = true;
+
+        week6OceanScrollSound
+          .play()
+          .catch(() => {});
+      }
+
+      if (week6OceanScrollSoundTimer) {
+        clearTimeout(
+          week6OceanScrollSoundTimer
+        );
+      }
+
+      week6OceanScrollSoundTimer =
+        setTimeout(
+          stopOceanScrollSound,
+          180
+        );
+    }
+
+    function updateOceanPosition() {
+      if (!oceanScene || !oceanDiver) {
+        return;
+      }
+
+      oceanScene.style.transform =
+        `translateY(-${oceanScrollPosition}px)`;
+
+      /*
+       * The diver's ocean depth increases with
+       * the scene position, keeping the diver
+       * visible while traveling downward.
+       */
+      if (!oceanDragging) {
+        oceanDiver.style.top =
+          `${oceanScrollPosition + 230}px`;
+      }
+    }
+
+    function restoreOceanDiver() {
+      if (!oceanDiver || !oceanScene) {
+        return;
+      }
+
+      oceanDragging = false;
+
+      oceanDiver.classList.remove(
+        "week6-ocean-diver-held",
+        "week6-ocean-wrong"
+      );
+
+      if (
+        oceanDiver.parentNode !==
+        oceanScene
+      ) {
+        oceanScene.appendChild(
+          oceanDiver
+        );
+      }
+
+      oceanDiver.style.position = "";
+      oceanDiver.style.left = "";
+      oceanDiver.style.width = "";
+      oceanDiver.style.height = "";
+      oceanDiver.style.margin = "";
+      oceanDiver.style.transform = "";
+      oceanDiver.style.zIndex = "";
+
+      updateOceanPosition();
+    }
+
+    function currentOceanObject() {
+      if (!oceanScene) {
+        return null;
+      }
+
+      const round =
+        oceanRounds[oceanRoundIndex];
+
+      return oceanScene.querySelector(
+        `[data-week6-ocean-target="${round.id}"]`
+      );
+    }
+
+    function loadOceanRound() {
+      if (
+        !oceanTarget ||
+        !oceanProgress ||
+        !oceanStatus ||
+        oceanFinished
+      ) {
+        return;
+      }
+
+      oceanLocked = false;
+      oceanDragging = false;
+      oceanScrollPosition = 0;
+
+      const round =
+        oceanRounds[oceanRoundIndex];
+
+      oceanTarget.innerHTML =
+        `🤿　→　${round.emoji}`;
+
+      oceanProgress.textContent =
+        `${oceanRoundIndex + 1} of ${oceanRounds.length}`;
+
+      oceanStatus.innerHTML =
+        `🖱️↕️　　🤿 → ${round.emoji}`;
+
+      updateOceanPosition();
+    }
+
+    function startOceanGame() {
+      if (
+        !oceanViewport ||
+        !oceanScene ||
+        !oceanDiver ||
+        !oceanTarget ||
+        !oceanProgress ||
+        !oceanStatus
+      ) {
+        return;
+      }
+
+      stopOceanScrollSound();
+      restoreOceanDiver();
+
+      oceanRoundIndex = 0;
+      oceanScrollPosition = 0;
+      oceanLocked = false;
+      oceanFinished = false;
+
+      oceanScene
+        .querySelectorAll(
+          "[data-week6-ocean-target]"
+        )
+        .forEach(object => {
+          object.style.visibility = "";
+          object.classList.remove(
+            "week6-ocean-object-found"
+          );
+        });
+
+      const oldCelebration =
+        oceanViewport.querySelector(
+          ".week6-ocean-celebration"
+        );
+
+      oldCelebration?.remove();
+
+      loadOceanRound();
+    }
+
+    function oceanObjectsOverlap(
+      first,
+      second
+    ) {
+      const firstRect =
+        first.getBoundingClientRect();
+
+      const secondRect =
+        second.getBoundingClientRect();
+
+      return !(
+        firstRect.right <
+          secondRect.left ||
+        firstRect.left >
+          secondRect.right ||
+        firstRect.bottom <
+          secondRect.top ||
+        firstRect.top >
+          secondRect.bottom
+      );
+    }
+
+    function finishOceanGame() {
+      oceanFinished = true;
+      oceanLocked = true;
+      oceanDragging = false;
+
+      stopOceanScrollSound();
+      restoreOceanDiver();
+
+      oceanStatus.textContent = "🏆";
+
+      completeActivity("ocean");
+
+      const celebration =
+        document.createElement("div");
+
+      celebration.className =
+        "week6-ocean-celebration";
+
+      celebration.innerHTML = `
+        <div>
+          <span>🤿</span>
+          <strong>⭐</strong>
+          <span>🐠</span>
+        </div>
+      `;
+
+      oceanViewport.appendChild(
+        celebration
+      );
+
+      requestAnimationFrame(() => {
+        celebration.classList.add(
+          "week6-ocean-celebration-show"
+        );
+      });
+    }
+
+    function completeOceanRound() {
+      if (oceanLocked || oceanFinished) {
+        return;
+      }
+
+      const object =
+        currentOceanObject();
+
+      if (!object) {
+        return;
+      }
+
+      oceanLocked = true;
+
+      object.classList.add(
+        "week6-ocean-object-found"
+      );
+
+      oceanStatus.textContent = "✅";
+
+      playActivitySound(
+        "/sounds/correct.mp3",
+        0.55
+      );
+
+      scheduleActivity(() => {
+        if (!oceanViewport.isConnected) {
+          return;
+        }
+
+        object.style.visibility =
+          "hidden";
+
+        oceanRoundIndex += 1;
+
+        if (
+          oceanRoundIndex >=
+          oceanRounds.length
+        ) {
+          finishOceanGame();
+          return;
+        }
+
+        loadOceanRound();
+      }, 750);
+    }
+
+    const oceanWheelHandler = event => {
+      if (
+        oceanViewport?.closest(
+          "[data-week6-activity-panel]"
+        )?.hidden ||
+        oceanLocked ||
+        oceanFinished ||
+        oceanDragging
+      ) {
+        return;
+      }
+
+      const rect =
+        oceanViewport.getBoundingClientRect();
+
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      playOceanScrollSound();
+
+      const amount =
+        Math.min(
+          Math.max(
+            Math.abs(event.deltaY),
+            22
+          ),
+          65
+        );
+
+      if (event.deltaY > 0) {
+        oceanScrollPosition =
+          Math.min(
+            oceanScrollPosition + amount,
+            1340
+          );
+      } else if (event.deltaY < 0) {
+        oceanScrollPosition =
+          Math.max(
+            oceanScrollPosition - amount,
+            0
+          );
+      }
+
+      updateOceanPosition();
+    };
+
+    const oceanDownHandler = event => {
+      if (
+        event.button !== 0 ||
+        oceanLocked ||
+        oceanFinished ||
+        oceanDragging ||
+        event.target.closest(
+          "[data-week6-activity-home]"
+        )
+      ) {
+        return;
+      }
+
+      const diver =
+        event.target.closest(
+          "#week6OceanDiver"
+        );
+
+      if (!diver) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const rect =
+        diver.getBoundingClientRect();
+
+      oceanOffsetX =
+        event.clientX - rect.left;
+
+      oceanOffsetY =
+        event.clientY - rect.top;
+
+      oceanLastPointerX =
+        event.clientX;
+
+      oceanDragging = true;
+
+      diver.style.position = "fixed";
+      diver.style.left = `${rect.left}px`;
+      diver.style.top = `${rect.top}px`;
+      diver.style.width = `${rect.width}px`;
+      diver.style.height = `${rect.height}px`;
+      diver.style.margin = "0";
+      diver.style.transform = "none";
+      diver.style.zIndex = "9999";
+
+      diver.classList.add(
+        "week6-ocean-diver-held"
+      );
+
+      document.body.appendChild(diver);
+
+      playActivitySound(
+        "/sounds/mouseclick.mp3",
+        0.42
+      );
+    };
+
+    const oceanMoveHandler = event => {
+      if (
+        !oceanDragging ||
+        !oceanDiver
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const horizontalChange =
+        event.clientX -
+        oceanLastPointerX;
+
+      if (horizontalChange < -1) {
+        oceanDiver.classList.add(
+          "week6-ocean-facing-left"
+        );
+      } else if (horizontalChange > 1) {
+        oceanDiver.classList.remove(
+          "week6-ocean-facing-left"
+        );
+      }
+
+      oceanLastPointerX =
+        event.clientX;
+
+      oceanDiver.style.left =
+        `${event.clientX - oceanOffsetX}px`;
+
+      oceanDiver.style.top =
+        `${event.clientY - oceanOffsetY}px`;
+    };
+
+    const oceanUpHandler = event => {
+      if (
+        event.button !== 0 ||
+        !oceanDragging ||
+        !oceanDiver
+      ) {
+        return;
+      }
+
+      const object =
+        currentOceanObject();
+
+      const foundTarget =
+        object &&
+        oceanObjectsOverlap(
+          oceanDiver,
+          object
+        );
+
+      restoreOceanDiver();
+
+      if (foundTarget) {
+        completeOceanRound();
+        return;
+      }
+
+      oceanDiver.classList.add(
+        "week6-ocean-wrong"
+      );
+
+      oceanStatus.textContent =
+        "❌　↩️";
+
+      playActivitySound(
+        "/sounds/buzzer.mp3",
+        0.5
+      );
+
+      scheduleActivity(() => {
+        oceanDiver.classList.remove(
+          "week6-ocean-wrong"
+        );
+      }, 350);
+    };
+
+    if (
+      oceanViewport &&
+      oceanDiver
+    ) {
+      oceanViewport.addEventListener(
+        "wheel",
+        oceanWheelHandler,
+        { passive: false }
+      );
+
+      oceanViewport.addEventListener(
+        "mousedown",
+        oceanDownHandler
+      );
+
+      window.addEventListener(
+        "mousemove",
+        oceanMoveHandler,
+        true
+      );
+
+      window.addEventListener(
+        "mouseup",
+        oceanUpHandler,
+        true
+      );
+
+      removeWeek6OceanWheelListener =
+        () => {
+          oceanViewport.removeEventListener(
+            "wheel",
+            oceanWheelHandler
+          );
+        };
+
+      removeWeek6OceanDownListener =
+        () => {
+          oceanViewport.removeEventListener(
+            "mousedown",
+            oceanDownHandler
+          );
+        };
+
+      removeWeek6OceanMoveListener =
+        () => {
+          window.removeEventListener(
+            "mousemove",
+            oceanMoveHandler,
+            true
+          );
+        };
+
+      removeWeek6OceanUpListener =
+        () => {
+          window.removeEventListener(
+            "mouseup",
+            oceanUpHandler,
+            true
+          );
+        };
+
+      week6OceanResetGame = () => {
+        stopOceanScrollSound();
+        restoreOceanDiver();
+      };
+    }
+
+    function updateStars() {
+      cards.forEach(card => {
+        const star =
+          card.querySelector(
+            ".week6-activity-card-star"
+          );
+
+        if (!star) {
+          return;
+        }
+
+        const isComplete =
+          completedActivities.has(
+            card.dataset.week6ActivityCard
+          );
+
+        star.textContent =
+          isComplete ? "⭐" : "☆";
+
+        card.classList.toggle(
+          "week6-activity-card-complete",
+          isComplete
+        );
+      });
+    }
+
+    function showHub() {
+      panels.forEach(panel => {
+        panel.hidden = true;
+      });
+
+      hub.hidden = false;
+
+      screen.dataset.activeActivity = "";
+      updateStars();
+    }
+
+    function showActivity(activityId) {
+      const selectedPanel =
+        panels.find(
+          panel =>
+            panel.dataset.week6ActivityPanel ===
+            activityId
+        );
+
+      if (!selectedPanel) {
+        return;
+      }
+
+      hub.hidden = true;
+
+      panels.forEach(panel => {
+        panel.hidden =
+          panel !== selectedPanel;
+      });
+
+      screen.dataset.activeActivity =
+        activityId;
+
+      playActivitySound(
+        "/sounds/mouseclick.mp3",
+        0.42
+      );
+    }
+
+    /*
+     * Each game will call this after its final
+     * round. The hub already knows how to keep
+     * and display its completion star.
+     */
+    function completeActivity(activityId) {
+      completedActivities.add(
+        activityId
+      );
+
+      playActivitySound(
+        "/sounds/complete.mp3",
+        0.62
+      );
+
+      updateStars();
+    }
+
+    const clickHandler = event => {
+      const card =
+        event.target.closest(
+          "[data-week6-activity-card]"
+        );
+
+      if (card) {
+        const activityId =
+          card.dataset.week6ActivityCard;
+
+        showActivity(activityId);
+
+        if (activityId === "ocean") {
+          startOceanGame();
+        }
+
+        return;
+      }
+
+      const homeButton =
+        event.target.closest(
+          "[data-week6-activity-home]"
+        );
+
+      if (homeButton) {
+        playActivitySound(
+          "/sounds/mouseclick.mp3",
+          0.4
+        );
+
+        stopOceanScrollSound();
+        restoreOceanDiver();
+        showHub();
+        return;
+      }
+
+      /*
+       * Temporary test control. It will be
+       * removed as each real activity is built.
+       */
+      const testComplete =
+        event.target.closest(
+          "[data-week6-test-complete]"
+        );
+
+      if (testComplete) {
+        completeActivity(
+          testComplete.dataset.week6TestComplete
+        );
+
+        showHub();
+      }
+    };
+
+    screen.addEventListener(
+      "click",
+      clickHandler
+    );
+
+    removeWeek6ActivitiesClickListener =
+      () => {
+        screen.removeEventListener(
+          "click",
+          clickHandler
+        );
+      };
+
+    updateStars();
+    showHub();
+  }
   let removeWeek6MixedWheelListener = null;
   let removeWeek6MixedMoveListener = null;
   let removeWeek6MixedClickListener = null;
@@ -22829,6 +23721,365 @@ const status =
         </div>
       `;
     }
+    if (step.id === "week6-activities") {
+      return `
+        <div
+          id="week6ActivitiesScreen"
+          class="lesson-screen lesson-screen-week6-activities"
+        >
+          <div class="week6-activities-heading">
+            <span class="drag-review-badge">
+              SCROLL ARCADE
+            </span>
+
+            <h1>Choose an Adventure!</h1>
+
+            <div class="week6-activities-picture-direction">
+              👆　🎮
+            </div>
+          </div>
+
+          <div
+            id="week6ActivitiesHub"
+            class="week6-activities-hub"
+          >
+            <button
+              type="button"
+              class="week6-activity-card ocean-card"
+              data-week6-activity-card="ocean"
+              aria-label="Deep Sea Diver"
+            >
+              <span class="week6-activity-card-star">
+                ☆
+              </span>
+
+              <span class="week6-activity-card-picture">
+                🤿
+              </span>
+
+              <span class="week6-activity-card-scene">
+                🐠　🐚
+              </span>
+
+              <strong>DEEP SEA</strong>
+            </button>
+
+            <button
+              type="button"
+              class="week6-activity-card tree-card"
+              data-week6-activity-card="tree"
+              aria-label="Treehouse Climber"
+            >
+              <span class="week6-activity-card-star">
+                ☆
+              </span>
+
+              <span class="week6-activity-card-picture">
+                🐒
+              </span>
+
+              <span class="week6-activity-card-scene">
+                🌳　🍌
+              </span>
+
+              <strong>TREEHOUSE</strong>
+            </button>
+
+            <button
+              type="button"
+              class="week6-activity-card basketball-card"
+              data-week6-activity-card="basketball"
+              aria-label="Scroll Basketball"
+            >
+              <span class="week6-activity-card-star">
+                ☆
+              </span>
+
+              <span class="week6-activity-card-picture">
+                🏀
+              </span>
+
+              <span class="week6-activity-card-scene">
+                ⛹️　🏆
+              </span>
+
+              <strong>BASKETBALL</strong>
+            </button>
+          </div>
+
+          <section
+            class="week6-activity-panel ocean-panel"
+            data-week6-activity-panel="ocean"
+            hidden
+          >
+            <button
+              type="button"
+              class="week6-activity-home"
+              data-week6-activity-home
+              aria-label="Return to activities"
+            >
+              🏠
+            </button>
+
+            <div class="week6-ocean-header">
+              <div
+                id="week6OceanTarget"
+                class="week6-ocean-target"
+              >
+                🤿　→　🐚
+              </div>
+
+              <div
+                id="week6OceanProgress"
+                class="week6-ocean-progress"
+              >
+                1 of 3
+              </div>
+            </div>
+
+            <div
+              id="week6OceanViewport"
+              class="week6-ocean-viewport"
+            >
+              <div
+                id="week6OceanScene"
+                class="week6-ocean-scene"
+              >
+                <div class="week6-ocean-surface">
+                  ☀️
+                </div>
+
+                <div class="week6-ocean-light-ray ray-one"></div>
+                <div class="week6-ocean-light-ray ray-two"></div>
+
+                <span class="week6-ocean-bubble bubble-one">○</span>
+                <span class="week6-ocean-bubble bubble-two">○</span>
+                <span class="week6-ocean-bubble bubble-three">○</span>
+                <span class="week6-ocean-bubble bubble-four">○</span>
+                <span class="week6-ocean-bubble bubble-five">○</span>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 260px; left: 72%;"
+                >🐟</span>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 410px; left: 23%;"
+                >🐠</span>
+
+                <button
+                  type="button"
+                  class="week6-ocean-object"
+                  data-week6-ocean-target="shell"
+                  style="top: 570px; left: 70%;"
+                >
+                  🐚
+                </button>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 710px; left: 28%;"
+                >🐡</span>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 870px; left: 73%;"
+                >🪼</span>
+
+                <button
+                  type="button"
+                  class="week6-ocean-object"
+                  data-week6-ocean-target="star"
+                  style="top: 1050px; left: 25%;"
+                >
+                  ⭐
+                </button>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 1190px; left: 70%;"
+                >🦈</span>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 1350px; left: 27%;"
+                >🐢</span>
+
+                <button
+                  type="button"
+                  class="week6-ocean-object"
+                  data-week6-ocean-target="octopus"
+                  style="top: 1540px; left: 69%;"
+                >
+                  🐙
+                </button>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 1690px; left: 31%;"
+                >🦀</span>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 1810px; left: 73%;"
+                >🐬</span>
+
+                <button
+                  type="button"
+                  class="week6-ocean-object"
+                  data-week6-ocean-target="anchor"
+                  style="top: 1680px; left: 28%;"
+                >
+                  ⚓
+                </button>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 2080px; left: 70%;"
+                >🐋</span>
+
+                <button
+                  type="button"
+                  class="week6-ocean-object"
+                  data-week6-ocean-target="gem"
+                  style="top: 1780px; left: 67%;"
+                >
+                  💎
+                </button>
+
+                <span
+                  class="week6-ocean-creature"
+                  style="top: 2350px; left: 72%;"
+                >🦞</span>
+
+                <div class="week6-ocean-floor">
+                  🪸　🪨　🌿　🪸　🪨
+                </div>
+
+                <button
+                  id="week6OceanDiver"
+                  type="button"
+                  class="week6-ocean-diver"
+                  aria-label="Diver"
+                >
+                  <span
+                    class="week6-ocean-diver-character"
+                    aria-hidden="true"
+                  >
+                    <span class="week6-diver-tank"></span>
+
+                    <span class="week6-diver-leg leg-top">
+                      <i></i>
+                    </span>
+
+                    <span class="week6-diver-leg leg-bottom">
+                      <i></i>
+                    </span>
+
+                    <span class="week6-diver-body"></span>
+
+                    <span class="week6-diver-arm"></span>
+
+                    <span class="week6-diver-head">
+                      <span class="week6-diver-hair"></span>
+                      <span class="week6-diver-mask">
+                        <i></i>
+                        <i></i>
+                      </span>
+                      <span class="week6-diver-mouth"></span>
+                    </span>
+
+                    <span class="week6-diver-bubbles">
+                      <i></i>
+                      <i></i>
+                      <i></i>
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="week6OceanStatus"
+              class="week6-ocean-status"
+            >
+              🖱️↕️　　🤿 → 🐚
+            </div>
+          </section>
+
+          <section
+            class="week6-activity-panel tree-panel"
+            data-week6-activity-panel="tree"
+            hidden
+          >
+            <button
+              type="button"
+              class="week6-activity-home"
+              data-week6-activity-home
+              aria-label="Return to activities"
+            >
+              🏠
+            </button>
+
+            <div class="week6-activity-preview">
+              <div class="week6-activity-preview-picture">
+                🐒　🌳　🍌
+              </div>
+
+              <strong>TREEHOUSE CLIMBER</strong>
+
+              <div class="week6-activity-preview-ready">
+                🚧
+              </div>
+
+              <button
+                type="button"
+                class="week6-activity-test-complete"
+                data-week6-test-complete="tree"
+              >
+                ⭐
+              </button>
+            </div>
+          </section>
+
+          <section
+            class="week6-activity-panel basketball-panel"
+            data-week6-activity-panel="basketball"
+            hidden
+          >
+            <button
+              type="button"
+              class="week6-activity-home"
+              data-week6-activity-home
+              aria-label="Return to activities"
+            >
+              🏠
+            </button>
+
+            <div class="week6-activity-preview">
+              <div class="week6-activity-preview-picture">
+                🏀　⛹️　🏆
+              </div>
+
+              <strong>SCROLL BASKETBALL</strong>
+
+              <div class="week6-activity-preview-ready">
+                🚧
+              </div>
+
+              <button
+                type="button"
+                class="week6-activity-test-complete"
+                data-week6-test-complete="basketball"
+              >
+                ⭐
+              </button>
+            </div>
+          </section>
+        </div>
+      `;
+    }
     if (step.id.startsWith("week6-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -24804,6 +26055,10 @@ const status =
       startWeek6MixedBehavior();
     }
 
+    if (step.id === "week6-activities") {
+      startWeek6ActivitiesBehavior();
+    }
+
     if (step.id === "week5-quick-review") {
       startWeek5QuickReviewAnimation();
     }
@@ -25288,6 +26543,13 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
+
+
+
+
 
 
 
