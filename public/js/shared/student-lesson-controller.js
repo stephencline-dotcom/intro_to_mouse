@@ -25797,6 +25797,946 @@ const status =
         </div>
       `;
     }
+    if (step.id === "week7-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week7-quick-review">
+
+          <div class="week7-review-heading">
+            <span>WEEK 7</span>
+            <h1>Mouse Skills Review</h1>
+          </div>
+
+          <div class="week7-review-grid">
+
+            <div class="week7-review-card week7-review-move">
+              <strong>MOVE</strong>
+
+              <div class="week7-review-stage">
+                <div class="week7-review-cursor">➤</div>
+                <div class="week7-review-star">⭐</div>
+              </div>
+            </div>
+
+            <div class="week7-review-card week7-review-click">
+              <strong>CLICK</strong>
+
+              <div class="week7-review-stage">
+                <div class="week7-review-mouse">
+                  <span class="week7-review-left-button"></span>
+                  <span class="week7-review-right-button"></span>
+                  <span class="week7-review-mouse-wheel"></span>
+                </div>
+
+                <div class="week7-review-click-burst">
+                  ✨
+                </div>
+              </div>
+            </div>
+
+            <div class="week7-review-card week7-review-drag">
+              <strong>DRAG</strong>
+
+              <div class="week7-review-stage">
+                <div class="week7-review-drag-item">🍎</div>
+                <div class="week7-review-drag-arrow">➜</div>
+                <div class="week7-review-drag-target">🧺</div>
+              </div>
+            </div>
+
+            <div class="week7-review-card week7-review-scroll">
+              <strong>SCROLL</strong>
+
+              <div class="week7-review-stage">
+                <div class="week7-review-scroll-mouse">
+                  <span></span>
+                </div>
+
+                <div class="week7-review-scroll-arrows">
+                  <b>↑</b>
+                  <b>↓</b>
+                </div>
+
+                <div class="week7-review-mini-page">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <em></em>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-meet-double-click") {
+      return `
+        <div class="lesson-screen lesson-screen-week7-meet-double">
+
+          <div class="week7-double-heading">
+            <span>NEW MOUSE SKILL</span>
+            <h1>Double-Click!</h1>
+          </div>
+
+          <div class="week7-double-demo">
+
+            <div class="week7-double-mouse-side">
+
+              <div class="week7-double-mouse">
+                <div class="week7-double-left-button"></div>
+                <div class="week7-double-right-button"></div>
+                <div class="week7-double-wheel"></div>
+
+                <div class="week7-double-finger">
+                  ☝️
+                </div>
+              </div>
+
+              <div class="week7-double-count">
+                <span class="week7-double-one">1</span>
+                <span class="week7-double-two">2</span>
+              </div>
+
+              <div class="week7-double-words">
+                <span class="week7-double-word-one">
+                  CLICK!
+                </span>
+
+                <span class="week7-double-word-two">
+                  CLICK!
+                </span>
+              </div>
+
+            </div>
+
+            <div class="week7-double-arrow">
+              ➜
+            </div>
+
+            <div class="week7-double-folder-side">
+
+              <div class="week7-double-folder-scene">
+
+                <div class="week7-double-closed-folder">
+                  📁
+                </div>
+
+                <div class="week7-double-open-folder">
+                  📂
+                </div>
+
+                <div class="week7-double-picture picture-one">
+                  🐶
+                </div>
+
+                <div class="week7-double-picture picture-two">
+                  🌈
+                </div>
+
+                <div class="week7-double-picture picture-three">
+                  🚀
+                </div>
+
+                <div class="week7-double-folder-sparkle">
+                  ✨
+                </div>
+
+                <div class="week7-double-folder-cursor">
+                  ➤
+                  <i class="week7-double-cursor-ring ring-one"></i>
+                  <i class="week7-double-cursor-ring ring-two"></i>
+                </div>
+
+              </div>
+
+              <div class="week7-double-open-word">
+                OPEN!
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="week7-double-rule">
+            <div class="week7-double-rule-click">
+              <span>1</span>
+              <span>2</span>
+            </div>
+
+            <strong>TWO QUICK CLICKS</strong>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-click-rhythm") {
+      return `
+        <div
+          id="week7ClickRhythmScreen"
+          class="lesson-screen lesson-screen-week7-rhythm"
+        >
+
+          <div class="week7-rhythm-heading">
+            <span>DOUBLE-CLICK RHYTHM</span>
+            <h1>Beat the Drum!</h1>
+          </div>
+
+          <div class="week7-rhythm-progress">
+            <span data-week7-rhythm-star>☆</span>
+            <span data-week7-rhythm-star>☆</span>
+            <span data-week7-rhythm-star>☆</span>
+            <span data-week7-rhythm-star>☆</span>
+            <span data-week7-rhythm-star>☆</span>
+          </div>
+
+          <div class="week7-rhythm-stage">
+
+            <div class="week7-rhythm-guide">
+              <div
+                id="week7ClickRhythmBeatOne"
+                class="week7-rhythm-beat"
+              >
+                1
+              </div>
+
+              <div class="week7-rhythm-quick-arrow">
+                ➜
+              </div>
+
+              <div
+                id="week7ClickRhythmBeatTwo"
+                class="week7-rhythm-beat"
+              >
+                2
+              </div>
+            </div>
+
+            <button
+              id="week7ClickRhythmDrum"
+              class="week7-rhythm-drum"
+              type="button"
+              aria-label="Double-click the drum"
+            >
+              <span class="week7-rhythm-drum-top"></span>
+              <span class="week7-rhythm-drum-face">
+                🥁
+              </span>
+              <span class="week7-rhythm-drum-stick stick-one"></span>
+              <span class="week7-rhythm-drum-stick stick-two"></span>
+              <i class="week7-rhythm-burst burst-one">💥</i>
+              <i class="week7-rhythm-burst burst-two">💥</i>
+            </button>
+
+            <div
+              id="week7ClickRhythmStatus"
+              class="week7-rhythm-status"
+              aria-live="polite"
+            >
+              YOUR TURN!
+            </div>
+
+          </div>
+
+          <div class="week7-rhythm-picture-clue">
+            <div class="week7-rhythm-mini-mouse">
+              <span></span>
+            </div>
+
+            <div class="week7-rhythm-mini-count">
+              <b>1</b>
+              <b>2</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-select-or-open") {
+      return `
+        <div
+          id="week7SelectOpenScreen"
+          class="lesson-screen lesson-screen-week7-select-open"
+        >
+
+          <div class="week7-select-open-heading">
+            <span>SELECT OR OPEN?</span>
+            <h1>Computer Desktop</h1>
+          </div>
+
+          <div class="week7-select-open-mission">
+            <div
+              id="week7SelectOpenAction"
+              class="week7-select-open-action"
+            ></div>
+
+            <div class="week7-select-open-arrow">
+              ➜
+            </div>
+
+            <div
+              id="week7SelectOpenTarget"
+              class="week7-select-open-target"
+            >
+              🐱
+            </div>
+
+            <div
+              id="week7SelectOpenProgress"
+              class="week7-select-open-progress"
+            >
+              1 of 6
+            </div>
+          </div>
+
+          <div class="week7-desktop">
+
+            <button
+              type="button"
+              class="week7-desktop-icon"
+              data-week7-desktop-icon="cat"
+            >
+              <span>🐱</span>
+              <b>CAT</b>
+            </button>
+
+            <button
+              type="button"
+              class="week7-desktop-icon"
+              data-week7-desktop-icon="games"
+            >
+              <span>🎮</span>
+              <b>GAMES</b>
+            </button>
+
+            <button
+              type="button"
+              class="week7-desktop-icon"
+              data-week7-desktop-icon="rocket"
+            >
+              <span>🚀</span>
+              <b>ROCKET</b>
+            </button>
+
+            <button
+              type="button"
+              class="week7-desktop-icon"
+              data-week7-desktop-icon="animals"
+            >
+              <span>🐾</span>
+              <b>ANIMALS</b>
+            </button>
+
+            <button
+              type="button"
+              class="week7-desktop-icon"
+              data-week7-desktop-icon="music"
+            >
+              <span>🎵</span>
+              <b>MUSIC</b>
+            </button>
+
+            <button
+              type="button"
+              class="week7-desktop-icon"
+              data-week7-desktop-icon="art"
+            >
+              <span>🎨</span>
+              <b>ART</b>
+            </button>
+
+            <div
+              id="week7SelectOpenWindow"
+              class="week7-desktop-window"
+              hidden
+            >
+              <div class="week7-desktop-window-bar">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div
+                id="week7SelectOpenWindowPicture"
+                class="week7-desktop-window-picture"
+              >
+                🎮
+              </div>
+            </div>
+
+          </div>
+
+          <div
+            id="week7SelectOpenStatus"
+            class="week7-select-open-status"
+            aria-live="polite"
+          >
+            YOUR TURN!
+          </div>
+
+          <div
+            id="week7SelectOpenCompletion"
+            class="week7-activity-completion"
+            hidden
+          >
+            <div class="week7-completion-stars">
+              ⭐ ⭐ ⭐
+            </div>
+
+            <strong>YOU DID IT!</strong>
+            <span>GREAT JOB!</span>
+
+            <div class="week7-completion-check">
+              ✓
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-animal-doors") {
+      return `
+        <div
+          id="week7AnimalDoorsScreen"
+          class="lesson-screen lesson-screen-week7-animal-doors"
+        >
+
+          <div class="week7-animal-heading">
+            <span>DOUBLE-CLICK</span>
+            <h1>Open the Animal Door!</h1>
+          </div>
+
+          <div class="week7-animal-mission">
+            <div class="week7-animal-mission-clicks">
+              <span>1</span>
+              <span>2</span>
+            </div>
+
+            <div class="week7-animal-mission-arrow">
+              ➜
+            </div>
+
+            <div
+              id="week7AnimalDoorsTarget"
+              class="week7-animal-target"
+            >
+              🐸
+            </div>
+
+            <div class="week7-animal-progress">
+              <span data-week7-animal-star>☆</span>
+              <span data-week7-animal-star>☆</span>
+              <span data-week7-animal-star>☆</span>
+              <span data-week7-animal-star>☆</span>
+              <span data-week7-animal-star>☆</span>
+            </div>
+          </div>
+
+          <div class="week7-animal-hallway">
+
+            <button
+              type="button"
+              class="week7-animal-door door-dog"
+              data-week7-animal-door="dog"
+            >
+              <span class="week7-animal-reveal">🐶</span>
+              <span class="week7-animal-door-front">
+                <b>🐶</b>
+                <i></i>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-animal-door door-cat"
+              data-week7-animal-door="cat"
+            >
+              <span class="week7-animal-reveal">🐱</span>
+              <span class="week7-animal-door-front">
+                <b>🐱</b>
+                <i></i>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-animal-door door-frog"
+              data-week7-animal-door="frog"
+            >
+              <span class="week7-animal-reveal">🐸</span>
+              <span class="week7-animal-door-front">
+                <b>🐸</b>
+                <i></i>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-animal-door door-monkey"
+              data-week7-animal-door="monkey"
+            >
+              <span class="week7-animal-reveal">🐵</span>
+              <span class="week7-animal-door-front">
+                <b>🐵</b>
+                <i></i>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-animal-door door-lion"
+              data-week7-animal-door="lion"
+            >
+              <span class="week7-animal-reveal">🦁</span>
+              <span class="week7-animal-door-front">
+                <b>🦁</b>
+                <i></i>
+              </span>
+            </button>
+
+          </div>
+
+          <div
+            id="week7AnimalDoorsStatus"
+            class="week7-animal-status"
+            aria-live="polite"
+          >
+            KNOCK! KNOCK!
+          </div>
+
+          <div
+            id="week7AnimalDoorsCompletion"
+            class="week7-activity-completion"
+            hidden
+          >
+            <div class="week7-completion-stars">
+              ⭐ ⭐ ⭐
+            </div>
+
+            <strong>YOU DID IT!</strong>
+            <span>GREAT JOB!</span>
+
+            <div class="week7-completion-check">
+              ✓
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-picture-gallery") {
+      return `
+        <div
+          id="week7PictureGalleryScreen"
+          class="lesson-screen lesson-screen-week7-gallery"
+        >
+
+          <div class="week7-gallery-heading">
+            <span>DOUBLE-CLICK</span>
+            <h1>Open the Picture!</h1>
+          </div>
+
+          <div class="week7-gallery-mission">
+            <div class="week7-gallery-clicks">
+              <span>1</span>
+              <span>2</span>
+            </div>
+
+            <div class="week7-gallery-arrow">
+              ➜
+            </div>
+
+            <div
+              id="week7PictureGalleryTarget"
+              class="week7-gallery-target"
+            >
+              🏖️
+            </div>
+
+            <div
+              id="week7PictureGalleryProgress"
+              class="week7-gallery-progress"
+            >
+              1 of 5
+            </div>
+          </div>
+
+          <div class="week7-gallery-wall">
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-blue"
+              data-week7-gallery-picture="beach"
+            >
+              <span>🏖️</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-red"
+              data-week7-gallery-picture="castle"
+            >
+              <span>🏰</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-green"
+              data-week7-gallery-picture="puppy"
+            >
+              <span>🐶</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-purple"
+              data-week7-gallery-picture="fish"
+            >
+              <span>🐠</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-red"
+              data-week7-gallery-picture="rocket"
+            >
+              <span>🚀</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-blue"
+              data-week7-gallery-picture="rainbow"
+            >
+              <span>🌈</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-purple"
+              data-week7-gallery-picture="flower"
+            >
+              <span>🌻</span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-gallery-picture frame-green"
+              data-week7-gallery-picture="dinosaur"
+            >
+              <span>🦖</span>
+            </button>
+
+            <div
+              id="week7PictureGalleryViewer"
+              class="week7-gallery-viewer"
+              hidden
+            >
+              <div class="week7-gallery-viewer-bar">
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+              <div
+                id="week7PictureGalleryViewerPicture"
+                class="week7-gallery-viewer-picture"
+              >
+                🏖️
+              </div>
+            </div>
+
+          </div>
+
+          <div
+            id="week7PictureGalleryStatus"
+            class="week7-gallery-status"
+            aria-live="polite"
+          >
+            YOUR TURN!
+          </div>
+
+          <div
+            id="week7PictureGalleryCompletion"
+            class="week7-activity-completion"
+            hidden
+          >
+            <div class="week7-completion-stars">
+              ⭐ ⭐ ⭐
+            </div>
+
+            <strong>YOU DID IT!</strong>
+            <span>GREAT JOB!</span>
+
+            <div class="week7-completion-check">
+              ✓
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-hatch-eggs") {
+      return `
+        <div
+          id="week7HatchEggsScreen"
+          class="lesson-screen lesson-screen-week7-hatch"
+        >
+
+          <div class="week7-hatch-heading">
+            <span>DOUBLE-CLICK GAME</span>
+            <h1>Hatch the Eggs!</h1>
+          </div>
+
+          <div class="week7-hatch-mission">
+            <div class="week7-hatch-clicks">
+              <span>1</span>
+              <span>2</span>
+            </div>
+
+            <div class="week7-hatch-arrow">
+              ➜
+            </div>
+
+            <div
+              id="week7HatchEggsTarget"
+              class="week7-hatch-target egg-ocean"
+            ></div>
+
+            <div class="week7-hatch-progress">
+              <span data-week7-hatch-star>☆</span>
+              <span data-week7-hatch-star>☆</span>
+              <span data-week7-hatch-star>☆</span>
+              <span data-week7-hatch-star>☆</span>
+              <span data-week7-hatch-star>☆</span>
+            </div>
+          </div>
+
+          <div class="week7-hatch-nursery">
+
+            <button
+              type="button"
+              class="week7-hatch-nest"
+              data-week7-hatch-egg="sun"
+            >
+              <span class="week7-hatch-baby">🐥</span>
+              <span class="week7-hatch-egg egg-sun"></span>
+              <span class="week7-hatch-shell shell-left"></span>
+              <span class="week7-hatch-shell shell-right"></span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-hatch-nest"
+              data-week7-hatch-egg="ocean"
+            >
+              <span class="week7-hatch-baby">🐢</span>
+              <span class="week7-hatch-egg egg-ocean"></span>
+              <span class="week7-hatch-shell shell-left"></span>
+              <span class="week7-hatch-shell shell-right"></span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-hatch-nest"
+              data-week7-hatch-egg="leaf"
+            >
+              <span class="week7-hatch-baby">🦕</span>
+              <span class="week7-hatch-egg egg-leaf"></span>
+              <span class="week7-hatch-shell shell-left"></span>
+              <span class="week7-hatch-shell shell-right"></span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-hatch-nest"
+              data-week7-hatch-egg="berry"
+            >
+              <span class="week7-hatch-baby">🐲</span>
+              <span class="week7-hatch-egg egg-berry"></span>
+              <span class="week7-hatch-shell shell-left"></span>
+              <span class="week7-hatch-shell shell-right"></span>
+            </button>
+
+            <button
+              type="button"
+              class="week7-hatch-nest"
+              data-week7-hatch-egg="heart"
+            >
+              <span class="week7-hatch-baby">🦩</span>
+              <span class="week7-hatch-egg egg-heart"></span>
+              <span class="week7-hatch-shell shell-left"></span>
+              <span class="week7-hatch-shell shell-right"></span>
+            </button>
+
+          </div>
+
+          <div
+            id="week7HatchEggsStatus"
+            class="week7-hatch-status"
+            aria-live="polite"
+          >
+            HATCH IT!
+          </div>
+
+          <div
+            id="week7HatchEggsCompletion"
+            class="week7-activity-completion"
+            hidden
+          >
+            <div class="week7-completion-stars">
+              ⭐ ⭐ ⭐
+            </div>
+
+            <strong>YOU DID IT!</strong>
+            <span>GREAT JOB!</span>
+
+            <div class="week7-completion-check">
+              ✓
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week7-wrap-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week7-wrap-up${isTeacher ? " week7-wrap-teacher" : ""}">
+
+          <div class="week7-wrap-heading">
+            <span>WEEK 7 COMPLETE</span>
+            <h1>Double-Click Master!</h1>
+
+            <div class="week7-wrap-heading-stars">
+              ⭐ ⭐ ⭐
+            </div>
+          </div>
+
+          <div class="week7-wrap-cards">
+
+            <div class="week7-wrap-card week7-wrap-select-card">
+
+              <div class="week7-wrap-card-title">
+                <span>1</span>
+                <strong>CLICK</strong>
+              </div>
+
+              <div class="week7-wrap-select-scene">
+
+                <div class="week7-wrap-file">
+                  🐱
+                </div>
+
+                <div class="week7-wrap-select-cursor">
+                  ➤
+                </div>
+
+                <div class="week7-wrap-select-ring"></div>
+
+              </div>
+
+              <div class="week7-wrap-result">
+                SELECT
+              </div>
+
+            </div>
+
+            <div class="week7-wrap-card week7-wrap-open-card">
+
+              <div class="week7-wrap-card-title">
+                <span>1</span>
+                <span>2</span>
+                <strong>QUICK CLICKS</strong>
+              </div>
+
+              <div class="week7-wrap-open-scene">
+
+                <div class="week7-wrap-closed-folder">
+                  📁
+                </div>
+
+                <div class="week7-wrap-open-folder">
+                  📂
+                </div>
+
+                <div class="week7-wrap-open-picture picture-cat">
+                  🐱
+                </div>
+
+                <div class="week7-wrap-open-picture picture-rocket">
+                  🚀
+                </div>
+
+                <div class="week7-wrap-open-cursor">
+                  ➤
+                </div>
+
+                <div class="week7-wrap-open-ring ring-one"></div>
+                <div class="week7-wrap-open-ring ring-two"></div>
+
+              </div>
+
+              <div class="week7-wrap-result">
+                OPEN
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="week7-wrap-still-reminder">
+
+            <div class="week7-wrap-still-mouse">
+              <span></span>
+            </div>
+
+            <div class="week7-wrap-no-move">
+              ↔
+              <i></i>
+            </div>
+
+            <strong>KEEP STILL</strong>
+
+            <div class="week7-wrap-fast-clicks">
+              <span>1</span>
+              <span>2</span>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id.startsWith("week7-")) {
+      return `
+        <div class="lesson-screen lesson-screen-week6-placeholder">
+
+          <div class="week6-placeholder-badge">
+            WEEK 7
+          </div>
+
+          <h1>${step.title}</h1>
+
+          <div style="font-size: 86px; margin: 22px 0;">
+            🖱️ ✨✨ 📁
+          </div>
+
+          <p class="week6-placeholder-message">
+            This double-click activity is ready to build.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week6-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -25849,12 +26789,2238 @@ const status =
   let soundEnabled = true;
   let leftClickSound = null;
 
+  const week7MeetDoubleTimers = new Set();
+  const week7MeetDoubleSounds = new Set();
+
+  function stopWeek7MeetDoubleBehavior() {
+    week7MeetDoubleTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+
+    week7MeetDoubleTimers.clear();
+
+    week7MeetDoubleSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week7MeetDoubleSounds.clear();
+  }
+
+  function startWeek7MeetDoubleBehavior() {
+    stopWeek7MeetDoubleBehavior();
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week7-meet-double"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    function scheduleSound(
+      callback,
+      delay
+    ) {
+      const timer = setTimeout(() => {
+        week7MeetDoubleTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week7MeetDoubleTimers.add(timer);
+      return timer;
+    }
+
+    function playMeetDoubleSound(
+      fileName,
+      volume
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week7MeetDoubleSounds.add(sound);
+
+      const forgetSound = () => {
+        week7MeetDoubleSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function scheduleAnimationCycle() {
+      scheduleSound(() => {
+        playMeetDoubleSound(
+          "boom.mp3",
+          0.72
+        );
+      }, 640);
+
+      scheduleSound(() => {
+        playMeetDoubleSound(
+          "boom.mp3",
+          0.72
+        );
+      }, 1024);
+
+      scheduleSound(() => {
+        playMeetDoubleSound(
+          "correct.mp3",
+          0.68
+        );
+      }, 1536);
+
+      scheduleSound(
+        scheduleAnimationCycle,
+        3200
+      );
+    }
+
+    scheduleAnimationCycle();
+  }
+
+  let removeWeek7HatchEggsListener = null;
+  let week7HatchEggsClickTimer = null;
+  let week7HatchEggsRoundTimer = null;
+  const week7HatchEggsSounds = new Set();
+
+  function stopWeek7HatchEggsBehavior() {
+    removeWeek7HatchEggsListener?.();
+    removeWeek7HatchEggsListener = null;
+
+    if (week7HatchEggsClickTimer) {
+      clearTimeout(
+        week7HatchEggsClickTimer
+      );
+
+      week7HatchEggsClickTimer = null;
+    }
+
+    if (week7HatchEggsRoundTimer) {
+      clearTimeout(
+        week7HatchEggsRoundTimer
+      );
+
+      week7HatchEggsRoundTimer = null;
+    }
+
+    week7HatchEggsSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week7HatchEggsSounds.clear();
+  }
+
+  function startWeek7HatchEggsBehavior() {
+    stopWeek7HatchEggsBehavior();
+
+    const screen =
+      document.getElementById(
+        "week7HatchEggsScreen"
+      );
+
+    const target =
+      document.getElementById(
+        "week7HatchEggsTarget"
+      );
+
+    const status =
+      document.getElementById(
+        "week7HatchEggsStatus"
+      );
+
+    const completion =
+      document.getElementById(
+        "week7HatchEggsCompletion"
+      );
+
+    const eggs = Array.from(
+      document.querySelectorAll(
+        "[data-week7-hatch-egg]"
+      )
+    );
+
+    const stars = Array.from(
+      document.querySelectorAll(
+        "[data-week7-hatch-star]"
+      )
+    );
+
+    if (
+      !screen ||
+      !target ||
+      !status ||
+      !completion ||
+      eggs.length !== 5 ||
+      stars.length !== 5
+    ) {
+      return;
+    }
+
+    const rounds = [
+      "ocean",
+      "sun",
+      "berry",
+      "leaf",
+      "heart"
+    ];
+
+    const doubleClickWindow = 500;
+    const movementTolerance = 12;
+
+    let roundIndex = 0;
+    let firstClickAt = null;
+    let firstClickX = null;
+    let firstClickY = null;
+    let pendingEgg = null;
+    let locked = false;
+
+    function playHatchSound(
+      fileName,
+      volume = 0.68
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week7HatchEggsSounds.add(sound);
+
+      const forgetSound = () => {
+        week7HatchEggsSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function clearClickTimer() {
+      if (!week7HatchEggsClickTimer) {
+        return;
+      }
+
+      clearTimeout(
+        week7HatchEggsClickTimer
+      );
+
+      week7HatchEggsClickTimer = null;
+    }
+
+    function resetPendingClick() {
+      clearClickTimer();
+
+      firstClickAt = null;
+      firstClickX = null;
+      firstClickY = null;
+      pendingEgg = null;
+
+      eggs.forEach(egg => {
+        egg.classList.remove(
+          "week7-hatch-egg-selected"
+        );
+      });
+    }
+
+    function currentEggId() {
+      return rounds[
+        Math.min(
+          roundIndex,
+          rounds.length - 1
+        )
+      ];
+    }
+
+    function updateRound() {
+      const eggId = currentEggId();
+
+      target.className =
+        `week7-hatch-target egg-${eggId}`;
+
+      status.textContent = "HATCH IT!";
+
+      eggs.forEach(egg => {
+        egg.classList.remove(
+          "week7-hatch-open",
+          "week7-hatch-wrong",
+          "week7-hatch-egg-selected"
+        );
+      });
+    }
+
+    function showWarning(
+      message,
+      warningClass
+    ) {
+      resetPendingClick();
+      locked = true;
+      status.textContent = message;
+
+      screen.classList.add(
+        "week7-hatch-warning",
+        warningClass
+      );
+
+      playHatchSound(
+        "buzzer.mp3",
+        0.62
+      );
+
+      week7HatchEggsRoundTimer =
+        setTimeout(() => {
+          week7HatchEggsRoundTimer = null;
+          locked = false;
+
+          screen.classList.remove(
+            "week7-hatch-warning",
+            "week7-hatch-too-slow",
+            "week7-hatch-moved",
+            "week7-hatch-wrong-egg"
+          );
+
+          status.textContent = "TRY AGAIN!";
+        }, 820);
+    }
+
+    function beginFirstClick(
+      egg,
+      event
+    ) {
+      resetPendingClick();
+
+      firstClickAt = performance.now();
+      firstClickX = event.clientX;
+      firstClickY = event.clientY;
+      pendingEgg = egg;
+
+      egg.classList.add(
+        "week7-hatch-egg-selected"
+      );
+
+      status.textContent = "1 ...";
+
+      week7HatchEggsClickTimer =
+        setTimeout(() => {
+          week7HatchEggsClickTimer = null;
+
+          showWarning(
+            "TOO SLOW!",
+            "week7-hatch-too-slow"
+          );
+        }, doubleClickWindow);
+    }
+
+    function finishEgg(egg) {
+      resetPendingClick();
+      locked = true;
+
+      egg.classList.add(
+        "week7-hatch-open"
+      );
+
+      stars.forEach((star, index) => {
+        star.classList.toggle(
+          "week7-hatch-star-complete",
+          index <= roundIndex
+        );
+      });
+
+      status.textContent = "HATCHED!";
+
+      playHatchSound(
+        roundIndex >= rounds.length - 1
+          ? "complete.mp3"
+          : "correct.mp3",
+        0.72
+      );
+
+      roundIndex += 1;
+
+      if (roundIndex >= rounds.length) {
+        status.textContent = "YOU DID IT!";
+
+        screen.classList.add(
+          "week7-hatch-complete"
+        );
+
+        week7HatchEggsRoundTimer =
+          setTimeout(() => {
+            week7HatchEggsRoundTimer = null;
+            completion.hidden = false;
+          }, 650);
+
+        return;
+      }
+
+      week7HatchEggsRoundTimer =
+        setTimeout(() => {
+          week7HatchEggsRoundTimer = null;
+          locked = false;
+          updateRound();
+        }, 1150);
+    }
+
+    function handleMouseMove(event) {
+      if (
+        firstClickAt === null ||
+        locked ||
+        firstClickX === null ||
+        firstClickY === null
+      ) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-hatch-moved"
+        );
+      }
+    }
+
+    function handleEggClick(event) {
+      const egg = event.target.closest(
+        "[data-week7-hatch-egg]"
+      );
+
+      if (
+        !egg ||
+        event.button !== 0 ||
+        locked
+      ) {
+        return;
+      }
+
+      const eggId =
+        egg.dataset.week7HatchEgg;
+
+      if (eggId !== currentEggId()) {
+        egg.classList.add(
+          "week7-hatch-wrong"
+        );
+
+        showWarning(
+          "WRONG EGG!",
+          "week7-hatch-wrong-egg"
+        );
+
+        return;
+      }
+
+      if (firstClickAt === null) {
+        beginFirstClick(egg, event);
+        return;
+      }
+
+      if (pendingEgg !== egg) {
+        beginFirstClick(egg, event);
+        return;
+      }
+
+      const elapsed =
+        performance.now() - firstClickAt;
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-hatch-moved"
+        );
+        return;
+      }
+
+      if (elapsed > doubleClickWindow) {
+        showWarning(
+          "TOO SLOW!",
+          "week7-hatch-too-slow"
+        );
+        return;
+      }
+
+      finishEgg(egg);
+    }
+
+    screen.addEventListener(
+      "click",
+      handleEggClick
+    );
+
+    document.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
+
+    removeWeek7HatchEggsListener =
+      () => {
+        screen.removeEventListener(
+          "click",
+          handleEggClick
+        );
+
+        document.removeEventListener(
+          "mousemove",
+          handleMouseMove
+        );
+      };
+
+    updateRound();
+  }
+
+  let removeWeek7PictureGalleryListener = null;
+  let week7PictureGalleryClickTimer = null;
+  let week7PictureGalleryRoundTimer = null;
+  const week7PictureGallerySounds = new Set();
+
+  function stopWeek7PictureGalleryBehavior() {
+    removeWeek7PictureGalleryListener?.();
+    removeWeek7PictureGalleryListener = null;
+
+    if (week7PictureGalleryClickTimer) {
+      clearTimeout(
+        week7PictureGalleryClickTimer
+      );
+
+      week7PictureGalleryClickTimer = null;
+    }
+
+    if (week7PictureGalleryRoundTimer) {
+      clearTimeout(
+        week7PictureGalleryRoundTimer
+      );
+
+      week7PictureGalleryRoundTimer = null;
+    }
+
+    week7PictureGallerySounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week7PictureGallerySounds.clear();
+  }
+
+  function startWeek7PictureGalleryBehavior() {
+    stopWeek7PictureGalleryBehavior();
+
+    const screen =
+      document.getElementById(
+        "week7PictureGalleryScreen"
+      );
+
+    const target =
+      document.getElementById(
+        "week7PictureGalleryTarget"
+      );
+
+    const status =
+      document.getElementById(
+        "week7PictureGalleryStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week7PictureGalleryProgress"
+      );
+
+    const viewer =
+      document.getElementById(
+        "week7PictureGalleryViewer"
+      );
+
+    const viewerPicture =
+      document.getElementById(
+        "week7PictureGalleryViewerPicture"
+      );
+
+    const completion =
+      document.getElementById(
+        "week7PictureGalleryCompletion"
+      );
+
+    const pictures = Array.from(
+      document.querySelectorAll(
+        "[data-week7-gallery-picture]"
+      )
+    );
+
+    if (
+      !screen ||
+      !target ||
+      !status ||
+      !progress ||
+      !viewer ||
+      !viewerPicture ||
+      !completion ||
+      pictures.length !== 8
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        id: "beach",
+        picture: "🏖️"
+      },
+      {
+        id: "puppy",
+        picture: "🐶"
+      },
+      {
+        id: "rocket",
+        picture: "🚀"
+      },
+      {
+        id: "rainbow",
+        picture: "🌈"
+      },
+      {
+        id: "dinosaur",
+        picture: "🦖"
+      }
+    ];
+
+    const doubleClickWindow = 500;
+    const movementTolerance = 12;
+
+    let roundIndex = 0;
+    let firstClickAt = null;
+    let firstClickX = null;
+    let firstClickY = null;
+    let pendingPicture = null;
+    let locked = false;
+
+    function playGallerySound(
+      fileName,
+      volume = 0.68
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week7PictureGallerySounds.add(sound);
+
+      const forgetSound = () => {
+        week7PictureGallerySounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function clearClickTimer() {
+      if (!week7PictureGalleryClickTimer) {
+        return;
+      }
+
+      clearTimeout(
+        week7PictureGalleryClickTimer
+      );
+
+      week7PictureGalleryClickTimer = null;
+    }
+
+    function resetPendingClick() {
+      clearClickTimer();
+
+      firstClickAt = null;
+      firstClickX = null;
+      firstClickY = null;
+      pendingPicture = null;
+
+      pictures.forEach(picture => {
+        picture.classList.remove(
+          "week7-gallery-selected"
+        );
+      });
+    }
+
+    function currentRound() {
+      return rounds[
+        Math.min(
+          roundIndex,
+          rounds.length - 1
+        )
+      ];
+    }
+
+    function updateRound() {
+      target.textContent =
+        currentRound().picture;
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent = "YOUR TURN!";
+      viewer.hidden = true;
+
+      pictures.forEach(picture => {
+        picture.classList.remove(
+          "week7-gallery-selected",
+          "week7-gallery-wrong"
+        );
+      });
+    }
+
+    function showWarning(
+      message,
+      warningClass
+    ) {
+      resetPendingClick();
+      locked = true;
+      status.textContent = message;
+
+      screen.classList.add(
+        "week7-gallery-warning",
+        warningClass
+      );
+
+      playGallerySound(
+        "buzzer.mp3",
+        0.62
+      );
+
+      week7PictureGalleryRoundTimer =
+        setTimeout(() => {
+          week7PictureGalleryRoundTimer = null;
+          locked = false;
+
+          screen.classList.remove(
+            "week7-gallery-warning",
+            "week7-gallery-too-slow",
+            "week7-gallery-moved",
+            "week7-gallery-wrong-picture"
+          );
+
+          status.textContent = "TRY AGAIN!";
+        }, 820);
+    }
+
+    function beginFirstClick(
+      picture,
+      event
+    ) {
+      resetPendingClick();
+
+      firstClickAt = performance.now();
+      firstClickX = event.clientX;
+      firstClickY = event.clientY;
+      pendingPicture = picture;
+
+      picture.classList.add(
+        "week7-gallery-selected"
+      );
+
+      status.textContent = "1 ...";
+
+      week7PictureGalleryClickTimer =
+        setTimeout(() => {
+          week7PictureGalleryClickTimer = null;
+
+          showWarning(
+            "TOO SLOW!",
+            "week7-gallery-too-slow"
+          );
+        }, doubleClickWindow);
+    }
+
+    function finishPicture(picture) {
+      resetPendingClick();
+      locked = true;
+
+      picture.classList.add(
+        "week7-gallery-selected"
+      );
+
+      viewerPicture.textContent =
+        currentRound().picture;
+
+      viewer.hidden = false;
+      status.textContent = "OPEN!";
+
+      playGallerySound(
+        roundIndex >= rounds.length - 1
+          ? "complete.mp3"
+          : "correct.mp3",
+        0.72
+      );
+
+      roundIndex += 1;
+
+      if (roundIndex >= rounds.length) {
+        progress.textContent = "5 of 5";
+        status.textContent = "YOU DID IT!";
+
+        screen.classList.add(
+          "week7-gallery-complete"
+        );
+
+        week7PictureGalleryRoundTimer =
+          setTimeout(() => {
+            week7PictureGalleryRoundTimer = null;
+            completion.hidden = false;
+          }, 550);
+
+        return;
+      }
+
+      week7PictureGalleryRoundTimer =
+        setTimeout(() => {
+          week7PictureGalleryRoundTimer = null;
+          locked = false;
+          updateRound();
+        }, 1050);
+    }
+
+    function handleMouseMove(event) {
+      if (
+        firstClickAt === null ||
+        locked ||
+        firstClickX === null ||
+        firstClickY === null
+      ) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-gallery-moved"
+        );
+      }
+    }
+
+    function handlePictureClick(event) {
+      const picture = event.target.closest(
+        "[data-week7-gallery-picture]"
+      );
+
+      if (
+        !picture ||
+        event.button !== 0 ||
+        locked
+      ) {
+        return;
+      }
+
+      const pictureId =
+        picture.dataset.week7GalleryPicture;
+
+      if (pictureId !== currentRound().id) {
+        picture.classList.add(
+          "week7-gallery-wrong"
+        );
+
+        showWarning(
+          "WRONG PICTURE!",
+          "week7-gallery-wrong-picture"
+        );
+
+        return;
+      }
+
+      if (firstClickAt === null) {
+        beginFirstClick(picture, event);
+        return;
+      }
+
+      if (pendingPicture !== picture) {
+        beginFirstClick(picture, event);
+        return;
+      }
+
+      const elapsed =
+        performance.now() - firstClickAt;
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-gallery-moved"
+        );
+        return;
+      }
+
+      if (elapsed > doubleClickWindow) {
+        showWarning(
+          "TOO SLOW!",
+          "week7-gallery-too-slow"
+        );
+        return;
+      }
+
+      finishPicture(picture);
+    }
+
+    screen.addEventListener(
+      "click",
+      handlePictureClick
+    );
+
+    document.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
+
+    removeWeek7PictureGalleryListener =
+      () => {
+        screen.removeEventListener(
+          "click",
+          handlePictureClick
+        );
+
+        document.removeEventListener(
+          "mousemove",
+          handleMouseMove
+        );
+      };
+
+    updateRound();
+  }
+
+  let removeWeek7AnimalDoorsListener = null;
+  let week7AnimalDoorsClickTimer = null;
+  let week7AnimalDoorsRoundTimer = null;
+  const week7AnimalDoorsSounds = new Set();
+
+  function stopWeek7AnimalDoorsBehavior() {
+    removeWeek7AnimalDoorsListener?.();
+    removeWeek7AnimalDoorsListener = null;
+
+    if (week7AnimalDoorsClickTimer) {
+      clearTimeout(week7AnimalDoorsClickTimer);
+      week7AnimalDoorsClickTimer = null;
+    }
+
+    if (week7AnimalDoorsRoundTimer) {
+      clearTimeout(week7AnimalDoorsRoundTimer);
+      week7AnimalDoorsRoundTimer = null;
+    }
+
+    week7AnimalDoorsSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week7AnimalDoorsSounds.clear();
+  }
+
+  function startWeek7AnimalDoorsBehavior() {
+    stopWeek7AnimalDoorsBehavior();
+
+    const screen =
+      document.getElementById(
+        "week7AnimalDoorsScreen"
+      );
+
+    const target =
+      document.getElementById(
+        "week7AnimalDoorsTarget"
+      );
+
+    const status =
+      document.getElementById(
+        "week7AnimalDoorsStatus"
+      );
+
+    const completion =
+      document.getElementById(
+        "week7AnimalDoorsCompletion"
+      );
+
+    const doors = Array.from(
+      document.querySelectorAll(
+        "[data-week7-animal-door]"
+      )
+    );
+
+    const stars = Array.from(
+      document.querySelectorAll(
+        "[data-week7-animal-star]"
+      )
+    );
+
+    if (
+      !screen ||
+      !target ||
+      !status ||
+      !completion ||
+      doors.length !== 5 ||
+      stars.length !== 5
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        id: "frog",
+        picture: "🐸"
+      },
+      {
+        id: "dog",
+        picture: "🐶"
+      },
+      {
+        id: "lion",
+        picture: "🦁"
+      },
+      {
+        id: "cat",
+        picture: "🐱"
+      },
+      {
+        id: "monkey",
+        picture: "🐵"
+      }
+    ];
+
+    const doubleClickWindow = 500;
+    const movementTolerance = 12;
+
+    let roundIndex = 0;
+    let firstClickAt = null;
+    let firstClickX = null;
+    let firstClickY = null;
+    let pendingDoor = null;
+    let locked = false;
+
+    function playAnimalDoorSound(
+      fileName,
+      volume = 0.68
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week7AnimalDoorsSounds.add(sound);
+
+      const forgetSound = () => {
+        week7AnimalDoorsSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function clearClickTimer() {
+      if (!week7AnimalDoorsClickTimer) {
+        return;
+      }
+
+      clearTimeout(
+        week7AnimalDoorsClickTimer
+      );
+
+      week7AnimalDoorsClickTimer = null;
+    }
+
+    function resetPendingClick() {
+      clearClickTimer();
+      firstClickAt = null;
+      firstClickX = null;
+      firstClickY = null;
+      pendingDoor = null;
+
+      doors.forEach(door => {
+        door.classList.remove(
+          "week7-animal-knock-one"
+        );
+      });
+    }
+
+    function currentRound() {
+      return rounds[
+        Math.min(
+          roundIndex,
+          rounds.length - 1
+        )
+      ];
+    }
+
+    function updateRound() {
+      const round = currentRound();
+
+      target.textContent = round.picture;
+      status.textContent = "KNOCK! KNOCK!";
+
+      doors.forEach(door => {
+        door.classList.remove(
+          "week7-animal-door-open",
+          "week7-animal-door-wrong"
+        );
+      });
+    }
+
+    function showWarning(
+      message,
+      warningClass
+    ) {
+      resetPendingClick();
+      locked = true;
+      status.textContent = message;
+
+      screen.classList.add(
+        "week7-animal-warning",
+        warningClass
+      );
+
+      playAnimalDoorSound(
+        "buzzer.mp3",
+        0.62
+      );
+
+      week7AnimalDoorsRoundTimer =
+        setTimeout(() => {
+          week7AnimalDoorsRoundTimer = null;
+          locked = false;
+
+          screen.classList.remove(
+            "week7-animal-warning",
+            "week7-animal-too-slow",
+            "week7-animal-moved",
+            "week7-animal-wrong-door"
+          );
+
+          status.textContent =
+            "TRY AGAIN!";
+        }, 820);
+    }
+
+    function beginFirstClick(
+      door,
+      event
+    ) {
+      resetPendingClick();
+
+      firstClickAt = performance.now();
+      firstClickX = event.clientX;
+      firstClickY = event.clientY;
+      pendingDoor = door;
+
+      door.classList.add(
+        "week7-animal-knock-one"
+      );
+
+      status.textContent = "1 ...";
+
+      playAnimalDoorSound(
+        "boom.mp3",
+        0.73
+      );
+
+      week7AnimalDoorsClickTimer =
+        setTimeout(() => {
+          week7AnimalDoorsClickTimer = null;
+
+          showWarning(
+            "TOO SLOW!",
+            "week7-animal-too-slow"
+          );
+        }, doubleClickWindow);
+    }
+
+    function finishDoor(door) {
+      resetPendingClick();
+      locked = true;
+
+      playAnimalDoorSound(
+        "boom.mp3",
+        0.73
+      );
+
+      door.classList.add(
+        "week7-animal-door-open"
+      );
+
+      stars.forEach((star, index) => {
+        star.classList.toggle(
+          "week7-animal-star-complete",
+          index <= roundIndex
+        );
+      });
+
+      status.textContent = "OPEN!";
+
+      playAnimalDoorSound(
+        roundIndex >= rounds.length - 1
+          ? "complete.mp3"
+          : "correct.mp3",
+        0.72
+      );
+
+      roundIndex += 1;
+
+      if (roundIndex >= rounds.length) {
+        status.textContent = "YOU DID IT!";
+        screen.classList.add(
+          "week7-animal-complete"
+        );
+
+        completion.hidden = false;
+        return;
+      }
+
+      week7AnimalDoorsRoundTimer =
+        setTimeout(() => {
+          week7AnimalDoorsRoundTimer = null;
+          locked = false;
+          updateRound();
+        }, 1050);
+    }
+
+    function handleMouseMove(event) {
+      if (
+        firstClickAt === null ||
+        locked ||
+        firstClickX === null ||
+        firstClickY === null
+      ) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-animal-moved"
+        );
+      }
+    }
+
+    function handleDoorClick(event) {
+      const door = event.target.closest(
+        "[data-week7-animal-door]"
+      );
+
+      if (
+        !door ||
+        event.button !== 0 ||
+        locked
+      ) {
+        return;
+      }
+
+      const doorId =
+        door.dataset.week7AnimalDoor;
+
+      if (doorId !== currentRound().id) {
+        door.classList.add(
+          "week7-animal-door-wrong"
+        );
+
+        showWarning(
+          "WRONG DOOR!",
+          "week7-animal-wrong-door"
+        );
+
+        return;
+      }
+
+      if (firstClickAt === null) {
+        beginFirstClick(door, event);
+        return;
+      }
+
+      if (pendingDoor !== door) {
+        beginFirstClick(door, event);
+        return;
+      }
+
+      const elapsed =
+        performance.now() - firstClickAt;
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-animal-moved"
+        );
+        return;
+      }
+
+      if (elapsed > doubleClickWindow) {
+        showWarning(
+          "TOO SLOW!",
+          "week7-animal-too-slow"
+        );
+        return;
+      }
+
+      finishDoor(door);
+    }
+
+    screen.addEventListener(
+      "click",
+      handleDoorClick
+    );
+
+    document.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
+
+    removeWeek7AnimalDoorsListener =
+      () => {
+        screen.removeEventListener(
+          "click",
+          handleDoorClick
+        );
+
+        document.removeEventListener(
+          "mousemove",
+          handleMouseMove
+        );
+      };
+
+    updateRound();
+  }
+
+  let removeWeek7SelectOpenListener = null;
+  let week7SelectOpenClickTimer = null;
+  let week7SelectOpenRoundTimer = null;
+  const week7SelectOpenSounds = new Set();
+
+  function stopWeek7SelectOpenBehavior() {
+    removeWeek7SelectOpenListener?.();
+    removeWeek7SelectOpenListener = null;
+
+    if (week7SelectOpenClickTimer) {
+      clearTimeout(week7SelectOpenClickTimer);
+      week7SelectOpenClickTimer = null;
+    }
+
+    if (week7SelectOpenRoundTimer) {
+      clearTimeout(week7SelectOpenRoundTimer);
+      week7SelectOpenRoundTimer = null;
+    }
+
+    week7SelectOpenSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week7SelectOpenSounds.clear();
+  }
+
+  function startWeek7SelectOpenBehavior() {
+    stopWeek7SelectOpenBehavior();
+
+    const screen =
+      document.getElementById(
+        "week7SelectOpenScreen"
+      );
+
+    const missionAction =
+      document.getElementById(
+        "week7SelectOpenAction"
+      );
+
+    const missionTarget =
+      document.getElementById(
+        "week7SelectOpenTarget"
+      );
+
+    const status =
+      document.getElementById(
+        "week7SelectOpenStatus"
+      );
+
+    const progress =
+      document.getElementById(
+        "week7SelectOpenProgress"
+      );
+
+    const openWindow =
+      document.getElementById(
+        "week7SelectOpenWindow"
+      );
+
+    const openPicture =
+      document.getElementById(
+        "week7SelectOpenWindowPicture"
+      );
+
+    const completion =
+      document.getElementById(
+        "week7SelectOpenCompletion"
+      );
+
+    const icons = Array.from(
+      document.querySelectorAll(
+        "[data-week7-desktop-icon]"
+      )
+    );
+
+    if (
+      !screen ||
+      !missionAction ||
+      !missionTarget ||
+      !status ||
+      !progress ||
+      !openWindow ||
+      !openPicture ||
+      !completion ||
+      icons.length !== 6
+    ) {
+      return;
+    }
+
+    const rounds = [
+      {
+        target: "cat",
+        picture: "🐱",
+        action: "select"
+      },
+      {
+        target: "games",
+        picture: "🎮",
+        action: "open"
+      },
+      {
+        target: "rocket",
+        picture: "🚀",
+        action: "select"
+      },
+      {
+        target: "animals",
+        picture: "🐾",
+        action: "open"
+      },
+      {
+        target: "music",
+        picture: "🎵",
+        action: "select"
+      },
+      {
+        target: "art",
+        picture: "🎨",
+        action: "open"
+      }
+    ];
+
+    const doubleClickWindow = 500;
+    const movementTolerance = 12;
+
+    let roundIndex = 0;
+    let firstClickAt = null;
+    let firstClickX = null;
+    let firstClickY = null;
+    let pendingIcon = null;
+    let locked = false;
+
+    function playSelectOpenSound(
+      fileName,
+      volume = 0.68
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week7SelectOpenSounds.add(sound);
+
+      const forgetSound = () => {
+        week7SelectOpenSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function clearClickTimer() {
+      if (!week7SelectOpenClickTimer) {
+        return;
+      }
+
+      clearTimeout(
+        week7SelectOpenClickTimer
+      );
+
+      week7SelectOpenClickTimer = null;
+    }
+
+    function resetPendingClick() {
+      clearClickTimer();
+      firstClickAt = null;
+      firstClickX = null;
+      firstClickY = null;
+      pendingIcon = null;
+    }
+
+    function currentRound() {
+      return rounds[
+        Math.min(
+          roundIndex,
+          rounds.length - 1
+        )
+      ];
+    }
+
+    function updateMission() {
+      const round = currentRound();
+
+      icons.forEach(icon => {
+        icon.classList.remove(
+          "week7-desktop-selected",
+          "week7-desktop-wrong"
+        );
+      });
+
+      openWindow.hidden = true;
+      missionTarget.textContent =
+        round.picture;
+
+      if (round.action === "select") {
+        missionAction.innerHTML = `
+          <span class="week7-mission-cursor">➤</span>
+          <span class="week7-mission-number">1</span>
+          <span class="week7-mission-selected-box"></span>
+        `;
+      } else {
+        missionAction.innerHTML = `
+          <span class="week7-mission-cursor">➤</span>
+          <span class="week7-mission-number">1</span>
+          <span class="week7-mission-number">2</span>
+          <span class="week7-mission-open-folder">📂</span>
+        `;
+      }
+
+      progress.textContent =
+        `${roundIndex + 1} of ${rounds.length}`;
+
+      status.textContent = "YOUR TURN!";
+    }
+
+    function showWarning(
+      message,
+      warningClass
+    ) {
+      resetPendingClick();
+      locked = true;
+      status.textContent = message;
+
+      screen.classList.add(
+        "week7-select-open-warning",
+        warningClass
+      );
+
+      playSelectOpenSound(
+        "buzzer.mp3",
+        0.62
+      );
+
+      week7SelectOpenRoundTimer =
+        setTimeout(() => {
+          week7SelectOpenRoundTimer = null;
+          locked = false;
+
+          screen.classList.remove(
+            "week7-select-open-warning",
+            "week7-select-open-too-slow",
+            "week7-select-open-moved",
+            "week7-select-open-one-click"
+          );
+
+          status.textContent = "TRY AGAIN!";
+        }, 820);
+    }
+
+    function finishRound(
+      icon,
+      opened
+    ) {
+      resetPendingClick();
+      locked = true;
+
+      icon.classList.add(
+        "week7-desktop-selected"
+      );
+
+      if (opened) {
+        openPicture.textContent =
+          currentRound().picture;
+
+        openWindow.hidden = false;
+      }
+
+      status.textContent =
+        opened ? "OPEN!" : "SELECTED!";
+
+      playSelectOpenSound(
+        roundIndex >= rounds.length - 1
+          ? "complete.mp3"
+          : "correct.mp3",
+        0.72
+      );
+
+      roundIndex += 1;
+
+      if (roundIndex >= rounds.length) {
+        progress.textContent = "6 of 6";
+        status.textContent = "YOU DID IT!";
+        screen.classList.add(
+          "week7-select-open-complete"
+        );
+
+        completion.hidden = false;
+        return;
+      }
+
+      week7SelectOpenRoundTimer =
+        setTimeout(() => {
+          week7SelectOpenRoundTimer = null;
+          locked = false;
+          updateMission();
+        }, 900);
+    }
+
+    function beginClick(
+      icon,
+      event
+    ) {
+      resetPendingClick();
+
+      firstClickAt = performance.now();
+      firstClickX = event.clientX;
+      firstClickY = event.clientY;
+      pendingIcon = icon;
+
+      icon.classList.add(
+        "week7-desktop-selected"
+      );
+
+      status.textContent = "1 ...";
+
+      week7SelectOpenClickTimer =
+        setTimeout(() => {
+          week7SelectOpenClickTimer = null;
+
+          const round = currentRound();
+
+          if (round.action === "select") {
+            finishRound(icon, false);
+            return;
+          }
+
+          showWarning(
+            "FASTER!",
+            "week7-select-open-too-slow"
+          );
+        }, doubleClickWindow);
+    }
+
+    function handleMouseMove(event) {
+      if (
+        firstClickAt === null ||
+        locked ||
+        firstClickX === null ||
+        firstClickY === null
+      ) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-select-open-moved"
+        );
+      }
+    }
+
+    function handleDesktopClick(event) {
+      const icon = event.target.closest(
+        "[data-week7-desktop-icon]"
+      );
+
+      if (
+        !icon ||
+        event.button !== 0 ||
+        locked
+      ) {
+        return;
+      }
+
+      const round = currentRound();
+      const iconId =
+        icon.dataset.week7DesktopIcon;
+
+      if (iconId !== round.target) {
+        icon.classList.add(
+          "week7-desktop-wrong"
+        );
+
+        status.textContent = "TRY AGAIN!";
+
+        playSelectOpenSound(
+          "buzzer.mp3",
+          0.58
+        );
+
+        setTimeout(() => {
+          icon.classList.remove(
+            "week7-desktop-wrong"
+          );
+        }, 430);
+
+        return;
+      }
+
+      if (firstClickAt === null) {
+        beginClick(icon, event);
+        return;
+      }
+
+      if (pendingIcon !== icon) {
+        beginClick(icon, event);
+        return;
+      }
+
+      const elapsed =
+        performance.now() - firstClickAt;
+
+      const distance = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (distance > movementTolerance) {
+        showWarning(
+          "KEEP MOUSE STILL!",
+          "week7-select-open-moved"
+        );
+        return;
+      }
+
+      if (round.action === "select") {
+        showWarning(
+          "ONE CLICK!",
+          "week7-select-open-one-click"
+        );
+        return;
+      }
+
+      if (elapsed > doubleClickWindow) {
+        showWarning(
+          "FASTER!",
+          "week7-select-open-too-slow"
+        );
+        return;
+      }
+
+      finishRound(icon, true);
+    }
+
+    screen.addEventListener(
+      "click",
+      handleDesktopClick
+    );
+
+    document.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
+
+    removeWeek7SelectOpenListener =
+      () => {
+        screen.removeEventListener(
+          "click",
+          handleDesktopClick
+        );
+
+        document.removeEventListener(
+          "mousemove",
+          handleMouseMove
+        );
+      };
+
+    updateMission();
+  }
+
+  let removeWeek7ClickRhythmListener = null;
+  let week7ClickRhythmTimer = null;
+  let week7ClickRhythmUnlockTimer = null;
+  const week7ClickRhythmSounds = new Set();
+
+  function stopWeek7ClickRhythmBehavior() {
+    removeWeek7ClickRhythmListener?.();
+    removeWeek7ClickRhythmListener = null;
+
+    if (week7ClickRhythmTimer) {
+      clearTimeout(week7ClickRhythmTimer);
+      week7ClickRhythmTimer = null;
+    }
+
+    if (week7ClickRhythmUnlockTimer) {
+      clearTimeout(week7ClickRhythmUnlockTimer);
+      week7ClickRhythmUnlockTimer = null;
+    }
+
+    week7ClickRhythmSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week7ClickRhythmSounds.clear();
+  }
+
+  function startWeek7ClickRhythmBehavior() {
+    stopWeek7ClickRhythmBehavior();
+
+    const screen =
+      document.getElementById(
+        "week7ClickRhythmScreen"
+      );
+
+    const drum =
+      document.getElementById(
+        "week7ClickRhythmDrum"
+      );
+
+    const status =
+      document.getElementById(
+        "week7ClickRhythmStatus"
+      );
+
+    const firstBeat =
+      document.getElementById(
+        "week7ClickRhythmBeatOne"
+      );
+
+    const secondBeat =
+      document.getElementById(
+        "week7ClickRhythmBeatTwo"
+      );
+
+    const progress = Array.from(
+      document.querySelectorAll(
+        "[data-week7-rhythm-star]"
+      )
+    );
+
+    if (
+      !screen ||
+      !drum ||
+      !status ||
+      !firstBeat ||
+      !secondBeat ||
+      progress.length !== 5
+    ) {
+      return;
+    }
+
+    const timingWindows = [
+      500,
+      500,
+      500,
+      500,
+      500
+    ];
+
+    let completedRounds = 0;
+    let firstClickAt = null;
+    let firstClickX = null;
+    let firstClickY = null;
+    let locked = false;
+
+    const movementTolerance = 12;
+
+    function playRhythmSound(
+      fileName,
+      volume = 0.7
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week7ClickRhythmSounds.add(sound);
+
+      const forgetSound = () => {
+        week7ClickRhythmSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function clearBeatTimer() {
+      if (!week7ClickRhythmTimer) {
+        return;
+      }
+
+      clearTimeout(week7ClickRhythmTimer);
+      week7ClickRhythmTimer = null;
+    }
+
+    function resetBeatDisplay() {
+      firstClickAt = null;
+      firstClickX = null;
+      firstClickY = null;
+
+      firstBeat.classList.remove(
+        "week7-rhythm-beat-active"
+      );
+      secondBeat.classList.remove(
+        "week7-rhythm-beat-active"
+      );
+      drum.classList.remove(
+        "week7-rhythm-drum-hit-one",
+        "week7-rhythm-drum-hit-two"
+      );
+    }
+
+    function showRhythmWarning(
+      message,
+      warningClass
+    ) {
+      clearBeatTimer();
+      resetBeatDisplay();
+
+      locked = true;
+      status.textContent = message;
+
+      screen.classList.add(
+        "week7-rhythm-warning",
+        warningClass
+      );
+
+      playRhythmSound(
+        "buzzer.mp3",
+        0.62
+      );
+
+      if (week7ClickRhythmUnlockTimer) {
+        clearTimeout(
+          week7ClickRhythmUnlockTimer
+        );
+      }
+
+      week7ClickRhythmUnlockTimer =
+        setTimeout(() => {
+          week7ClickRhythmUnlockTimer = null;
+          locked = false;
+
+          screen.classList.remove(
+            "week7-rhythm-warning",
+            "week7-rhythm-too-slow",
+            "week7-rhythm-moved"
+          );
+
+          status.textContent = "YOUR TURN!";
+        }, 850);
+    }
+
+    function beginFirstClick(event) {
+      clearBeatTimer();
+      resetBeatDisplay();
+
+      firstClickAt = performance.now();
+      firstClickX = event.clientX;
+      firstClickY = event.clientY;
+
+      firstBeat.classList.add(
+        "week7-rhythm-beat-active"
+      );
+
+      drum.classList.add(
+        "week7-rhythm-drum-hit-one"
+      );
+
+      status.textContent = "1 ...";
+
+      const timingWindow =
+        timingWindows[
+          Math.min(
+            completedRounds,
+            timingWindows.length - 1
+          )
+        ];
+
+      week7ClickRhythmTimer =
+        setTimeout(() => {
+          week7ClickRhythmTimer = null;
+
+          showRhythmWarning(
+            "TOO SLOW!",
+            "week7-rhythm-too-slow"
+          );
+        }, timingWindow);
+    }
+
+    function finishSuccessfulPair() {
+      clearBeatTimer();
+
+      secondBeat.classList.add(
+        "week7-rhythm-beat-active"
+      );
+
+      drum.classList.remove(
+        "week7-rhythm-drum-hit-one"
+      );
+
+      drum.classList.add(
+        "week7-rhythm-drum-hit-two"
+      );
+
+      completedRounds += 1;
+      locked = true;
+
+      progress.forEach((star, index) => {
+        star.classList.toggle(
+          "week7-rhythm-star-complete",
+          index < completedRounds
+        );
+      });
+
+      if (completedRounds >= 5) {
+        status.textContent = "YOU DID IT!";
+        screen.classList.add(
+          "week7-rhythm-complete"
+        );
+
+        playRhythmSound(
+          "complete.mp3",
+          0.78
+        );
+
+        firstClickAt = null;
+        return;
+      }
+
+      status.textContent = "BOOM! BOOM!";
+
+      playRhythmSound(
+        "correct.mp3",
+        0.68
+      );
+
+      week7ClickRhythmUnlockTimer =
+        setTimeout(() => {
+          week7ClickRhythmUnlockTimer = null;
+          locked = false;
+          resetBeatDisplay();
+          status.textContent = "YOUR TURN!";
+        }, 760);
+    }
+
+    function handleRhythmMouseMove(event) {
+      if (
+        firstClickAt === null ||
+        locked ||
+        firstClickX === null ||
+        firstClickY === null
+      ) {
+        return;
+      }
+
+      const distanceMoved = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (
+        distanceMoved > movementTolerance
+      ) {
+        showRhythmWarning(
+          "KEEP MOUSE STILL!",
+          "week7-rhythm-moved"
+        );
+      }
+    }
+
+    function handleDrumClick(event) {
+      if (
+        event.button !== 0 ||
+        locked ||
+        completedRounds >= 5
+      ) {
+        return;
+      }
+
+      playRhythmSound(
+        "boom.mp3",
+        0.76
+      );
+
+      const now = performance.now();
+
+      if (firstClickAt === null) {
+        beginFirstClick(event);
+        return;
+      }
+
+      const distanceMoved = Math.hypot(
+        event.clientX - firstClickX,
+        event.clientY - firstClickY
+      );
+
+      if (
+        distanceMoved > movementTolerance
+      ) {
+        showRhythmWarning(
+          "KEEP MOUSE STILL!",
+          "week7-rhythm-moved"
+        );
+        return;
+      }
+
+      const timingWindow =
+        timingWindows[
+          Math.min(
+            completedRounds,
+            timingWindows.length - 1
+          )
+        ];
+
+      if (
+        now - firstClickAt <= timingWindow
+      ) {
+        finishSuccessfulPair();
+        return;
+      }
+
+      showRhythmWarning(
+        "TOO SLOW!",
+        "week7-rhythm-too-slow"
+      );
+    }
+
+    drum.addEventListener(
+      "click",
+      handleDrumClick
+    );
+
+    document.addEventListener(
+      "mousemove",
+      handleRhythmMouseMove
+    );
+
+    removeWeek7ClickRhythmListener =
+      () => {
+        drum.removeEventListener(
+          "click",
+          handleDrumClick
+        );
+
+        document.removeEventListener(
+          "mousemove",
+          handleRhythmMouseMove
+        );
+      };
+  }
 
   function stopStepBehavior() {
     /*
      * Universal audio cleanup.
      */
     stopAllLessonSounds();
+    stopWeek7MeetDoubleBehavior();
+    stopWeek7HatchEggsBehavior();
+    stopWeek7PictureGalleryBehavior();
+    stopWeek7AnimalDoorsBehavior();
+    stopWeek7SelectOpenBehavior();
+    stopWeek7ClickRhythmBehavior();
 
     if (removeWeek4ChallengeBehavior) {
       removeWeek4ChallengeBehavior();
@@ -27750,6 +30916,40 @@ const status =
 
     if (step.id === "week4-quick-review") {
       startWeek4QuickReviewAnimation();
+    }
+
+    if (
+      step.id === "week7-meet-double-click"
+    ) {
+      startWeek7MeetDoubleBehavior();
+    }
+
+    if (
+      step.id === "week7-hatch-eggs"
+    ) {
+      startWeek7HatchEggsBehavior();
+    }
+
+    if (
+      step.id === "week7-picture-gallery"
+    ) {
+      startWeek7PictureGalleryBehavior();
+    }
+
+    if (
+      step.id === "week7-animal-doors"
+    ) {
+      startWeek7AnimalDoorsBehavior();
+    }
+
+    if (
+      step.id === "week7-select-or-open"
+    ) {
+      startWeek7SelectOpenBehavior();
+    }
+
+    if (step.id === "week7-click-rhythm") {
+      startWeek7ClickRhythmBehavior();
     }
 
     if (step.id === "week6-warm-up") {

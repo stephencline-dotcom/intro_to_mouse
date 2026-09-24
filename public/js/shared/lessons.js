@@ -269,6 +269,53 @@ const mouseLessons = {
         type: "review"
       }
     ]
+  },
+
+  week7: {
+    id: "week7",
+    title: "Meet the Double-Click",
+    steps: [
+      {
+        id: "week7-quick-review",
+        title: "Quick Mouse Review",
+        type: "review"
+      },
+      {
+        id: "week7-meet-double-click",
+        title: "Meet the Double-Click",
+        type: "learn"
+      },
+      {
+        id: "week7-click-rhythm",
+        title: "Double-Click Rhythm",
+        type: "practice"
+      },
+      {
+        id: "week7-select-or-open",
+        title: "Select or Open?",
+        type: "practice"
+      },
+      {
+        id: "week7-animal-doors",
+        title: "Open the Animal Doors",
+        type: "practice"
+      },
+      {
+        id: "week7-picture-gallery",
+        title: "Picture Gallery",
+        type: "practice"
+      },
+      {
+        id: "week7-hatch-eggs",
+        title: "Hatch the Eggs",
+        type: "practice"
+      },
+      {
+        id: "week7-wrap-up",
+        title: "Week 7 Wrap-Up",
+        type: "review"
+      }
+    ]
   }
 };
 
