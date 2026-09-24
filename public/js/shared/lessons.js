@@ -316,6 +316,53 @@ const mouseLessons = {
         type: "review"
       }
     ]
+  },
+
+  week8: {
+    id: "week8",
+    title: "Double-Click Review",
+    steps: [
+      {
+        id: "week8-quick-review",
+        title: "Quick Double-Click Review",
+        type: "review"
+      },
+      {
+        id: "week8-fireflies",
+        title: "Light the Fireflies",
+        type: "practice"
+      },
+      {
+        id: "week8-space-launch",
+        title: "Space Launch Control",
+        type: "practice"
+      },
+      {
+        id: "week8-museum",
+        title: "Scroll Through the Museum",
+        type: "practice"
+      },
+      {
+        id: "week8-special-delivery",
+        title: "Special Delivery",
+        type: "practice"
+      },
+      {
+        id: "week8-carnival",
+        title: "Double-Click Carnival",
+        type: "practice"
+      },
+      {
+        id: "week8-computer-rescue",
+        title: "Computer Lab Rescue",
+        type: "practice"
+      },
+      {
+        id: "week8-wrap-up",
+        title: "Week 8 Wrap-Up",
+        type: "review"
+      }
+    ]
   }
 };
 

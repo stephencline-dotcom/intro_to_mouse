@@ -26715,6 +26715,799 @@ const status =
       `;
     }
 
+    if (step.id === "week8-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week8-quick-review">
+
+          <div class="week8-review-heading">
+            <span>WEEK 8</span>
+            <h1>Double-Click Review</h1>
+          </div>
+
+          <div class="week8-review-main">
+
+            <div class="week8-review-mouse-side">
+
+              <div class="week8-review-mouse">
+                <span class="week8-review-left-button"></span>
+                <span class="week8-review-right-button"></span>
+                <span class="week8-review-wheel"></span>
+              </div>
+
+              <div class="week8-review-click-count">
+                <span class="week8-review-count-one">1</span>
+                <span class="week8-review-count-two">2</span>
+              </div>
+
+            </div>
+
+            <div class="week8-review-flow-arrow">
+              ➜
+            </div>
+
+            <div class="week8-review-package-side">
+
+              <div class="week8-review-package-scene">
+
+                <div class="week8-review-closed-package">
+                  📦
+                </div>
+
+                <div class="week8-review-open-gift">
+                  🎁
+                </div>
+
+                <div class="week8-review-surprise">
+                  🧸
+                </div>
+
+                <div class="week8-review-package-cursor">
+                  ➤
+                </div>
+
+                <div class="week8-review-ring ring-one"></div>
+                <div class="week8-review-ring ring-two"></div>
+
+                <div class="week8-review-sparkles">
+                  ✨
+                </div>
+
+              </div>
+
+              <strong>OPEN!</strong>
+
+            </div>
+
+          </div>
+
+          <div class="week8-review-rules">
+
+            <div class="week8-review-rule">
+              <div class="week8-review-clock">
+                ⚡
+              </div>
+              <strong>QUICK</strong>
+            </div>
+
+            <div class="week8-review-plus">
+              +
+            </div>
+
+            <div class="week8-review-rule">
+              <div class="week8-review-still">
+                <span class="week8-review-still-cursor">➤</span>
+                <span class="week8-review-no-move">↔</span>
+                <i></i>
+              </div>
+              <strong>KEEP STILL</strong>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week8-fireflies") {
+      return `
+        <div
+          id="week8FirefliesScreen"
+          class="lesson-screen lesson-screen-week8-fireflies${isTeacher ? " week8-teacher-fit" : ""}"
+        >
+          <div class="week8-fireflies-heading">
+            <span>DOUBLE-CLICK NIGHT</span>
+            <h1>Light the Fireflies!</h1>
+          </div>
+
+          <div class="week8-fireflies-clue" aria-label="Double-click the glowing firefly">
+            <span class="week8-fireflies-clue-mouse">🖱️</span>
+            <span class="week8-fireflies-clue-click">1</span>
+            <span class="week8-fireflies-clue-click">2</span>
+            <span class="week8-fireflies-clue-arrow">➜</span>
+            <span class="week8-fireflies-clue-glow">✨</span>
+          </div>
+
+          <div
+            id="week8FirefliesScene"
+            class="week8-fireflies-scene"
+          >
+            <div class="week8-fireflies-moon">🌙</div>
+
+            <div class="week8-fireflies-cloud cloud-one"></div>
+            <div class="week8-fireflies-cloud cloud-two"></div>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-one"
+              data-week8-firefly="0"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-two"
+              data-week8-firefly="1"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-three"
+              data-week8-firefly="2"
+              aria-label="Glowing firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-four"
+              data-week8-firefly="3"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-five"
+              data-week8-firefly="4"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-six"
+              data-week8-firefly="5"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-seven"
+              data-week8-firefly="6"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <button
+              type="button"
+              class="week8-firefly firefly-eight"
+              data-week8-firefly="7"
+              aria-label="Firefly"
+            >
+              <span>●</span>
+            </button>
+
+            <div class="week8-fireflies-grass grass-one"></div>
+            <div class="week8-fireflies-grass grass-two"></div>
+
+            <div class="week8-fireflies-lantern-row">
+              <div class="week8-fireflies-lantern" data-week8-lantern="0">
+                <span>✦</span>
+              </div>
+              <div class="week8-fireflies-lantern" data-week8-lantern="1">
+                <span>✦</span>
+              </div>
+              <div class="week8-fireflies-lantern" data-week8-lantern="2">
+                <span>✦</span>
+              </div>
+              <div class="week8-fireflies-lantern" data-week8-lantern="3">
+                <span>✦</span>
+              </div>
+              <div class="week8-fireflies-lantern" data-week8-lantern="4">
+                <span>✦</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="week8FirefliesStatus"
+            class="week8-fireflies-status"
+            aria-live="polite"
+          >
+            <span>🖱️</span>
+            <b>1</b>
+            <b>2</b>
+            <span>✨</span>
+          </div>
+
+          <div
+            id="week8FirefliesComplete"
+            class="week8-fireflies-complete"
+            hidden
+          >
+            <div class="week8-fireflies-complete-card">
+              <div class="week8-fireflies-complete-stars">
+                ✨ ⭐ ✨
+              </div>
+              <strong>YOU DID IT!</strong>
+              <span>🏮 🏮 🏮 🏮 🏮</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week8-space-launch") {
+      return `
+        <div
+          id="week8SpaceLaunchScreen"
+          class="lesson-screen lesson-screen-week8-space-launch${isTeacher ? " week8-teacher-fit" : ""}"
+        >
+          <div class="week8-launch-heading">
+            <span>SPACE LAUNCH CONTROL</span>
+            <h1>Get the Rocket Ready!</h1>
+          </div>
+
+          <div class="week8-launch-layout">
+            <section class="week8-launch-window">
+              <div class="week8-launch-stars"></div>
+              <div class="week8-launch-moon">🌕</div>
+
+              <div
+                id="week8LaunchRocket"
+                class="week8-launch-rocket"
+              >
+                <div class="week8-launch-rocket-tip"></div>
+                <div class="week8-launch-rocket-body">
+                  <span>⭐</span>
+                </div>
+                <div class="week8-launch-rocket-window"></div>
+                <div class="week8-launch-rocket-fin left"></div>
+                <div class="week8-launch-rocket-fin right"></div>
+                <div class="week8-launch-flame"></div>
+              </div>
+
+              <div class="week8-launch-pad"></div>
+
+              <div
+                id="week8LaunchCountdown"
+                class="week8-launch-countdown"
+                hidden
+              >
+                3
+              </div>
+            </section>
+
+            <section class="week8-launch-console">
+              <div
+                id="week8LaunchMission"
+                class="week8-launch-mission"
+                aria-live="polite"
+              >
+                <span class="week8-launch-mission-mouse">🖱️</span>
+                <b>1</b>
+                <b>2</b>
+                <span>➜</span>
+                <strong id="week8LaunchMissionIcon">⛽</strong>
+              </div>
+
+              <div
+                id="week8LaunchControls"
+                class="week8-launch-controls"
+              >
+                <button
+                  type="button"
+                  class="week8-launch-control fuel"
+                  data-week8-launch-control="fuel"
+                  aria-label="Fuel control"
+                >
+                  <span>⛽</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="week8-launch-control power"
+                  data-week8-launch-control="power"
+                  aria-label="Power control"
+                >
+                  <span>⚡</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="week8-launch-control computer"
+                  data-week8-launch-control="computer"
+                  aria-label="Computer control"
+                >
+                  <span>💻</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="week8-launch-control hatch"
+                  data-week8-launch-control="hatch"
+                  aria-label="Hatch control"
+                >
+                  <span>🔒</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="week8-launch-control launch"
+                  data-week8-launch-control="launch"
+                  aria-label="Launch control"
+                >
+                  <span>🚀</span>
+                </button>
+              </div>
+
+              <div class="week8-launch-progress">
+                <div data-week8-launch-light="0">⛽</div>
+                <div data-week8-launch-light="1">⚡</div>
+                <div data-week8-launch-light="2">💻</div>
+                <div data-week8-launch-light="3">🔒</div>
+                <div data-week8-launch-light="4">🚀</div>
+              </div>
+
+              <div
+                id="week8LaunchStatus"
+                class="week8-launch-status"
+                aria-live="polite"
+              >
+                <span>🖱️</span>
+                <b>1</b>
+                <b>2</b>
+                <span>🎯</span>
+              </div>
+            </section>
+          </div>
+
+          <div
+            id="week8LaunchComplete"
+            class="week8-launch-complete"
+            hidden
+          >
+            <div class="week8-launch-complete-card">
+              <div>🌟 🚀 🌟</div>
+              <strong>BLAST OFF!</strong>
+              <span>YOU DID IT!</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week8-museum") {
+      return `
+        <div
+          id="week8MuseumScreen"
+          class="lesson-screen lesson-screen-week8-museum${isTeacher ? " week8-teacher-fit" : ""}"
+        >
+          <div class="week8-museum-heading">
+            <span>MOUSE MUSEUM</span>
+            <h1>Find the Picture!</h1>
+          </div>
+
+          <div class="week8-museum-topbar">
+            <div class="week8-museum-clue">
+              <span>🔎</span>
+              <strong id="week8MuseumTargetIcon">🚀</strong>
+            </div>
+
+            <div class="week8-museum-action-clue">
+              <span>🖱️</span>
+              <b>1</b>
+              <b>2</b>
+              <span>🖼️</span>
+            </div>
+
+            <div
+              id="week8MuseumCounter"
+              class="week8-museum-counter"
+            >
+              1 of 5
+            </div>
+          </div>
+
+          <div
+            id="week8MuseumViewport"
+            class="week8-museum-viewport"
+          >
+            <div class="week8-museum-building">
+
+              <section class="week8-museum-floor floor-one">
+                <div class="week8-museum-floor-sign">1</div>
+
+                <button type="button" class="week8-museum-frame blue" data-week8-museum-item="cat">
+                  <span>🐱</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame gold" data-week8-museum-item="dinosaur">
+                  <span>🦖</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame red" data-week8-museum-item="vase">
+                  <span>🏺</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame purple" data-week8-museum-item="moon">
+                  <span>🌙</span>
+                </button>
+              </section>
+
+              <section class="week8-museum-floor floor-two">
+                <div class="week8-museum-floor-sign">2</div>
+
+                <button type="button" class="week8-museum-frame gold" data-week8-museum-item="crown">
+                  <span>👑</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame purple" data-week8-museum-item="butterfly">
+                  <span>🦋</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame blue" data-week8-museum-item="train">
+                  <span>🚂</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame red" data-week8-museum-item="robot">
+                  <span>🤖</span>
+                </button>
+              </section>
+
+              <section class="week8-museum-floor floor-three">
+                <div class="week8-museum-floor-sign">3</div>
+
+                <button type="button" class="week8-museum-frame blue" data-week8-museum-item="whale">
+                  <span>🐋</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame gold" data-week8-museum-item="shell">
+                  <span>🐚</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame purple" data-week8-museum-item="castle">
+                  <span>🏰</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame red" data-week8-museum-item="apple">
+                  <span>🍎</span>
+                </button>
+              </section>
+
+              <section class="week8-museum-floor floor-four">
+                <div class="week8-museum-floor-sign">4</div>
+
+                <button type="button" class="week8-museum-frame purple" data-week8-museum-item="rocket">
+                  <span>🚀</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame red" data-week8-museum-item="dragon">
+                  <span>🐉</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame gold" data-week8-museum-item="gem">
+                  <span>💎</span>
+                </button>
+
+                <button type="button" class="week8-museum-frame blue" data-week8-museum-item="volcano">
+                  <span>🌋</span>
+                </button>
+              </section>
+
+            </div>
+          </div>
+
+          <div
+            id="week8MuseumStatus"
+            class="week8-museum-status"
+            aria-live="polite"
+          >
+            <span>🛞</span>
+            <span>↕️</span>
+            <span>🔎</span>
+            <span>🖱️</span>
+            <b>1</b>
+            <b>2</b>
+          </div>
+
+          <div
+            id="week8MuseumReveal"
+            class="week8-museum-reveal"
+            hidden
+          >
+            <div class="week8-museum-reveal-frame">
+              <span id="week8MuseumRevealIcon">🚀</span>
+            </div>
+          </div>
+
+          <div
+            id="week8MuseumComplete"
+            class="week8-museum-complete"
+            hidden
+          >
+            <div class="week8-museum-complete-card">
+              <div>🖼️ ⭐ 🖼️</div>
+              <strong>YOU DID IT!</strong>
+              <span>5 of 5</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week8-special-delivery") {
+      return `
+        <div
+          id="week8DeliveryScreen"
+          class="lesson-screen lesson-screen-week8-delivery${isTeacher ? " week8-teacher-fit" : ""}"
+        >
+          <div class="week8-delivery-heading">
+            <span>SPECIAL DELIVERY</span>
+            <h1>Find the Package!</h1>
+          </div>
+
+          <div class="week8-delivery-directions">
+            <div class="week8-delivery-target">
+              <span>📍</span>
+              <strong id="week8DeliveryTarget">👽</strong>
+            </div>
+
+            <div class="week8-delivery-click-clue">
+              <span>🖱️</span>
+              <b>1</b>
+              <b>2</b>
+              <span>➜</span>
+              <span>📦</span>
+            </div>
+
+            <div
+              id="week8DeliveryCounter"
+              class="week8-delivery-counter"
+            >
+              1 of 5
+            </div>
+          </div>
+
+          <div class="week8-delivery-game">
+            <div
+              id="week8DeliveryPackages"
+              class="week8-delivery-packages"
+            >
+              <button type="button" data-week8-delivery-package="dog">
+                <span>🐶</span><i>📦</i>
+              </button>
+
+              <button type="button" data-week8-delivery-package="alien">
+                <span>👽</span><i>📦</i>
+              </button>
+
+              <button type="button" data-week8-delivery-package="penguin">
+                <span>🐧</span><i>📦</i>
+              </button>
+
+              <button type="button" data-week8-delivery-package="mermaid">
+                <span>🧜‍♀️</span><i>📦</i>
+              </button>
+
+              <button type="button" data-week8-delivery-package="monkey">
+                <span>🐵</span><i>📦</i>
+              </button>
+
+              <button type="button" data-week8-delivery-package="unicorn">
+                <span>🦄</span><i>📦</i>
+              </button>
+            </div>
+
+            <div class="week8-delivery-truck-area">
+              <div class="week8-delivery-clouds">☁️　☀️　☁️</div>
+
+              <div
+                id="week8DeliveryCarrier"
+                class="week8-delivery-carrier"
+                aria-hidden="true"
+              >
+                <div class="week8-carrier-head">
+                  <div class="week8-carrier-hat"></div>
+                  <div class="week8-carrier-eye left"></div>
+                  <div class="week8-carrier-eye right"></div>
+                  <div class="week8-carrier-smile"></div>
+                </div>
+
+                <div class="week8-carrier-body"></div>
+                <div class="week8-carrier-arm"></div>
+                <div class="week8-carrier-hand"></div>
+                <div class="week8-carrier-leg left"></div>
+                <div class="week8-carrier-leg right"></div>
+                <div class="week8-carrier-parcel"></div>
+              </div>
+
+              <div
+                id="week8DeliveryTruck"
+                class="week8-delivery-truck"
+              >
+                🚚
+                <strong id="week8DeliveryTruckCount">0</strong>
+              </div>
+
+              <div class="week8-delivery-road"></div>
+            </div>
+          </div>
+
+          <div
+            id="week8DeliveryStatus"
+            class="week8-delivery-status"
+            aria-live="polite"
+          >
+            <span>👀</span>
+            <span>👽</span>
+            <span>🖱️</span>
+            <b>1</b>
+            <b>2</b>
+          </div>
+
+          <div
+            id="week8DeliveryComplete"
+            class="week8-delivery-complete"
+            hidden
+          >
+            <div>
+              <span>📦 🚚 ⭐</span>
+              <strong>DELIVERED!</strong>
+              <b>YOU DID IT!</b>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week8-carnival") {
+      return `
+        <div id="week8CarnivalScreen" class="lesson-screen lesson-screen-week8-carnival${isTeacher ? " week8-teacher-fit" : ""}">
+          <div class="week8-carnival-heading"><span>DOUBLE-CLICK CARNIVAL</span><h1>Win Every Prize!</h1></div>
+          <div class="week8-carnival-directions">
+            <div class="week8-carnival-target"><span>🎟️</span><strong id="week8CarnivalTargetIcon">🎈</strong></div>
+            <div class="week8-carnival-clue"><span>🖱️</span><b>1</b><b>2</b><span>➜</span><span>⭐</span></div>
+            <div id="week8CarnivalCounter" class="week8-carnival-counter">1 of 5</div>
+          </div>
+          <div id="week8CarnivalGames" class="week8-carnival-games">
+            <div class="week8-carnival-lights"></div>
+            <button type="button" data-week8-carnival-game="balloon"><span>🎈</span><i>⭐</i></button>
+            <button type="button" data-week8-carnival-game="duck"><span>🦆</span><i>⭐</i></button>
+            <button type="button" data-week8-carnival-game="target"><span>🎯</span><i>⭐</i></button>
+            <button type="button" data-week8-carnival-game="prize"><span>🎁</span><i>⭐</i></button>
+            <button type="button" data-week8-carnival-game="bell"><span>🔔</span><i>⭐</i></button>
+          </div>
+          <div class="week8-carnival-tickets">
+            <span data-week8-carnival-ticket>🎟️</span><span data-week8-carnival-ticket>🎟️</span><span data-week8-carnival-ticket>🎟️</span><span data-week8-carnival-ticket>🎟️</span><span data-week8-carnival-ticket>🎟️</span>
+          </div>
+          <div id="week8CarnivalStatus" class="week8-carnival-status" aria-live="polite"><span>👀</span><span>🎈</span><span>🖱️</span><b>1</b><b>2</b></div>
+          <div id="week8CarnivalComplete" class="week8-carnival-complete" hidden><div><span>🎪 ⭐ 🏆</span><strong>YOU WON!</strong><b>GREAT JOB!</b></div></div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week8-computer-rescue") {
+      return `
+        <div id="week8BossScreen" class="lesson-screen lesson-screen-week8-boss${isTeacher ? " week8-teacher-fit" : ""}">
+          <div class="week8-boss-heading">
+            <span>FINAL MISSION</span>
+            <h1>Trap the Moving Glitch!</h1>
+          </div>
+
+          <div class="week8-boss-hud">
+            <div class="week8-boss-phase">
+              <span>💥</span>
+              <b id="week8BossPhaseCount">1 of 5</b>
+              <i id="week8BossHitDots"></i>
+            </div>
+            <div class="week8-boss-health">
+              <span>⚡</span>
+              <div><i id="week8BossHealthBar"></i></div>
+              <span class="week8-boss-health-glitch">GLITCH</span>
+            </div>
+            <div class="week8-boss-clue">
+              <span>🖱️</span><b>1</b><b>2</b><span>💣</span>
+            </div>
+          </div>
+
+          <div id="week8BossArena" class="week8-boss-arena">
+            <div class="week8-boss-grid"></div>
+            <div class="week8-boss-lab-window"><i></i><i></i><i></i></div>
+            <div class="week8-boss-lab-screen"><span>WARNING</span><i></i></div>
+
+            <div id="week8BossRobot" class="week8-boss-robot">
+              <div class="week8-robot-shadow"></div>
+              <div class="week8-robot-antenna"><i></i></div>
+              <div class="week8-robot-ear left"></div>
+              <div class="week8-robot-ear right"></div>
+              <div class="week8-robot-head">
+                <div class="week8-robot-face"><i></i><i></i><b></b></div>
+              </div>
+              <div class="week8-robot-neck"></div>
+              <div class="week8-robot-body">
+                <div class="week8-robot-core"><i></i></div>
+                <div class="week8-robot-panel"><i></i><i></i><i></i></div>
+              </div>
+              <div class="week8-robot-arm left"><i></i><b></b></div>
+              <div class="week8-robot-arm right"><i></i><b></b></div>
+              <div class="week8-robot-cannon"><i></i></div>
+              <div class="week8-robot-leg left"><i></i></div>
+              <div class="week8-robot-leg right"><i></i></div>
+            </div>
+
+            <div id="week8BossBeam" class="week8-boss-beam"></div>
+            <div id="week8BossBombs" class="week8-boss-bombs"></div>
+
+            <div id="week8BossMonster" class="week8-boss-monster" aria-label="Moving Glitch">
+              <div class="week8-monster-pixel one"></div>
+              <div class="week8-monster-pixel two"></div>
+              <div class="week8-monster-horn left"></div>
+              <div class="week8-monster-horn right"></div>
+              <div class="week8-monster-eye left"></div>
+              <div class="week8-monster-eye right"></div>
+              <div class="week8-monster-mouth"><i></i><i></i><i></i></div>
+              <div class="week8-monster-glitch one"></div>
+              <div class="week8-monster-glitch two"></div>
+            </div>
+
+            <div class="week8-boss-floor"></div>
+          </div>
+
+          <div id="week8BossStatus" class="week8-boss-status" aria-live="polite">
+            <span>👀</span><strong>WAIT FOR THE GLOW</strong><span>💣</span>
+          </div>
+
+          <div id="week8BossComplete" class="week8-boss-complete" hidden>
+            <div><span>🤖 ⭐ 🖥️</span><strong>YOU SAVED THE LAB!</strong><b>DOUBLE-CLICK HERO!</b></div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id.startsWith("week8-")) {
+      return `
+        <div class="lesson-screen lesson-screen-week6-placeholder">
+
+          <div class="week6-placeholder-badge">
+            WEEK 8
+          </div>
+
+          <h1>${step.title}</h1>
+
+          <div style="font-size: 86px; margin: 22px 0;">
+            🖱️ ✨✨ 🎡
+          </div>
+
+          <p class="week6-placeholder-message">
+            This double-click review activity is ready to build.
+          </p>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week7-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -26788,6 +27581,1943 @@ const status =
   let movementSoundStopTimer = null;
   let soundEnabled = true;
   let leftClickSound = null;
+
+  let removeWeek8BossBehavior = null;
+  let week8BossClickTimer = null;
+  const week8BossTimers = new Set();
+  const week8BossSounds = new Set();
+
+  function stopWeek8BossBehavior() {
+    removeWeek8BossBehavior?.();
+    removeWeek8BossBehavior = null;
+    if (week8BossClickTimer) clearTimeout(week8BossClickTimer);
+    week8BossClickTimer = null;
+    week8BossTimers.forEach(clearTimeout);
+    week8BossTimers.clear();
+    week8BossSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+    week8BossSounds.clear();
+  }
+
+  function startWeek8BossBehavior() {
+    stopWeek8BossBehavior();
+    const screen = document.getElementById("week8BossScreen");
+    const arena = document.getElementById("week8BossArena");
+    const bombs = document.getElementById("week8BossBombs");
+    const monster = document.getElementById("week8BossMonster");
+    const robot = document.getElementById("week8BossRobot");
+    const beam = document.getElementById("week8BossBeam");
+    const health = document.getElementById("week8BossHealthBar");
+    const count = document.getElementById("week8BossPhaseCount");
+    const dots = document.getElementById("week8BossHitDots");
+    const status = document.getElementById("week8BossStatus");
+    const complete = document.getElementById("week8BossComplete");
+    if (!screen || !arena || !bombs || !monster || !robot || !beam || !health || !count || !dots || !status || !complete) return;
+
+    const missions = [
+      {left:34, top:66},
+      {left:53, top:35},
+      {left:72, top:66},
+      {left:61, top:69},
+      {left:82, top:38}
+    ];
+    let round = 0;
+    let first = null;
+    let locked = true;
+    let stopped = false;
+
+    function play(src) {
+      if (!soundEnabled) return;
+      const audio = new Audio(src);
+      week8BossSounds.add(audio);
+      audio.addEventListener("ended", () => week8BossSounds.delete(audio), {once:true});
+      audio.play().catch(() => week8BossSounds.delete(audio));
+    }
+
+    function schedule(fn, delay) {
+      const timer = setTimeout(() => {
+        week8BossTimers.delete(timer);
+        if (!stopped) fn();
+      }, delay);
+      week8BossTimers.add(timer);
+    }
+
+    function clearFirst() {
+      if (week8BossClickTimer) clearTimeout(week8BossClickTimer);
+      week8BossClickTimer = null;
+      first?.target.classList.remove("week8-boss-first-click");
+      first = null;
+    }
+
+    function show(kind) {
+      status.className = "week8-boss-status week8-boss-status-" + kind;
+      if (kind === "travel") status.innerHTML = "<span>👀</span><strong>WATCH THE GLITCH</strong><span>➡️</span>";
+      else if (kind === "ready") status.innerHTML = "<span>💣</span><strong>DOUBLE-CLICK NOW!</strong><span>🖱️ 1️⃣ 2️⃣</span>";
+      else if (kind === "slow") status.innerHTML = "<span>🐢</span><strong>TOO SLOW</strong><span>1️⃣ 2️⃣</span>";
+      else if (kind === "move") status.innerHTML = "<span>🖱️</span><strong>KEEP THE MOUSE STILL</strong><span>✋</span>";
+      else if (kind === "wrong") status.innerHTML = "<span>👀</span><strong>CLICK THE GLOWING BOMB</strong><span>💣</span>";
+      else status.innerHTML = "<span>🤖</span><strong>DIRECT HIT!</strong><span>💥</span>";
+    }
+
+    function buildBombs() {
+      bombs.innerHTML = "";
+      missions.forEach((mission, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "week8-boss-bomb";
+        button.dataset.week8BossBomb = String(index);
+        button.style.left = mission.left + "%";
+        button.style.top = mission.top + "%";
+        button.setAttribute("aria-label", "Bomb " + (index + 1));
+        button.innerHTML = "<i></i><b></b><span></span>";
+        bombs.appendChild(button);
+      });
+      dots.innerHTML = missions.map((_, index) => '<span class="' + (index < round ? "done" : "") + '"></span>').join("");
+    }
+
+    function activeBomb() {
+      return bombs.querySelector('[data-week8-boss-bomb="' + round + '"]');
+    }
+
+    function aimAt(target) {
+      const arenaRect = arena.getBoundingClientRect();
+      const robotRect = robot.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const startX = robotRect.right - arenaRect.left - 5;
+      const startY = robotRect.top + robotRect.height * 0.47 - arenaRect.top;
+      const endX = targetRect.left + targetRect.width / 2 - arenaRect.left;
+      const endY = targetRect.top + targetRect.height / 2 - arenaRect.top;
+      const dx = endX - startX;
+      const dy = endY - startY;
+      beam.style.left = startX + "px";
+      beam.style.top = startY + "px";
+      beam.style.width = Math.max(20, Math.hypot(dx, dy)) + "px";
+      beam.style.setProperty("--week8-beam-angle", Math.atan2(dy, dx) + "rad");
+    }
+
+    function moveMonsterToBomb() {
+      clearFirst();
+      locked = true;
+      const mission = missions[round];
+      const bomb = activeBomb();
+      show("travel");
+      monster.classList.add("week8-boss-monster-moving");
+      monster.classList.remove("week8-boss-monster-near");
+      monster.style.left = (mission.left + 4) + "%";
+      monster.style.top = Math.max(9, mission.top - 31) + "%";
+      schedule(() => {
+        monster.classList.remove("week8-boss-monster-moving");
+        monster.classList.add("week8-boss-monster-near");
+        bomb?.classList.add("week8-boss-bomb-active");
+        locked = false;
+        show("ready");
+      }, 1250);
+    }
+
+    function warn(kind) {
+      clearFirst();
+      show(kind);
+      play("/sounds/buzzer.mp3");
+      arena.classList.remove("week8-boss-arena-warning");
+      void arena.offsetWidth;
+      arena.classList.add("week8-boss-arena-warning");
+    }
+
+    function hit(target) {
+      clearFirst();
+      locked = true;
+      aimAt(target);
+      target.classList.remove("week8-boss-bomb-active");
+      target.classList.add("week8-boss-bomb-explode");
+      robot.classList.add("week8-boss-robot-fire");
+      beam.classList.add("week8-boss-beam-fire");
+      monster.classList.add("week8-boss-monster-hit");
+      show("hit");
+      play("/sounds/correct.mp3");
+
+      round += 1;
+      health.style.width = Math.max(0, 100 - round / missions.length * 100) + "%";
+      count.textContent = Math.min(round + 1, missions.length) + " of " + missions.length;
+      dots.querySelectorAll("span")[round - 1]?.classList.add("done");
+
+      schedule(() => {
+        robot.classList.remove("week8-boss-robot-fire");
+        beam.classList.remove("week8-boss-beam-fire");
+        monster.classList.remove("week8-boss-monster-hit");
+      }, 520);
+
+      if (round >= missions.length) {
+        schedule(() => {
+          monster.classList.add("week8-boss-monster-defeated");
+          play("/sounds/complete.mp3");
+          schedule(() => { complete.hidden = false; }, 700);
+        }, 650);
+      } else {
+        schedule(moveMonsterToBomb, 850);
+      }
+    }
+
+    function move(event) {
+      if (!first) return;
+
+      first.distance = Math.max(
+        first.distance,
+        Math.hypot(
+          event.clientX - first.x,
+          event.clientY - first.y
+        )
+      );
+
+      if (first.distance > 6) {
+        warn("move");
+      }
+    }
+
+    function click(event) {
+      const target = event.target.closest(".week8-boss-bomb");
+      if (!target || locked) return;
+      event.preventDefault();
+      if (!target.classList.contains("week8-boss-bomb-active")) return warn("wrong");
+      play("/sounds/boom.mp3");
+      const now = performance.now();
+      if (!first) {
+        first = {target, time:now, x:event.clientX, y:event.clientY, distance:0};
+        target.classList.add("week8-boss-first-click");
+        week8BossClickTimer = setTimeout(() => {
+          week8BossClickTimer = null;
+          if (first) warn("slow");
+        }, 500);
+        return;
+      }
+      const distance = Math.max(first.distance, Math.hypot(event.clientX - first.x, event.clientY - first.y));
+      if (first.target !== target) return warn("wrong");
+      if (distance > 6) return warn("move");
+      if (now - first.time > 500) return warn("slow");
+      hit(target);
+    }
+
+    function dblclick(event) {
+      event.preventDefault();
+    }
+
+    document.addEventListener("pointermove", move, true);
+    arena.addEventListener("click", click);
+    arena.addEventListener("dblclick", dblclick);
+    removeWeek8BossBehavior = () => {
+      stopped = true;
+      clearFirst();
+      document.removeEventListener("pointermove", move, true);
+      arena.removeEventListener("click", click);
+      arena.removeEventListener("dblclick", dblclick);
+    };
+
+    count.textContent = "1 of " + missions.length;
+    buildBombs();
+    moveMonsterToBomb();
+  }
+
+  let removeWeek8CarnivalBehavior = null;
+  let week8CarnivalClickTimer = null;
+  const week8CarnivalTimers = new Set();
+  const week8CarnivalSounds = new Set();
+
+  function stopWeek8CarnivalBehavior() {
+    removeWeek8CarnivalBehavior?.();
+    removeWeek8CarnivalBehavior = null;
+    if (week8CarnivalClickTimer) clearTimeout(week8CarnivalClickTimer);
+    week8CarnivalClickTimer = null;
+    week8CarnivalTimers.forEach(clearTimeout);
+    week8CarnivalTimers.clear();
+    week8CarnivalSounds.forEach(sound => { sound.pause(); sound.currentTime = 0; });
+    week8CarnivalSounds.clear();
+  }
+
+  function startWeek8CarnivalBehavior() {
+    stopWeek8CarnivalBehavior();
+    const screen = document.getElementById("week8CarnivalScreen");
+    const area = document.getElementById("week8CarnivalGames");
+    const targetIcon = document.getElementById("week8CarnivalTargetIcon");
+    const counter = document.getElementById("week8CarnivalCounter");
+    const status = document.getElementById("week8CarnivalStatus");
+    const complete = document.getElementById("week8CarnivalComplete");
+    if (!screen || !area || !targetIcon || !counter || !status || !complete) return;
+
+    const games = Array.from(area.querySelectorAll("[data-week8-carnival-game]"));
+    const tickets = Array.from(screen.querySelectorAll("[data-week8-carnival-ticket]"));
+    const missions = [{id:"balloon",icon:"🎈"},{id:"duck",icon:"🦆"},{id:"target",icon:"🎯"},{id:"prize",icon:"🎁"},{id:"bell",icon:"🔔"}];
+    let round = 0;
+    let first = null;
+    let locked = false;
+
+    function sound(src) {
+      if (!soundEnabled) return;
+      const audio = new Audio(src);
+      week8CarnivalSounds.add(audio);
+      audio.addEventListener("ended", () => week8CarnivalSounds.delete(audio), {once:true});
+      audio.play().catch(() => week8CarnivalSounds.delete(audio));
+    }
+    function schedule(fn, delay) {
+      const timer = setTimeout(() => { week8CarnivalTimers.delete(timer); fn(); }, delay);
+      week8CarnivalTimers.add(timer);
+    }
+    function clearFirst() {
+      if (week8CarnivalClickTimer) clearTimeout(week8CarnivalClickTimer);
+      week8CarnivalClickTimer = null;
+      first?.target.classList.remove("week8-carnival-first-click");
+      first = null;
+    }
+    function show(kind) {
+      status.className = "week8-carnival-status week8-carnival-status-" + kind;
+      if (kind === "slow") status.innerHTML = "<span>🐢</span><strong>TOO SLOW</strong><span>1️⃣ 2️⃣</span>";
+      else if (kind === "move") status.innerHTML = "<span>🖱️</span><strong>KEEP STILL</strong><span>✋</span>";
+      else if (kind === "wrong") status.innerHTML = "<span>👀</span><strong>FIND THIS</strong><span>" + missions[round].icon + "</span>";
+      else if (kind === "correct") status.innerHTML = "<span>🎟️</span><strong>YOU WON!</strong><span>⭐</span>";
+      else status.innerHTML = "<span>👀</span><span>" + missions[round].icon + "</span><span>🖱️</span><b>1</b><b>2</b>";
+    }
+    function setRound() {
+      const mission = missions[round];
+      targetIcon.textContent = mission.icon;
+      counter.textContent = (round + 1) + " of 5";
+      games.forEach(game => game.classList.toggle("week8-carnival-game-active", game.dataset.week8CarnivalGame === mission.id));
+      show("ready");
+    }
+    function warn(kind) {
+      clearFirst(); show(kind); sound("/sounds/buzzer.mp3");
+      screen.classList.remove("week8-carnival-warning");
+      void screen.offsetWidth;
+      screen.classList.add("week8-carnival-warning");
+    }
+    function win(target) {
+      clearFirst(); locked = true;
+      target.classList.remove("week8-carnival-game-active");
+      target.classList.add("week8-carnival-game-won");
+      tickets[round]?.classList.add("week8-carnival-ticket-won");
+      show("correct"); sound("/sounds/correct.mp3"); round += 1;
+      if (round >= missions.length) {
+        schedule(() => { complete.hidden = false; sound("/sounds/complete.mp3"); }, 800);
+      } else {
+        schedule(() => { locked = false; setRound(); }, 700);
+      }
+    }
+    function move(event) {
+      if (!first) return;
+      first.distance = Math.max(first.distance, Math.hypot(event.clientX - first.x, event.clientY - first.y));
+    }
+    function click(event) {
+      const target = event.target.closest("[data-week8-carnival-game]");
+      if (!target || locked) return;
+      event.preventDefault();
+      if (!target.classList.contains("week8-carnival-game-active")) return warn("wrong");
+      sound("/sounds/boom.mp3");
+      const now = performance.now();
+      if (!first) {
+        first = {target, time:now, x:event.clientX, y:event.clientY, distance:0};
+        target.classList.add("week8-carnival-first-click");
+        week8CarnivalClickTimer = setTimeout(() => { week8CarnivalClickTimer = null; if (first) warn("slow"); }, 500);
+        return;
+      }
+      const distance = Math.max(first.distance, Math.hypot(event.clientX - first.x, event.clientY - first.y));
+      if (first.target !== target) return warn("wrong");
+      if (distance > 12) return warn("move");
+      if (now - first.time > 500) return warn("slow");
+      win(target);
+    }
+    function dblclick(event) { event.preventDefault(); }
+    area.addEventListener("pointermove", move);
+    area.addEventListener("click", click);
+    area.addEventListener("dblclick", dblclick);
+    removeWeek8CarnivalBehavior = () => {
+      clearFirst();
+      area.removeEventListener("pointermove", move);
+      area.removeEventListener("click", click);
+      area.removeEventListener("dblclick", dblclick);
+    };
+    setRound();
+  }
+
+  let removeWeek8DeliveryBehavior = null;
+  let week8DeliveryClickTimer = null;
+  const week8DeliveryTimers = new Set();
+  const week8DeliverySounds = new Set();
+
+  function stopWeek8DeliveryBehavior() {
+    removeWeek8DeliveryBehavior?.();
+    removeWeek8DeliveryBehavior = null;
+
+    if (week8DeliveryClickTimer) {
+      clearTimeout(week8DeliveryClickTimer);
+      week8DeliveryClickTimer = null;
+    }
+
+    week8DeliveryTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+
+    week8DeliveryTimers.clear();
+
+    week8DeliverySounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week8DeliverySounds.clear();
+  }
+
+  function startWeek8DeliveryBehavior() {
+    stopWeek8DeliveryBehavior();
+
+    const screen =
+      document.getElementById("week8DeliveryScreen");
+    const packageArea =
+      document.getElementById("week8DeliveryPackages");
+    const targetIcon =
+      document.getElementById("week8DeliveryTarget");
+    const counter =
+      document.getElementById("week8DeliveryCounter");
+    const truck =
+      document.getElementById("week8DeliveryTruck");
+    const carrier =
+      document.getElementById("week8DeliveryCarrier");
+    const truckCount =
+      document.getElementById("week8DeliveryTruckCount");
+    const status =
+      document.getElementById("week8DeliveryStatus");
+    const complete =
+      document.getElementById("week8DeliveryComplete");
+
+    if (
+      !screen ||
+      !packageArea ||
+      !targetIcon ||
+      !counter ||
+      !truck ||
+      !carrier ||
+      !truckCount ||
+      !status ||
+      !complete
+    ) {
+      return;
+    }
+
+    const packages = Array.from(
+      packageArea.querySelectorAll(
+        "[data-week8-delivery-package]"
+      )
+    );
+
+    const missions = [
+      { id: "alien", icon: "👽" },
+      { id: "dog", icon: "🐶" },
+      { id: "mermaid", icon: "🧜‍♀️" },
+      { id: "penguin", icon: "🐧" },
+      { id: "monkey", icon: "🐵" }
+    ];
+
+    const maximumDelay = 500;
+    const maximumMovement = 12;
+
+    let round = 0;
+    let firstClick = null;
+    let locked = false;
+
+    function playSound(source) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(source);
+      week8DeliverySounds.add(sound);
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          week8DeliverySounds.delete(sound);
+        },
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        week8DeliverySounds.delete(sound);
+      });
+    }
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week8DeliveryTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week8DeliveryTimers.add(timer);
+    }
+
+    function clearFirstClick() {
+      if (week8DeliveryClickTimer) {
+        clearTimeout(week8DeliveryClickTimer);
+        week8DeliveryClickTimer = null;
+      }
+
+      if (firstClick?.target) {
+        firstClick.target.classList.remove(
+          "week8-delivery-first-click"
+        );
+      }
+
+      firstClick = null;
+    }
+
+    function showStatus(kind) {
+      status.className =
+        "week8-delivery-status week8-delivery-status-" +
+        kind;
+
+      if (kind === "slow") {
+        status.innerHTML =
+          "<span>🐢</span><strong>TOO SLOW</strong><span>1️⃣ 2️⃣</span>";
+        return;
+      }
+
+      if (kind === "move") {
+        status.innerHTML =
+          "<span>🖱️</span><strong>KEEP STILL</strong><span>✋</span>";
+        return;
+      }
+
+      if (kind === "wrong") {
+        status.innerHTML =
+          "<span>👀</span><strong>FIND THIS</strong><span>" +
+          missions[round].icon +
+          "</span>";
+        return;
+      }
+
+      if (kind === "correct") {
+        status.innerHTML =
+          "<span>📦</span><strong>LOADED!</strong><span>✅</span>";
+        return;
+      }
+
+      status.innerHTML =
+        "<span>👀</span><span>" +
+        missions[round].icon +
+        "</span><span>🖱️</span><b>1</b><b>2</b>";
+    }
+
+    function setMission() {
+      const mission = missions[round];
+
+      targetIcon.textContent = mission.icon;
+      counter.textContent =
+        String(round + 1) + " of " +
+        String(missions.length);
+
+      packages.forEach(packageButton => {
+        const isTarget =
+          packageButton.dataset.week8DeliveryPackage ===
+          mission.id;
+
+        packageButton.classList.toggle(
+          "week8-delivery-package-active",
+          isTarget
+        );
+      });
+
+      showStatus("ready");
+    }
+
+    function warn(kind) {
+      clearFirstClick();
+      showStatus(kind);
+      playSound("/sounds/buzzer.mp3");
+
+      screen.classList.remove("week8-delivery-warning");
+      void screen.offsetWidth;
+      screen.classList.add("week8-delivery-warning");
+    }
+
+    function finishRound(target) {
+      clearFirstClick();
+      locked = true;
+
+      target.classList.remove(
+        "week8-delivery-package-active"
+      );
+
+      target.classList.add(
+        "week8-delivery-package-loaded"
+      );
+
+      showStatus("correct");
+      playSound("/sounds/correct.mp3");
+
+      round += 1;
+      truckCount.textContent = String(round);
+
+      truck.classList.remove(
+        "week8-delivery-truck-bump"
+      );
+      carrier.classList.remove(
+        "week8-delivery-carrier-throwing"
+      );
+
+      void truck.offsetWidth;
+
+      truck.classList.add(
+        "week8-delivery-truck-bump"
+      );
+      carrier.classList.add(
+        "week8-delivery-carrier-throwing"
+      );
+
+      schedule(() => {
+        carrier.classList.remove(
+          "week8-delivery-carrier-throwing"
+        );
+      }, 650);
+
+      if (round >= missions.length) {
+        schedule(() => {
+          truck.classList.add(
+            "week8-delivery-truck-driving"
+          );
+          playSound("/sounds/complete.mp3");
+        }, 650);
+
+        schedule(() => {
+          complete.hidden = false;
+        }, 1650);
+
+        return;
+      }
+
+      schedule(() => {
+        target.classList.remove(
+          "week8-delivery-package-loaded"
+        );
+
+        locked = false;
+        setMission();
+      }, 750);
+    }
+
+    function handlePointerMove(event) {
+      if (!firstClick) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClick.x,
+        event.clientY - firstClick.y
+      );
+
+      firstClick.maximumDistance = Math.max(
+        firstClick.maximumDistance,
+        distance
+      );
+    }
+
+    function handleClick(event) {
+      const target = event.target.closest(
+        "[data-week8-delivery-package]"
+      );
+
+      if (!target || locked) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (
+        !target.classList.contains(
+          "week8-delivery-package-active"
+        )
+      ) {
+        warn("wrong");
+        return;
+      }
+
+      playSound("/sounds/boom.mp3");
+
+      const now = performance.now();
+
+      if (!firstClick) {
+        firstClick = {
+          target,
+          time: now,
+          x: event.clientX,
+          y: event.clientY,
+          maximumDistance: 0
+        };
+
+        target.classList.add(
+          "week8-delivery-first-click"
+        );
+
+        week8DeliveryClickTimer = setTimeout(() => {
+          week8DeliveryClickTimer = null;
+
+          if (firstClick) {
+            warn("slow");
+          }
+        }, maximumDelay);
+
+        return;
+      }
+
+      const elapsed = now - firstClick.time;
+      const sameTarget = firstClick.target === target;
+      const movement = Math.max(
+        firstClick.maximumDistance,
+        Math.hypot(
+          event.clientX - firstClick.x,
+          event.clientY - firstClick.y
+        )
+      );
+
+      if (!sameTarget) {
+        warn("wrong");
+        return;
+      }
+
+      if (movement > maximumMovement) {
+        warn("move");
+        return;
+      }
+
+      if (elapsed > maximumDelay) {
+        warn("slow");
+        return;
+      }
+
+      finishRound(target);
+    }
+
+    function blockNativeDoubleClick(event) {
+      event.preventDefault();
+    }
+
+    packageArea.addEventListener(
+      "pointermove",
+      handlePointerMove
+    );
+    packageArea.addEventListener("click", handleClick);
+    packageArea.addEventListener(
+      "dblclick",
+      blockNativeDoubleClick
+    );
+
+    removeWeek8DeliveryBehavior = () => {
+      clearFirstClick();
+
+      packageArea.removeEventListener(
+        "pointermove",
+        handlePointerMove
+      );
+      packageArea.removeEventListener(
+        "click",
+        handleClick
+      );
+      packageArea.removeEventListener(
+        "dblclick",
+        blockNativeDoubleClick
+      );
+    };
+
+    setMission();
+  }
+
+  let removeWeek8MuseumBehavior = null;
+  let week8MuseumClickTimer = null;
+  const week8MuseumTimers = new Set();
+  const week8MuseumSounds = new Set();
+
+  function stopWeek8MuseumBehavior() {
+    removeWeek8MuseumBehavior?.();
+    removeWeek8MuseumBehavior = null;
+
+    if (week8MuseumClickTimer) {
+      clearTimeout(week8MuseumClickTimer);
+      week8MuseumClickTimer = null;
+    }
+
+    week8MuseumTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+
+    week8MuseumTimers.clear();
+
+    week8MuseumSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week8MuseumSounds.clear();
+  }
+
+  function startWeek8MuseumBehavior() {
+    stopWeek8MuseumBehavior();
+
+    const screen =
+      document.getElementById("week8MuseumScreen");
+    const viewport =
+      document.getElementById("week8MuseumViewport");
+    const targetIcon =
+      document.getElementById("week8MuseumTargetIcon");
+    const counter =
+      document.getElementById("week8MuseumCounter");
+    const status =
+      document.getElementById("week8MuseumStatus");
+    const reveal =
+      document.getElementById("week8MuseumReveal");
+    const revealIcon =
+      document.getElementById("week8MuseumRevealIcon");
+    const complete =
+      document.getElementById("week8MuseumComplete");
+
+    if (
+      !screen ||
+      !viewport ||
+      !targetIcon ||
+      !counter ||
+      !status ||
+      !reveal ||
+      !revealIcon ||
+      !complete
+    ) {
+      return;
+    }
+
+    const frames = Array.from(
+      viewport.querySelectorAll(
+        "[data-week8-museum-item]"
+      )
+    );
+
+    const missions = [
+      { id: "rocket", icon: "🚀" },
+      { id: "dinosaur", icon: "🦖" },
+      { id: "whale", icon: "🐋" },
+      { id: "dragon", icon: "🐉" },
+      { id: "crown", icon: "👑" }
+    ];
+
+    const maximumDelay = 500;
+    const maximumMovement = 12;
+
+    let round = 0;
+    let firstClick = null;
+    let locked = false;
+
+    function playSound(source) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(source);
+      week8MuseumSounds.add(sound);
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          week8MuseumSounds.delete(sound);
+        },
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        week8MuseumSounds.delete(sound);
+      });
+    }
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week8MuseumTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week8MuseumTimers.add(timer);
+    }
+
+    function clearClickTimer() {
+      if (!week8MuseumClickTimer) {
+        return;
+      }
+
+      clearTimeout(week8MuseumClickTimer);
+      week8MuseumClickTimer = null;
+    }
+
+    function clearFirstClick() {
+      clearClickTimer();
+
+      if (firstClick?.target) {
+        firstClick.target.classList.remove(
+          "week8-museum-first-click"
+        );
+      }
+
+      firstClick = null;
+    }
+
+    function showStatus(kind) {
+      status.className =
+        "week8-museum-status week8-museum-status-" +
+        kind;
+
+      if (kind === "slow") {
+        status.innerHTML =
+          "<span>🐢</span><strong>TOO SLOW</strong><span>1️⃣ 2️⃣</span>";
+        return;
+      }
+
+      if (kind === "move") {
+        status.innerHTML =
+          "<span>🖱️</span><strong>KEEP STILL</strong><span>✋</span>";
+        return;
+      }
+
+      if (kind === "wrong") {
+        status.innerHTML =
+          "<span>👀</span><strong>FIND THIS</strong><span>" +
+          missions[round].icon +
+          "</span>";
+        return;
+      }
+
+      if (kind === "correct") {
+        status.innerHTML =
+          "<span>🖼️</span><strong>FOUND IT!</strong><span>⭐</span>";
+        return;
+      }
+
+      status.innerHTML =
+        "<span>🛞</span><span>↕️</span><span>🔎</span>" +
+        "<span>🖱️</span><b>1</b><b>2</b>";
+    }
+
+    function setMission() {
+      const mission = missions[round];
+
+      targetIcon.textContent = mission.icon;
+      counter.textContent =
+        String(round + 1) + " of " + String(missions.length);
+
+      frames.forEach(frame => {
+        const isTarget =
+          frame.dataset.week8MuseumItem === mission.id;
+
+        frame.classList.toggle(
+          "week8-museum-frame-target",
+          isTarget
+        );
+      });
+
+      viewport.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      showStatus("ready");
+    }
+
+    function warn(kind) {
+      clearFirstClick();
+      showStatus(kind);
+      playSound("/sounds/buzzer.mp3");
+
+      screen.classList.remove("week8-museum-warning");
+      void screen.offsetWidth;
+      screen.classList.add("week8-museum-warning");
+    }
+
+    function finishRound(target) {
+      clearFirstClick();
+      locked = true;
+
+      target.classList.remove(
+        "week8-museum-frame-target"
+      );
+      target.classList.add(
+        "week8-museum-frame-found"
+      );
+
+      revealIcon.textContent = missions[round].icon;
+      reveal.hidden = false;
+
+      showStatus("correct");
+      playSound("/sounds/correct.mp3");
+
+      round += 1;
+
+      if (round >= missions.length) {
+        schedule(() => {
+          reveal.hidden = true;
+          complete.hidden = false;
+          playSound("/sounds/complete.mp3");
+        }, 850);
+
+        return;
+      }
+
+      schedule(() => {
+        reveal.hidden = true;
+        locked = false;
+        setMission();
+      }, 850);
+    }
+
+    function handlePointerMove(event) {
+      if (!firstClick) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClick.x,
+        event.clientY - firstClick.y
+      );
+
+      firstClick.maximumDistance = Math.max(
+        firstClick.maximumDistance,
+        distance
+      );
+    }
+
+    function handleClick(event) {
+      const target = event.target.closest(
+        "[data-week8-museum-item]"
+      );
+
+      if (!target || locked) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (
+        !target.classList.contains(
+          "week8-museum-frame-target"
+        )
+      ) {
+        warn("wrong");
+        return;
+      }
+
+      playSound("/sounds/boom.mp3");
+
+      const now = performance.now();
+
+      if (!firstClick) {
+        firstClick = {
+          target,
+          time: now,
+          x: event.clientX,
+          y: event.clientY,
+          maximumDistance: 0
+        };
+
+        target.classList.add(
+          "week8-museum-first-click"
+        );
+
+        week8MuseumClickTimer = setTimeout(() => {
+          week8MuseumClickTimer = null;
+
+          if (firstClick) {
+            warn("slow");
+          }
+        }, maximumDelay);
+
+        return;
+      }
+
+      const elapsed = now - firstClick.time;
+      const sameTarget = firstClick.target === target;
+      const movement = Math.max(
+        firstClick.maximumDistance,
+        Math.hypot(
+          event.clientX - firstClick.x,
+          event.clientY - firstClick.y
+        )
+      );
+
+      if (!sameTarget) {
+        warn("wrong");
+        return;
+      }
+
+      if (movement > maximumMovement) {
+        warn("move");
+        return;
+      }
+
+      if (elapsed > maximumDelay) {
+        warn("slow");
+        return;
+      }
+
+      finishRound(target);
+    }
+
+    function handleScroll() {
+      if (firstClick) {
+        clearFirstClick();
+        showStatus("ready");
+      }
+    }
+
+    function blockNativeDoubleClick(event) {
+      event.preventDefault();
+    }
+
+    viewport.addEventListener(
+      "pointermove",
+      handlePointerMove
+    );
+    viewport.addEventListener("click", handleClick);
+    viewport.addEventListener("scroll", handleScroll);
+    viewport.addEventListener(
+      "dblclick",
+      blockNativeDoubleClick
+    );
+
+    removeWeek8MuseumBehavior = () => {
+      clearFirstClick();
+
+      viewport.removeEventListener(
+        "pointermove",
+        handlePointerMove
+      );
+      viewport.removeEventListener("click", handleClick);
+      viewport.removeEventListener("scroll", handleScroll);
+      viewport.removeEventListener(
+        "dblclick",
+        blockNativeDoubleClick
+      );
+    };
+
+    setMission();
+  }
+
+  let removeWeek8SpaceLaunchBehavior = null;
+  let week8SpaceLaunchClickTimer = null;
+  const week8SpaceLaunchTimers = new Set();
+  const week8SpaceLaunchSounds = new Set();
+
+  function stopWeek8SpaceLaunchBehavior() {
+    removeWeek8SpaceLaunchBehavior?.();
+    removeWeek8SpaceLaunchBehavior = null;
+
+    if (week8SpaceLaunchClickTimer) {
+      clearTimeout(week8SpaceLaunchClickTimer);
+      week8SpaceLaunchClickTimer = null;
+    }
+
+    week8SpaceLaunchTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+
+    week8SpaceLaunchTimers.clear();
+
+    week8SpaceLaunchSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week8SpaceLaunchSounds.clear();
+  }
+
+  function startWeek8SpaceLaunchBehavior() {
+    stopWeek8SpaceLaunchBehavior();
+
+    const screen =
+      document.getElementById("week8SpaceLaunchScreen");
+    const controlsContainer =
+      document.getElementById("week8LaunchControls");
+    const controls = Array.from(
+      document.querySelectorAll(
+        "[data-week8-launch-control]"
+      )
+    );
+    const lights = Array.from(
+      document.querySelectorAll(
+        "[data-week8-launch-light]"
+      )
+    );
+    const mission =
+      document.getElementById("week8LaunchMission");
+    const missionIcon =
+      document.getElementById("week8LaunchMissionIcon");
+    const status =
+      document.getElementById("week8LaunchStatus");
+    const rocket =
+      document.getElementById("week8LaunchRocket");
+    const countdown =
+      document.getElementById("week8LaunchCountdown");
+    const complete =
+      document.getElementById("week8LaunchComplete");
+
+    if (
+      !screen ||
+      !controlsContainer ||
+      !mission ||
+      !missionIcon ||
+      !status ||
+      !rocket ||
+      !countdown ||
+      !complete
+    ) {
+      return;
+    }
+
+    const missions = [
+      { id: "fuel", icon: "⛽" },
+      { id: "power", icon: "⚡" },
+      { id: "computer", icon: "💻" },
+      { id: "hatch", icon: "🔒" },
+      { id: "launch", icon: "🚀" }
+    ];
+
+    const maximumDelay = 500;
+    const maximumMovement = 12;
+
+    let round = 0;
+    let firstClick = null;
+    let locked = false;
+
+    function playSound(source) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(source);
+      week8SpaceLaunchSounds.add(sound);
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          week8SpaceLaunchSounds.delete(sound);
+        },
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        week8SpaceLaunchSounds.delete(sound);
+      });
+    }
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week8SpaceLaunchTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week8SpaceLaunchTimers.add(timer);
+    }
+
+    function clearClickTimer() {
+      if (!week8SpaceLaunchClickTimer) {
+        return;
+      }
+
+      clearTimeout(week8SpaceLaunchClickTimer);
+      week8SpaceLaunchClickTimer = null;
+    }
+
+    function clearFirstClick() {
+      clearClickTimer();
+
+      if (firstClick?.target) {
+        firstClick.target.classList.remove(
+          "week8-launch-first-click"
+        );
+      }
+
+      firstClick = null;
+    }
+
+    function showStatus(kind) {
+      status.className =
+        "week8-launch-status " +
+        `week8-launch-status-${kind}`;
+
+      if (kind === "slow") {
+        status.innerHTML =
+          "<span>🐢</span><strong>TOO SLOW</strong><span>1️⃣ 2️⃣</span>";
+        return;
+      }
+
+      if (kind === "move") {
+        status.innerHTML =
+          "<span>🖱️</span><strong>KEEP STILL</strong><span>✋</span>";
+        return;
+      }
+
+      if (kind === "wrong") {
+        status.innerHTML =
+          "<span>👀</span><strong>FOLLOW THE GLOW</strong><span>✨</span>";
+        return;
+      }
+
+      if (kind === "correct") {
+        status.innerHTML =
+          "<span>✅</span><strong>READY!</strong><span>⭐</span>";
+        return;
+      }
+
+      status.innerHTML =
+        "<span>🖱️</span><b>1</b><b>2</b><span>🎯</span>";
+    }
+
+    function setMission() {
+      const currentMission = missions[round];
+
+      missionIcon.textContent = currentMission.icon;
+
+      controls.forEach(control => {
+        const isTarget =
+          control.dataset.week8LaunchControl ===
+          currentMission.id;
+
+        control.classList.toggle(
+          "week8-launch-control-active",
+          isTarget
+        );
+      });
+
+      showStatus("ready");
+    }
+
+    function warn(kind) {
+      clearFirstClick();
+      showStatus(kind);
+      playSound("/sounds/buzzer.mp3");
+
+      screen.classList.remove("week8-launch-warning");
+      void screen.offsetWidth;
+      screen.classList.add("week8-launch-warning");
+    }
+
+    function beginLaunch() {
+      locked = true;
+      mission.innerHTML = "<strong>🚀</strong>";
+
+      schedule(() => {
+        countdown.hidden = false;
+        countdown.textContent = "3";
+        playSound("/sounds/boom.mp3");
+      }, 450);
+
+      schedule(() => {
+        countdown.textContent = "2";
+        playSound("/sounds/boom.mp3");
+      }, 1050);
+
+      schedule(() => {
+        countdown.textContent = "1";
+        playSound("/sounds/boom.mp3");
+      }, 1650);
+
+      schedule(() => {
+        countdown.hidden = true;
+        rocket.classList.add("week8-launch-rocket-flying");
+        screen.classList.add("week8-launch-blast");
+        playSound("/sounds/complete.mp3");
+      }, 2250);
+
+      schedule(() => {
+        countdown.hidden = true;
+        complete.hidden = false;
+      }, 3350);
+    }
+
+    function finishRound(target) {
+      clearFirstClick();
+      locked = true;
+
+      target.classList.remove(
+        "week8-launch-control-active"
+      );
+      target.classList.add(
+        "week8-launch-control-complete"
+      );
+
+      const light = lights[round];
+
+      if (light) {
+        light.classList.add("week8-launch-light-ready");
+      }
+
+      showStatus("correct");
+      playSound("/sounds/correct.mp3");
+
+      round += 1;
+
+      if (round >= missions.length) {
+        beginLaunch();
+        return;
+      }
+
+      schedule(() => {
+        locked = false;
+        setMission();
+      }, 700);
+    }
+
+    function handlePointerMove(event) {
+      if (!firstClick) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClick.x,
+        event.clientY - firstClick.y
+      );
+
+      firstClick.maximumDistance = Math.max(
+        firstClick.maximumDistance,
+        distance
+      );
+    }
+
+    function handleClick(event) {
+      const target = event.target.closest(
+        "[data-week8-launch-control]"
+      );
+
+      if (!target || locked) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (
+        !target.classList.contains(
+          "week8-launch-control-active"
+        )
+      ) {
+        warn("wrong");
+        return;
+      }
+
+      playSound("/sounds/boom.mp3");
+
+      const now = performance.now();
+
+      if (!firstClick) {
+        firstClick = {
+          target,
+          time: now,
+          x: event.clientX,
+          y: event.clientY,
+          maximumDistance: 0
+        };
+
+        target.classList.add(
+          "week8-launch-first-click"
+        );
+
+        week8SpaceLaunchClickTimer = setTimeout(() => {
+          week8SpaceLaunchClickTimer = null;
+
+          if (firstClick) {
+            warn("slow");
+          }
+        }, maximumDelay);
+
+        return;
+      }
+
+      const elapsed = now - firstClick.time;
+      const sameTarget = firstClick.target === target;
+      const movement = Math.max(
+        firstClick.maximumDistance,
+        Math.hypot(
+          event.clientX - firstClick.x,
+          event.clientY - firstClick.y
+        )
+      );
+
+      if (!sameTarget) {
+        warn("wrong");
+        return;
+      }
+
+      if (movement > maximumMovement) {
+        warn("move");
+        return;
+      }
+
+      if (elapsed > maximumDelay) {
+        warn("slow");
+        return;
+      }
+
+      finishRound(target);
+    }
+
+    function blockNativeDoubleClick(event) {
+      event.preventDefault();
+    }
+
+    controlsContainer.addEventListener(
+      "pointermove",
+      handlePointerMove
+    );
+    controlsContainer.addEventListener(
+      "click",
+      handleClick
+    );
+    controlsContainer.addEventListener(
+      "dblclick",
+      blockNativeDoubleClick
+    );
+
+    removeWeek8SpaceLaunchBehavior = () => {
+      clearFirstClick();
+
+      controlsContainer.removeEventListener(
+        "pointermove",
+        handlePointerMove
+      );
+      controlsContainer.removeEventListener(
+        "click",
+        handleClick
+      );
+      controlsContainer.removeEventListener(
+        "dblclick",
+        blockNativeDoubleClick
+      );
+    };
+
+    setMission();
+  }
+
+  let removeWeek8FirefliesBehavior = null;
+  let week8FirefliesTimer = null;
+  const week8FirefliesSounds = new Set();
+
+  function stopWeek8FirefliesBehavior() {
+    removeWeek8FirefliesBehavior?.();
+    removeWeek8FirefliesBehavior = null;
+
+    if (week8FirefliesTimer) {
+      clearTimeout(week8FirefliesTimer);
+      week8FirefliesTimer = null;
+    }
+
+    week8FirefliesSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week8FirefliesSounds.clear();
+  }
+
+  function startWeek8FirefliesBehavior() {
+    stopWeek8FirefliesBehavior();
+
+    const screen =
+      document.getElementById("week8FirefliesScreen");
+    const scene =
+      document.getElementById("week8FirefliesScene");
+    const status =
+      document.getElementById("week8FirefliesStatus");
+    const complete =
+      document.getElementById("week8FirefliesComplete");
+
+    if (!screen || !scene || !status || !complete) {
+      return;
+    }
+
+    const fireflies = Array.from(
+      scene.querySelectorAll("[data-week8-firefly]")
+    );
+    const lanterns = Array.from(
+      scene.querySelectorAll("[data-week8-lantern]")
+    );
+
+    const roundTargets = [2, 5, 0, 7, 3];
+    const maximumDelay = 500;
+    const maximumMovement = 12;
+
+    let round = 0;
+    let firstClick = null;
+    let locked = false;
+
+    function playSound(source) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(source);
+      week8FirefliesSounds.add(sound);
+
+      sound.addEventListener(
+        "ended",
+        () => {
+          week8FirefliesSounds.delete(sound);
+        },
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        week8FirefliesSounds.delete(sound);
+      });
+    }
+
+    function clearClickTimer() {
+      if (!week8FirefliesTimer) {
+        return;
+      }
+
+      clearTimeout(week8FirefliesTimer);
+      week8FirefliesTimer = null;
+    }
+
+    function clearFirstClick() {
+      clearClickTimer();
+
+      if (firstClick?.target) {
+        firstClick.target.classList.remove(
+          "week8-firefly-first-click"
+        );
+      }
+
+      firstClick = null;
+    }
+
+    function showStatus(kind) {
+      status.className =
+        "week8-fireflies-status " +
+        `week8-fireflies-status-${kind}`;
+
+      if (kind === "slow") {
+        status.innerHTML =
+          "<span>🐢</span><b>TOO SLOW</b><span>1️⃣ 2️⃣</span>";
+        return;
+      }
+
+      if (kind === "move") {
+        status.innerHTML =
+          "<span>🖱️</span><b>KEEP STILL</b><span>✋</span>";
+        return;
+      }
+
+      if (kind === "wrong") {
+        status.innerHTML =
+          "<span>👀</span><b>FIND THE GLOW</b><span>✨</span>";
+        return;
+      }
+
+      if (kind === "correct") {
+        status.innerHTML =
+          "<span>✨</span><b>GREAT!</b><span>🏮</span>";
+        return;
+      }
+
+      status.innerHTML =
+        "<span>🖱️</span><b>1</b><b>2</b><span>✨</span>";
+    }
+
+    function setRound() {
+      fireflies.forEach((firefly, index) => {
+        const isTarget = index === roundTargets[round];
+
+        firefly.classList.toggle(
+          "week8-firefly-target",
+          isTarget
+        );
+
+        firefly.setAttribute(
+          "aria-label",
+          isTarget ? "Glowing firefly" : "Firefly"
+        );
+      });
+
+      showStatus("ready");
+    }
+
+    function warn(kind) {
+      clearFirstClick();
+      showStatus(kind);
+      playSound("/sounds/buzzer.mp3");
+
+      screen.classList.remove(
+        "week8-fireflies-warning"
+      );
+
+      void screen.offsetWidth;
+
+      screen.classList.add(
+        "week8-fireflies-warning"
+      );
+    }
+
+    function finishRound(target) {
+      clearFirstClick();
+      locked = true;
+
+      target.classList.remove("week8-firefly-target");
+      target.classList.add("week8-firefly-caught");
+
+      const lantern = lanterns[round];
+
+      if (lantern) {
+        lantern.classList.add(
+          "week8-fireflies-lantern-lit"
+        );
+      }
+
+      showStatus("correct");
+      playSound("/sounds/correct.mp3");
+
+      round += 1;
+
+      if (round >= roundTargets.length) {
+        week8FirefliesTimer = setTimeout(() => {
+          week8FirefliesTimer = null;
+          complete.hidden = false;
+          screen.classList.add(
+            "week8-fireflies-finished"
+          );
+          playSound("/sounds/complete.mp3");
+        }, 650);
+
+        return;
+      }
+
+      week8FirefliesTimer = setTimeout(() => {
+        week8FirefliesTimer = null;
+        locked = false;
+        setRound();
+      }, 850);
+    }
+
+    function handlePointerMove(event) {
+      if (!firstClick) {
+        return;
+      }
+
+      const distance = Math.hypot(
+        event.clientX - firstClick.x,
+        event.clientY - firstClick.y
+      );
+
+      firstClick.maximumDistance = Math.max(
+        firstClick.maximumDistance,
+        distance
+      );
+    }
+
+    function handleClick(event) {
+      const target =
+        event.target.closest("[data-week8-firefly]");
+
+      if (!target || locked) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (
+        !target.classList.contains(
+          "week8-firefly-target"
+        )
+      ) {
+        warn("wrong");
+        return;
+      }
+
+      playSound("/sounds/boom.mp3");
+
+      const now = performance.now();
+
+      if (!firstClick) {
+        firstClick = {
+          target,
+          time: now,
+          x: event.clientX,
+          y: event.clientY,
+          maximumDistance: 0
+        };
+
+        target.classList.add(
+          "week8-firefly-first-click"
+        );
+
+        week8FirefliesTimer = setTimeout(() => {
+          week8FirefliesTimer = null;
+
+          if (firstClick) {
+            warn("slow");
+          }
+        }, maximumDelay);
+
+        return;
+      }
+
+      const elapsed = now - firstClick.time;
+      const sameTarget = firstClick.target === target;
+      const movement = Math.max(
+        firstClick.maximumDistance,
+        Math.hypot(
+          event.clientX - firstClick.x,
+          event.clientY - firstClick.y
+        )
+      );
+
+      if (!sameTarget) {
+        warn("wrong");
+        return;
+      }
+
+      if (movement > maximumMovement) {
+        warn("move");
+        return;
+      }
+
+      if (elapsed > maximumDelay) {
+        warn("slow");
+        return;
+      }
+
+      finishRound(target);
+    }
+
+    function blockNativeDoubleClick(event) {
+      event.preventDefault();
+    }
+
+    scene.addEventListener(
+      "pointermove",
+      handlePointerMove
+    );
+    scene.addEventListener("click", handleClick);
+    scene.addEventListener(
+      "dblclick",
+      blockNativeDoubleClick
+    );
+
+    removeWeek8FirefliesBehavior = () => {
+      clearFirstClick();
+
+      scene.removeEventListener(
+        "pointermove",
+        handlePointerMove
+      );
+      scene.removeEventListener("click", handleClick);
+      scene.removeEventListener(
+        "dblclick",
+        blockNativeDoubleClick
+      );
+    };
+
+    setRound();
+  }
+
+  const week8QuickReviewTimers = new Set();
+  const week8QuickReviewSounds = new Set();
+
+  function stopWeek8QuickReviewBehavior() {
+    week8QuickReviewTimers.forEach(timer => {
+      clearTimeout(timer);
+    });
+
+    week8QuickReviewTimers.clear();
+
+    week8QuickReviewSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week8QuickReviewSounds.clear();
+  }
+
+  function startWeek8QuickReviewBehavior() {
+    stopWeek8QuickReviewBehavior();
+
+    const screen =
+      document.querySelector(
+        ".lesson-screen-week8-quick-review"
+      );
+
+    if (!screen) {
+      return;
+    }
+
+    function scheduleSound(
+      callback,
+      delay
+    ) {
+      const timer = setTimeout(() => {
+        week8QuickReviewTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week8QuickReviewTimers.add(timer);
+    }
+
+    function playQuickReviewSound(
+      fileName,
+      volume
+    ) {
+      if (!soundEnabled) {
+        return;
+      }
+
+      const sound = new Audio(
+        `/sounds/${fileName}`
+      );
+
+      sound.volume = volume;
+      week8QuickReviewSounds.add(sound);
+
+      const forgetSound = () => {
+        week8QuickReviewSounds.delete(sound);
+      };
+
+      sound.addEventListener(
+        "ended",
+        forgetSound,
+        { once: true }
+      );
+
+      sound.play().catch(() => {
+        forgetSound();
+      });
+    }
+
+    function scheduleAnimationCycle() {
+      scheduleSound(() => {
+        playQuickReviewSound(
+          "boom.mp3",
+          0.72
+        );
+      }, 640);
+
+      scheduleSound(() => {
+        playQuickReviewSound(
+          "boom.mp3",
+          0.72
+        );
+      }, 1024);
+
+      scheduleSound(() => {
+        playQuickReviewSound(
+          "correct.mp3",
+          0.7
+        );
+      }, 1600);
+
+      scheduleSound(
+        scheduleAnimationCycle,
+        3200
+      );
+    }
+
+    scheduleAnimationCycle();
+  }
 
   const week7MeetDoubleTimers = new Set();
   const week7MeetDoubleSounds = new Set();
@@ -29015,6 +31745,13 @@ const status =
      * Universal audio cleanup.
      */
     stopAllLessonSounds();
+    stopWeek8BossBehavior();
+    stopWeek8CarnivalBehavior();
+    stopWeek8DeliveryBehavior();
+    stopWeek8MuseumBehavior();
+    stopWeek8SpaceLaunchBehavior();
+    stopWeek8FirefliesBehavior();
+    stopWeek8QuickReviewBehavior();
     stopWeek7MeetDoubleBehavior();
     stopWeek7HatchEggsBehavior();
     stopWeek7PictureGalleryBehavior();
@@ -30919,6 +33656,48 @@ const status =
     }
 
     if (
+      step.id === "week8-computer-rescue"
+    ) {
+      startWeek8BossBehavior();
+    }
+
+    if (
+      step.id === "week8-carnival"
+    ) {
+      startWeek8CarnivalBehavior();
+    }
+
+    if (
+      step.id === "week8-special-delivery"
+    ) {
+      startWeek8DeliveryBehavior();
+    }
+
+    if (
+      step.id === "week8-museum"
+    ) {
+      startWeek8MuseumBehavior();
+    }
+
+    if (
+      step.id === "week8-space-launch"
+    ) {
+      startWeek8SpaceLaunchBehavior();
+    }
+
+    if (
+      step.id === "week8-fireflies"
+    ) {
+      startWeek8FirefliesBehavior();
+    }
+
+    if (
+      step.id === "week8-quick-review"
+    ) {
+      startWeek8QuickReviewBehavior();
+    }
+
+    if (
       step.id === "week7-meet-double-click"
     ) {
       startWeek7MeetDoubleBehavior();
@@ -31460,6 +34239,8 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
 
 
 

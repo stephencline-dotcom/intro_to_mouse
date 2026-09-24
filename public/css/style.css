@@ -35374,3 +35374,3088 @@ body.teacher-session
   height: 35px;
   font-size: 20px;
 }
+
+
+/* =========================================================
+   Week 8 Step 1 - Quick Double-Click Review
+   ========================================================= */
+
+.lesson-screen-week8-quick-review {
+  min-height: 535px;
+  padding: 8px 24px 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 15% 13%,
+      rgba(125, 211, 252, 0.4),
+      transparent 29%
+    ),
+    radial-gradient(
+      circle at 86% 82%,
+      rgba(253, 224, 71, 0.38),
+      transparent 30%
+    ),
+    linear-gradient(145deg, #eff6ff, #fff7ed);
+}
+
+.week8-review-heading {
+  text-align: center;
+}
+
+.week8-review-heading > span {
+  display: inline-block;
+  padding: 6px 23px;
+  border-radius: 999px;
+  color: #075985;
+  background: #bae6fd;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.week8-review-heading h1 {
+  margin: 4px 0 8px;
+  color: #172554;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.week8-review-main {
+  display: grid;
+  grid-template-columns:
+    minmax(280px, 1fr)
+    95px
+    minmax(280px, 1fr);
+  align-items: center;
+  width: min(950px, 94%);
+  min-height: 338px;
+  margin: 0 auto;
+  padding: 13px 35px;
+  border: 7px solid #ffffff;
+  border-radius: 39px;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(219, 234, 254, 0.96),
+      rgba(254, 243, 199, 0.96)
+    );
+  box-shadow:
+    0 13px 0 rgba(30, 64, 175, 0.15),
+    0 20px 37px rgba(15, 23, 42, 0.14);
+}
+
+.week8-review-mouse-side,
+.week8-review-package-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.week8-review-mouse {
+  position: relative;
+  width: 159px;
+  height: 221px;
+  overflow: hidden;
+  border: 8px solid #334155;
+  border-radius: 80px 80px 66px 66px;
+  background: #f8fafc;
+  box-shadow: 0 13px 16px rgba(15, 23, 42, 0.2);
+}
+
+.week8-review-left-button,
+.week8-review-right-button {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 92px;
+  border-bottom: 7px solid #334155;
+}
+
+.week8-review-left-button {
+  left: 0;
+  border-right: 4px solid #334155;
+  border-radius: 68px 0 7px 0;
+  background: #38bdf8;
+  transform-origin: bottom;
+  animation:
+    week8ReviewButton
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-right-button {
+  right: 0;
+  border-radius: 0 68px 0 7px;
+  background: #e2e8f0;
+}
+
+.week8-review-wheel {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  z-index: 4;
+  width: 21px;
+  height: 49px;
+  transform: translateX(-50%);
+  border: 5px solid #334155;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.week8-review-click-count {
+  display: flex;
+  gap: 19px;
+  margin-top: 12px;
+}
+
+.week8-review-click-count span {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 33px;
+  font-weight: 900;
+  opacity: 0.32;
+  box-shadow: 0 6px 0 #1e40af;
+}
+
+.week8-review-count-one {
+  animation:
+    week8ReviewCountOne
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-count-two {
+  animation:
+    week8ReviewCountTwo
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-flow-arrow {
+  color: #1e3a8a;
+  font-size: 73px;
+  font-weight: 900;
+  text-align: center;
+  animation:
+    week8ReviewArrow
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-package-scene {
+  position: relative;
+  width: 275px;
+  height: 250px;
+}
+
+.week8-review-closed-package,
+.week8-review-open-gift {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  font-size: 142px;
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.week8-review-closed-package {
+  animation:
+    week8ReviewClosedPackage
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-open-gift {
+  opacity: 0;
+  animation:
+    week8ReviewOpenGift
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-surprise {
+  position: absolute;
+  left: 50%;
+  top: 98px;
+  z-index: 3;
+  font-size: 75px;
+  opacity: 0;
+  animation:
+    week8ReviewSurprise
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-package-cursor {
+  position: absolute;
+  left: 50%;
+  bottom: 61px;
+  z-index: 8;
+  color: #0f172a;
+  font-size: 68px;
+  line-height: 1;
+  transform:
+    translate(-30px, 24px)
+    rotate(-42deg);
+  filter:
+    drop-shadow(0 2px 0 #ffffff)
+    drop-shadow(0 5px 4px rgba(15, 23, 42, 0.35));
+  animation:
+    week8ReviewCursor
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-ring {
+  position: absolute;
+  left: calc(50% - 36px);
+  bottom: 78px;
+  z-index: 9;
+  width: 34px;
+  height: 34px;
+  border: 6px solid #38bdf8;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.week8-review-ring.ring-one {
+  animation:
+    week8ReviewRingOne
+    3.2s ease-out infinite;
+}
+
+.week8-review-ring.ring-two {
+  animation:
+    week8ReviewRingTwo
+    3.2s ease-out infinite;
+}
+
+.week8-review-sparkles {
+  position: absolute;
+  right: 9px;
+  top: 23px;
+  z-index: 6;
+  font-size: 56px;
+  opacity: 0;
+  animation:
+    week8ReviewSparkles
+    3.2s ease-in-out infinite;
+}
+
+.week8-review-package-side > strong {
+  margin-top: -4px;
+  padding: 6px 27px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #1e3a8a;
+  font-size: 27px;
+}
+
+.week8-review-rules {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: min(720px, 92%);
+  min-height: 79px;
+  margin: 14px auto 0;
+  border: 5px solid #ffffff;
+  border-radius: 27px;
+  background: linear-gradient(90deg, #dcfce7, #dbeafe);
+  box-shadow: 0 7px 0 rgba(30, 64, 175, 0.13);
+}
+
+.week8-review-rule {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.week8-review-rule > strong {
+  color: #166534;
+  font-size: 25px;
+}
+
+.week8-review-clock {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border: 5px solid #2563eb;
+  border-radius: 50%;
+  background: #ffffff;
+  font-size: 28px;
+}
+
+.week8-review-plus {
+  color: #1e3a8a;
+  font-size: 35px;
+  font-weight: 1000;
+}
+
+.week8-review-still {
+  position: relative;
+  width: 67px;
+  height: 50px;
+}
+
+.week8-review-still-cursor {
+  position: absolute;
+  left: 22px;
+  top: 4px;
+  color: #0f172a;
+  font-size: 42px;
+  transform: rotate(-42deg);
+}
+
+.week8-review-no-move {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  color: #ef4444;
+  font-size: 39px;
+  font-weight: 1000;
+}
+
+.week8-review-still i {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 6px;
+  height: 51px;
+  transform: rotate(45deg);
+  border-radius: 999px;
+  background: #ef4444;
+}
+
+@keyframes week8ReviewButton {
+  0%,
+  15%,
+  27%,
+  39%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  20%,
+  32% {
+    transform: scaleY(0.8);
+  }
+}
+
+@keyframes week8ReviewCountOne {
+  0%,
+  16%,
+  27%,
+  100% {
+    opacity: 0.32;
+    transform: scale(1);
+  }
+
+  20%,
+  24% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes week8ReviewCountTwo {
+  0%,
+  28%,
+  40%,
+  100% {
+    opacity: 0.32;
+    transform: scale(1);
+  }
+
+  32%,
+  37% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes week8ReviewArrow {
+  0%,
+  39%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+
+  48%,
+  78% {
+    opacity: 1;
+    transform: translateX(8px);
+  }
+}
+
+@keyframes week8ReviewCursor {
+  0%,
+  40% {
+    opacity: 1;
+  }
+
+  49%,
+  88% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes week8ReviewRingOne {
+  0%,
+  18% {
+    opacity: 0;
+    transform: scale(0.25);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(0.35);
+  }
+
+  27%,
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+@keyframes week8ReviewRingTwo {
+  0%,
+  30% {
+    opacity: 0;
+    transform: scale(0.25);
+  }
+
+  32% {
+    opacity: 1;
+    transform: scale(0.35);
+  }
+
+  40%,
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+@keyframes week8ReviewClosedPackage {
+  0%,
+  41% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  50%,
+  88% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(0.82);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+}
+
+@keyframes week8ReviewOpenGift {
+  0%,
+  41% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(0.82);
+  }
+
+  50%,
+  88% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1.08);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(0.82);
+  }
+}
+
+@keyframes week8ReviewSurprise {
+  0%,
+  46% {
+    opacity: 0;
+    transform:
+      translate(-50%, 40px)
+      scale(0.5);
+  }
+
+  58%,
+  86% {
+    opacity: 1;
+    transform:
+      translate(-50%, -69px)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(-50%, 40px)
+      scale(0.5);
+  }
+}
+
+@keyframes week8ReviewSparkles {
+  0%,
+  46%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  57%,
+  83% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@media (max-height: 800px) {
+  .lesson-screen-week8-quick-review {
+    min-height: 495px;
+    padding-top: 3px;
+  }
+
+  .week8-review-heading h1 {
+    font-size: 34px;
+  }
+
+  .week8-review-main {
+    min-height: 304px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .week8-review-mouse-side,
+  .week8-review-package-side {
+    transform: scale(0.9);
+  }
+
+  .week8-review-rules {
+    min-height: 65px;
+    margin-top: 8px;
+  }
+}
+
+
+/* =========================================
+   Week 8 Step 2 - Light the Fireflies
+   ========================================= */
+
+.lesson-screen-week8-fireflies {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 690px;
+  padding: 18px 34px 22px;
+  overflow: hidden;
+  color: #ffffff;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(77, 122, 183, 0.48),
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      #081942 0%,
+      #102d62 58%,
+      #071b31 100%
+    );
+}
+
+.week8-fireflies-heading {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+}
+
+.week8-fireflies-heading > span {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 999px;
+  color: #1e3a8a;
+  background: #fef08a;
+  box-shadow: 0 5px 0 rgba(161, 98, 7, 0.35);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.week8-fireflies-heading h1 {
+  margin: 8px 0 5px;
+  color: #ffffff;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1;
+  text-shadow: 0 4px 0 #172554;
+}
+
+.week8-fireflies-clue {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  margin: 7px auto 10px;
+  padding: 7px 24px;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  color: #172554;
+  background: rgba(255, 255, 255, 0.93);
+  box-shadow: 0 6px 0 rgba(3, 7, 18, 0.3);
+}
+
+.week8-fireflies-clue-mouse,
+.week8-fireflies-clue-glow {
+  font-size: 30px;
+}
+
+.week8-fireflies-clue-click {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.week8-fireflies-clue-arrow {
+  color: #f59e0b;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.week8-fireflies-scene {
+  position: relative;
+  z-index: 5;
+  width: min(1120px, 94%);
+  height: 405px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 7px solid #dbeafe;
+  border-radius: 38px;
+  background:
+    radial-gradient(
+      circle at 72% 22%,
+      rgba(254, 240, 138, 0.13),
+      transparent 22%
+    ),
+    linear-gradient(
+      180deg,
+      #102454 0%,
+      #164275 70%,
+      #123524 70%,
+      #071b19 100%
+    );
+  box-shadow:
+    0 12px 0 rgba(4, 12, 35, 0.5),
+    inset 0 0 45px rgba(0, 0, 0, 0.25);
+}
+
+.week8-fireflies-moon {
+  position: absolute;
+  top: 20px;
+  right: 55px;
+  font-size: 68px;
+  filter: drop-shadow(0 0 20px #fef08a);
+}
+
+.week8-fireflies-cloud {
+  position: absolute;
+  width: 145px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(219, 234, 254, 0.2);
+}
+
+.week8-fireflies-cloud::before,
+.week8-fireflies-cloud::after {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: inherit;
+  content: "";
+}
+
+.week8-fireflies-cloud::before {
+  left: 25px;
+  width: 55px;
+  height: 55px;
+}
+
+.week8-fireflies-cloud::after {
+  right: 20px;
+  width: 70px;
+  height: 70px;
+}
+
+.week8-fireflies-cloud.cloud-one {
+  top: 55px;
+  left: 65px;
+}
+
+.week8-fireflies-cloud.cloud-two {
+  top: 105px;
+  left: 48%;
+  transform: scale(0.72);
+}
+
+.week8-firefly {
+  position: absolute;
+  z-index: 10;
+  display: grid;
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #312e81;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.week8-firefly::before,
+.week8-firefly::after {
+  position: absolute;
+  top: 14px;
+  width: 25px;
+  height: 34px;
+  border: 3px solid rgba(219, 234, 254, 0.72);
+  background: rgba(191, 219, 254, 0.35);
+  content: "";
+}
+
+.week8-firefly::before {
+  right: 38px;
+  border-radius: 75% 35% 65% 35%;
+  transform: rotate(-25deg);
+}
+
+.week8-firefly::after {
+  left: 38px;
+  border-radius: 35% 75% 35% 65%;
+  transform: rotate(25deg);
+}
+
+.week8-firefly span {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 30px;
+  height: 40px;
+  place-items: center;
+  border: 4px solid #172554;
+  border-radius: 50%;
+  color: #64748b;
+  background: #334155;
+  font-size: 18px;
+}
+
+.week8-firefly-target span {
+  color: #ffffff;
+  background: #facc15;
+  box-shadow:
+    0 0 14px #fef08a,
+    0 0 34px #facc15,
+    0 0 62px rgba(250, 204, 21, 0.85);
+  animation: week8FireflyGlow 650ms ease-in-out infinite alternate;
+}
+
+.week8-firefly-target {
+  animation: week8FireflyFloat 1.2s ease-in-out infinite alternate;
+}
+
+.week8-firefly-first-click span {
+  transform: scale(0.85);
+}
+
+.week8-firefly-caught {
+  pointer-events: none;
+  animation: week8FireflyFlyToLantern 650ms ease-in forwards;
+}
+
+.firefly-one {
+  top: 88px;
+  left: 12%;
+}
+
+.firefly-two {
+  top: 165px;
+  left: 24%;
+}
+
+.firefly-three {
+  top: 82px;
+  left: 37%;
+}
+
+.firefly-four {
+  top: 175px;
+  left: 47%;
+}
+
+.firefly-five {
+  top: 105px;
+  left: 58%;
+}
+
+.firefly-six {
+  top: 170px;
+  left: 68%;
+}
+
+.firefly-seven {
+  top: 150px;
+  left: 79%;
+}
+
+.firefly-eight {
+  top: 65px;
+  left: 87%;
+}
+
+.week8-fireflies-grass {
+  position: absolute;
+  bottom: 0;
+  width: 55%;
+  height: 95px;
+  opacity: 0.76;
+  background:
+    repeating-linear-gradient(
+      76deg,
+      transparent 0 14px,
+      #166534 15px 21px,
+      transparent 22px 34px
+    );
+}
+
+.week8-fireflies-grass.grass-one {
+  left: -5%;
+}
+
+.week8-fireflies-grass.grass-two {
+  right: -5%;
+  transform: scaleX(-1);
+}
+
+.week8-fireflies-lantern-row {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  left: 0;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 5vw, 60px);
+}
+
+.week8-fireflies-lantern {
+  position: relative;
+  display: grid;
+  width: 66px;
+  height: 72px;
+  place-items: center;
+  border: 6px solid #78350f;
+  border-radius: 16px 16px 24px 24px;
+  color: #475569;
+  background: #334155;
+  box-shadow: inset 0 0 0 5px #0f172a;
+}
+
+.week8-fireflies-lantern::before {
+  position: absolute;
+  top: -21px;
+  width: 35px;
+  height: 22px;
+  border: 6px solid #78350f;
+  border-bottom: 0;
+  border-radius: 20px 20px 0 0;
+  content: "";
+}
+
+.week8-fireflies-lantern span {
+  font-size: 30px;
+}
+
+.week8-fireflies-lantern-lit {
+  color: #ffffff;
+  background: #facc15;
+  box-shadow:
+    inset 0 0 0 5px #f59e0b,
+    0 0 20px #fef08a,
+    0 0 45px rgba(250, 204, 21, 0.75);
+  animation: week8LanternLight 420ms ease-out;
+}
+
+.week8-fireflies-status {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-height: 58px;
+  width: min(610px, 90%);
+  margin: 13px auto 0;
+  padding: 7px 22px;
+  border: 5px solid #bfdbfe;
+  border-radius: 999px;
+  color: #172554;
+  background: #ffffff;
+  box-shadow: 0 7px 0 rgba(15, 23, 42, 0.4);
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.week8-fireflies-status b {
+  display: grid;
+  min-width: 37px;
+  height: 37px;
+  padding: 0 8px;
+  place-items: center;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 20px;
+}
+
+.week8-fireflies-status-slow,
+.week8-fireflies-status-move,
+.week8-fireflies-status-wrong {
+  border-color: #fca5a5;
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.week8-fireflies-status-correct {
+  border-color: #86efac;
+  color: #166534;
+  background: #dcfce7;
+}
+
+.week8-fireflies-warning
+.week8-fireflies-scene {
+  animation: week8FirefliesShake 330ms ease-out;
+}
+
+.week8-fireflies-complete {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  padding: 30px;
+  place-items: center;
+  background: rgba(2, 6, 23, 0.72);
+}
+
+.week8-fireflies-complete[hidden] {
+  display: none;
+}
+
+.week8-fireflies-complete-card {
+  display: grid;
+  min-width: min(560px, 86vw);
+  padding: 34px 45px;
+  gap: 16px;
+  place-items: center;
+  border: 8px solid #ffffff;
+  border-radius: 42px;
+  color: #172554;
+  background:
+    linear-gradient(145deg, #fef9c3, #fde68a);
+  box-shadow:
+    0 14px 0 #a16207,
+    0 0 60px rgba(250, 204, 21, 0.75);
+  animation: week8CompletePop 420ms ease-out;
+}
+
+.week8-fireflies-complete-card strong {
+  color: #1e3a8a;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1;
+}
+
+.week8-fireflies-complete-card > span {
+  font-size: clamp(42px, 6vw, 66px);
+}
+
+.week8-fireflies-complete-stars {
+  font-size: 45px;
+}
+
+@keyframes week8FireflyGlow {
+  from {
+    box-shadow:
+      0 0 10px #fef08a,
+      0 0 24px #facc15,
+      0 0 42px rgba(250, 204, 21, 0.65);
+  }
+
+  to {
+    box-shadow:
+      0 0 22px #ffffff,
+      0 0 48px #facc15,
+      0 0 82px rgba(250, 204, 21, 0.95);
+  }
+}
+
+@keyframes week8FireflyFloat {
+  from {
+    transform: translateY(-5px) rotate(-3deg);
+  }
+
+  to {
+    transform: translateY(7px) rotate(4deg);
+  }
+}
+
+@keyframes week8FireflyFlyToLantern {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(95px) scale(0.55);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(145px) scale(0.15);
+    opacity: 0;
+  }
+}
+
+@keyframes week8LanternLight {
+  0% {
+    transform: scale(0.75);
+  }
+
+  65% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes week8FirefliesShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  50% {
+    transform: translateX(10px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes week8CompletePop {
+  from {
+    transform: scale(0.65);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-height: 800px) {
+  .lesson-screen-week8-fireflies {
+    min-height: 610px;
+    padding-top: 10px;
+  }
+
+  .week8-fireflies-heading h1 {
+    font-size: 40px;
+  }
+
+  .week8-fireflies-heading > span {
+    padding: 5px 20px;
+    font-size: 17px;
+  }
+
+  .week8-fireflies-clue {
+    margin: 4px auto 7px;
+    padding: 4px 20px;
+  }
+
+  .week8-fireflies-scene {
+    height: 365px;
+  }
+
+  .week8-fireflies-status {
+    min-height: 48px;
+    margin-top: 9px;
+    font-size: 23px;
+  }
+}
+
+
+/* =========================================
+   Week 8 Step 3 - Space Launch Control
+   ========================================= */
+
+.lesson-screen-week8-space-launch {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 690px;
+  padding: 17px 30px 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, #334a8a 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 12%, #ffffff 0 2px, transparent 3px),
+    radial-gradient(circle at 88% 35%, #93c5fd 0 2px, transparent 3px),
+    linear-gradient(145deg, #081536, #172554 58%, #020617);
+  color: #ffffff;
+}
+
+.week8-launch-heading {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+}
+
+.week8-launch-heading > span {
+  display: inline-block;
+  padding: 7px 24px;
+  border-radius: 999px;
+  color: #172554;
+  background: #fde047;
+  box-shadow: 0 5px 0 #a16207;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.week8-launch-heading h1 {
+  margin: 8px 0 14px;
+  color: #ffffff;
+  font-size: clamp(37px, 4vw, 52px);
+  line-height: 1;
+  text-shadow: 0 4px 0 #1e3a8a;
+}
+
+.week8-launch-layout {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: minmax(310px, 0.85fr) minmax(540px, 1.35fr);
+  gap: 20px;
+  width: min(1240px, 96%);
+  margin: 0 auto;
+}
+
+.week8-launch-window,
+.week8-launch-console {
+  position: relative;
+  box-sizing: border-box;
+  height: 510px;
+  border: 7px solid #cbd5e1;
+  border-radius: 36px;
+  box-shadow:
+    0 11px 0 #020617,
+    inset 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.week8-launch-window {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, #ffffff 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 32%, #fde68a 0 2px, transparent 3px),
+    radial-gradient(circle at 42% 50%, #93c5fd 0 2px, transparent 3px),
+    linear-gradient(#071636, #102b59 68%, #4b5563 69%);
+}
+
+.week8-launch-stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.75;
+  background-image:
+    radial-gradient(#ffffff 0 2px, transparent 3px);
+  background-size: 75px 68px;
+}
+
+.week8-launch-moon {
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  font-size: 58px;
+  filter: drop-shadow(0 0 18px #fef3c7);
+}
+
+.week8-launch-rocket {
+  position: absolute;
+  bottom: 78px;
+  left: 50%;
+  z-index: 5;
+  width: 130px;
+  height: 275px;
+  transform: translateX(-50%);
+}
+
+.week8-launch-rocket-tip {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  width: 80px;
+  height: 78px;
+  border-radius: 60% 60% 18% 18%;
+  background: #ef4444;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.week8-launch-rocket-body {
+  position: absolute;
+  top: 58px;
+  left: 25px;
+  display: grid;
+  width: 80px;
+  height: 150px;
+  place-items: center;
+  border: 6px solid #334155;
+  border-radius: 38px 38px 18px 18px;
+  background: linear-gradient(90deg, #cbd5e1, #ffffff, #94a3b8);
+}
+
+.week8-launch-rocket-body span {
+  margin-top: 45px;
+  font-size: 33px;
+}
+
+.week8-launch-rocket-window {
+  position: absolute;
+  top: 82px;
+  left: 48px;
+  z-index: 4;
+  width: 36px;
+  height: 36px;
+  border: 6px solid #1e3a8a;
+  border-radius: 50%;
+  background: #67e8f9;
+  box-shadow: inset 0 0 0 5px #bae6fd;
+}
+
+.week8-launch-rocket-fin {
+  position: absolute;
+  top: 167px;
+  width: 43px;
+  height: 75px;
+  background: #ef4444;
+}
+
+.week8-launch-rocket-fin.left {
+  left: 2px;
+  border-radius: 35px 5px 8px 15px;
+  transform: skewY(-25deg);
+}
+
+.week8-launch-rocket-fin.right {
+  right: 2px;
+  border-radius: 5px 35px 15px 8px;
+  transform: skewY(25deg);
+}
+
+.week8-launch-flame {
+  position: absolute;
+  bottom: 3px;
+  left: 45px;
+  width: 40px;
+  height: 70px;
+  border-radius: 50% 50% 55% 55%;
+  background: linear-gradient(#fef08a, #f97316, #dc2626);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  opacity: 0.28;
+}
+
+.week8-launch-pad {
+  position: absolute;
+  right: 12%;
+  bottom: 45px;
+  left: 12%;
+  height: 35px;
+  border: 5px solid #1f2937;
+  border-radius: 50%;
+  background: #64748b;
+}
+
+.week8-launch-countdown {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  color: #fde047;
+  background: rgba(2, 6, 23, 0.48);
+  font-size: 145px;
+  font-weight: 900;
+  text-shadow:
+    0 8px 0 #b45309,
+    0 0 35px #fde047;
+}
+
+.week8-launch-countdown[hidden] {
+  display: none;
+}
+
+.week8-launch-console {
+  padding: 19px 24px;
+  background:
+    linear-gradient(145deg, #475569, #1e293b);
+}
+
+.week8-launch-mission {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 67px;
+  border: 5px solid #93c5fd;
+  border-radius: 22px;
+  color: #172554;
+  background: #eff6ff;
+  box-shadow: inset 0 -6px 0 #bfdbfe;
+}
+
+.week8-launch-mission span {
+  font-size: 27px;
+}
+
+.week8-launch-mission b {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 22px;
+}
+
+.week8-launch-mission strong {
+  min-width: 58px;
+  font-size: 43px;
+  text-align: center;
+}
+
+.week8-launch-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 18px;
+}
+
+.week8-launch-control {
+  position: relative;
+  display: grid;
+  min-height: 112px;
+  place-items: center;
+  border: 7px solid #94a3b8;
+  border-radius: 26px;
+  background: #0f172a;
+  box-shadow:
+    0 8px 0 #020617,
+    inset 0 0 0 4px #334155;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.week8-launch-control span {
+  font-size: 54px;
+  filter: grayscale(0.75) brightness(0.72);
+}
+
+.week8-launch-control.launch {
+  grid-column: 2 / 3;
+  border-radius: 50%;
+  background: #450a0a;
+}
+
+.week8-launch-control-active {
+  border-color: #fde047;
+  background: #1e3a8a;
+  box-shadow:
+    0 8px 0 #020617,
+    inset 0 0 0 4px #60a5fa,
+    0 0 18px #fde047,
+    0 0 40px rgba(250, 204, 21, 0.75);
+  animation: week8LaunchControlGlow 620ms ease-in-out infinite alternate;
+}
+
+.week8-launch-control-active span,
+.week8-launch-control-complete span {
+  filter: none;
+}
+
+.week8-launch-first-click {
+  transform: translateY(5px) scale(0.97);
+  box-shadow:
+    0 3px 0 #020617,
+    inset 0 0 0 4px #60a5fa,
+    0 0 25px #fde047;
+}
+
+.week8-launch-control-complete {
+  border-color: #4ade80;
+  background: #14532d;
+  box-shadow:
+    0 8px 0 #052e16,
+    inset 0 0 0 4px #86efac;
+}
+
+.week8-launch-progress {
+  display: flex;
+  justify-content: center;
+  gap: 13px;
+  margin-top: 18px;
+}
+
+.week8-launch-progress div {
+  display: grid;
+  width: 55px;
+  height: 45px;
+  place-items: center;
+  border: 4px solid #64748b;
+  border-radius: 13px;
+  background: #0f172a;
+  filter: grayscale(1);
+  font-size: 25px;
+  opacity: 0.55;
+}
+
+.week8-launch-progress .week8-launch-light-ready {
+  border-color: #86efac;
+  background: #166534;
+  filter: none;
+  opacity: 1;
+  box-shadow: 0 0 18px #4ade80;
+  animation: week8LaunchLightPop 350ms ease-out;
+}
+
+.week8-launch-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 50px;
+  margin: 17px auto 0;
+  border: 4px solid #bfdbfe;
+  border-radius: 999px;
+  color: #172554;
+  background: #ffffff;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.week8-launch-status b {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+}
+
+.week8-launch-status-slow,
+.week8-launch-status-move,
+.week8-launch-status-wrong {
+  border-color: #fca5a5;
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.week8-launch-status-correct {
+  border-color: #86efac;
+  color: #166534;
+  background: #dcfce7;
+}
+
+.week8-launch-warning .week8-launch-console {
+  animation: week8LaunchShake 320ms ease-out;
+}
+
+.week8-launch-rocket-flying {
+  animation: week8RocketFlight 1.25s ease-in forwards;
+}
+
+.week8-launch-rocket-flying .week8-launch-flame {
+  opacity: 1;
+  animation: week8RocketFlame 130ms ease-in-out infinite alternate;
+}
+
+.week8-launch-blast .week8-launch-window {
+  box-shadow:
+    0 11px 0 #020617,
+    inset 0 -75px 50px rgba(249, 115, 22, 0.34);
+}
+
+.week8-launch-complete {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  padding: 30px;
+  place-items: center;
+  background: rgba(2, 6, 23, 0.78);
+}
+
+.week8-launch-complete[hidden] {
+  display: none;
+}
+
+.week8-launch-complete-card {
+  display: grid;
+  min-width: min(570px, 86vw);
+  padding: 35px 48px;
+  gap: 15px;
+  place-items: center;
+  border: 8px solid #ffffff;
+  border-radius: 42px;
+  color: #172554;
+  background: linear-gradient(145deg, #dbeafe, #fde68a);
+  box-shadow:
+    0 14px 0 #1e3a8a,
+    0 0 65px rgba(96, 165, 250, 0.8);
+  animation: week8LaunchCompletePop 420ms ease-out;
+}
+
+.week8-launch-complete-card div {
+  font-size: 55px;
+}
+
+.week8-launch-complete-card strong {
+  color: #1e3a8a;
+  font-size: clamp(48px, 7vw, 78px);
+  line-height: 1;
+}
+
+.week8-launch-complete-card span {
+  padding: 9px 27px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+@keyframes week8LaunchControlGlow {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes week8LaunchLightPop {
+  0% {
+    transform: scale(0.65);
+  }
+
+  70% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes week8LaunchShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-9px);
+  }
+
+  50% {
+    transform: translateX(9px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes week8RocketFlight {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  18% {
+    transform: translateX(-54%) translateY(-10px);
+  }
+
+  32% {
+    transform: translateX(-46%) translateY(-20px);
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-620px);
+  }
+}
+
+@keyframes week8RocketFlame {
+  from {
+    transform: scaleY(0.85);
+  }
+
+  to {
+    transform: scaleY(1.18);
+  }
+}
+
+@keyframes week8LaunchCompletePop {
+  from {
+    transform: scale(0.65);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-height: 800px) {
+  .lesson-screen-week8-space-launch {
+    min-height: 610px;
+    padding-top: 10px;
+  }
+
+  .week8-launch-heading h1 {
+    margin-bottom: 8px;
+    font-size: 39px;
+  }
+
+  .week8-launch-heading > span {
+    padding: 5px 20px;
+    font-size: 16px;
+  }
+
+  .week8-launch-window,
+  .week8-launch-console {
+    height: 455px;
+  }
+
+  .week8-launch-control {
+    min-height: 94px;
+  }
+
+  .week8-launch-control span {
+    font-size: 45px;
+  }
+
+  .week8-launch-progress {
+    margin-top: 12px;
+  }
+
+  .week8-launch-status {
+    margin-top: 10px;
+  }
+}
+
+
+/* =========================================
+   Week 8 Step 4 - Scroll Through the Museum
+   ========================================= */
+
+.lesson-screen-week8-museum {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 690px;
+  padding: 14px 30px 20px;
+  overflow: hidden;
+  color: #172554;
+  background:
+    linear-gradient(
+      135deg,
+      #e0f2fe,
+      #fef3c7 48%,
+      #ede9fe
+    );
+}
+
+.week8-museum-heading {
+  text-align: center;
+}
+
+.week8-museum-heading > span {
+  display: inline-block;
+  padding: 6px 22px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #7c3aed;
+  box-shadow: 0 5px 0 #4c1d95;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.week8-museum-heading h1 {
+  margin: 7px 0 9px;
+  color: #172554;
+  font-size: clamp(35px, 4vw, 48px);
+  line-height: 1;
+}
+
+.week8-museum-topbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(1120px, 94%);
+  margin: 0 auto 9px;
+}
+
+.week8-museum-clue,
+.week8-museum-action-clue,
+.week8-museum-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  border: 4px solid #ffffff;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 5px 0 rgba(30, 41, 59, 0.28);
+}
+
+.week8-museum-clue {
+  justify-self: start;
+  gap: 10px;
+  min-width: 155px;
+  font-size: 28px;
+}
+
+.week8-museum-clue strong {
+  font-size: 37px;
+}
+
+.week8-museum-action-clue {
+  gap: 8px;
+  padding: 0 24px;
+  font-size: 27px;
+}
+
+.week8-museum-action-clue b {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 19px;
+}
+
+.week8-museum-counter {
+  justify-self: end;
+  min-width: 120px;
+  color: #6d28d9;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.week8-museum-viewport {
+  position: relative;
+  width: min(1120px, 94%);
+  height: 465px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 8px solid #334155;
+  border-radius: 30px;
+  background: #f8fafc;
+  box-shadow: 0 10px 0 rgba(51, 65, 85, 0.35);
+  scrollbar-color: #7c3aed #e2e8f0;
+  scrollbar-width: auto;
+}
+
+.week8-museum-viewport::-webkit-scrollbar {
+  width: 22px;
+}
+
+.week8-museum-viewport::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+.week8-museum-viewport::-webkit-scrollbar-thumb {
+  border: 4px solid #e2e8f0;
+  border-radius: 999px;
+  background: #7c3aed;
+}
+
+.week8-museum-floor {
+  position: relative;
+  display: grid;
+  box-sizing: border-box;
+  min-height: 355px;
+  padding: 56px 75px 48px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 34px;
+  align-items: center;
+  border-bottom: 14px solid #92400e;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.65),
+      rgba(255,255,255,0.25)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #fef3c7 0 85px,
+      #fde68a 86px 89px
+    );
+}
+
+.week8-museum-floor:nth-child(even) {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.65),
+      rgba(255,255,255,0.25)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #dbeafe 0 85px,
+      #bfdbfe 86px 89px
+    );
+}
+
+.week8-museum-floor-sign {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #7c3aed;
+  box-shadow: 0 4px 0 #4c1d95;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.week8-museum-frame {
+  position: relative;
+  display: grid;
+  min-height: 180px;
+  padding: 12px;
+  place-items: center;
+  border: 13px solid #92400e;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow:
+    0 9px 0 rgba(69, 26, 3, 0.3),
+    inset 0 0 0 7px #fef3c7;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.week8-museum-frame span {
+  display: grid;
+  width: 112px;
+  height: 112px;
+  place-items: center;
+  border-radius: 22px;
+  background: #eff6ff;
+  font-size: 75px;
+}
+
+.week8-museum-frame.gold {
+  border-color: #ca8a04;
+}
+
+.week8-museum-frame.red {
+  border-color: #b91c1c;
+}
+
+.week8-museum-frame.blue {
+  border-color: #1d4ed8;
+}
+
+.week8-museum-frame.purple {
+  border-color: #7e22ce;
+}
+
+.week8-museum-frame-target {
+  z-index: 5;
+  border-color: #facc15;
+  box-shadow:
+    0 9px 0 rgba(69, 26, 3, 0.3),
+    inset 0 0 0 7px #fef08a,
+    0 0 20px #fde047,
+    0 0 46px rgba(250, 204, 21, 0.9);
+  animation: week8MuseumTargetGlow 650ms ease-in-out infinite alternate;
+}
+
+.week8-museum-first-click {
+  transform: scale(0.96);
+}
+
+.week8-museum-frame-found {
+  border-color: #22c55e;
+  box-shadow:
+    0 9px 0 rgba(20, 83, 45, 0.35),
+    inset 0 0 0 7px #bbf7d0;
+}
+
+.week8-museum-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: min(600px, 88%);
+  min-height: 50px;
+  margin: 11px auto 0;
+  border: 4px solid #c4b5fd;
+  border-radius: 999px;
+  color: #172554;
+  background: #ffffff;
+  box-shadow: 0 5px 0 rgba(51, 65, 85, 0.28);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.week8-museum-status b {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 18px;
+}
+
+.week8-museum-status-slow,
+.week8-museum-status-move,
+.week8-museum-status-wrong {
+  border-color: #fca5a5;
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.week8-museum-status-correct {
+  border-color: #86efac;
+  color: #166534;
+  background: #dcfce7;
+}
+
+.week8-museum-warning .week8-museum-viewport {
+  animation: week8MuseumShake 320ms ease-out;
+}
+
+.week8-museum-reveal,
+.week8-museum-complete {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  padding: 30px;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.74);
+}
+
+.week8-museum-reveal[hidden],
+.week8-museum-complete[hidden] {
+  display: none;
+}
+
+.week8-museum-reveal-frame {
+  display: grid;
+  width: min(390px, 65vw);
+  aspect-ratio: 1.15;
+  place-items: center;
+  border: 22px ridge #facc15;
+  background: #ffffff;
+  box-shadow:
+    0 15px 0 #78350f,
+    0 0 65px rgba(250, 204, 21, 0.8);
+  animation: week8MuseumReveal 360ms ease-out;
+}
+
+.week8-museum-reveal-frame span {
+  font-size: 150px;
+}
+
+.week8-museum-complete-card {
+  display: grid;
+  min-width: min(560px, 86vw);
+  padding: 35px 48px;
+  gap: 15px;
+  place-items: center;
+  border: 8px solid #ffffff;
+  border-radius: 42px;
+  color: #172554;
+  background: linear-gradient(145deg, #fef3c7, #ddd6fe);
+  box-shadow:
+    0 14px 0 #6d28d9,
+    0 0 60px rgba(196, 181, 253, 0.8);
+  animation: week8MuseumReveal 420ms ease-out;
+}
+
+.week8-museum-complete-card div {
+  font-size: 52px;
+}
+
+.week8-museum-complete-card strong {
+  color: #5b21b6;
+  font-size: clamp(46px, 7vw, 74px);
+}
+
+.week8-museum-complete-card span {
+  padding: 8px 28px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #7c3aed;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+@keyframes week8MuseumTargetGlow {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes week8MuseumShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-9px);
+  }
+
+  50% {
+    transform: translateX(9px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes week8MuseumReveal {
+  from {
+    transform: scale(0.62);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-height: 800px) {
+  .lesson-screen-week8-museum {
+    min-height: 610px;
+    padding-top: 8px;
+  }
+
+  .week8-museum-heading h1 {
+    margin: 5px 0 7px;
+    font-size: 37px;
+  }
+
+  .week8-museum-heading > span {
+    padding: 4px 18px;
+    font-size: 15px;
+  }
+
+  .week8-museum-topbar {
+    margin-bottom: 6px;
+  }
+
+  .week8-museum-clue,
+  .week8-museum-action-clue,
+  .week8-museum-counter {
+    min-height: 46px;
+  }
+
+  .week8-museum-viewport {
+    height: 415px;
+  }
+
+  .week8-museum-status {
+    min-height: 44px;
+    margin-top: 7px;
+  }
+}
+
+
+/* =========================================
+   Week 8 Step 5 - Special Delivery
+   ========================================= */
+
+.lesson-screen-week8-delivery {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 690px;
+  padding: 14px 30px 20px;
+  overflow: hidden;
+  color: #172554;
+  background: linear-gradient(
+    145deg,
+    #dbeafe,
+    #fef3c7 52%,
+    #dcfce7
+  );
+}
+
+.week8-delivery-heading {
+  text-align: center;
+}
+
+.week8-delivery-heading > span {
+  display: inline-block;
+  padding: 6px 22px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #dc2626;
+  box-shadow: 0 5px 0 #991b1b;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.week8-delivery-heading h1 {
+  margin: 7px 0 9px;
+  font-size: 44px;
+  line-height: 1;
+}
+
+.week8-delivery-directions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(1120px, 95%);
+  margin: 0 auto 10px;
+}
+
+.week8-delivery-target,
+.week8-delivery-click-clue,
+.week8-delivery-counter {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #ffffff;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 5px 0 rgba(51, 65, 85, 0.25);
+}
+
+.week8-delivery-target {
+  justify-self: start;
+  gap: 8px;
+  min-width: 145px;
+  font-size: 29px;
+}
+
+.week8-delivery-target strong {
+  font-size: 38px;
+}
+
+.week8-delivery-click-clue {
+  gap: 9px;
+  padding: 0 24px;
+  font-size: 27px;
+}
+
+.week8-delivery-click-clue b,
+.week8-delivery-status b {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 19px;
+}
+
+.week8-delivery-counter {
+  justify-self: end;
+  min-width: 115px;
+  color: #b91c1c;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.week8-delivery-game {
+  display: grid;
+  grid-template-columns: 1.3fr 0.85fr;
+  gap: 18px;
+  width: min(1120px, 95%);
+  margin: 0 auto;
+}
+
+.week8-delivery-packages,
+.week8-delivery-truck-area {
+  box-sizing: border-box;
+  height: 435px;
+  border: 7px solid #334155;
+  border-radius: 30px;
+  box-shadow: 0 9px 0 rgba(51, 65, 85, 0.3);
+}
+
+.week8-delivery-packages {
+  display: grid;
+  padding: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  background: #fde68a;
+}
+
+.week8-delivery-packages button {
+  position: relative;
+  display: grid;
+  min-height: 165px;
+  place-items: center;
+  border: 7px solid #92400e;
+  border-radius: 22px;
+  background: #d97706;
+  box-shadow:
+    0 8px 0 #78350f,
+    inset 0 0 0 5px #fbbf24;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.week8-delivery-packages button::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 8px);
+  width: 16px;
+  background: #fef3c7;
+  content: "";
+}
+
+.week8-delivery-packages button::after {
+  position: absolute;
+  top: calc(50% - 8px);
+  right: 0;
+  left: 0;
+  height: 16px;
+  background: #fef3c7;
+  content: "";
+}
+
+.week8-delivery-packages button span {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  border: 6px solid #ffffff;
+  border-radius: 50%;
+  background: #eff6ff;
+  font-size: 47px;
+}
+
+.week8-delivery-packages button i {
+  position: absolute;
+  right: 8px;
+  bottom: 5px;
+  z-index: 3;
+  font-size: 25px;
+  font-style: normal;
+}
+
+.week8-delivery-package-active {
+  border-color: #fde047 !important;
+  box-shadow:
+    0 8px 0 #78350f,
+    inset 0 0 0 5px #fef08a,
+    0 0 22px #fde047,
+    0 0 48px rgba(250, 204, 21, 0.85) !important;
+  animation: week8DeliveryGlow 650ms ease-in-out infinite alternate;
+}
+
+.week8-delivery-first-click {
+  transform: translateY(5px) scale(0.97);
+}
+
+.week8-delivery-package-loaded {
+  pointer-events: none;
+  animation: week8DeliveryLoad 700ms ease-in forwards;
+}
+
+.week8-delivery-truck-area {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    #7dd3fc 0 60%,
+    #4ade80 61% 72%,
+    #475569 73% 100%
+  );
+}
+
+.week8-delivery-clouds {
+  padding-top: 25px;
+  font-size: 46px;
+  text-align: center;
+}
+
+.week8-delivery-truck {
+  position: absolute;
+  right: 40px;
+  bottom: 65px;
+  font-size: 150px;
+  filter: drop-shadow(0 8px 0 rgba(15, 23, 42, 0.3));
+}
+
+.week8-delivery-truck strong {
+  position: absolute;
+  top: 16px;
+  right: 8px;
+  display: grid;
+  width: 39px;
+  height: 39px;
+  place-items: center;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #dc2626;
+  font-size: 20px;
+}
+
+.week8-delivery-road {
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+  left: 0;
+  height: 9px;
+  background: repeating-linear-gradient(
+    90deg,
+    #facc15 0 45px,
+    transparent 46px 80px
+  );
+}
+
+.week8-delivery-truck-bump {
+  animation: week8DeliveryTruckBump 480ms ease-out;
+}
+
+.week8-delivery-truck-driving {
+  animation: week8DeliveryTruckDrive 1.1s ease-in forwards;
+}
+
+.week8-delivery-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: min(600px, 88%);
+  min-height: 49px;
+  margin: 10px auto 0;
+  border: 4px solid #93c5fd;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 5px 0 rgba(51, 65, 85, 0.25);
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.week8-delivery-status-slow,
+.week8-delivery-status-move,
+.week8-delivery-status-wrong {
+  border-color: #fca5a5;
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.week8-delivery-status-correct {
+  border-color: #86efac;
+  color: #166534;
+  background: #dcfce7;
+}
+
+.week8-delivery-warning .week8-delivery-packages {
+  animation: week8DeliveryShake 320ms ease-out;
+}
+
+.week8-delivery-complete {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.75);
+}
+
+.week8-delivery-complete[hidden] {
+  display: none;
+}
+
+.week8-delivery-complete > div {
+  display: grid;
+  min-width: min(560px, 86vw);
+  padding: 35px 48px;
+  gap: 15px;
+  place-items: center;
+  border: 8px solid #ffffff;
+  border-radius: 42px;
+  background: linear-gradient(145deg, #fef3c7, #bfdbfe);
+  box-shadow:
+    0 14px 0 #1e3a8a,
+    0 0 60px rgba(96, 165, 250, 0.8);
+  animation: week8DeliveryCompletePop 420ms ease-out;
+}
+
+.week8-delivery-complete span {
+  font-size: 57px;
+}
+
+.week8-delivery-complete strong {
+  color: #b91c1c;
+  font-size: 67px;
+}
+
+.week8-delivery-complete b {
+  padding: 8px 27px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #2563eb;
+  font-size: 26px;
+}
+
+@keyframes week8DeliveryGlow {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+
+@keyframes week8DeliveryLoad {
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(470px, 45px) scale(0.15);
+    opacity: 0;
+  }
+}
+
+@keyframes week8DeliveryTruckBump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes week8DeliveryTruckDrive {
+  from { transform: translateX(0); }
+  to { transform: translateX(-520px); }
+}
+
+@keyframes week8DeliveryShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-9px); }
+  50% { transform: translateX(9px); }
+  75% { transform: translateX(-5px); }
+}
+
+@keyframes week8DeliveryCompletePop {
+  from {
+    transform: scale(0.65);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-height: 800px) {
+  .lesson-screen-week8-delivery {
+    min-height: 610px;
+    padding-top: 8px;
+  }
+
+  .week8-delivery-heading h1 {
+    margin: 5px 0 7px;
+    font-size: 37px;
+  }
+
+  .week8-delivery-packages,
+  .week8-delivery-truck-area {
+    height: 395px;
+  }
+
+  .week8-delivery-packages button {
+    min-height: 145px;
+  }
+}
+
+
+/* Week 8 Special Delivery - CSS-drawn mail carrier */
+
+.week8-delivery-carrier {
+  position: absolute;
+  bottom: 69px;
+  left: 24px;
+  z-index: 12;
+  width: 92px;
+  height: 185px;
+  transform-origin: bottom center;
+}
+
+.week8-carrier-head {
+  position: absolute;
+  top: 17px;
+  left: 25px;
+  z-index: 5;
+  width: 48px;
+  height: 54px;
+  border: 4px solid #713f12;
+  border-radius: 48% 48% 45% 45%;
+  background: #d99a67;
+}
+
+.week8-carrier-hat {
+  position: absolute;
+  top: -19px;
+  left: -8px;
+  width: 62px;
+  height: 25px;
+  border: 4px solid #1e3a8a;
+  border-radius: 25px 25px 5px 5px;
+  background: #2563eb;
+}
+
+.week8-carrier-hat::after {
+  position: absolute;
+  right: -14px;
+  bottom: -5px;
+  width: 39px;
+  height: 8px;
+  border-radius: 999px;
+  background: #1e3a8a;
+  content: "";
+}
+
+.week8-carrier-eye {
+  position: absolute;
+  top: 20px;
+  width: 5px;
+  height: 7px;
+  border-radius: 50%;
+  background: #172554;
+}
+
+.week8-carrier-eye.left {
+  left: 11px;
+}
+
+.week8-carrier-eye.right {
+  right: 11px;
+}
+
+.week8-carrier-smile {
+  position: absolute;
+  bottom: 9px;
+  left: 15px;
+  width: 17px;
+  height: 8px;
+  border-bottom: 3px solid #7f1d1d;
+  border-radius: 0 0 20px 20px;
+}
+
+.week8-carrier-body {
+  position: absolute;
+  top: 67px;
+  left: 17px;
+  width: 64px;
+  height: 79px;
+  border: 5px solid #1e3a8a;
+  border-radius: 19px 19px 10px 10px;
+  background:
+    linear-gradient(
+      90deg,
+      #2563eb 0 43%,
+      #facc15 44% 56%,
+      #2563eb 57% 100%
+    );
+}
+
+.week8-carrier-body::after {
+  position: absolute;
+  top: 38px;
+  left: 14px;
+  width: 28px;
+  height: 18px;
+  border: 3px solid #1e3a8a;
+  border-radius: 3px;
+  background: #bfdbfe;
+  content: "";
+}
+
+.week8-carrier-arm {
+  position: absolute;
+  top: 76px;
+  right: -3px;
+  z-index: 3;
+  width: 58px;
+  height: 18px;
+  border: 4px solid #1e3a8a;
+  border-radius: 999px;
+  background: #2563eb;
+  transform: rotate(-18deg);
+  transform-origin: 8px center;
+}
+
+.week8-carrier-hand {
+  position: absolute;
+  top: 66px;
+  right: -16px;
+  z-index: 5;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #713f12;
+  border-radius: 50%;
+  background: #d99a67;
+}
+
+.week8-carrier-leg {
+  position: absolute;
+  bottom: 5px;
+  width: 22px;
+  height: 48px;
+  border: 5px solid #1e293b;
+  border-radius: 5px 5px 14px 14px;
+  background: #334155;
+}
+
+.week8-carrier-leg.left {
+  left: 20px;
+}
+
+.week8-carrier-leg.right {
+  right: 7px;
+}
+
+.week8-carrier-parcel {
+  position: absolute;
+  top: 52px;
+  right: -20px;
+  z-index: 15;
+  width: 29px;
+  height: 25px;
+  border: 4px solid #78350f;
+  border-radius: 4px;
+  background:
+    linear-gradient(
+      90deg,
+      #d97706 0 42%,
+      #fef3c7 43% 57%,
+      #d97706 58% 100%
+    );
+  opacity: 0;
+}
+
+.week8-delivery-carrier-throwing {
+  animation: week8CarrierLean 620ms ease-out;
+}
+
+.week8-delivery-carrier-throwing
+.week8-carrier-arm {
+  animation: week8CarrierArmThrow 620ms ease-out;
+}
+
+.week8-delivery-carrier-throwing
+.week8-carrier-hand {
+  animation: week8CarrierHandThrow 620ms ease-out;
+}
+
+.week8-delivery-carrier-throwing
+.week8-carrier-parcel {
+  animation: week8CarrierParcelThrow 620ms ease-out;
+}
+
+@keyframes week8CarrierLean {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  38% {
+    transform: rotate(-7deg);
+  }
+}
+
+@keyframes week8CarrierArmThrow {
+  0% {
+    transform: rotate(-18deg);
+  }
+
+  35% {
+    transform: rotate(48deg);
+  }
+
+  70% {
+    transform: rotate(-55deg);
+  }
+
+  100% {
+    transform: rotate(-18deg);
+  }
+}
+
+@keyframes week8CarrierHandThrow {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  35% {
+    transform: translate(-11px, 19px);
+  }
+
+  70% {
+    transform: translate(17px, -20px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes week8CarrierParcelThrow {
+  0%,
+  30% {
+    transform: translate(-25px, 28px) rotate(-15deg);
+    opacity: 0;
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  75% {
+    transform: translate(180px, -48px) rotate(210deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(245px, 30px) scale(0.25) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   Week 8 Steps 3-5 - teacher presentation fit
+   ========================================= */
+
+.week8-teacher-fit {
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  zoom: 1;
+  transform: scale(0.76);
+  transform-origin: top center;
+}
+
+.week8-teacher-fit.lesson-screen-week8-fireflies,
+.week8-teacher-fit.lesson-screen-week8-space-launch,
+.week8-teacher-fit.lesson-screen-week8-museum,
+.week8-teacher-fit.lesson-screen-week8-delivery {
+  min-height: 650px;
+}
+
+
+/* =========================================
+   Week 8 Steps 2-5 - student screen fit
+   Keep full width while reducing height slightly
+   ========================================= */
+
+.lesson-screen-week8-fireflies,
+.lesson-screen-week8-space-launch,
+.lesson-screen-week8-museum,
+.lesson-screen-week8-delivery {
+  min-height: 625px !important;
+}
+
+/* Step 2 */
+.lesson-screen-week8-fireflies
+.week8-fireflies-scene {
+  height: 320px !important;
+}
+
+.lesson-screen-week8-fireflies:not(.week8-teacher-fit)
+.week8-fireflies-heading h1 {
+  margin-top: 6px;
+  margin-bottom: 5px;
+  font-size: 38px;
+}
+
+.lesson-screen-week8-fireflies:not(.week8-teacher-fit)
+.week8-fireflies-clue {
+  margin-top: 5px;
+  margin-bottom: 7px;
+}
+
+/* Step 3 */
+.lesson-screen-week8-space-launch
+.week8-launch-window,
+.lesson-screen-week8-space-launch
+.week8-launch-console {
+  height: 425px !important;
+}
+
+.lesson-screen-week8-space-launch:not(.week8-teacher-fit)
+.week8-launch-heading h1 {
+  margin-top: 5px;
+  margin-bottom: 9px;
+  font-size: 38px;
+}
+
+/* Step 4 */
+.lesson-screen-week8-museum
+.week8-museum-viewport {
+  height: 355px !important;
+}
+
+.lesson-screen-week8-museum:not(.week8-teacher-fit)
+.week8-museum-heading h1 {
+  margin-top: 5px;
+  margin-bottom: 7px;
+  font-size: 37px;
+}
+
+/* Step 5 */
+.lesson-screen-week8-delivery
+.week8-delivery-packages,
+.lesson-screen-week8-delivery
+.week8-delivery-truck-area {
+  height: 335px !important;
+}
+
+.lesson-screen-week8-delivery:not(.week8-teacher-fit)
+.week8-delivery-heading h1 {
+  margin-top: 5px;
+  margin-bottom: 7px;
+  font-size: 37px;
+}
+
+
+/* Week 8 Step 6 - Double-Click Carnival */
+.lesson-screen-week8-carnival{position:relative;box-sizing:border-box;width:100%;min-height:560px;padding:10px 28px 16px;overflow:hidden;color:#172554;background:linear-gradient(145deg,#dbeafe,#fef3c7 52%,#fce7f3)}
+.week8-carnival-heading{text-align:center}.week8-carnival-heading>span{display:inline-block;padding:5px 21px;border-radius:999px;color:#fff;background:#db2777;box-shadow:0 4px 0 #9d174d;font-size:16px;font-weight:900;letter-spacing:2px}.week8-carnival-heading h1{margin:5px 0 7px;font-size:38px;line-height:1}
+.week8-carnival-directions{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:min(1080px,94%);margin:0 auto 8px}.week8-carnival-target,.week8-carnival-clue,.week8-carnival-counter{display:flex;min-height:47px;align-items:center;justify-content:center;border:4px solid #fff;border-radius:999px;background:#fff;box-shadow:0 4px 0 #33415540}.week8-carnival-target{justify-self:start;gap:8px;min-width:135px;font-size:27px}.week8-carnival-target strong{font-size:34px}.week8-carnival-clue{gap:8px;padding:0 21px;font-size:25px}.week8-carnival-clue b,.week8-carnival-status b{display:grid;width:29px;height:29px;place-items:center;border-radius:50%;color:#fff;background:#2563eb;font-size:17px}.week8-carnival-counter{justify-self:end;min-width:110px;color:#be185d;font-size:18px;font-weight:900}
+.week8-carnival-games{position:relative;display:grid;box-sizing:border-box;width:min(1120px,95%);height:290px;margin:0 auto;padding:48px 28px 34px;grid-template-columns:repeat(5,1fr);gap:18px;align-items:center;overflow:hidden;border:7px solid #7c2d12;border-radius:28px;background:linear-gradient(#60a5fa 0 48%,#a7f3d0 49%);box-shadow:0 8px 0 #78350f59}.week8-carnival-lights{position:absolute;top:10px;right:20px;left:20px;height:24px;background:radial-gradient(circle,#facc15 0 7px,transparent 8px) 0 0/55px 24px repeat-x;filter:drop-shadow(0 0 5px #facc15)}
+.week8-carnival-games button{position:relative;z-index:4;display:grid;min-height:145px;padding:10px;place-items:center;border:7px solid #fff;border-radius:50% 50% 22px 22px;background:repeating-linear-gradient(90deg,#ef4444 0 24px,#fff 25px 48px);box-shadow:0 8px 0 #7f1d1d59,inset 0 0 0 5px #fef3c7;cursor:pointer;touch-action:none}.week8-carnival-games button:nth-of-type(even){background:repeating-linear-gradient(90deg,#2563eb 0 24px,#fff 25px 48px)}.week8-carnival-games button span{position:relative;z-index:3;display:grid;width:78px;height:78px;place-items:center;border:6px solid #fff;border-radius:50%;background:#eff6ff;font-size:50px}.week8-carnival-games button i{position:absolute;right:8px;bottom:5px;z-index:4;font-size:25px;font-style:normal;opacity:0}
+.week8-carnival-game-active{border-color:#fde047!important;box-shadow:0 8px 0 #7f1d1d59,inset 0 0 0 5px #fef08a,0 0 20px #fde047,0 0 45px #facc15d9!important;animation:week8CarnivalGlow 600ms ease-in-out infinite alternate}.week8-carnival-first-click{transform:translateY(5px) scale(.97)}.week8-carnival-game-won{border-color:#4ade80!important;background:#bbf7d0!important;animation:week8CarnivalWin 650ms ease-out}.week8-carnival-game-won i{opacity:1}
+.week8-carnival-tickets{display:flex;justify-content:center;gap:17px;margin:7px auto 5px}.week8-carnival-tickets span{font-size:27px;filter:grayscale(1);opacity:.35}.week8-carnival-tickets .week8-carnival-ticket-won{filter:none;opacity:1;animation:week8CarnivalTicket 350ms ease-out}.week8-carnival-status{display:flex;align-items:center;justify-content:center;gap:10px;width:min(570px,86%);min-height:44px;margin:0 auto;border:4px solid #f9a8d4;border-radius:999px;background:#fff;box-shadow:0 4px 0 #33415540;font-size:21px;font-weight:900}.week8-carnival-status-slow,.week8-carnival-status-move,.week8-carnival-status-wrong{border-color:#fca5a5;color:#991b1b;background:#fee2e2}.week8-carnival-status-correct{border-color:#86efac;color:#166534;background:#dcfce7}.week8-carnival-warning .week8-carnival-games{animation:week8CarnivalShake 300ms ease-out}
+.week8-carnival-complete{position:absolute;inset:0;z-index:100;display:grid;place-items:center;background:#0f172abf}.week8-carnival-complete[hidden]{display:none}.week8-carnival-complete>div{display:grid;min-width:min(540px,84vw);padding:32px 45px;gap:13px;place-items:center;border:8px solid #fff;border-radius:40px;background:linear-gradient(145deg,#fef3c7,#fbcfe8);box-shadow:0 13px 0 #9d174d,0 0 55px #f472b6cc;animation:week8CarnivalComplete 400ms ease-out}.week8-carnival-complete span{font-size:53px}.week8-carnival-complete strong{color:#be185d;font-size:65px}.week8-carnival-complete b{padding:7px 25px;border-radius:999px;color:#fff;background:#2563eb;font-size:25px}
+@keyframes week8CarnivalGlow{from{transform:scale(1)}to{transform:scale(1.035)}}@keyframes week8CarnivalWin{0%{transform:scale(1)}55%{transform:scale(1.12) rotate(-3deg)}100%{transform:scale(1)}}@keyframes week8CarnivalTicket{from{transform:scale(.5)}to{transform:scale(1)}}@keyframes week8CarnivalShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}@keyframes week8CarnivalComplete{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
+
+
+/* Week 8 Step 7 - Glitch Monster Boss Battle */
+.lesson-screen-week8-boss{position:relative;box-sizing:border-box;width:100%;min-height:580px;padding:9px 26px 14px;overflow:hidden;color:#fff;background:linear-gradient(145deg,#071633,#172554 58%,#26083f)}
+.week8-boss-heading{text-align:center}.week8-boss-heading>span{display:inline-block;padding:5px 22px;border-radius:999px;color:#172554;background:#67e8f9;box-shadow:0 4px 0 #0e7490;font-size:16px;font-weight:900;letter-spacing:2px}.week8-boss-heading h1{margin:5px 0 7px;font-size:38px;line-height:1;text-shadow:0 4px #581c87}
+.week8-boss-hud{display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center;width:min(1080px,94%);margin:0 auto 7px}.week8-boss-phase,.week8-boss-clue{display:flex;align-items:center;justify-content:center;gap:8px;min-height:45px;border:4px solid #fff;border-radius:999px;color:#172554;background:#fff;box-shadow:0 4px #0f172a66}.week8-boss-phase{justify-self:start;padding:0 18px}.week8-boss-phase span{font-size:29px}.week8-boss-clue{justify-self:end;padding:0 18px;font-size:23px}.week8-boss-clue b,.week8-boss-status b{display:grid;width:28px;height:28px;place-items:center;border-radius:50%;color:#fff;background:#2563eb}.week8-boss-health{display:flex;align-items:center;gap:8px;padding:0 14px;font-size:25px}.week8-boss-health div{width:100%;height:27px;overflow:hidden;border:4px solid #fff;border-radius:999px;background:#450a0a}.week8-boss-health i{display:block;width:100%;height:100%;background:linear-gradient(90deg,#22c55e,#facc15,#ef4444);transition:width .35s ease}
+.week8-boss-arena{position:relative;width:min(1120px,95%);height:330px;margin:0 auto;overflow:hidden;border:7px solid #67e8f9;border-radius:28px;background:linear-gradient(#111d4a,#312e81 72%,#0f172a 73%);box-shadow:0 8px #020617}.week8-boss-grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(#67e8f9 1px,transparent 1px),linear-gradient(90deg,#67e8f9 1px,transparent 1px);background-size:42px 42px}.week8-boss-floor{position:absolute;right:0;bottom:0;left:0;height:45px;background:repeating-linear-gradient(90deg,#0f172a 0 45px,#1e3a8a 46px 90px)}
+.week8-boss-robot{position:absolute;left:7%;bottom:43px;z-index:8;width:125px;height:205px;transition:transform .2s}.week8-robot-head{position:absolute;top:28px;left:17px;width:88px;height:70px;border:6px solid #1e3a8a;border-radius:25px;background:#94a3b8;box-shadow:inset 0 0 0 5px #cbd5e1}.week8-robot-head i{position:absolute;top:24px;width:17px;height:17px;border-radius:50%;background:#22d3ee;box-shadow:0 0 12px #22d3ee}.week8-robot-head i:first-child{left:18px}.week8-robot-head i:last-child{right:18px}.week8-robot-antenna{position:absolute;top:0;left:57px;width:8px;height:32px;background:#64748b}.week8-robot-antenna:after{position:absolute;top:-8px;left:-7px;width:22px;height:22px;border-radius:50%;background:#facc15;box-shadow:0 0 15px #facc15;content:""}.week8-robot-body{position:absolute;top:96px;left:7px;display:grid;width:105px;height:91px;place-items:center;border:7px solid #1e3a8a;border-radius:22px;background:#3b82f6}.week8-robot-body span{font-size:42px}.week8-robot-arm{position:absolute;top:112px;right:-28px;width:45px;height:22px;border:5px solid #1e3a8a;border-radius:999px;background:#60a5fa}
+.week8-boss-monster{position:absolute;right:7%;bottom:43px;z-index:8;width:205px;height:220px;border:8px solid #581c87;border-radius:48% 52% 40% 45%;background:linear-gradient(145deg,#d946ef,#7e22ce);box-shadow:0 0 35px #d946ef99;animation:week8MonsterGlitch .8s steps(2) infinite}.week8-monster-eye{position:absolute;top:62px;width:42px;height:48px;border:6px solid #3b0764;border-radius:50%;background:#fef08a}.week8-monster-eye:after{position:absolute;top:12px;left:13px;width:14px;height:18px;border-radius:50%;background:#172554;content:""}.week8-monster-eye.left{left:39px}.week8-monster-eye.right{right:39px}.week8-monster-mouth{position:absolute;bottom:47px;left:61px;width:78px;height:35px;border:6px solid #3b0764;border-top:0;border-radius:0 0 50px 50px;background:#111827}.week8-monster-horn{position:absolute;top:-28px;width:50px;height:55px;background:#facc15;clip-path:polygon(50% 0,100% 100%,0 100%)}.week8-monster-horn.left{left:25px;transform:rotate(-15deg)}.week8-monster-horn.right{right:25px;transform:rotate(15deg)}.week8-monster-glitch{position:absolute;width:65px;height:16px;background:#22d3ee}.week8-monster-glitch.one{top:35px;right:-24px}.week8-monster-glitch.two{bottom:25px;left:-25px;background:#f43f5e}
+.week8-boss-targets{position:absolute;inset:0;z-index:20}.week8-boss-target{position:absolute;display:grid;width:72px;height:72px;place-items:center;border:5px solid #94a3b8;border-radius:50%;background:#0f172acc;cursor:pointer;touch-action:none;transform:translate(-50%,-50%)}.week8-boss-target span{font-size:39px}.week8-boss-target-active{border-color:#fde047;box-shadow:0 0 18px #fde047,0 0 40px #facc15cc;animation:week8BossTarget 550ms ease-in-out infinite alternate}.week8-boss-decoy{opacity:.72}.week8-boss-first-click{filter:brightness(1.5);transform:translate(-50%,-50%) scale(.9)}.week8-boss-target-hit{animation:week8BossTargetHit .4s forwards}
+.week8-boss-beam{position:absolute;left:17%;top:51%;z-index:15;width:58%;height:15px;border-radius:999px;background:#67e8f9;box-shadow:0 0 14px #fff,0 0 35px #22d3ee;transform:scaleX(0);transform-origin:left}.week8-boss-beam-fire{animation:week8BossBeam .42s ease-out}.week8-boss-robot-fire{transform:translateX(8px)}.week8-boss-monster-hit{animation:week8BossHit .42s ease-out!important}.week8-boss-monster-friendly{border-color:#22c55e;background:linear-gradient(145deg,#86efac,#22c55e);animation:week8BossFriendly .7s ease-out!important}.week8-boss-monster-friendly .week8-monster-mouth{border-top:6px solid #3b0764;border-bottom:0;border-radius:50px 50px 0 0;background:transparent}.week8-boss-monster-friendly .week8-monster-glitch{display:none}
+.week8-boss-status{display:flex;align-items:center;justify-content:center;gap:10px;width:min(570px,86%);min-height:44px;margin:10px auto 0;border:4px solid #67e8f9;border-radius:999px;color:#172554;background:#fff;box-shadow:0 4px #02061766;font-size:21px;font-weight:900}.week8-boss-status-slow,.week8-boss-status-move,.week8-boss-status-wrong{border-color:#fca5a5;color:#991b1b;background:#fee2e2}.week8-boss-status-hit{border-color:#86efac;color:#166534;background:#dcfce7}.week8-boss-arena-warning{animation:week8BossShake .3s ease-out}
+.week8-boss-complete{position:absolute;inset:0;z-index:100;display:grid;place-items:center;background:#020617c7}.week8-boss-complete[hidden]{display:none}.week8-boss-complete>div{display:grid;min-width:min(590px,86vw);padding:32px 44px;gap:13px;place-items:center;border:8px solid #fff;border-radius:40px;color:#172554;background:linear-gradient(145deg,#cffafe,#bbf7d0);box-shadow:0 13px #166534,0 0 60px #22d3eecc;animation:week8BossComplete .4s ease-out}.week8-boss-complete span{font-size:52px}.week8-boss-complete strong{color:#1e3a8a;font-size:56px}.week8-boss-complete b{padding:8px 24px;border-radius:999px;color:#fff;background:#2563eb;font-size:24px}
+@keyframes week8MonsterGlitch{0%,100%{transform:translate(0)}25%{transform:translate(3px,-2px)}50%{transform:translate(-3px,2px)}}@keyframes week8BossTarget{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.12)}}@keyframes week8BossTargetHit{to{transform:translate(-50%,-50%) scale(0);opacity:0}}@keyframes week8BossBeam{0%{transform:scaleX(0)}45%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}@keyframes week8BossHit{0%,100%{transform:translate(0)}25%{transform:translate(-14px) rotate(-4deg)}55%{transform:translate(12px) rotate(4deg)}}@keyframes week8BossFriendly{0%{transform:scale(.8) rotate(-8deg)}70%{transform:scale(1.12) rotate(5deg)}100%{transform:scale(1)}}@keyframes week8BossShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}@keyframes week8BossComplete{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
+
+
+/* Week 8 Step 7 - phase storytelling cleanup */
+.week8-boss-phase{gap:7px}.week8-boss-phase>i{display:flex;gap:4px;margin-left:4px}.week8-boss-phase>i span{width:10px;height:10px;border:2px solid #94a3b8;border-radius:50%;background:#e2e8f0}.week8-boss-phase>i span.done{border-color:#15803d;background:#22c55e;box-shadow:0 0 6px #4ade80}
+.week8-monster-mouth{bottom:47px;left:61px;width:78px;height:28px;border:6px solid #3b0764;border-bottom:0;border-radius:50px 50px 0 0;background:transparent}.week8-boss-monster-friendly .week8-monster-mouth{height:35px;border-top:0;border-bottom:6px solid #3b0764;border-radius:0 0 50px 50px;background:#111827}
+.week8-boss-phase-2 .week8-boss-monster:after{position:absolute;inset:-27px;border:10px solid #67e8f9;border-radius:50%;box-shadow:0 0 22px #22d3ee,0 0 45px #38bdf899;content:"";animation:week8BossShield 700ms ease-in-out infinite alternate}.week8-boss-phase-2 .week8-boss-target-active{z-index:30;background:#ecfeff}
+.week8-boss-phase-3 .week8-boss-target-active{border-radius:12px;background:#111827;animation:week8BossGlitchTarget 420ms steps(2) infinite}.week8-boss-phase-3 .week8-boss-target-active:before,.week8-boss-phase-3 .week8-boss-target-active:after{position:absolute;width:28px;height:7px;background:#f43f5e;content:""}.week8-boss-phase-3 .week8-boss-target-active:before{top:-10px;right:-15px}.week8-boss-phase-3 .week8-boss-target-active:after{bottom:-10px;left:-15px;background:#22d3ee}
+.week8-boss-phase-4 .week8-boss-target{width:82px;height:82px;border:0;border-radius:0;background:transparent;box-shadow:none}.week8-boss-phase-4 .week8-boss-target span{font-size:57px;filter:grayscale(1) brightness(1.8);text-shadow:0 0 12px #fff}.week8-boss-phase-4 .week8-boss-target-active{animation:week8BossCrack 550ms ease-in-out infinite alternate}
+.week8-boss-phase-5 .week8-boss-target-active{z-index:40;width:82px;height:82px;border:8px solid #fef08a;background:#7f1d1d;box-shadow:0 0 22px #fff,0 0 48px #ef4444,0 0 75px #f97316!important;animation:week8BossCore 500ms ease-in-out infinite alternate}.week8-boss-phase-5 .week8-boss-decoy{width:54px;height:54px;opacity:.78}.week8-boss-phase-5 .week8-boss-decoy span{font-size:28px}
+@keyframes week8BossShield{from{transform:scale(.97);opacity:.7}to{transform:scale(1.04);opacity:1}}@keyframes week8BossGlitchTarget{0%,100%{transform:translate(-50%,-50%)}33%{transform:translate(calc(-50% + 5px),calc(-50% - 3px))}66%{transform:translate(calc(-50% - 4px),calc(-50% + 4px))}}@keyframes week8BossCrack{from{transform:translate(-50%,-50%) scale(.95)}to{transform:translate(-50%,-50%) scale(1.13)}}@keyframes week8BossCore{from{transform:translate(-50%,-50%) scale(.94)}to{transform:translate(-50%,-50%) scale(1.1)}}
+
+
+/* =========================================
+   Week 8 Step 7 - one clear target
+   ========================================= */
+
+.week8-boss-target-active::after {
+  position: absolute;
+  top: -47px;
+  left: 50%;
+  color: #fde047;
+  content: "▼";
+  font-size: 34px;
+  font-style: normal;
+  line-height: 1;
+  text-shadow:
+    0 3px 0 #92400e,
+    0 0 12px #facc15;
+  transform: translateX(-50%);
+  animation:
+    week8BossTargetArrow
+    500ms ease-in-out infinite alternate;
+}
+
+.week8-boss-phase-1
+.week8-boss-target-active {
+  width: 86px;
+  height: 86px;
+  border-color: #67e8f9;
+  background: #164e63;
+  box-shadow:
+    0 0 22px #ffffff,
+    0 0 48px #22d3ee,
+    0 0 75px rgba(34,211,238,0.75);
+}
+
+.week8-boss-phase-2
+.week8-boss-target-active {
+  width: 78px;
+  height: 78px;
+  border-color: #fde047;
+  background: #164e63;
+}
+
+.week8-boss-phase-3
+.week8-boss-target-active {
+  width: 84px;
+  height: 84px;
+}
+
+.week8-boss-phase-4
+.week8-boss-target-active::after {
+  top: -40px;
+}
+
+.week8-boss-phase-5
+.week8-boss-target-active::after {
+  top: -45px;
+}
+
+@keyframes week8BossTargetArrow {
+  from {
+    transform:
+      translateX(-50%)
+      translateY(-3px);
+  }
+
+  to {
+    transform:
+      translateX(-50%)
+      translateY(7px);
+  }
+}
+
+
+/* Week 8 Step 7 - moving Glitch bomb battle v4 */
+.lesson-screen-week8-boss{min-height:575px;padding:8px 24px 12px}
+.week8-boss-heading h1{margin:4px 0 6px;font-size:36px}
+.week8-boss-hud{margin-bottom:6px}
+.week8-boss-health-glitch{padding:4px 8px;border-radius:8px;color:#fff;background:#7e22ce;font-size:12px;font-weight:1000;letter-spacing:1px}
+.week8-boss-phase>i{display:flex;gap:5px}.week8-boss-phase>i span{width:11px;height:11px;border:2px solid #94a3b8;border-radius:50%;background:#e2e8f0}.week8-boss-phase>i span.done{border-color:#15803d;background:#22c55e;box-shadow:0 0 7px #4ade80}
+.week8-boss-arena{height:344px;background:linear-gradient(#0b163d,#25266f 69%,#111827 70%)}
+.week8-boss-lab-window{position:absolute;top:20px;left:25px;display:flex;width:180px;height:65px;align-items:flex-end;justify-content:space-around;border:5px solid #334155;border-radius:8px;background:linear-gradient(#082f49,#0369a1);box-shadow:inset 0 0 18px #22d3ee55}
+.week8-boss-lab-window i{width:4px;height:100%;background:#334155}.week8-boss-lab-window:after{position:absolute;right:0;bottom:19px;left:0;height:4px;background:#334155;content:""}
+.week8-boss-lab-screen{position:absolute;top:22px;right:26px;width:135px;height:66px;border:5px solid #475569;border-radius:7px;background:#071a2e;box-shadow:0 0 14px #ef444455}
+.week8-boss-lab-screen span{position:absolute;top:8px;left:19px;color:#f87171;font-size:13px;font-weight:1000;letter-spacing:2px}.week8-boss-lab-screen i{position:absolute;right:15px;bottom:12px;left:15px;height:9px;background:linear-gradient(90deg,#ef4444 45%,#334155 46%)}
+.week8-boss-floor{height:56px;background:repeating-linear-gradient(90deg,#0f172a 0 55px,#1e3a8a 56px 110px)}
+
+.week8-boss-robot{left:5%;bottom:45px;width:145px;height:235px;z-index:22;filter:drop-shadow(0 8px 4px #02061788)}
+.week8-robot-shadow{position:absolute;bottom:-7px;left:14px;width:120px;height:20px;border-radius:50%;background:#02061788}
+.week8-robot-antenna{top:1px;left:66px;width:8px;height:31px;border:2px solid #1e3a8a;border-radius:5px;background:#94a3b8}.week8-robot-antenna i{position:absolute;top:-12px;left:-8px;width:20px;height:20px;border:3px solid #1e3a8a;border-radius:50%;background:#facc15;box-shadow:0 0 15px #fde047}
+.week8-robot-ear{position:absolute;top:48px;width:20px;height:45px;border:5px solid #1e3a8a;background:#60a5fa}.week8-robot-ear.left{left:4px;border-radius:13px 4px 4px 13px}.week8-robot-ear.right{right:4px;border-radius:4px 13px 13px 4px}
+.week8-robot-head{top:27px;left:15px;width:105px;height:79px;border:6px solid #1e3a8a;border-radius:25px;background:linear-gradient(145deg,#e2e8f0,#64748b);box-shadow:inset 0 0 0 5px #cbd5e1}
+.week8-robot-face{position:absolute;inset:14px 13px;border:4px solid #0f172a;border-radius:14px;background:linear-gradient(#071633,#172554)}.week8-robot-face i{position:absolute;top:13px;width:18px;height:20px;border-radius:45%;background:#22d3ee;box-shadow:0 0 11px #22d3ee}.week8-robot-face i:first-child{left:13px}.week8-robot-face i:nth-child(2){right:13px}.week8-robot-face b{position:absolute;bottom:8px;left:29px;width:20px;height:7px;border:3px solid #67e8f9;border-top:0;border-radius:0 0 15px 15px}
+.week8-robot-neck{position:absolute;top:103px;left:56px;width:29px;height:17px;border:4px solid #1e3a8a;background:#64748b}
+.week8-robot-body{top:116px;left:22px;width:95px;height:83px;border:7px solid #1e3a8a;border-radius:18px;background:linear-gradient(145deg,#60a5fa,#2563eb)}
+.week8-robot-core{position:absolute;top:12px;left:31px;width:31px;height:31px;border:4px solid #dbeafe;border-radius:50%;background:#0e7490;box-shadow:0 0 12px #22d3ee}.week8-robot-core i{position:absolute;inset:6px;border-radius:50%;background:#67e8f9;animation:week8RobotCore 650ms ease-in-out infinite alternate}
+.week8-robot-panel{position:absolute;right:16px;bottom:9px;left:16px;display:flex;height:10px;justify-content:center;gap:7px;border-radius:4px;background:#1e3a8a}.week8-robot-panel i{width:7px;height:7px;margin-top:1px;border-radius:50%;background:#facc15}.week8-robot-panel i:nth-child(2){background:#22c55e}.week8-robot-panel i:nth-child(3){background:#f43f5e}
+.week8-robot-arm{top:126px;width:42px;height:23px;border:5px solid #1e3a8a;border-radius:999px;background:#60a5fa}.week8-robot-arm.left{left:-8px;transform:rotate(16deg)}.week8-robot-arm.right{right:-12px;transform:rotate(-10deg)}.week8-robot-arm i{position:absolute;right:-9px;top:3px;width:13px;height:13px;border:4px solid #1e3a8a;border-radius:50%;background:#94a3b8}.week8-robot-arm.left i{right:auto;left:-9px}.week8-robot-arm b{position:absolute;display:none}
+.week8-robot-cannon{position:absolute;top:131px;right:-30px;width:48px;height:25px;border:5px solid #172554;border-radius:6px 15px 15px 6px;background:linear-gradient(#94a3b8,#475569)}.week8-robot-cannon i{position:absolute;top:3px;right:-16px;width:18px;height:10px;border:4px solid #172554;border-radius:0 8px 8px 0;background:#22d3ee;box-shadow:0 0 9px #22d3ee}
+.week8-robot-leg{position:absolute;top:193px;width:31px;height:35px;border:5px solid #1e3a8a;background:#64748b}.week8-robot-leg.left{left:29px}.week8-robot-leg.right{right:29px}.week8-robot-leg i{position:absolute;bottom:-9px;left:-8px;width:41px;height:14px;border:5px solid #1e3a8a;border-radius:12px 12px 5px 5px;background:#60a5fa}
+
+.week8-boss-monster{right:auto;bottom:auto;left:80%;top:12%;z-index:18;width:96px;height:105px;border:6px solid #581c87;border-radius:42% 48% 38% 45%;background:linear-gradient(145deg,#e879f9,#9333ea 65%,#6b21a8);box-shadow:0 0 25px #d946ef99;transform:translate(-50%,-50%);transition:left 1.2s cubic-bezier(.35,.05,.25,1),top 1.2s cubic-bezier(.35,.05,.25,1)}
+.week8-boss-monster-moving{animation:week8SmallGlitchMove 240ms steps(2) infinite}.week8-boss-monster-near{filter:drop-shadow(0 0 9px #facc15)}
+.week8-monster-eye{top:30px;width:22px;height:26px;border:4px solid #3b0764;background:#fef08a}.week8-monster-eye:after{top:6px;left:7px;width:8px;height:11px}.week8-monster-eye.left{left:18px}.week8-monster-eye.right{right:18px}
+.week8-monster-mouth{bottom:20px;left:28px;width:37px;height:18px;border-width:4px}.week8-monster-mouth i{position:absolute;top:0;width:7px;height:9px;background:#fff;clip-path:polygon(0 0,100% 0,50% 100%)}.week8-monster-mouth i:first-child{left:4px}.week8-monster-mouth i:nth-child(2){left:15px}.week8-monster-mouth i:nth-child(3){right:4px}
+.week8-monster-horn{top:-15px;width:27px;height:29px}.week8-monster-horn.left{left:10px}.week8-monster-horn.right{right:10px}.week8-monster-glitch{width:35px;height:9px}.week8-monster-glitch.one{top:16px;right:-15px}.week8-monster-glitch.two{bottom:12px;left:-14px}
+.week8-monster-pixel{position:absolute;z-index:-1;width:13px;height:13px;background:#22d3ee;box-shadow:17px 7px #f43f5e,-9px 19px #a78bfa}.week8-monster-pixel.one{top:9px;left:-14px}.week8-monster-pixel.two{right:-13px;bottom:8px;transform:rotate(45deg)}
+
+.week8-boss-bombs{position:absolute;inset:0;z-index:24}.week8-boss-bomb{position:absolute;width:62px;height:62px;padding:0;border:0;background:transparent;cursor:default;transform:translate(-50%,-50%);touch-action:none}.week8-boss-bomb>i{position:absolute;left:11px;bottom:3px;width:42px;height:42px;border:5px solid #111827;border-radius:50% 50% 44% 44%;background:radial-gradient(circle at 35% 28%,#64748b,#111827 60%)}.week8-boss-bomb>b{position:absolute;top:4px;left:30px;width:8px;height:20px;border-radius:6px;background:#92400e;transform:rotate(26deg)}.week8-boss-bomb>span{position:absolute;top:-3px;left:42px;width:12px;height:12px;border-radius:50%;background:#64748b}
+.week8-boss-bomb-active{cursor:pointer}.week8-boss-bomb-active>i{border-color:#fde047;box-shadow:0 0 13px #fff,0 0 28px #facc15;background:radial-gradient(circle at 35% 28%,#fef08a,#111827 55%)}.week8-boss-bomb-active>span{background:#fff;box-shadow:0 0 8px #fff,0 0 18px #facc15;animation:week8BombFuse 250ms steps(2) infinite}.week8-boss-bomb-active:after{position:absolute;top:-37px;left:50%;color:#fde047;content:"▼";font-size:30px;text-shadow:0 3px #92400e,0 0 12px #facc15;transform:translateX(-50%);animation:week8BombArrow 450ms ease-in-out infinite alternate}
+.week8-boss-first-click{filter:brightness(1.6);transform:translate(-50%,-50%) scale(.9)}.week8-boss-bomb-explode{pointer-events:none;animation:week8BombExplode 650ms forwards}.week8-boss-bomb-explode:before{position:absolute;inset:-35px;display:grid;place-items:center;color:#facc15;content:"✦";font-size:90px;text-shadow:0 0 18px #fff,0 0 35px #f97316}
+.week8-boss-beam{z-index:21;height:11px;background:#67e8f9;box-shadow:0 0 13px #fff,0 0 28px #22d3ee;transform:rotate(var(--week8-beam-angle,0rad)) scaleX(0);transform-origin:left center}.week8-boss-beam-fire{animation:week8AimedBeam 480ms ease-out}
+.week8-boss-robot-fire .week8-robot-cannon{box-shadow:0 0 22px #67e8f9}.week8-boss-monster-hit{animation:week8SmallMonsterHit 500ms ease-out!important}.week8-boss-monster-defeated{animation:week8MonsterDefeat 900ms forwards!important}
+.week8-boss-status{margin-top:8px}.week8-boss-status-travel{border-color:#93c5fd;background:#dbeafe}.week8-boss-status-ready{border-color:#fde047;background:#fef9c3}.week8-boss-status-hit{border-color:#86efac;background:#dcfce7}
+
+@keyframes week8RobotCore{from{transform:scale(.75);opacity:.7}to{transform:scale(1.15);opacity:1}}
+@keyframes week8SmallGlitchMove{0%,100%{margin:0}50%{margin:-4px 3px 0 -3px}}
+@keyframes week8BombFuse{0%{transform:scale(.75)}100%{transform:scale(1.35)}}
+@keyframes week8BombArrow{from{transform:translate(-50%,0)}to{transform:translate(-50%,8px)}}
+@keyframes week8BombExplode{0%{transform:translate(-50%,-50%) scale(1)}45%{transform:translate(-50%,-50%) scale(1.55)}100%{transform:translate(-50%,-50%) scale(0);opacity:0}}
+@keyframes week8AimedBeam{0%{transform:rotate(var(--week8-beam-angle)) scaleX(0)}50%{transform:rotate(var(--week8-beam-angle)) scaleX(1)}100%{transform:rotate(var(--week8-beam-angle)) scaleX(1);opacity:0}}
+@keyframes week8SmallMonsterHit{0%,100%{transform:translate(-50%,-50%)}25%{transform:translate(calc(-50% - 15px),-50%) rotate(-8deg);filter:brightness(2)}55%{transform:translate(calc(-50% + 13px),-50%) rotate(7deg)}}
+@keyframes week8MonsterDefeat{0%{transform:translate(-50%,-50%) scale(1)}35%{transform:translate(-50%,-50%) scale(1.25) rotate(12deg);filter:brightness(2)}100%{transform:translate(-50%,70%) scale(.1) rotate(360deg);opacity:0}}
+
+@media (max-height:760px){.lesson-screen-week8-boss:not(.week8-teacher-fit){min-height:540px}.lesson-screen-week8-boss:not(.week8-teacher-fit) .week8-boss-arena{height:315px}.lesson-screen-week8-boss:not(.week8-teacher-fit) .week8-boss-heading h1{font-size:32px}}
