@@ -27641,6 +27641,8 @@ const status =
                 <div class="week9-right-clue-menu"><i></i><i></i><i></i></div>
               </div>
 
+              <div id="week9RightDemoCursor" class="week9-right-demo-cursor" aria-hidden="true">➤</div>
+
               <button id="week9RightObject" class="week9-right-object" type="button" aria-label="Right-click the mystery box">
                 <span class="week9-right-box-lid"></span>
                 <span class="week9-right-box-body"></span>
@@ -27672,6 +27674,103 @@ const status =
       `;
     }
 
+    if (step.id === "week9-dress-character") {
+      return `
+        <div id="week9DressScreen" class="lesson-screen lesson-screen-week9-dress${isTeacher ? " week9-dress-teacher" : ""}">
+
+          <div class="week9-dress-heading">
+            <span>RIGHT-CLICK PRACTICE</span>
+            <h1>Dress the Character!</h1>
+          </div>
+
+          <div class="week9-dress-instruction">
+            <div class="week9-dress-mini-mouse">
+              <i></i><b></b><span></span>
+            </div>
+            <strong>RIGHT-CLICK</strong>
+            <span class="week9-dress-instruction-arrow">➜</span>
+            <div class="week9-dress-mini-menu">
+              <span>🎩</span><span>👕</span><span>👟</span><span>👓</span>
+            </div>
+          </div>
+
+          <div id="week9DressStage" class="week9-dress-stage">
+
+            <div class="week9-dress-stars">
+              <span data-week9-dress-star="hat">☆</span>
+              <span data-week9-dress-star="shirt">☆</span>
+              <span data-week9-dress-star="shoes">☆</span>
+              <span data-week9-dress-star="glasses">☆</span>
+            </div>
+
+            <button
+              id="week9DressCharacter"
+              class="week9-dress-character"
+              type="button"
+              aria-label="Right-click the character"
+            >
+              <span class="week9-dress-hair"></span>
+
+              <span class="week9-dress-head">
+                <i class="week9-dress-eye eye-left"></i>
+                <i class="week9-dress-eye eye-right"></i>
+                <b class="week9-dress-smile"></b>
+              </span>
+
+              <span class="week9-dress-body"></span>
+
+              <span class="week9-dress-arm arm-left"></span>
+              <span class="week9-dress-arm arm-right"></span>
+
+              <span class="week9-dress-leg leg-left"></span>
+              <span class="week9-dress-leg leg-right"></span>
+
+              <span class="week9-dress-hat" hidden>🎩</span>
+              <span class="week9-dress-shirt" hidden>👕</span>
+              <span class="week9-dress-shoe shoe-left" hidden>👟</span>
+              <span class="week9-dress-shoe shoe-right" hidden>👟</span>
+              <span class="week9-dress-glasses" hidden>👓</span>
+            </button>
+
+            <div id="week9DressMenu" class="week9-dress-menu" hidden>
+              <button type="button" data-week9-dress-choice="shirt" aria-label="Choose shirt">
+                <span>👕</span>
+              </button>
+
+              <button type="button" data-week9-dress-choice="hat" aria-label="Choose hat">
+                <span>🎩</span>
+              </button>
+
+              <button type="button" data-week9-dress-choice="shoes" aria-label="Choose shoes">
+                <span>👟</span>
+              </button>
+
+              <button type="button" data-week9-dress-choice="glasses" aria-label="Choose glasses">
+                <span>👓</span>
+              </button>
+            </div>
+
+            <div id="week9DressPop" class="week9-dress-pop" hidden>✨</div>
+          </div>
+
+          <div id="week9DressStatus" class="week9-dress-status" aria-live="polite">
+            <div class="week9-dress-status-mouse">
+              <i></i><b></b><span></span>
+            </div>
+            <strong>RIGHT-CLICK THE CHARACTER</strong>
+          </div>
+
+          <div id="week9DressComplete" class="week9-dress-complete" hidden>
+            <div>
+              <span>🎩 👕 👟 👓</span>
+              <strong>LOOKING GREAT!</strong>
+              <b>RIGHT-CLICK PRO!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
     if (step.id.startsWith("week9-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -27799,18 +27898,108 @@ const status =
 
   function startWeek9MeetRightBehavior() {
     stopWeek9MeetRightBehavior();
+    stopWeek9DressBehavior();
     const screen = document.getElementById("week9RightScreen");
     const mouseCard = document.getElementById("week9RightMouseCard");
     const practice = document.getElementById("week9RightPractice");
     const object = document.getElementById("week9RightObject");
+    const demoCursor = document.getElementById("week9RightDemoCursor");
     const menu = document.getElementById("week9RightMenu");
     const result = document.getElementById("week9RightResult");
     const status = document.getElementById("week9RightStatus");
     const complete = document.getElementById("week9RightComplete");
-    if (!screen || !mouseCard || !practice || !object || !menu || !result || !status || !complete) return;
-
-    let menuOpen = false;
+    if (!screen || !mouseCard || !practice || !object || !menu || !result || !status || !complete) return;    let menuOpen = false;
     let finished = false;
+
+    let week9RightDemoStopped = false;
+    const week9RightDemoTimers = new Set();
+
+    function scheduleWeek9RightDemo(callback, delay) {
+      const timer = setTimeout(() => {
+        week9RightDemoTimers.delete(timer);
+
+        if (!week9RightDemoStopped) {
+          callback();
+        }
+      }, delay);
+
+      week9RightDemoTimers.add(timer);
+    }
+
+    function stopWeek9RightDemo() {
+      if (week9RightDemoStopped) return;
+
+      week9RightDemoStopped = true;
+
+      week9RightDemoTimers.forEach(clearTimeout);
+      week9RightDemoTimers.clear();
+
+      screen.classList.remove("week9-right-demoing");
+
+      if (demoCursor) {
+        demoCursor.classList.remove(
+          "week9-right-demo-cursor-move",
+          "week9-right-demo-cursor-click"
+        );
+      }
+
+      if (!menuOpen && !finished) {
+        menu.hidden = true;
+        object.classList.remove("week9-right-object-open");
+      }
+    }
+
+    function runWeek9RightDemo() {
+      if (
+        week9RightDemoStopped ||
+        finished ||
+        !demoCursor
+      ) {
+        return;
+      }
+
+      screen.classList.remove("week9-right-demoing");
+      void screen.offsetWidth;
+      screen.classList.add("week9-right-demoing");
+
+      menu.hidden = true;
+      object.classList.remove("week9-right-object-open");
+
+      demoCursor.classList.remove(
+        "week9-right-demo-cursor-move",
+        "week9-right-demo-cursor-click"
+      );
+
+      void demoCursor.offsetWidth;
+
+      demoCursor.classList.add(
+        "week9-right-demo-cursor-move"
+      );
+
+      scheduleWeek9RightDemo(() => {
+        demoCursor.classList.add(
+          "week9-right-demo-cursor-click"
+        );
+
+        menu.hidden = false;
+        object.classList.add("week9-right-object-open");
+      }, 950);
+
+      scheduleWeek9RightDemo(() => {
+        menu.hidden = true;
+        object.classList.remove("week9-right-object-open");
+
+        demoCursor.classList.remove(
+          "week9-right-demo-cursor-move",
+          "week9-right-demo-cursor-click"
+        );
+      }, 2350);
+
+      scheduleWeek9RightDemo(
+        runWeek9RightDemo,
+        3200
+      );
+    }
 
     function play(src) {
       if (!soundEnabled) return;
@@ -27844,6 +28033,7 @@ const status =
     }
 
     function openMenu(event) {
+      stopWeek9RightDemo();
       event.preventDefault();
       if (!event.target.closest("#week9RightObject") || finished) return;
       clearTimer();
@@ -27879,6 +28069,7 @@ const status =
     }
 
     function normalClick(event) {
+      stopWeek9RightDemo();
       if (event.target.closest("[data-week9-right-choice]")) return;
       if (event.target.closest("#week9RightObject") && !menuOpen && !finished) {
         event.preventDefault();
@@ -27893,14 +28084,274 @@ const status =
     object.addEventListener("contextmenu", openMenu);
     menu.addEventListener("click", choose);
     practice.addEventListener("click", normalClick);
+
+    scheduleWeek9RightDemo(
+      runWeek9RightDemo,
+      500
+    );
     removeWeek9MeetRightBehavior = () => {
       clearTimer();
+
+      week9RightDemoStopped = true;
+      week9RightDemoTimers.forEach(clearTimeout);
+      week9RightDemoTimers.clear();
       object.removeEventListener("contextmenu", openMenu);
       menu.removeEventListener("click", choose);
       practice.removeEventListener("click", normalClick);
     };
   }
 
+  let removeWeek9DressBehavior = null;
+  let week9DressTimer = null;
+  const week9DressSounds = new Set();
+
+  function stopWeek9DressBehavior() {
+    removeWeek9DressBehavior?.();
+    removeWeek9DressBehavior = null;
+
+    if (week9DressTimer) {
+      clearTimeout(week9DressTimer);
+      week9DressTimer = null;
+    }
+
+    week9DressSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week9DressSounds.clear();
+  }
+
+  function startWeek9DressBehavior() {
+    stopWeek9DressBehavior();
+
+    const screen = document.getElementById("week9DressScreen");
+    const stage = document.getElementById("week9DressStage");
+    const character = document.getElementById("week9DressCharacter");
+    const menu = document.getElementById("week9DressMenu");
+    const status = document.getElementById("week9DressStatus");
+    const complete = document.getElementById("week9DressComplete");
+    const pop = document.getElementById("week9DressPop");
+
+    if (
+      !screen ||
+      !stage ||
+      !character ||
+      !menu ||
+      !status ||
+      !complete ||
+      !pop
+    ) {
+      return;
+    }
+
+    const worn = new Set();
+    let menuOpen = false;
+    let finished = false;
+
+    function play(src, volume = 0.72) {
+      if (!soundEnabled) return;
+
+      const audio = new Audio(src);
+      audio.volume = volume;
+      week9DressSounds.add(audio);
+
+      audio.addEventListener(
+        "ended",
+        () => week9DressSounds.delete(audio),
+        { once: true }
+      );
+
+      audio.play().catch(() => {
+        week9DressSounds.delete(audio);
+      });
+    }
+
+    function closeMenu() {
+      menuOpen = false;
+      menu.hidden = true;
+      character.classList.remove("week9-dress-character-open");
+    }
+
+    function showReminder() {
+      status.className =
+        "week9-dress-status week9-dress-status-warning";
+
+      status.innerHTML =
+        '<div class="week9-dress-status-mouse"><i></i><b></b><span></span></div><strong>USE THE RIGHT BUTTON</strong><span class="week9-dress-status-arrow">➡️</span>';
+
+      screen.classList.remove("week9-dress-wrong");
+      void screen.offsetWidth;
+      screen.classList.add("week9-dress-wrong");
+
+      play("/sounds/buzzer.mp3", 0.58);
+
+      if (week9DressTimer) {
+        clearTimeout(week9DressTimer);
+      }
+
+      week9DressTimer = setTimeout(() => {
+        week9DressTimer = null;
+        screen.classList.remove("week9-dress-wrong");
+
+        if (!finished && !menuOpen) {
+          status.className = "week9-dress-status";
+          status.innerHTML =
+            '<div class="week9-dress-status-mouse"><i></i><b></b><span></span></div><strong>RIGHT-CLICK THE CHARACTER</strong>';
+        }
+      }, 1200);
+    }
+
+    function openMenu(event) {
+      stopWeek9RightDemo();
+      event.preventDefault();
+
+      if (finished) return;
+
+      if (!event.target.closest("#week9DressCharacter")) {
+        closeMenu();
+
+        status.className = "week9-dress-status";
+        status.innerHTML =
+          '<span>👀</span><strong>RIGHT-CLICK THE CHARACTER</strong>';
+
+        return;
+      }
+
+      menuOpen = true;
+      menu.hidden = false;
+      character.classList.add("week9-dress-character-open");
+
+      status.className =
+        "week9-dress-status week9-dress-status-choose";
+
+      status.innerHTML =
+        '<span>👆</span><strong>NOW LEFT-CLICK A PICTURE</strong><span>✨</span>';
+
+      play("/sounds/boom.mp3", 0.55);
+    }
+
+    function chooseItem(event) {
+      const choice =
+        event.target.closest("[data-week9-dress-choice]");
+
+      if (!choice || finished) return;
+
+      event.preventDefault();
+
+      const item = choice.dataset.week9DressChoice;
+
+      if (item === "hat" && !worn.has("shirt")) {
+        status.className =
+          "week9-dress-status week9-dress-status-warning";
+
+        status.innerHTML =
+          '<span>👕</span><strong>PUT ON THE SHIRT FIRST!</strong><span>👆</span>';
+
+        play("/sounds/buzzer.mp3", 0.5);
+        return;
+      }
+
+      const itemMap = {
+        hat: character.querySelector(".week9-dress-hat"),
+        shirt: character.querySelector(".week9-dress-shirt"),
+        glasses: character.querySelector(".week9-dress-glasses")
+      };
+
+      if (item === "shoes") {
+        character
+          .querySelectorAll(".week9-dress-shoe")
+          .forEach(shoe => {
+            shoe.hidden = false;
+          });
+      } else if (itemMap[item]) {
+        itemMap[item].hidden = false;
+      }
+
+      worn.add(item);
+
+      document
+        .querySelectorAll("[data-week9-dress-star]")
+        .forEach(star => {
+          const done = worn.has(star.dataset.week9DressStar);
+          star.textContent = done ? "★" : "☆";
+          star.classList.toggle(
+            "week9-dress-star-complete",
+            done
+          );
+        });
+
+      closeMenu();
+
+      pop.hidden = false;
+      pop.classList.remove("week9-dress-pop-show");
+      void pop.offsetWidth;
+      pop.classList.add("week9-dress-pop-show");
+
+      play("/sounds/correct.mp3", 0.68);
+
+      if (worn.size >= 4) {
+        finished = true;
+
+        status.className =
+          "week9-dress-status week9-dress-status-success";
+
+        status.innerHTML =
+          '<span>⭐</span><strong>ALL DRESSED!</strong><span>⭐</span>';
+
+        week9DressTimer = setTimeout(() => {
+          week9DressTimer = null;
+          complete.hidden = false;
+          play("/sounds/complete.mp3", 0.78);
+        }, 650);
+
+        return;
+      }
+
+      status.className =
+        "week9-dress-status week9-dress-status-success";
+
+      status.innerHTML =
+        '<span>✓</span><strong>GREAT! RIGHT-CLICK AGAIN</strong><span>🖱️</span>';
+    }
+
+    function handleClick(event) {
+      if (
+        event.target.closest(
+          "[data-week9-dress-choice]"
+        )
+      ) {
+        return;
+      }
+
+      if (
+        event.target.closest("#week9DressCharacter") &&
+        !finished
+      ) {
+        event.preventDefault();
+        closeMenu();
+        showReminder();
+        return;
+      }
+
+      if (
+        menuOpen &&
+        !event.target.closest("#week9DressMenu")
+      ) {
+        closeMenu();
+      }
+    }
+
+    stage.addEventListener("contextmenu", openMenu);
+    menu.addEventListener("click", chooseItem);
+    stage.addEventListener("click", handleClick);
+
+    removeWeek9DressBehavior = () => {
+      stage.removeEventListener("contextmenu", openMenu);
+      menu.removeEventListener("click", chooseItem);
+      stage.removeEventListener("click", handleClick);
+    };
+  }
   let removeWeek8BossBehavior = null;
   let week8BossClickTimer = null;
   const week8BossTimers = new Set();
@@ -32061,6 +32512,7 @@ const status =
 
   function stopStepBehavior() {
     stopWeek9MeetRightBehavior();
+    stopWeek9DressBehavior();
     /*
      * Universal audio cleanup.
      */
@@ -33982,6 +34434,12 @@ const status =
     }
 
     if (
+      step.id === "week9-dress-character"
+    ) {
+      startWeek9DressBehavior();
+    }
+
+    if (
       step.id === "week8-computer-rescue"
     ) {
       startWeek8BossBehavior();
@@ -34565,6 +35023,19 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

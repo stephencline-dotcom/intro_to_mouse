@@ -39159,3 +39159,1056 @@ body.teacher-session
     transform: translateY(8px);
   }
 }
+
+/* =========================================================
+   Week 9 Step 3 - Dress the Character
+   ========================================================= */
+
+.lesson-screen-week9-dress {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 560px;
+  padding: 8px 24px 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(147,197,253,.48), transparent 28%),
+    radial-gradient(circle at 88% 82%, rgba(253,224,71,.42), transparent 30%),
+    linear-gradient(145deg,#eff6ff,#faf5ff);
+}
+
+.week9-dress-heading {
+  text-align: center;
+}
+
+.week9-dress-heading > span {
+  display: inline-block;
+  padding: 5px 23px;
+  border-radius: 999px;
+  color: #fff;
+  background: #7c3aed;
+  box-shadow: 0 5px 0 #5b21b6;
+  font-size: 16px;
+  font-weight: 1000;
+  letter-spacing: 2px;
+}
+
+.week9-dress-heading h1 {
+  margin: 7px 0 7px;
+  color: #172554;
+  font-size: 39px;
+  line-height: 1;
+  text-shadow: 0 3px #c4b5fd;
+}
+
+.week9-dress-instruction {
+  display: flex;
+  width: fit-content;
+  min-height: 55px;
+  margin: 0 auto 8px;
+  padding: 5px 19px;
+  align-items: center;
+  gap: 12px;
+  border: 5px solid #fff;
+  border-radius: 999px;
+  color: #172554;
+  background: linear-gradient(90deg,#dbeafe,#fef3c7);
+  box-shadow: 0 6px 0 rgba(30,64,175,.15);
+}
+
+.week9-dress-instruction > strong {
+  font-size: 19px;
+  font-weight: 1000;
+}
+
+.week9-dress-instruction-arrow {
+  color: #7c3aed;
+  font-size: 31px;
+  font-weight: 1000;
+}
+
+.week9-dress-mini-mouse,
+.week9-dress-status-mouse {
+  position: relative;
+  flex: 0 0 auto;
+  width: 39px;
+  height: 49px;
+  border: 4px solid #334155;
+  border-radius: 22px;
+  background: #fff;
+}
+
+.week9-dress-mini-mouse::after,
+.week9-dress-status-mouse::after {
+  position: absolute;
+  top: 21px;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: #334155;
+  content: "";
+}
+
+.week9-dress-mini-mouse i,
+.week9-dress-mini-mouse b,
+.week9-dress-status-mouse i,
+.week9-dress-status-mouse b {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 24px;
+}
+
+.week9-dress-mini-mouse i,
+.week9-dress-status-mouse i {
+  left: 0;
+}
+
+.week9-dress-mini-mouse b,
+.week9-dress-status-mouse b {
+  right: 0;
+  border-radius: 0 17px 0 0;
+  background: #ef4444;
+}
+
+.week9-dress-mini-mouse span,
+.week9-dress-status-mouse span {
+  position: absolute;
+  z-index: 3;
+  top: 5px;
+  left: 15px;
+  width: 7px;
+  height: 16px;
+  border-radius: 8px;
+  background: #334155;
+}
+
+.week9-dress-mini-menu {
+  display: flex;
+  gap: 4px;
+}
+
+.week9-dress-mini-menu span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 3px solid #c4b5fd;
+  border-radius: 9px;
+  background: #fff;
+  font-size: 22px;
+}
+
+.week9-dress-stage {
+  position: relative;
+  width: min(810px,92%);
+  height: 345px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 7px solid #fff;
+  border-radius: 37px;
+  background:
+    radial-gradient(circle at 50% 100%, #bbf7d0 0 28%, transparent 29%),
+    linear-gradient(#bae6fd 0 68%, #86efac 68% 100%);
+  box-shadow:
+    0 12px 0 rgba(30,64,175,.15),
+    0 19px 34px rgba(15,23,42,.13);
+}
+
+.week9-dress-stage::before {
+  position: absolute;
+  top: 24px;
+  left: 33px;
+  font-size: 65px;
+  content: "☀️";
+}
+
+.week9-dress-stage::after {
+  position: absolute;
+  right: 32px;
+  bottom: 28px;
+  font-size: 75px;
+  content: "🌳";
+}
+
+.week9-dress-stars {
+  position: absolute;
+  z-index: 20;
+  top: 16px;
+  left: 50%;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.week9-dress-stars span {
+  color: #fff;
+  font-size: 36px;
+  line-height: 1;
+  text-shadow:
+    0 3px #ca8a04,
+    0 0 8px #facc15;
+}
+
+.week9-dress-stars .week9-dress-star-complete {
+  color: #facc15;
+  animation: week9DressStarPop .35s ease-out;
+}
+
+.week9-dress-character {
+  position: absolute;
+  z-index: 10;
+  bottom: 12px;
+  left: 50%;
+  width: 210px;
+  height: 285px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+.week9-dress-head {
+  position: absolute;
+  z-index: 5;
+  top: 21px;
+  left: 62px;
+  width: 86px;
+  height: 91px;
+  border: 5px solid #92400e;
+  border-radius: 48%;
+  background: #f6c38b;
+}
+
+.week9-dress-hair {
+  position: absolute;
+  z-index: 7;
+  top: 12px;
+  left: 59px;
+  width: 93px;
+  height: 48px;
+  border-radius: 48px 48px 18px 18px;
+  background: #5b3218;
+}
+
+.week9-dress-eye {
+  position: absolute;
+  top: 38px;
+  width: 10px;
+  height: 13px;
+  border-radius: 50%;
+  background: #172554;
+}
+
+.week9-dress-eye.eye-left {
+  left: 21px;
+}
+
+.week9-dress-eye.eye-right {
+  right: 21px;
+}
+
+.week9-dress-smile {
+  position: absolute;
+  bottom: 19px;
+  left: 50%;
+  width: 31px;
+  height: 15px;
+  border-bottom: 5px solid #991b1b;
+  border-radius: 0 0 30px 30px;
+  transform: translateX(-50%);
+}
+
+.week9-dress-body {
+  position: absolute;
+  z-index: 4;
+  top: 106px;
+  left: 57px;
+  width: 96px;
+  height: 105px;
+  border: 5px solid #1e3a8a;
+  border-radius: 25px 25px 18px 18px;
+  background: #60a5fa;
+}
+
+.week9-dress-arm {
+  position: absolute;
+  z-index: 3;
+  top: 120px;
+  width: 31px;
+  height: 101px;
+  border: 5px solid #92400e;
+  border-radius: 22px;
+  background: #f6c38b;
+}
+
+.week9-dress-arm.arm-left {
+  left: 35px;
+  transform: rotate(9deg);
+}
+
+.week9-dress-arm.arm-right {
+  right: 35px;
+  transform: rotate(-9deg);
+}
+
+.week9-dress-leg {
+  position: absolute;
+  z-index: 2;
+  top: 203px;
+  width: 37px;
+  height: 74px;
+  border: 5px solid #334155;
+  border-radius: 15px;
+  background: #475569;
+}
+
+.week9-dress-leg.leg-left {
+  left: 65px;
+}
+
+.week9-dress-leg.leg-right {
+  right: 65px;
+}
+
+.week9-dress-hat {
+  position: absolute;
+  z-index: 30;
+  top: -26px;
+  left: 50%;
+  font-size: 82px;
+  transform: translateX(-50%) rotate(-4deg);
+  filter: drop-shadow(0 5px 2px rgba(15,23,42,.25));
+  animation: week9DressItemPop .35s ease-out;
+}
+
+.week9-dress-shirt {
+  position: absolute;
+  z-index: 20;
+  top: 101px;
+  left: 50%;
+  font-size: 102px;
+  transform: translateX(-50%);
+  animation: week9DressItemPop .35s ease-out;
+}
+
+.week9-dress-glasses {
+  position: absolute;
+  z-index: 25;
+  top: 50px;
+  left: 50%;
+  font-size: 68px;
+  transform: translateX(-50%);
+  animation: week9DressItemPop .35s ease-out;
+}
+
+.week9-dress-shoe {
+  position: absolute;
+  z-index: 18;
+  top: 244px;
+  font-size: 47px;
+  animation: week9DressItemPop .35s ease-out;
+}
+
+.week9-dress-shoe.shoe-left {
+  left: 49px;
+}
+
+.week9-dress-shoe.shoe-right {
+  right: 45px;
+  transform: scaleX(-1);
+}
+
+.week9-dress-character [hidden] {
+  display: none;
+}
+
+.week9-dress-character-open {
+  filter: drop-shadow(0 0 18px #fde047);
+}
+
+.week9-dress-menu {
+  position: absolute;
+  z-index: 40;
+  top: 82px;
+  left: calc(50% + 118px);
+  display: grid;
+  grid-template-columns: repeat(2,82px);
+  padding: 12px;
+  gap: 9px;
+  border: 6px solid #334155;
+  border-radius: 21px;
+  background: #fff;
+  box-shadow: 0 12px 25px rgba(15,23,42,.32);
+  transform-origin: left center;
+  animation: week9DressMenuOpen .25s ease-out;
+}
+
+.week9-dress-menu[hidden] {
+  display: none;
+}
+
+.week9-dress-menu::before {
+  position: absolute;
+  top: 50%;
+  left: -27px;
+  border-top: 20px solid transparent;
+  border-right: 27px solid #334155;
+  border-bottom: 20px solid transparent;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.week9-dress-menu button {
+  display: grid;
+  width: 82px;
+  height: 76px;
+  padding: 0;
+  place-items: center;
+  border: 4px solid #bfdbfe;
+  border-radius: 16px;
+  background: #eff6ff;
+  cursor: pointer;
+}
+
+.week9-dress-menu button span {
+  font-size: 47px;
+}
+
+.week9-dress-menu button:hover {
+  border-color: #2563eb;
+  background: #dbeafe;
+  transform: scale(1.06);
+}
+
+.week9-dress-pop {
+  position: absolute;
+  z-index: 50;
+  top: 105px;
+  left: 50%;
+  font-size: 105px;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.week9-dress-pop[hidden] {
+  display: none;
+}
+
+.week9-dress-pop-show {
+  animation: week9DressSparkle .55s ease-out forwards;
+}
+
+.week9-dress-status {
+  display: flex;
+  width: min(680px,90%);
+  min-height: 64px;
+  margin: 11px auto 0;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 6px solid #fff;
+  border-radius: 999px;
+  color: #172554;
+  background: #dbeafe;
+  box-shadow: 0 8px 0 rgba(30,64,175,.15);
+}
+
+.week9-dress-status strong {
+  font-size: 21px;
+  font-weight: 1000;
+}
+
+.week9-dress-status > span {
+  font-size: 29px;
+}
+
+.week9-dress-status-warning {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.week9-dress-status-choose {
+  color: #713f12;
+  background: #fef9c3;
+}
+
+.week9-dress-status-success {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.week9-dress-complete {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #172554c7;
+}
+
+.week9-dress-complete[hidden] {
+  display: none;
+}
+
+.week9-dress-complete > div {
+  display: grid;
+  min-width: min(560px,84vw);
+  padding: 30px 42px;
+  gap: 12px;
+  place-items: center;
+  border: 8px solid #fff;
+  border-radius: 38px;
+  color: #172554;
+  background: linear-gradient(145deg,#cffafe,#fef9c3);
+  box-shadow:
+    0 12px #1e40af,
+    0 0 55px #facc15;
+  animation: week9DressComplete .4s ease-out;
+}
+
+.week9-dress-complete span {
+  font-size: 54px;
+}
+
+.week9-dress-complete strong {
+  font-size: 48px;
+}
+
+.week9-dress-complete b {
+  padding: 7px 23px;
+  border-radius: 999px;
+  color: #fff;
+  background: #7c3aed;
+  font-size: 23px;
+}
+
+.week9-dress-wrong .week9-dress-character {
+  animation: week9DressWrong .35s ease-out;
+}
+
+@keyframes week9DressMenuOpen {
+  from {
+    opacity: 0;
+    transform: translateX(-35px) scale(.55);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes week9DressItemPop {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(.25);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes week9DressStarPop {
+  0% { transform: scale(.5) rotate(-20deg); }
+  70% { transform: scale(1.35) rotate(10deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes week9DressSparkle {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(.3);
+  }
+  45% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.65);
+  }
+}
+
+@keyframes week9DressWrong {
+  0%,100% { transform: translateX(-50%); }
+  25% { transform: translateX(calc(-50% - 9px)); }
+  50% { transform: translateX(calc(-50% + 9px)); }
+  75% { transform: translateX(calc(-50% - 5px)); }
+}
+
+@keyframes week9DressComplete {
+  from {
+    opacity: 0;
+    transform: scale(.65);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Teacher presentation fit */
+.week9-dress-teacher {
+  min-height: 470px;
+  padding-top: 4px;
+}
+
+.week9-dress-teacher .week9-dress-heading h1 {
+  margin: 4px 0 5px;
+  font-size: 31px;
+}
+
+.week9-dress-teacher .week9-dress-instruction {
+  min-height: 46px;
+  margin-bottom: 5px;
+  transform: scale(.85);
+  transform-origin: center center;
+}
+
+.week9-dress-teacher .week9-dress-stage {
+  height: 290px;
+  transform: scale(.88);
+  transform-origin: top center;
+  margin-bottom: -32px;
+}
+
+.week9-dress-teacher .week9-dress-status {
+  min-height: 53px;
+  margin-top: 7px;
+  border-width: 5px;
+}
+
+/* =========================================================
+   Week 9 Step 3 - student screen sizing correction
+   ========================================================= */
+
+.lesson-screen-week9-dress {
+  min-height: 515px;
+  padding: 5px 22px 9px;
+}
+
+.lesson-screen-week9-dress .week9-dress-heading > span {
+  padding: 4px 21px;
+  font-size: 15px;
+}
+
+.lesson-screen-week9-dress .week9-dress-heading h1 {
+  margin: 4px 0 5px;
+  font-size: 35px;
+}
+
+.lesson-screen-week9-dress .week9-dress-instruction {
+  min-height: 48px;
+  margin: 0 auto 6px;
+  padding: 3px 17px;
+  gap: 10px;
+}
+
+.lesson-screen-week9-dress .week9-dress-instruction > strong {
+  font-size: 18px;
+}
+
+.lesson-screen-week9-dress .week9-dress-stage {
+  width: min(790px, 91%);
+  height: 292px;
+}
+
+/* Move progress out of the character's face. */
+.lesson-screen-week9-dress .week9-dress-stars {
+  top: 14px;
+  left: auto;
+  right: 22px;
+  transform: none;
+}
+
+.lesson-screen-week9-dress .week9-dress-stars span {
+  font-size: 31px;
+}
+
+/* Scale the whole character down and anchor it to the ground. */
+.lesson-screen-week9-dress .week9-dress-character {
+  bottom: 3px;
+  transform: translateX(-50%) scale(.79);
+  transform-origin: center bottom;
+}
+
+/* Keep the open-character glow at the new size. */
+.lesson-screen-week9-dress .week9-dress-character-open {
+  filter: drop-shadow(0 0 18px #fde047);
+}
+
+/* Bring the menu in closer to the smaller character. */
+.lesson-screen-week9-dress .week9-dress-menu {
+  top: 68px;
+  left: calc(50% + 92px);
+  grid-template-columns: repeat(2, 72px);
+  padding: 10px;
+  gap: 7px;
+}
+
+.lesson-screen-week9-dress .week9-dress-menu button {
+  width: 72px;
+  height: 67px;
+}
+
+.lesson-screen-week9-dress .week9-dress-menu button span {
+  font-size: 41px;
+}
+
+/* Keep the status fully visible on a normal classroom screen. */
+.lesson-screen-week9-dress .week9-dress-status {
+  width: min(650px, 88%);
+  min-height: 53px;
+  margin-top: 7px;
+  border-width: 5px;
+}
+
+.lesson-screen-week9-dress .week9-dress-status strong {
+  font-size: 19px;
+}
+
+/* Preserve the smaller character during the wrong-click shake. */
+@keyframes week9DressWrongFit {
+  0%, 100% {
+    transform: translateX(-50%) scale(.79);
+  }
+
+  25% {
+    transform: translateX(calc(-50% - 8px)) scale(.79);
+  }
+
+  50% {
+    transform: translateX(calc(-50% + 8px)) scale(.79);
+  }
+
+  75% {
+    transform: translateX(calc(-50% - 4px)) scale(.79);
+  }
+}
+
+.lesson-screen-week9-dress.week9-dress-wrong
+.week9-dress-character {
+  animation: week9DressWrongFit .35s ease-out;
+}
+
+/* =========================================================
+   Week 9 Step 3 - clothing fit correction
+   ========================================================= */
+
+/* Shirt covers the torso cleanly */
+.lesson-screen-week9-dress .week9-dress-shirt {
+  top: 112px !important;
+  left: 50% !important;
+  font-size: 72px !important;
+  line-height: 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: center center !important;
+}
+
+/* Hat sits above the hair instead of over the face */
+.lesson-screen-week9-dress .week9-dress-hat {
+  top: -24px !important;
+  left: 50% !important;
+  font-size: 62px !important;
+  line-height: 1 !important;
+  transform: translateX(-50%) rotate(-3deg) !important;
+  transform-origin: center bottom !important;
+}
+
+/* Glasses sit over the eyes */
+.lesson-screen-week9-dress .week9-dress-glasses {
+  top: 48px !important;
+  left: 50% !important;
+  font-size: 46px !important;
+  line-height: 1 !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Shoes align with the bottoms of the legs */
+.lesson-screen-week9-dress .week9-dress-shoe {
+  top: 247px !important;
+  font-size: 31px !important;
+  line-height: 1 !important;
+}
+
+.lesson-screen-week9-dress .week9-dress-shoe.shoe-left {
+  left: 57px !important;
+}
+
+.lesson-screen-week9-dress .week9-dress-shoe.shoe-right {
+  right: 53px !important;
+  transform: scaleX(-1) !important;
+}
+
+/* Week 9 Step 3 - fitted character shirt */
+.lesson-screen-week9-dress .week9-dress-shirt {
+  z-index: 21 !important;
+  top: 106px !important;
+  left: 57px !important;
+  width: 96px !important;
+  height: 105px !important;
+  border: 5px solid #15803d !important;
+  border-radius: 24px 24px 18px 18px !important;
+  background: linear-gradient(#86efac, #22c55e) !important;
+  font-size: 0 !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Shirt sleeves */
+.lesson-screen-week9-dress .week9-dress-shirt::before,
+.lesson-screen-week9-dress .week9-dress-shirt::after {
+  position: absolute;
+  top: 5px;
+  width: 35px;
+  height: 47px;
+  border: 5px solid #15803d;
+  background: #4ade80;
+  content: "";
+}
+
+.lesson-screen-week9-dress .week9-dress-shirt::before {
+  left: -27px;
+  border-radius: 20px 6px 15px 15px;
+  transform: rotate(22deg);
+}
+
+.lesson-screen-week9-dress .week9-dress-shirt::after {
+  right: -27px;
+  border-radius: 6px 20px 15px 15px;
+  transform: rotate(-22deg);
+}
+
+/* Shirt collar */
+.lesson-screen-week9-dress .week9-dress-shirt {
+  box-shadow:
+    inset 0 15px 0 rgba(255,255,255,.18);
+}
+
+/* Week 9 Step 3 - fitted character hat */
+.lesson-screen-week9-dress .week9-dress-hat {
+  z-index: 30 !important;
+  top: -2px !important;
+  left: 50% !important;
+  width: 100px !important;
+  height: 48px !important;
+  border: 5px solid #312e81 !important;
+  border-radius: 45px 45px 9px 9px !important;
+  background: linear-gradient(#7c3aed, #4c1d95) !important;
+  font-size: 0 !important;
+  transform: translateX(-50%) !important;
+  box-sizing: border-box !important;
+  filter: drop-shadow(0 5px 2px rgba(15,23,42,.22)) !important;
+}
+
+/* Hat band */
+.lesson-screen-week9-dress .week9-dress-hat::before {
+  position: absolute;
+  right: 4px;
+  bottom: 5px;
+  left: 4px;
+  height: 10px;
+  border-radius: 5px;
+  background: #facc15;
+  content: "";
+}
+
+/* Hat brim */
+.lesson-screen-week9-dress .week9-dress-hat::after {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  width: 124px;
+  height: 15px;
+  border: 5px solid #312e81;
+  border-radius: 50%;
+  background: #6d28d9;
+  content: "";
+  transform: translateX(-50%);
+}
+
+/* Week 9 Step 3 - fitted character shoes */
+.lesson-screen-week9-dress .week9-dress-shoe {
+  z-index: 20 !important;
+  top: 259px !important;
+  width: 48px !important;
+  height: 25px !important;
+  border: 5px solid #312e81 !important;
+  border-radius: 18px 18px 12px 12px !important;
+  background: linear-gradient(#a78bfa, #7c3aed) !important;
+  font-size: 0 !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  filter: drop-shadow(0 4px 1px rgba(15,23,42,.2)) !important;
+}
+
+/* Left shoe sits directly under left leg */
+.lesson-screen-week9-dress .week9-dress-shoe.shoe-left {
+  left: 57px !important;
+}
+
+/* Right shoe sits directly under right leg */
+.lesson-screen-week9-dress .week9-dress-shoe.shoe-right {
+  right: 57px !important;
+  transform: none !important;
+}
+
+/* White soles */
+.lesson-screen-week9-dress .week9-dress-shoe::after {
+  position: absolute;
+  right: -4px;
+  bottom: -5px;
+  left: -4px;
+  height: 8px;
+  border: 3px solid #312e81;
+  border-radius: 4px 4px 12px 12px;
+  background: #ffffff;
+  content: "";
+}
+
+/* Small shoe highlight/laces */
+.lesson-screen-week9-dress .week9-dress-shoe::before {
+  position: absolute;
+  top: 5px;
+  left: 12px;
+  width: 19px;
+  height: 5px;
+  border-top: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  content: "";
+}
+
+/* =========================================================
+   Week 9 Step 2 - present right-click demonstration
+   ========================================================= */
+
+.lesson-screen-week9-right .week9-right-demo-cursor {
+  position: absolute;
+  z-index: 45;
+  top: 188px;
+  left: calc(50% - 115px);
+  color: #111827;
+  font-size: 64px;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(-38deg);
+  transform-origin: center center;
+  filter:
+    drop-shadow(0 2px 0 #ffffff)
+    drop-shadow(0 5px 4px rgba(15,23,42,.35));
+}
+
+.lesson-screen-week9-right
+.week9-right-demo-cursor-move {
+  animation:
+    week9RightDemoMove
+    2.3s ease-in-out forwards;
+}
+
+.lesson-screen-week9-right
+.week9-right-demo-cursor-click {
+  filter:
+    drop-shadow(0 0 10px #ffffff)
+    drop-shadow(0 0 20px #facc15);
+}
+
+.lesson-screen-week9-right.week9-right-demoing
+.week9-right-menu {
+  pointer-events: none;
+}
+
+@keyframes week9RightDemoMove {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-85px, 70px)
+      rotate(-38deg)
+      scale(.85);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 1;
+    transform:
+      translate(82px, -2px)
+      rotate(-38deg)
+      scale(1);
+  }
+
+  47% {
+    opacity: 1;
+    transform:
+      translate(82px, 5px)
+      rotate(-38deg)
+      scale(.82);
+  }
+
+  55%,
+  86% {
+    opacity: 1;
+    transform:
+      translate(82px, -2px)
+      rotate(-38deg)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(82px, -2px)
+      rotate(-38deg)
+      scale(1);
+  }
+}
+
+/* =========================================================
+   Week 9 Step 2 - synchronize hand, cursor, and menu
+   One complete demonstration = 3.2 seconds
+   ========================================================= */
+
+/* Stop the old independent finger loop */
+.lesson-screen-week9-right
+.week9-right-hand .finger-two {
+  animation: none !important;
+}
+
+/* Finger presses exactly when the cursor right-clicks the present */
+.lesson-screen-week9-right.week9-right-demoing
+.week9-right-hand .finger-two {
+  animation:
+    week9SyncedRightFinger
+    3.2s ease-in-out
+    1 !important;
+}
+
+@keyframes week9SyncedRightFinger {
+  0%,
+  23% {
+    transform: translateY(0);
+  }
+
+  /* hand begins pressing */
+  27% {
+    transform: translateY(3px);
+  }
+
+  /* cursor reaches present around 950ms */
+  30%,
+  34% {
+    transform: translateY(8px);
+  }
+
+  /* release after menu appears */
+  39% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
