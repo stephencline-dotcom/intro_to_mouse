@@ -27486,6 +27486,201 @@ const status =
       `;
     }
 
+    if (step.id === "week8-wrap-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week8-wrap-up${isTeacher ? " week8-wrap-teacher" : ""}">
+          <div class="week8-wrap-confetti" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+
+          <div class="week8-wrap-heading">
+            <span>WEEK 8 COMPLETE</span>
+            <h1>Double-Click Champion!</h1>
+            <div class="week8-wrap-stars">⭐ ⭐ ⭐</div>
+          </div>
+
+          <div class="week8-wrap-cards">
+            <div class="week8-wrap-card week8-wrap-fast-card">
+              <strong>TWO QUICK CLICKS</strong>
+              <div class="week8-wrap-mouse-demo">
+                <div class="week8-wrap-mouse">
+                  <i></i><b></b><span></span>
+                </div>
+                <div class="week8-wrap-clicks">
+                  <span>1</span><span>2</span>
+                </div>
+              </div>
+              <div class="week8-wrap-card-result">QUICK!</div>
+            </div>
+
+            <div class="week8-wrap-card week8-wrap-still-card">
+              <strong>KEEP IT STILL</strong>
+              <div class="week8-wrap-still-demo">
+                <div class="week8-wrap-cursor">➤</div>
+                <div class="week8-wrap-stop-ring"><i></i></div>
+              </div>
+              <div class="week8-wrap-card-result">NO MOVING</div>
+            </div>
+
+            <div class="week8-wrap-card week8-wrap-open-card">
+              <strong>OPEN &amp; ACTIVATE</strong>
+              <div class="week8-wrap-open-demo">
+                <div class="week8-wrap-folder closed">📁</div>
+                <div class="week8-wrap-folder open">📂</div>
+                <div class="week8-wrap-sparkles">✨</div>
+              </div>
+              <div class="week8-wrap-card-result">IT OPENS!</div>
+            </div>
+          </div>
+
+          <div class="week8-wrap-rule">
+            <div class="week8-wrap-rule-mouse"><i></i><b></b></div>
+            <span>1</span><span>2</span>
+            <strong>QUICK + STILL</strong>
+            <div class="week8-wrap-check">✓</div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week9-quick-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week9-quick-review${isTeacher ? " week9-review-teacher" : ""}">
+          <div class="week9-review-heading">
+            <span>WEEK 9</span>
+            <h1>Mouse Skills Warm-Up!</h1>
+          </div>
+
+          <div class="week9-review-skills">
+            <div class="week9-review-skill week9-review-move">
+              <strong>MOVE</strong>
+              <div class="week9-review-move-scene">
+                <div class="week9-review-star">★</div>
+                <div class="week9-review-cursor cursor-move">➤</div>
+              </div>
+            </div>
+
+            <div class="week9-review-skill week9-review-click">
+              <strong>CLICK</strong>
+              <div class="week9-review-click-scene">
+                <div class="week9-review-button">●</div>
+                <div class="week9-review-cursor cursor-click">➤</div>
+                <i></i>
+              </div>
+            </div>
+
+            <div class="week9-review-skill week9-review-double">
+              <strong>DOUBLE</strong>
+              <div class="week9-review-double-scene">
+                <div class="week9-review-folder closed">📁</div>
+                <div class="week9-review-folder open">📂</div>
+                <div class="week9-review-double-count"><span>1</span><span>2</span></div>
+              </div>
+            </div>
+
+            <div class="week9-review-skill week9-review-drag">
+              <strong>DRAG</strong>
+              <div class="week9-review-drag-scene">
+                <div class="week9-review-piece">🧩</div>
+                <div class="week9-review-piece-home"></div>
+                <div class="week9-review-cursor cursor-drag">➤</div>
+              </div>
+            </div>
+
+            <div class="week9-review-skill week9-review-scroll">
+              <strong>SCROLL</strong>
+              <div class="week9-review-scroll-scene">
+                <div class="week9-review-page"><i>☀️</i><i>🏠</i><i>🌳</i></div>
+                <div class="week9-review-wheel-mouse"><i></i></div>
+                <div class="week9-review-scroll-arrows">↕</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="week9-review-ready">
+            <div class="week9-review-ready-mouse"><i></i><b></b><span></span></div>
+            <div class="week9-review-ready-icons">★ ● 📂 🧩 ↕</div>
+            <div class="week9-review-ready-check">✓</div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id === "week9-meet-right-click") {
+      return `
+        <div id="week9RightScreen" class="lesson-screen lesson-screen-week9-right${isTeacher ? " week9-right-teacher" : ""}">
+          <div class="week9-right-heading">
+            <span>NEW MOUSE SKILL</span>
+            <h1>Meet the Right-Click!</h1>
+          </div>
+
+          <div class="week9-right-layout">
+            <div id="week9RightMouseCard" class="week9-right-mouse-card">
+              <div class="week9-right-label">RIGHT</div>
+              <div class="week9-right-mouse">
+                <div class="week9-right-left-button"></div>
+                <div class="week9-right-button"><i></i></div>
+                <div class="week9-right-wheel"></div>
+                <div class="week9-right-hand">
+                  <i class="finger-one"></i><i class="finger-two"></i><i class="finger-three"></i><i class="finger-four"></i><b></b>
+                </div>
+              </div>
+              <div class="week9-right-click-ring"></div>
+            </div>
+
+            <div class="week9-right-big-arrow">➜</div>
+
+            <div id="week9RightPractice" class="week9-right-practice">
+              <div class="week9-right-practice-top">
+                <div class="week9-right-clue-mouse"><i></i><b></b><span></span></div>
+                <div class="week9-right-clue-arrow">➜</div>
+                <div class="week9-right-clue-menu"><i></i><i></i><i></i></div>
+              </div>
+
+              <button id="week9RightObject" class="week9-right-object" type="button" aria-label="Right-click the mystery box">
+                <span class="week9-right-box-lid"></span>
+                <span class="week9-right-box-body"></span>
+                <span class="week9-right-box-ribbon"></span>
+                <span class="week9-right-box-bow"><i></i><b></b></span>
+                <strong>?</strong>
+              </button>
+
+              <div id="week9RightMenu" class="week9-right-menu" hidden>
+                <button type="button" data-week9-right-choice="star" aria-label="Choose star">⭐</button>
+                <button type="button" data-week9-right-choice="paint" aria-label="Choose colors">🎨</button>
+                <button type="button" data-week9-right-choice="key" aria-label="Choose key">🔑</button>
+              </div>
+
+              <div id="week9RightResult" class="week9-right-result" hidden></div>
+            </div>
+          </div>
+
+          <div id="week9RightStatus" class="week9-right-status" aria-live="polite">
+            <div class="week9-right-status-mouse"><i></i><b></b><span></span></div>
+            <strong>RIGHT-CLICK</strong>
+            <span>?</span>
+          </div>
+
+          <div id="week9RightComplete" class="week9-right-complete" hidden>
+            <div><span>🖱️ ⭐</span><strong>YOU DID IT!</strong><b>RIGHT-CLICK!</b></div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (step.id.startsWith("week9-")) {
+      return `
+        <div class="lesson-screen lesson-screen-week6-placeholder">
+          <div class="week6-placeholder-badge">WEEK 9</div>
+          <h1>${step.title}</h1>
+          <div style="font-size: 86px; margin: 22px 0;">🖱️ ➡️ 🧰</div>
+          <p class="week6-placeholder-message">
+            This right-click activity is ready to build.
+          </p>
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week8-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -27581,6 +27776,126 @@ const status =
   let movementSoundStopTimer = null;
   let soundEnabled = true;
   let leftClickSound = null;
+
+  let removeWeek9MeetRightBehavior = null;
+  const week9MeetRightSounds = new Set();
+  let week9MeetRightTimer = null;
+
+  function stopWeek9MeetRightBehavior() {
+    removeWeek9MeetRightBehavior?.();
+    removeWeek9MeetRightBehavior = null;
+    if (week9MeetRightTimer) clearTimeout(week9MeetRightTimer);
+    week9MeetRightTimer = null;
+    week9MeetRightSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+    week9MeetRightSounds.clear();
+  }
+
+  function startWeek9MeetRightBehavior() {
+    stopWeek9MeetRightBehavior();
+    const screen = document.getElementById("week9RightScreen");
+    const mouseCard = document.getElementById("week9RightMouseCard");
+    const practice = document.getElementById("week9RightPractice");
+    const object = document.getElementById("week9RightObject");
+    const menu = document.getElementById("week9RightMenu");
+    const result = document.getElementById("week9RightResult");
+    const status = document.getElementById("week9RightStatus");
+    const complete = document.getElementById("week9RightComplete");
+    if (!screen || !mouseCard || !practice || !object || !menu || !result || !status || !complete) return;
+
+    let menuOpen = false;
+    let finished = false;
+
+    function play(src) {
+      if (!soundEnabled) return;
+      const audio = new Audio(src);
+      week9MeetRightSounds.add(audio);
+      audio.addEventListener("ended", () => week9MeetRightSounds.delete(audio), {once:true});
+      audio.play().catch(() => week9MeetRightSounds.delete(audio));
+    }
+
+    function clearTimer() {
+      if (week9MeetRightTimer) clearTimeout(week9MeetRightTimer);
+      week9MeetRightTimer = null;
+    }
+
+    function showRightReminder() {
+      clearTimer();
+      mouseCard.classList.remove("week9-right-wrong-side");
+      void mouseCard.offsetWidth;
+      mouseCard.classList.add("week9-right-wrong-side");
+      status.className = "week9-right-status week9-right-status-warning";
+      status.innerHTML = '<div class="week9-right-status-mouse"><i></i><b></b><span></span></div><strong>USE THIS SIDE</strong><span>➡️</span>';
+      play("/sounds/buzzer.mp3");
+      week9MeetRightTimer = setTimeout(() => {
+        week9MeetRightTimer = null;
+        mouseCard.classList.remove("week9-right-wrong-side");
+        if (!menuOpen && !finished) {
+          status.className = "week9-right-status";
+          status.innerHTML = '<div class="week9-right-status-mouse"><i></i><b></b><span></span></div><strong>RIGHT-CLICK</strong><span>?</span>';
+        }
+      }, 1300);
+    }
+
+    function openMenu(event) {
+      event.preventDefault();
+      if (!event.target.closest("#week9RightObject") || finished) return;
+      clearTimer();
+      menuOpen = true;
+      menu.hidden = false;
+      object.classList.add("week9-right-object-open");
+      mouseCard.classList.remove("week9-right-wrong-side");
+      status.className = "week9-right-status week9-right-status-choose";
+      status.innerHTML = '<span>👀</span><strong>CHOOSE A PICTURE</strong><span>👆</span>';
+      play("/sounds/boom.mp3");
+    }
+
+    function choose(event) {
+      const choice = event.target.closest("[data-week9-right-choice]");
+      if (!choice || finished) return;
+      event.preventDefault();
+      finished = true;
+      menuOpen = false;
+      menu.hidden = true;
+      const id = choice.dataset.week9RightChoice;
+      const icons = {star:"⭐", paint:"🌈", key:"🔓"};
+      result.textContent = icons[id] || "⭐";
+      result.hidden = false;
+      object.classList.add("week9-right-object-finished");
+      status.className = "week9-right-status week9-right-status-success";
+      status.innerHTML = '<span>✓</span><strong>RIGHT-CLICK WORKED!</strong><span>⭐</span>';
+      play("/sounds/correct.mp3");
+      week9MeetRightTimer = setTimeout(() => {
+        week9MeetRightTimer = null;
+        complete.hidden = false;
+        play("/sounds/complete.mp3");
+      }, 700);
+    }
+
+    function normalClick(event) {
+      if (event.target.closest("[data-week9-right-choice]")) return;
+      if (event.target.closest("#week9RightObject") && !menuOpen && !finished) {
+        event.preventDefault();
+        showRightReminder();
+      } else if (menuOpen && !event.target.closest("#week9RightMenu")) {
+        menuOpen = false;
+        menu.hidden = true;
+        object.classList.remove("week9-right-object-open");
+      }
+    }
+
+    practice.addEventListener("contextmenu", openMenu, true);
+    menu.addEventListener("click", choose);
+    practice.addEventListener("click", normalClick);
+    removeWeek9MeetRightBehavior = () => {
+      clearTimer();
+      practice.removeEventListener("contextmenu", openMenu, true);
+      menu.removeEventListener("click", choose);
+      practice.removeEventListener("click", normalClick);
+    };
+  }
 
   let removeWeek8BossBehavior = null;
   let week8BossClickTimer = null;
@@ -31741,6 +32056,7 @@ const status =
   }
 
   function stopStepBehavior() {
+    stopWeek9MeetRightBehavior();
     /*
      * Universal audio cleanup.
      */
@@ -33656,6 +33972,12 @@ const status =
     }
 
     if (
+      step.id === "week9-meet-right-click"
+    ) {
+      startWeek9MeetRightBehavior();
+    }
+
+    if (
       step.id === "week8-computer-rescue"
     ) {
       startWeek8BossBehavior();
@@ -34239,6 +34561,7 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
 
 
 

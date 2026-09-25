@@ -38459,3 +38459,521 @@ body.teacher-session
 @keyframes week8MonsterDefeat{0%{transform:translate(-50%,-50%) scale(1)}35%{transform:translate(-50%,-50%) scale(1.25) rotate(12deg);filter:brightness(2)}100%{transform:translate(-50%,70%) scale(.1) rotate(360deg);opacity:0}}
 
 @media (max-height:760px){.lesson-screen-week8-boss:not(.week8-teacher-fit){min-height:540px}.lesson-screen-week8-boss:not(.week8-teacher-fit) .week8-boss-arena{height:315px}.lesson-screen-week8-boss:not(.week8-teacher-fit) .week8-boss-heading h1{font-size:32px}}
+
+
+/* =========================================================
+   Week 8 Step 8 - Double-Click Wrap-Up
+   ========================================================= */
+.lesson-screen-week8-wrap-up {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 555px;
+  padding: 8px 24px 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(103,232,249,.45), transparent 27%),
+    radial-gradient(circle at 92% 78%, rgba(250,204,21,.38), transparent 28%),
+    linear-gradient(145deg,#eff6ff,#faf5ff 55%,#fefce8);
+}
+.week8-wrap-heading { position:relative; z-index:2; text-align:center; }
+.week8-wrap-heading>span { display:inline-block; padding:5px 24px; border-radius:999px; color:#854d0e; background:#fef08a; box-shadow:0 5px 0 #eab308; font-size:16px; font-weight:1000; letter-spacing:2px; }
+.week8-wrap-heading h1 { margin:8px 0 0; color:#172554; font-size:40px; line-height:1; text-shadow:0 3px #bfdbfe; }
+.week8-wrap-stars { margin-top:2px; font-size:28px; letter-spacing:8px; animation:week8WrapStars 700ms ease-in-out infinite alternate; }
+.week8-wrap-cards { position:relative; z-index:2; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; width:min(1080px,96%); margin:9px auto 0; }
+.week8-wrap-card { display:grid; min-height:292px; padding:15px 16px 13px; place-items:center; border:7px solid #fff; border-radius:31px; box-shadow:0 11px 0 rgba(30,64,175,.14),0 18px 30px rgba(15,23,42,.13); }
+.week8-wrap-card>strong { color:#172554; font-size:22px; font-weight:1000; letter-spacing:.5px; text-align:center; }
+.week8-wrap-fast-card { background:linear-gradient(145deg,#dbeafe,#bfdbfe); }
+.week8-wrap-still-card { background:linear-gradient(145deg,#fef3c7,#fde68a); }
+.week8-wrap-open-card { background:linear-gradient(145deg,#dcfce7,#bbf7d0); }
+.week8-wrap-card-result { padding:5px 20px; border-radius:999px; color:#fff; background:#1e3a8a; font-size:19px; font-weight:1000; box-shadow:0 4px 0 #172554; }
+
+.week8-wrap-mouse-demo { position:relative; width:210px; height:155px; }
+.week8-wrap-mouse { position:absolute; top:8px; left:63px; width:82px; height:118px; border:6px solid #334155; border-radius:42px; background:#f8fafc; box-shadow:0 7px 0 #94a3b8; }
+.week8-wrap-mouse:after { position:absolute; top:52px; right:0; left:0; height:5px; background:#334155; content:""; }
+.week8-wrap-mouse i,.week8-wrap-mouse b { position:absolute; top:0; width:50%; height:54px; }
+.week8-wrap-mouse i { left:0; border-radius:34px 0 0 0; background:#60a5fa; animation:week8WrapMouseClick 1.4s ease-in-out infinite; }
+.week8-wrap-mouse b { right:0; }
+.week8-wrap-mouse span { position:absolute; z-index:2; top:8px; left:35px; width:12px; height:28px; border-radius:999px; background:#334155; }
+.week8-wrap-clicks { position:absolute; right:-2px; top:27px; display:flex; gap:7px; }
+.week8-wrap-clicks span,.week8-wrap-rule>span { display:grid; width:42px; height:42px; place-items:center; border-radius:50%; color:#fff; background:#2563eb; font-size:25px; font-weight:1000; box-shadow:0 4px 0 #1e40af; }
+.week8-wrap-clicks span:first-child { animation:week8WrapOne 1.4s ease-in-out infinite; }
+.week8-wrap-clicks span:last-child { animation:week8WrapTwo 1.4s ease-in-out infinite; }
+
+.week8-wrap-still-demo { position:relative; width:210px; height:155px; }
+.week8-wrap-cursor { position:absolute; z-index:2; top:31px; left:68px; color:#0f172a; font-size:76px; line-height:1; text-shadow:2px 2px #fff; transform:rotate(-43deg); }
+.week8-wrap-stop-ring { position:absolute; top:14px; left:48px; width:115px; height:115px; border:9px solid #ef4444; border-radius:50%; box-shadow:0 0 18px #fca5a5; }
+.week8-wrap-stop-ring i { position:absolute; top:48px; left:-2px; width:118px; height:9px; border-radius:999px; background:#ef4444; transform:rotate(-45deg); }
+.week8-wrap-still-demo:after { position:absolute; right:5px; bottom:6px; color:#166534; content:"✓"; font-size:48px; font-weight:1000; animation:week8WrapCheck 700ms ease-in-out infinite alternate; }
+
+.week8-wrap-open-demo { position:relative; width:220px; height:155px; }
+.week8-wrap-folder { position:absolute; top:16px; left:58px; font-size:93px; filter:drop-shadow(0 7px 0 rgba(146,64,14,.18)); }
+.week8-wrap-folder.closed { animation:week8WrapClosed 2.3s steps(1) infinite; }
+.week8-wrap-folder.open { opacity:0; animation:week8WrapOpen 2.3s steps(1) infinite; }
+.week8-wrap-sparkles { position:absolute; top:0; right:25px; font-size:38px; animation:week8WrapSparkles 2.3s ease-in-out infinite; }
+
+.week8-wrap-rule { position:relative; z-index:2; display:flex; width:min(620px,88%); min-height:67px; margin:13px auto 0; align-items:center; justify-content:center; gap:11px; border:6px solid #fff; border-radius:999px; color:#172554; background:linear-gradient(90deg,#cffafe,#fef9c3,#dcfce7); box-shadow:0 8px 0 rgba(30,64,175,.16); }
+.week8-wrap-rule-mouse { position:relative; width:43px; height:54px; border:4px solid #334155; border-radius:22px; background:#fff; }
+.week8-wrap-rule-mouse i { position:absolute; top:0; left:0; width:50%; height:24px; border-radius:18px 0 0 0; background:#60a5fa; }
+.week8-wrap-rule-mouse b { position:absolute; top:6px; left:18px; width:7px; height:18px; border-radius:8px; background:#334155; }
+.week8-wrap-rule>span { width:37px; height:37px; font-size:21px; }
+.week8-wrap-rule>strong { margin-left:4px; font-size:24px; font-weight:1000; }
+.week8-wrap-check { display:grid; width:41px; height:41px; place-items:center; border-radius:50%; color:#fff; background:#22c55e; font-size:29px; font-weight:1000; box-shadow:0 4px 0 #15803d; }
+.week8-wrap-confetti i { position:absolute; z-index:1; width:13px; height:24px; border-radius:3px; background:#f43f5e; animation:week8WrapConfetti 3.2s linear infinite; }
+.week8-wrap-confetti i:nth-child(1){left:5%;animation-delay:-.3s}.week8-wrap-confetti i:nth-child(2){left:17%;background:#22d3ee;animation-delay:-2.1s}.week8-wrap-confetti i:nth-child(3){left:31%;background:#facc15;animation-delay:-1.2s}.week8-wrap-confetti i:nth-child(4){left:44%;background:#a855f7;animation-delay:-2.8s}.week8-wrap-confetti i:nth-child(5){left:59%;background:#22c55e;animation-delay:-.8s}.week8-wrap-confetti i:nth-child(6){left:72%;background:#fb923c;animation-delay:-1.8s}.week8-wrap-confetti i:nth-child(7){left:85%;background:#3b82f6;animation-delay:-2.5s}.week8-wrap-confetti i:nth-child(8){left:95%;background:#f43f5e;animation-delay:-1.4s}
+
+@keyframes week8WrapStars{from{transform:scale(.94)}to{transform:scale(1.08);filter:drop-shadow(0 0 8px #facc15)}}
+@keyframes week8WrapMouseClick{0%,20%,45%,100%{background:#60a5fa;transform:none}28%,36%,53%,61%{background:#2563eb;transform:translateY(3px)}}
+@keyframes week8WrapOne{0%,19%,40%,100%{transform:scale(1)}27%,35%{transform:scale(1.2);background:#22c55e}}
+@keyframes week8WrapTwo{0%,44%,67%,100%{transform:scale(1)}52%,60%{transform:scale(1.2);background:#22c55e}}
+@keyframes week8WrapCheck{from{transform:scale(.9)}to{transform:scale(1.12)}}
+@keyframes week8WrapClosed{0%,43%{opacity:1}44%,78%{opacity:0}79%,100%{opacity:1}}
+@keyframes week8WrapOpen{0%,43%{opacity:0}44%,78%{opacity:1}79%,100%{opacity:0}}
+@keyframes week8WrapSparkles{0%,40%,82%,100%{opacity:0;transform:scale(.4)}50%,70%{opacity:1;transform:scale(1.15) rotate(10deg)}}
+@keyframes week8WrapConfetti{0%{top:-30px;transform:rotate(0);opacity:0}10%{opacity:1}100%{top:105%;transform:rotate(560deg);opacity:.6}}
+
+/* Compact teacher presentation fit */
+.week8-wrap-teacher { min-height:475px; padding:4px 19px 9px; }
+.week8-wrap-teacher .week8-wrap-heading>span { padding:4px 20px; font-size:14px; }
+.week8-wrap-teacher .week8-wrap-heading h1 { margin-top:5px; font-size:32px; }
+.week8-wrap-teacher .week8-wrap-stars { font-size:22px; }
+.week8-wrap-teacher .week8-wrap-cards { width:min(980px,93%); gap:14px; margin-top:5px; }
+.week8-wrap-teacher .week8-wrap-card { min-height:242px; padding:9px 12px; border-width:6px; }
+.week8-wrap-teacher .week8-wrap-card>strong { font-size:19px; }
+.week8-wrap-teacher .week8-wrap-mouse-demo,.week8-wrap-teacher .week8-wrap-still-demo,.week8-wrap-teacher .week8-wrap-open-demo { height:132px; transform:scale(.82); transform-origin:center center; }
+.week8-wrap-teacher .week8-wrap-card-result { margin-top:-10px; padding:4px 17px; font-size:17px; }
+.week8-wrap-teacher .week8-wrap-rule { min-height:54px; margin-top:8px; border-width:5px; }
+.week8-wrap-teacher .week8-wrap-rule-mouse { width:35px; height:44px; }
+.week8-wrap-teacher .week8-wrap-rule-mouse b { left:14px; }
+.week8-wrap-teacher .week8-wrap-rule>span { width:32px; height:32px; font-size:18px; }
+.week8-wrap-teacher .week8-wrap-rule>strong { font-size:20px; }
+.week8-wrap-teacher .week8-wrap-check { width:34px; height:34px; font-size:23px; }
+
+@media (max-height:760px) {
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) { min-height:510px; padding-top:4px; }
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) .week8-wrap-heading h1 { font-size:34px; }
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) .week8-wrap-card { min-height:260px; }
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) .week8-wrap-mouse-demo,
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) .week8-wrap-still-demo,
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) .week8-wrap-open-demo { height:137px; transform:scale(.88); transform-origin:center center; }
+  .lesson-screen-week8-wrap-up:not(.week8-wrap-teacher) .week8-wrap-rule { margin-top:9px; min-height:58px; }
+}
+
+
+/* =========================================================
+   Week 9 Step 1 - Mouse Skills Warm-Up
+   ========================================================= */
+.lesson-screen-week9-quick-review{box-sizing:border-box;width:100%;min-height:555px;padding:9px 23px 14px;overflow:hidden;background:radial-gradient(circle at 10% 16%,rgba(56,189,248,.28),transparent 27%),radial-gradient(circle at 90% 82%,rgba(250,204,21,.3),transparent 29%),linear-gradient(145deg,#eff6ff,#faf5ff)}
+.week9-review-heading{text-align:center}.week9-review-heading>span{display:inline-block;padding:5px 24px;border-radius:999px;color:#fff;background:#7c3aed;box-shadow:0 5px 0 #5b21b6;font-size:16px;font-weight:1000;letter-spacing:2px}.week9-review-heading h1{margin:8px 0 10px;color:#172554;font-size:39px;line-height:1;text-shadow:0 3px #c4b5fd}
+.week9-review-skills{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;width:min(1160px,98%);margin:0 auto}
+.week9-review-skill{display:grid;min-height:320px;padding:13px 8px 10px;place-items:center;border:6px solid #fff;border-radius:29px;box-shadow:0 10px 0 rgba(30,64,175,.14),0 16px 27px rgba(15,23,42,.12)}
+.week9-review-skill>strong{align-self:start;padding:5px 16px;border-radius:999px;color:#fff;background:#1e3a8a;font-size:19px;font-weight:1000;letter-spacing:1px}
+.week9-review-move{background:linear-gradient(145deg,#dbeafe,#bfdbfe)}.week9-review-click{background:linear-gradient(145deg,#fef3c7,#fde68a)}.week9-review-double{background:linear-gradient(145deg,#dcfce7,#bbf7d0)}.week9-review-drag{background:linear-gradient(145deg,#fce7f3,#fbcfe8)}.week9-review-scroll{background:linear-gradient(145deg,#ede9fe,#ddd6fe)}
+.week9-review-move-scene,.week9-review-click-scene,.week9-review-double-scene,.week9-review-drag-scene,.week9-review-scroll-scene{position:relative;width:175px;height:230px}
+.week9-review-cursor{position:absolute;z-index:5;color:#0f172a;font-size:58px;line-height:1;text-shadow:2px 2px #fff;transform:rotate(-42deg)}
+.week9-review-star{position:absolute;top:58px;left:55px;color:#facc15;font-size:78px;line-height:1;text-shadow:0 5px #ca8a04,0 0 15px #fde047}.cursor-move{top:139px;left:7px;animation:week9ReviewMove 2.2s ease-in-out infinite}
+.week9-review-button{position:absolute;top:65px;left:44px;display:grid;width:88px;height:88px;place-items:center;border:8px solid #b91c1c;border-radius:50%;color:#fff;background:#ef4444;box-shadow:0 10px 0 #991b1b;font-size:50px}.cursor-click{top:132px;left:103px;animation:week9ReviewClick 1.5s ease-in-out infinite}.week9-review-click-scene>i{position:absolute;top:47px;left:27px;width:120px;height:120px;border:7px solid #fff;border-radius:50%;opacity:0;animation:week9ReviewClickRing 1.5s ease-out infinite}
+.week9-review-folder{position:absolute;top:49px;left:39px;font-size:93px;filter:drop-shadow(0 7px 0 rgba(146,64,14,.18))}.week9-review-folder.closed{animation:week9ReviewClosed 2.2s steps(1) infinite}.week9-review-folder.open{opacity:0;animation:week9ReviewOpen 2.2s steps(1) infinite}.week9-review-double-count{position:absolute;right:6px;bottom:26px;display:flex;gap:5px}.week9-review-double-count span{display:grid;width:36px;height:36px;place-items:center;border-radius:50%;color:#fff;background:#2563eb;font-size:21px;font-weight:1000;box-shadow:0 4px 0 #1e40af}.week9-review-double-count span:first-child{animation:week9ReviewOne 2.2s ease-in-out infinite}.week9-review-double-count span:last-child{animation:week9ReviewTwo 2.2s ease-in-out infinite}
+.week9-review-piece{position:absolute;z-index:3;top:52px;left:13px;font-size:69px;animation:week9ReviewPiece 2.5s ease-in-out infinite}.week9-review-piece-home{position:absolute;top:47px;right:8px;width:78px;height:78px;border:6px dashed #be185d;border-radius:18px;background:#fdf2f8}.cursor-drag{top:115px;left:4px;animation:week9ReviewDragCursor 2.5s ease-in-out infinite}
+.week9-review-page{position:absolute;top:8px;left:16px;width:93px;height:203px;overflow:hidden;border:6px solid #4338ca;border-radius:14px;background:#fff}.week9-review-page i{position:absolute;left:19px;font-size:43px;font-style:normal;animation:week9ReviewPage 2.5s ease-in-out infinite}.week9-review-page i:first-child{top:17px}.week9-review-page i:nth-child(2){top:95px}.week9-review-page i:nth-child(3){top:175px}.week9-review-wheel-mouse{position:absolute;right:4px;top:59px;width:50px;height:79px;border:5px solid #334155;border-radius:27px;background:#fff}.week9-review-wheel-mouse:after{position:absolute;top:33px;right:0;left:0;height:4px;background:#334155;content:""}.week9-review-wheel-mouse i{position:absolute;z-index:2;top:7px;left:20px;width:9px;height:22px;border-radius:9px;background:#7c3aed;animation:week9ReviewWheel 1s ease-in-out infinite alternate}.week9-review-scroll-arrows{position:absolute;right:8px;bottom:21px;color:#7c3aed;font-size:47px;font-weight:1000;animation:week9ReviewArrows 1s ease-in-out infinite alternate}
+.week9-review-ready{display:flex;width:min(670px,89%);min-height:68px;margin:14px auto 0;align-items:center;justify-content:center;gap:18px;border:6px solid #fff;border-radius:999px;color:#172554;background:linear-gradient(90deg,#dbeafe,#fef3c7,#dcfce7,#fce7f3,#ede9fe);box-shadow:0 8px 0 rgba(30,64,175,.15)}
+.week9-review-ready-mouse{position:relative;width:43px;height:54px;border:4px solid #334155;border-radius:23px;background:#fff}.week9-review-ready-mouse:after{position:absolute;top:24px;right:0;left:0;height:4px;background:#334155;content:""}.week9-review-ready-mouse i,.week9-review-ready-mouse b{position:absolute;top:0;width:50%;height:26px}.week9-review-ready-mouse i{left:0;border-radius:20px 0 0 0;background:#60a5fa}.week9-review-ready-mouse b{right:0}.week9-review-ready-mouse span{position:absolute;z-index:2;top:5px;left:17px;width:7px;height:17px;border-radius:8px;background:#334155}.week9-review-ready-icons{font-size:29px;letter-spacing:8px}.week9-review-ready-check{display:grid;width:43px;height:43px;place-items:center;border-radius:50%;color:#fff;background:#22c55e;box-shadow:0 4px 0 #15803d;font-size:30px;font-weight:1000;animation:week9ReviewReady 700ms ease-in-out infinite alternate}
+@keyframes week9ReviewMove{0%,15%{transform:translate(0,0) rotate(-42deg)}55%,85%{transform:translate(75px,-58px) rotate(-42deg)}100%{transform:translate(0,0) rotate(-42deg)}}
+@keyframes week9ReviewClick{0%,35%,60%,100%{transform:rotate(-42deg) scale(1)}43%,52%{transform:translate(-8px,-8px) rotate(-42deg) scale(.9)}}
+@keyframes week9ReviewClickRing{0%,42%{opacity:0;transform:scale(.5)}52%{opacity:1}80%,100%{opacity:0;transform:scale(1.2)}}
+@keyframes week9ReviewClosed{0%,44%,100%{opacity:1}45%,78%{opacity:0}}@keyframes week9ReviewOpen{0%,44%,79%,100%{opacity:0}45%,78%{opacity:1}}
+@keyframes week9ReviewOne{0%,18%,39%,100%{transform:scale(1)}25%,33%{transform:scale(1.2);background:#22c55e}}@keyframes week9ReviewTwo{0%,40%,62%,100%{transform:scale(1)}47%,55%{transform:scale(1.2);background:#22c55e}}
+@keyframes week9ReviewPiece{0%,15%{transform:translate(0)}55%,82%{transform:translate(76px,0)}100%{transform:translate(0)}}@keyframes week9ReviewDragCursor{0%,15%{transform:translate(0) rotate(-42deg)}55%,82%{transform:translate(76px,0) rotate(-42deg)}100%{transform:translate(0) rotate(-42deg)}}
+@keyframes week9ReviewPage{0%,15%{transform:translateY(0)}60%,85%{transform:translateY(-79px)}100%{transform:translateY(0)}}@keyframes week9ReviewWheel{from{transform:translateY(0)}to{transform:translateY(8px)}}@keyframes week9ReviewArrows{from{transform:translateY(-5px)}to{transform:translateY(6px)}}@keyframes week9ReviewReady{from{transform:scale(.9)}to{transform:scale(1.1)}}
+
+/* Compact teacher presentation fit */
+.week9-review-teacher{min-height:470px;padding:4px 18px 8px}.week9-review-teacher .week9-review-heading>span{padding:4px 20px;font-size:14px}.week9-review-teacher .week9-review-heading h1{margin:5px 0 6px;font-size:31px}.week9-review-teacher .week9-review-skills{gap:9px;width:min(1060px,94%)}.week9-review-teacher .week9-review-skill{min-height:262px;padding:9px 5px 6px;border-width:5px}.week9-review-teacher .week9-review-skill>strong{font-size:16px}.week9-review-teacher .week9-review-move-scene,.week9-review-teacher .week9-review-click-scene,.week9-review-teacher .week9-review-double-scene,.week9-review-teacher .week9-review-drag-scene,.week9-review-teacher .week9-review-scroll-scene{height:197px;transform:scale(.82);transform-origin:center center}.week9-review-teacher .week9-review-ready{min-height:54px;margin-top:9px;border-width:5px}.week9-review-teacher .week9-review-ready-mouse{width:35px;height:44px}.week9-review-teacher .week9-review-ready-mouse span{left:13px}.week9-review-teacher .week9-review-ready-icons{font-size:23px}.week9-review-teacher .week9-review-ready-check{width:35px;height:35px;font-size:24px}
+@media(max-height:760px){.lesson-screen-week9-quick-review:not(.week9-review-teacher){min-height:510px;padding-top:4px}.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-heading h1{font-size:33px}.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-skill{min-height:280px}.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-move-scene,.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-click-scene,.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-double-scene,.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-drag-scene,.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-scroll-scene{height:210px;transform:scale(.9);transform-origin:center center}.lesson-screen-week9-quick-review:not(.week9-review-teacher) .week9-review-ready{min-height:58px;margin-top:10px}}
+
+
+/* Week 9 Step 1 - precise cursor centers */
+.lesson-screen-week9-quick-review .week9-review-cursor {
+  width: 47px;
+  height: 58px;
+  color: transparent;
+  background: #0f172a;
+  clip-path: polygon(
+    0 0,
+    100% 67%,
+    61% 72%,
+    80% 100%,
+    59% 100%,
+    43% 75%,
+    21% 100%
+  );
+  filter:
+    drop-shadow(2px 0 #ffffff)
+    drop-shadow(-2px 0 #ffffff)
+    drop-shadow(0 2px #ffffff)
+    drop-shadow(0 -2px #ffffff);
+  font-size: 0;
+  line-height: 0;
+  text-shadow: none;
+  transform: none;
+}
+
+/* The pointer tip finishes at the exact center of the star. */
+.lesson-screen-week9-quick-review .cursor-move {
+  top: 185px;
+  left: 20px;
+  animation: week9ReviewMoveCentered 2.2s ease-in-out infinite;
+}
+
+/* The pointer tip finishes at the exact center of the red button. */
+.lesson-screen-week9-quick-review .cursor-click {
+  top: 181px;
+  left: 145px;
+  animation: week9ReviewClickCentered 1.5s ease-in-out infinite;
+}
+
+/* Both the puzzle and pointer finish in the outline's center. */
+.lesson-screen-week9-quick-review .week9-review-piece {
+  animation: week9ReviewPieceCentered 2.5s ease-in-out infinite;
+}
+
+.lesson-screen-week9-quick-review .cursor-drag {
+  top: 88px;
+  left: 47px;
+  animation: week9ReviewDragCursorCentered 2.5s ease-in-out infinite;
+}
+
+@keyframes week9ReviewMoveCentered {
+  0%, 15% { transform: translate(0, 0); }
+  55%, 85% { transform: translate(74px, -88px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes week9ReviewClickCentered {
+  0%, 35%, 60%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  43%, 52% {
+    transform: translate(-57px, -72px) scale(.9);
+  }
+}
+
+@keyframes week9ReviewPieceCentered {
+  0%, 15% { transform: translate(0, 0); }
+  55%, 82% { transform: translate(81px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes week9ReviewDragCursorCentered {
+  0%, 15% { transform: translate(0, 0); }
+  55%, 82% { transform: translate(81px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+
+/* Week 9 Step 2 - Meet the Right-Click */
+.lesson-screen-week9-right{position:relative;box-sizing:border-box;width:100%;min-height:560px;padding:8px 24px 14px;overflow:hidden;background:radial-gradient(circle at 12% 20%,rgba(147,197,253,.5),transparent 28%),radial-gradient(circle at 88% 80%,rgba(253,224,71,.42),transparent 29%),linear-gradient(145deg,#eff6ff,#faf5ff)}
+.week9-right-heading{text-align:center}.week9-right-heading>span{display:inline-block;padding:5px 23px;border-radius:999px;color:#fff;background:#7c3aed;box-shadow:0 5px 0 #5b21b6;font-size:16px;font-weight:1000;letter-spacing:2px}.week9-right-heading h1{margin:7px 0 9px;color:#172554;font-size:39px;line-height:1;text-shadow:0 3px #c4b5fd}
+.week9-right-layout{display:grid;grid-template-columns:330px 80px minmax(400px,570px);width:min(1030px,95%);margin:0 auto;align-items:center;justify-content:center;gap:13px}.week9-right-mouse-card,.week9-right-practice{position:relative;height:350px;border:7px solid #fff;border-radius:36px;box-shadow:0 12px 0 rgba(30,64,175,.15),0 20px 34px rgba(15,23,42,.13)}
+.week9-right-mouse-card{background:linear-gradient(145deg,#dbeafe,#bfdbfe)}.week9-right-label{position:absolute;top:15px;left:50%;padding:5px 22px;border-radius:999px;color:#fff;background:#dc2626;font-size:21px;font-weight:1000;letter-spacing:2px;transform:translateX(-50%)}
+.week9-right-mouse{position:absolute;top:83px;left:84px;width:150px;height:220px;border:9px solid #334155;border-radius:76px;background:#f8fafc;box-shadow:0 10px 0 #94a3b8}.week9-right-mouse:after{position:absolute;top:91px;right:0;left:0;height:7px;background:#334155;content:""}.week9-right-left-button,.week9-right-button{position:absolute;top:0;width:50%;height:98px}.week9-right-left-button{left:0;border-radius:65px 0 0 0}.week9-right-button{right:0;border-radius:0 65px 0 0;background:#ef4444;box-shadow:inset 0 0 0 6px #fecaca;animation:week9RightButtonGlow 650ms ease-in-out infinite alternate}.week9-right-button i{position:absolute;top:30px;left:22px;width:35px;height:35px;border-radius:50%;background:#fff;opacity:.75}.week9-right-wheel{position:absolute;z-index:5;top:20px;left:65px;width:20px;height:51px;border:5px solid #334155;border-radius:999px;background:#94a3b8}
+.week9-right-hand{position:absolute;z-index:8;right:-36px;bottom:-27px;width:116px;height:150px;transform:rotate(-18deg)}.week9-right-hand b{position:absolute;right:18px;bottom:5px;width:68px;height:83px;border:5px solid #b45309;border-radius:45% 45% 35% 35%;background:#fbbf24}.week9-right-hand i{position:absolute;z-index:2;width:25px;border:5px solid #b45309;border-radius:18px;background:#fbbf24}.week9-right-hand .finger-one{top:1px;left:10px;height:99px;transform:rotate(-7deg)}.week9-right-hand .finger-two{top:43px;left:43px;height:68px}.week9-right-hand .finger-three{top:54px;left:69px;height:56px}.week9-right-hand .finger-four{top:66px;left:92px;height:43px}.week9-right-click-ring{position:absolute;top:79px;right:48px;width:88px;height:105px;border:8px solid #fde047;border-radius:45px;box-shadow:0 0 18px #fff,0 0 35px #facc15;animation:week9RightRing 650ms ease-in-out infinite alternate}.week9-right-big-arrow{color:#7c3aed;font-size:72px;font-weight:1000;text-align:center;animation:week9RightArrow 750ms ease-in-out infinite alternate}
+.week9-right-practice{background:linear-gradient(145deg,#fef3c7,#fde68a)}.week9-right-practice-top{position:absolute;top:13px;left:50%;display:flex;align-items:center;gap:10px;transform:translateX(-50%)}.week9-right-clue-mouse,.week9-right-status-mouse{position:relative;width:42px;height:54px;border:4px solid #334155;border-radius:23px;background:#fff}.week9-right-clue-mouse:after,.week9-right-status-mouse:after{position:absolute;top:24px;right:0;left:0;height:4px;background:#334155;content:""}.week9-right-clue-mouse i,.week9-right-clue-mouse b,.week9-right-status-mouse i,.week9-right-status-mouse b{position:absolute;top:0;width:50%;height:26px}.week9-right-clue-mouse i,.week9-right-status-mouse i{left:0}.week9-right-clue-mouse b,.week9-right-status-mouse b{right:0;border-radius:0 18px 0 0;background:#ef4444}.week9-right-clue-mouse span,.week9-right-status-mouse span{position:absolute;z-index:2;top:5px;left:17px;width:7px;height:17px;border-radius:8px;background:#334155}.week9-right-clue-arrow{color:#7c3aed;font-size:36px}.week9-right-clue-menu{display:grid;width:59px;height:49px;padding:6px;gap:4px;border:4px solid #334155;border-radius:8px;background:#fff}.week9-right-clue-menu i{height:5px;border-radius:4px;background:#60a5fa}.week9-right-clue-menu i:nth-child(2){background:#facc15}.week9-right-clue-menu i:nth-child(3){background:#22c55e}
+.week9-right-object{position:absolute;top:103px;left:50%;width:185px;height:174px;padding:0;border:0;background:transparent;cursor:pointer;transform:translateX(-50%)}.week9-right-box-body{position:absolute;bottom:8px;left:17px;width:151px;height:113px;border:7px solid #9a3412;border-radius:10px;background:linear-gradient(145deg,#fb923c,#f97316);box-shadow:0 10px 0 #c2410c}.week9-right-box-lid{position:absolute;z-index:2;top:33px;left:7px;width:171px;height:48px;border:7px solid #9a3412;border-radius:11px;background:#fdba74}.week9-right-box-ribbon{position:absolute;z-index:3;top:39px;left:76px;width:34px;height:133px;background:#facc15}.week9-right-box-bow i,.week9-right-box-bow b{position:absolute;z-index:4;top:5px;width:60px;height:43px;border:7px solid #a16207;border-radius:50%;background:#fde047}.week9-right-box-bow i{left:34px;transform:rotate(22deg)}.week9-right-box-bow b{right:34px;transform:rotate(-22deg)}.week9-right-object strong{position:absolute;z-index:5;top:88px;left:73px;color:#fff;font-size:58px;line-height:1;text-shadow:0 4px #9a3412}.week9-right-object-open .week9-right-box-lid{transform:translate(-12px,-23px) rotate(-10deg)}.week9-right-object-open{filter:drop-shadow(0 0 14px #facc15)}
+.week9-right-menu{position:absolute;z-index:20;top:87px;right:16px;display:grid;width:105px;padding:9px;gap:8px;border:6px solid #334155;border-radius:17px;background:#fff;box-shadow:0 10px 22px #0f172a55;animation:week9RightMenuOpen .25s ease-out}.week9-right-menu[hidden]{display:none}.week9-right-menu button{display:grid;height:65px;place-items:center;border:4px solid #bfdbfe;border-radius:13px;background:#eff6ff;font-size:38px;cursor:pointer}.week9-right-menu button:hover{border-color:#2563eb;background:#dbeafe;transform:scale(1.05)}.week9-right-result{position:absolute;z-index:18;top:103px;left:50%;font-size:115px;filter:drop-shadow(0 0 15px #fff);transform:translateX(-50%);animation:week9RightResult .5s ease-out}.week9-right-result[hidden]{display:none}.week9-right-object-finished{opacity:.2}
+.week9-right-status{display:flex;width:min(620px,88%);min-height:66px;margin:13px auto 0;align-items:center;justify-content:center;gap:14px;border:6px solid #fff;border-radius:999px;color:#172554;background:#dbeafe;box-shadow:0 8px 0 rgba(30,64,175,.15);font-size:21px}.week9-right-status>strong{font-size:23px}.week9-right-status>span{font-size:31px}.week9-right-status-warning{color:#991b1b;background:#fee2e2}.week9-right-status-choose{color:#713f12;background:#fef9c3}.week9-right-status-success{color:#166534;background:#dcfce7}
+.week9-right-wrong-side{animation:week9RightWrong .35s ease-out}.week9-right-wrong-side .week9-right-button{animation:week9RightWrongGlow .35s ease-out 3}.week9-right-complete{position:absolute;inset:0;z-index:100;display:grid;place-items:center;background:#172554c7}.week9-right-complete[hidden]{display:none}.week9-right-complete>div{display:grid;min-width:min(560px,84vw);padding:30px 42px;gap:12px;place-items:center;border:8px solid #fff;border-radius:38px;color:#172554;background:linear-gradient(145deg,#cffafe,#fef9c3);box-shadow:0 12px #1e40af,0 0 55px #facc15;animation:week9RightComplete .4s ease-out}.week9-right-complete span{font-size:53px}.week9-right-complete strong{font-size:55px}.week9-right-complete b{padding:7px 23px;border-radius:999px;color:#fff;background:#7c3aed;font-size:23px}
+@keyframes week9RightButtonGlow{from{filter:brightness(1);box-shadow:inset 0 0 0 6px #fecaca}to{filter:brightness(1.25);box-shadow:inset 0 0 0 6px #fff,0 0 25px #ef4444}}@keyframes week9RightRing{from{transform:scale(.95)}to{transform:scale(1.07)}}@keyframes week9RightArrow{from{transform:translateX(-6px)}to{transform:translateX(8px)}}@keyframes week9RightMenuOpen{from{opacity:0;transform:scale(.65) translate(-30px,25px)}to{opacity:1;transform:scale(1)}}@keyframes week9RightResult{from{opacity:0;transform:translateX(-50%) scale(.3) rotate(-15deg)}to{opacity:1;transform:translateX(-50%) scale(1)}}@keyframes week9RightWrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}@keyframes week9RightWrongGlow{0%,100%{background:#ef4444}50%{background:#fff;box-shadow:0 0 32px #ef4444}}@keyframes week9RightComplete{from{opacity:0;transform:scale(.65)}to{opacity:1;transform:scale(1)}}
+.week9-right-teacher{min-height:470px;padding:4px 18px 8px}.week9-right-teacher .week9-right-heading>span{padding:4px 20px;font-size:14px}.week9-right-teacher .week9-right-heading h1{margin:5px 0 6px;font-size:31px}.week9-right-teacher .week9-right-layout{grid-template-columns:280px 61px minmax(370px,500px);width:min(900px,91%);gap:9px}.week9-right-teacher .week9-right-mouse-card,.week9-right-teacher .week9-right-practice{height:290px;border-width:6px}.week9-right-teacher .week9-right-mouse-card>*{transform:scale(.82)}.week9-right-teacher .week9-right-label{transform:translateX(-50%) scale(.85)}.week9-right-teacher .week9-right-practice>*{transform-origin:center center}.week9-right-teacher .week9-right-practice-top{transform:translateX(-50%) scale(.82)}.week9-right-teacher .week9-right-object{top:76px;transform:translateX(-50%) scale(.82)}.week9-right-teacher .week9-right-menu{top:68px;right:8px;transform:scale(.84);transform-origin:right top}.week9-right-teacher .week9-right-result{top:78px;transform:translateX(-50%) scale(.84)}.week9-right-teacher .week9-right-status{min-height:54px;margin-top:9px;border-width:5px}.week9-right-teacher .week9-right-status>strong{font-size:19px}
+@media(max-height:760px){.lesson-screen-week9-right:not(.week9-right-teacher){min-height:515px;padding-top:4px}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-heading h1{font-size:33px}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-mouse-card,.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-practice{height:315px}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-layout{grid-template-columns:300px 65px minmax(390px,520px)}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-mouse-card>*{transform:scale(.9)}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-label{transform:translateX(-50%) scale(.9)}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-object{top:83px;transform:translateX(-50%) scale(.9)}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-practice-top{transform:translateX(-50%) scale(.9)}.lesson-screen-week9-right:not(.week9-right-teacher) .week9-right-status{min-height:58px;margin-top:10px}}
+
+
+/* Week 9 Step 2 - hand and present-menu correction */
+.lesson-screen-week9-right .week9-right-hand {
+  top: 18px;
+  right: -25px;
+  bottom: auto;
+  width: 106px;
+  height: 191px;
+  transform: none;
+  transform-origin: 45px 32px;
+  animation: week9RightHandPress 1.25s ease-in-out infinite;
+}
+
+.lesson-screen-week9-right .week9-right-hand b {
+  right: 8px;
+  bottom: 0;
+  width: 73px;
+  height: 88px;
+  border-radius: 42% 42% 35% 35%;
+}
+
+/* Index finger: its tip sits in the center of the red button. */
+.lesson-screen-week9-right .week9-right-hand .finger-one {
+  top: 12px;
+  left: 17px;
+  width: 28px;
+  height: 111px;
+  border-radius: 20px;
+  transform: none;
+}
+
+/* Three curled fingers remain beside the palm. */
+.lesson-screen-week9-right .week9-right-hand .finger-two {
+  top: 96px;
+  left: 47px;
+  width: 25px;
+  height: 58px;
+  transform: rotate(-8deg);
+}
+
+.lesson-screen-week9-right .week9-right-hand .finger-three {
+  top: 102px;
+  left: 69px;
+  width: 23px;
+  height: 50px;
+  transform: rotate(-13deg);
+}
+
+.lesson-screen-week9-right .week9-right-hand .finger-four {
+  top: 111px;
+  left: 88px;
+  width: 20px;
+  height: 39px;
+  transform: rotate(-18deg);
+}
+
+/* Make the glowing ring center on the same right-button target. */
+.lesson-screen-week9-right .week9-right-click-ring {
+  top: 76px;
+  right: 43px;
+  width: 80px;
+  height: 96px;
+}
+
+/* The choice menu visibly grows out from the present. */
+.lesson-screen-week9-right .week9-right-menu {
+  top: 101px;
+  right: 12px;
+  transform-origin: left center;
+  animation: week9RightMenuFromPresent .3s ease-out;
+}
+
+.lesson-screen-week9-right .week9-right-menu:before {
+  position: absolute;
+  top: 82px;
+  left: -24px;
+  width: 0;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-right: 24px solid #334155;
+  border-bottom: 18px solid transparent;
+  content: "";
+}
+
+.lesson-screen-week9-right .week9-right-object-open {
+  animation: week9RightPresentOpen .42s ease-out;
+}
+
+@keyframes week9RightHandPress {
+  0%, 28%, 70%, 100% { transform: translateY(0); }
+  40%, 57% { transform: translateY(7px); }
+}
+
+@keyframes week9RightMenuFromPresent {
+  from {
+    opacity: 0;
+    transform: translate(-70px, 55px) scale(.2);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes week9RightPresentOpen {
+  0% { transform: translateX(-50%) scale(1); }
+  45% { transform: translateX(-50%) scale(1.1) rotate(-3deg); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+.week9-right-teacher .week9-right-hand {
+  transform-origin: 45px 32px;
+}
+
+.week9-right-teacher .week9-right-menu {
+  top: 78px;
+  right: 6px;
+}
+
+
+/* Week 9 Step 2 - full hand and guaranteed menu */
+.lesson-screen-week9-right .week9-right-hand {
+  top: 15px;
+  right: -7px;
+  bottom: auto;
+  width: 154px;
+  height: 211px;
+  transform: none;
+  animation: none;
+}
+
+/* Broad palm centered over the bottom of the mouse. */
+.lesson-screen-week9-right .week9-right-hand b {
+  right: 13px;
+  bottom: 1px;
+  width: 112px;
+  height: 112px;
+  border: 5px solid #b45309;
+  border-radius: 48% 48% 43% 43%;
+  background: #fbbf24;
+}
+
+/* Thumb on the left side creates the full five-finger hand. */
+.lesson-screen-week9-right .week9-right-hand:before {
+  position: absolute;
+  z-index: 1;
+  top: 94px;
+  left: 0;
+  width: 35px;
+  height: 75px;
+  border: 5px solid #b45309;
+  border-radius: 22px;
+  background: #fbbf24;
+  content: "";
+  transform: rotate(-34deg);
+}
+
+/* Left index finger rests naturally on the left mouse button. */
+.lesson-screen-week9-right .week9-right-hand .finger-one {
+  top: 12px;
+  left: 35px;
+  width: 33px;
+  height: 119px;
+  border: 5px solid #b45309;
+  border-radius: 21px;
+  background: #fbbf24;
+  transform: rotate(-2deg);
+  animation: none;
+}
+
+/* Right middle finger rests on and presses the red right button. */
+.lesson-screen-week9-right .week9-right-hand .finger-two {
+  top: 10px;
+  left: 77px;
+  width: 34px;
+  height: 121px;
+  border: 5px solid #b45309;
+  border-radius: 22px;
+  background: #fbbf24;
+  transform: none;
+  transform-origin: center bottom;
+  animation: week9FullHandRightPress 1.25s ease-in-out infinite;
+}
+
+/* Ring and pinky curl around the right side like the reference hand. */
+.lesson-screen-week9-right .week9-right-hand .finger-three {
+  top: 63px;
+  left: 111px;
+  width: 29px;
+  height: 79px;
+  border: 5px solid #b45309;
+  border-radius: 20px;
+  background: #fbbf24;
+  transform: rotate(18deg);
+}
+
+.lesson-screen-week9-right .week9-right-hand .finger-four {
+  top: 91px;
+  left: 132px;
+  width: 25px;
+  height: 59px;
+  border: 5px solid #b45309;
+  border-radius: 18px;
+  background: #fbbf24;
+  transform: rotate(22deg);
+}
+
+/* Center the highlight around the button under the pressing finger. */
+.lesson-screen-week9-right .week9-right-click-ring {
+  top: 75px;
+  right: 44px;
+  width: 80px;
+  height: 96px;
+}
+
+/* Three large choices rise directly out of the present. */
+.lesson-screen-week9-right .week9-right-menu {
+  top: 77px;
+  right: auto;
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, 78px);
+  width: auto;
+  padding: 10px;
+  gap: 8px;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  animation: week9MenuRiseFromGift .32s ease-out;
+}
+
+.lesson-screen-week9-right .week9-right-menu[hidden] {
+  display: none;
+}
+
+.lesson-screen-week9-right .week9-right-menu button {
+  width: 78px;
+  height: 72px;
+  font-size: 43px;
+}
+
+.lesson-screen-week9-right .week9-right-menu:before {
+  top: auto;
+  right: auto;
+  bottom: -23px;
+  left: 50%;
+  border-top: 23px solid #334155;
+  border-right: 19px solid transparent;
+  border-bottom: 0;
+  border-left: 19px solid transparent;
+  transform: translateX(-50%);
+}
+
+.lesson-screen-week9-right .week9-right-object-open {
+  transform: translateX(-50%);
+  animation: week9GiftOpenClear .42s ease-out;
+}
+
+@keyframes week9FullHandRightPress {
+  0%, 28%, 70%, 100% { transform: translateY(0); }
+  40%, 57% { transform: translateY(8px); }
+}
+
+@keyframes week9MenuRiseFromGift {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 105px) scale(.2);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes week9GiftOpenClear {
+  0% { transform: translateX(-50%) scale(1); }
+  45% { transform: translateX(-50%) scale(1.08); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+.week9-right-teacher .week9-right-hand {
+  transform: scale(.82);
+  transform-origin: center bottom;
+}
+
+.week9-right-teacher .week9-right-menu {
+  top: 57px;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%) scale(.82);
+  transform-origin: center bottom;
+}

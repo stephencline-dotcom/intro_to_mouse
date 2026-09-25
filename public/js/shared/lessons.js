@@ -363,6 +363,53 @@ const mouseLessons = {
         type: "review"
       }
     ]
+  },
+
+  week9: {
+    id: "week9",
+    title: "Meet the Right-Click",
+    steps: [
+      {
+        id: "week9-quick-review",
+        title: "Quick Mouse Review",
+        type: "review"
+      },
+      {
+        id: "week9-meet-right-click",
+        title: "Meet the Right Button",
+        type: "learn"
+      },
+      {
+        id: "week9-dress-character",
+        title: "Dress the Character",
+        type: "practice"
+      },
+      {
+        id: "week9-pet-care",
+        title: "Pet Care Center",
+        type: "practice"
+      },
+      {
+        id: "week9-robot-repair",
+        title: "Robot Repair Shop",
+        type: "practice"
+      },
+      {
+        id: "week9-treasure-map",
+        title: "Treasure Map Secrets",
+        type: "practice"
+      },
+      {
+        id: "week9-silly-scene",
+        title: "Create a Silly Scene",
+        type: "practice"
+      },
+      {
+        id: "week9-wrap-up",
+        title: "Week 9 Wrap-Up",
+        type: "review"
+      }
+    ]
   }
 };
 
