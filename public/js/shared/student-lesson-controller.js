@@ -25889,9 +25889,13 @@ const status =
                 <div class="week7-double-right-button"></div>
                 <div class="week7-double-wheel"></div>
 
-                <div class="week7-double-finger">
-                  ☝️
-                </div>
+                <div class="week7-double-hand">
+  <i class="finger-one"></i>
+  <i class="finger-two"></i>
+  <i class="finger-three"></i>
+  <i class="finger-four"></i>
+  <b></b>
+</div>
               </div>
 
               <div class="week7-double-count">
@@ -27886,12 +27890,12 @@ const status =
       }
     }
 
-    practice.addEventListener("contextmenu", openMenu, true);
+    object.addEventListener("contextmenu", openMenu);
     menu.addEventListener("click", choose);
     practice.addEventListener("click", normalClick);
     removeWeek9MeetRightBehavior = () => {
       clearTimer();
-      practice.removeEventListener("contextmenu", openMenu, true);
+      object.removeEventListener("contextmenu", openMenu);
       menu.removeEventListener("click", choose);
       practice.removeEventListener("click", normalClick);
     };
@@ -34561,6 +34565,8 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
 
 
 

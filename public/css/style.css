@@ -38977,3 +38977,185 @@ body.teacher-session
   transform: translateX(-50%) scale(.82);
   transform-origin: center bottom;
 }
+
+/* =========================================================
+   Week 9 Step 2 - FINAL right-click hand placement
+   Pointer finger left of wheel, middle finger on right button
+   ========================================================= */
+
+.lesson-screen-week9-right .week9-right-hand {
+  top: -8px !important;
+  right: -10px !important;
+  bottom: auto !important;
+  width: 154px !important;
+  height: 211px !important;
+  transform: none !important;
+}
+
+/* Palm */
+.lesson-screen-week9-right .week9-right-hand b {
+  right: 10px !important;
+  bottom: 0 !important;
+  width: 112px !important;
+  height: 112px !important;
+}
+
+/* POINTER / INDEX - LEFT of the scroll wheel */
+.lesson-screen-week9-right .week9-right-hand .finger-one {
+  top: 7px !important;
+  left: 31px !important;
+  width: 31px !important;
+  height: 121px !important;
+  transform: rotate(-3deg) !important;
+  animation: none !important;
+}
+
+/* MIDDLE - RIGHT of wheel, on right mouse button */
+.lesson-screen-week9-right .week9-right-hand .finger-two {
+  top: 5px !important;
+  left: 91px !important;
+  width: 32px !important;
+  height: 123px !important;
+  transform-origin: center bottom !important;
+  animation: week9FinalRightFingerPress 1.25s ease-in-out infinite !important;
+}
+
+/* Ring finger */
+.lesson-screen-week9-right .week9-right-hand .finger-three {
+  top: 63px !important;
+  left: 118px !important;
+  width: 28px !important;
+  height: 78px !important;
+  transform: rotate(18deg) !important;
+}
+
+/* Pinky */
+.lesson-screen-week9-right .week9-right-hand .finger-four {
+  top: 91px !important;
+  left: 137px !important;
+  width: 24px !important;
+  height: 57px !important;
+  transform: rotate(23deg) !important;
+}
+
+@keyframes week9FinalRightFingerPress {
+  0%, 28%, 70%, 100% {
+    transform: translateY(0);
+  }
+
+  40%, 57% {
+    transform: translateY(8px);
+  }
+}
+
+/* Keep teacher presentation hand in the same correct pose */
+.week9-right-teacher .week9-right-hand {
+  transform: scale(.82) !important;
+  transform-origin: center bottom !important;
+}
+
+
+/* =========================================================
+   Week 7 Step 2 - full hand double-left-click demonstration
+   ========================================================= */
+
+.lesson-screen-week7-meet-double .week7-double-hand {
+  position: absolute;
+  z-index: 12;
+  top: -10px;
+  right: -10px;
+  width: 154px;
+  height: 211px;
+  pointer-events: none;
+}
+
+/* Palm */
+.lesson-screen-week7-meet-double .week7-double-hand b {
+  position: absolute;
+  z-index: 3;
+  right: 10px;
+  bottom: 0;
+  width: 112px;
+  height: 112px;
+  border: 5px solid #b45309;
+  border-radius: 48% 48% 43% 43%;
+  background: #fbbf24;
+}
+
+/* Thumb */
+.lesson-screen-week7-meet-double .week7-double-hand::before {
+  position: absolute;
+  z-index: 2;
+  top: 94px;
+  left: 0;
+  width: 35px;
+  height: 75px;
+  border: 5px solid #b45309;
+  border-radius: 22px;
+  background: #fbbf24;
+  content: "";
+  transform: rotate(-34deg);
+}
+
+/* All four visible fingers */
+.lesson-screen-week7-meet-double .week7-double-hand i {
+  position: absolute;
+  z-index: 5;
+  border: 5px solid #b45309;
+  background: #fbbf24;
+}
+
+/* INDEX - left of wheel, presses LEFT button twice */
+.lesson-screen-week7-meet-double .week7-double-hand .finger-one {
+  top: 7px;
+  left: 27px;
+  width: 31px;
+  height: 121px;
+  border-radius: 21px;
+  transform-origin: center bottom;
+  animation: week7HandDoubleLeftClick 1.6s ease-in-out infinite;
+}
+
+/* MIDDLE - right of wheel */
+.lesson-screen-week7-meet-double .week7-double-hand .finger-two {
+  top: 5px;
+  left: 86px;
+  width: 32px;
+  height: 123px;
+  border-radius: 22px;
+}
+
+/* Ring */
+.lesson-screen-week7-meet-double .week7-double-hand .finger-three {
+  top: 63px;
+  left: 116px;
+  width: 28px;
+  height: 78px;
+  border-radius: 20px;
+  transform: rotate(18deg);
+}
+
+/* Pinky */
+.lesson-screen-week7-meet-double .week7-double-hand .finger-four {
+  top: 91px;
+  left: 136px;
+  width: 24px;
+  height: 57px;
+  border-radius: 18px;
+  transform: rotate(23deg);
+}
+
+/* Two quick left-button presses */
+@keyframes week7HandDoubleLeftClick {
+  0%, 16%, 29%, 42%, 100% {
+    transform: translateY(0);
+  }
+
+  20%, 24% {
+    transform: translateY(8px);
+  }
+
+  33%, 37% {
+    transform: translateY(8px);
+  }
+}
