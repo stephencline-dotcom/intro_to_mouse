@@ -28267,6 +28267,111 @@ const status =
       `;
     }
 
+    if (step.id === "week9-wrap-up") {
+      return `
+        <div id="week9WrapScreen" class="lesson-screen lesson-screen-week9-wrap${isTeacher ? " week9-wrap-teacher" : ""}">
+
+          <div class="week9-wrap-heading">
+            <span>WEEK 9 REVIEW</span>
+            <h1>Right-Click Superstars!</h1>
+          </div>
+
+          <div class="week9-wrap-flow">
+
+            <div class="week9-wrap-card week9-wrap-card-right">
+              <div class="week9-wrap-number">1</div>
+
+              <strong>RIGHT-CLICK</strong>
+
+              <div class="week9-wrap-mouse">
+                <i class="week9-wrap-left-button"></i>
+                <b class="week9-wrap-right-button"></b>
+                <span class="week9-wrap-wheel"></span>
+
+                <div class="week9-wrap-hand" aria-hidden="true">
+                  <b class="week9-wrap-hand-palm"></b>
+
+                  <i class="week9-wrap-hand-finger finger-one"></i>
+                  <i class="week9-wrap-hand-finger finger-two"></i>
+                  <i class="week9-wrap-hand-finger finger-three"></i>
+                  <i class="week9-wrap-hand-finger finger-four"></i>
+
+                  <span class="week9-wrap-hand-thumb"></span>
+                </div>
+              </div>
+
+              <div class="week9-wrap-card-label">
+                USE THE RIGHT BUTTON
+              </div>
+            </div>
+
+            <div class="week9-wrap-arrow">➜</div>
+
+            <div class="week9-wrap-card week9-wrap-card-menu">
+              <div class="week9-wrap-number">2</div>
+
+              <strong>MENU OPENS</strong>
+
+              <div class="week9-wrap-present">
+                🎁
+              </div>
+
+              <div class="week9-wrap-popup-menu">
+                <span>⭐</span>
+                <span>🎨</span>
+                <span>🔑</span>
+              </div>
+
+              <div class="week9-wrap-card-label">
+                LOOK AT YOUR CHOICES
+              </div>
+            </div>
+
+            <div class="week9-wrap-arrow">➜</div>
+
+            <div class="week9-wrap-card week9-wrap-card-left">
+              <div class="week9-wrap-number">3</div>
+
+              <strong>LEFT-CLICK</strong>
+
+              <div class="week9-wrap-choice">
+                <span>⭐</span>
+
+                <div class="week9-wrap-cursor">
+                  ➤
+                </div>
+
+                <div class="week9-wrap-click-ring"></div>
+              </div>
+
+              <div class="week9-wrap-card-label">
+                PICK YOUR CHOICE
+              </div>
+            </div>
+
+          </div>
+
+          <div class="week9-wrap-rule">
+            <span>🖱️</span>
+            <strong>RIGHT-CLICK</strong>
+            <b>→</b>
+            <span>📋</span>
+            <strong>MENU</strong>
+            <b>→</b>
+            <span>👆</span>
+            <strong>LEFT-CLICK</strong>
+          </div>
+
+          <div class="week9-wrap-finish">
+            <span>⭐</span>
+            <strong>YOU'RE A RIGHT-CLICK SUPERSTAR!</strong>
+            <span>⭐</span>
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week9-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -37530,6 +37635,9 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
 
 
 
