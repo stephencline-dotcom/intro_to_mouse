@@ -27690,7 +27690,7 @@ const status =
             <strong>RIGHT-CLICK</strong>
             <span class="week9-dress-instruction-arrow">➜</span>
             <div class="week9-dress-mini-menu">
-              <span>🎩</span><span>👕</span><span>👟</span><span>👓</span>
+              <span>👕</span><span>🎩</span><span>👟</span><span>👓</span>
             </div>
           </div>
 
@@ -27771,6 +27771,502 @@ const status =
         </div>
       `;
     }
+    if (step.id === "week9-pet-care") {
+      return `
+        <div id="week9PetScreen" class="lesson-screen lesson-screen-week9-pet${isTeacher ? " week9-pet-teacher" : ""}">
+
+          <div class="week9-pet-heading">
+            <span>RIGHT-CLICK PRACTICE</span>
+            <h1>Pet Care Center!</h1>
+          </div>
+
+          <div class="week9-pet-instruction">
+            <div class="week9-pet-mini-mouse">
+              <i></i><b></b><span></span>
+            </div>
+
+            <strong>RIGHT-CLICK THE PET</strong>
+
+            <span class="week9-pet-instruction-arrow">➡️</span>
+
+            <div class="week9-pet-mini-menu">
+              <span>🍖</span>
+              <span>🪮</span>
+              <span>🥎</span>
+              <span>🛁</span>
+            </div>
+          </div>
+
+          <div id="week9PetStage" class="week9-pet-stage">
+
+            <div class="week9-pet-goals">
+              <div data-week9-pet-goal="food">
+                <span>🍖</span>
+                <strong>FOOD</strong>
+                <b>☆</b>
+              </div>
+
+              <div data-week9-pet-goal="brush">
+                <span>🪮</span>
+                <strong>BRUSH</strong>
+                <b>☆</b>
+              </div>
+
+              <div data-week9-pet-goal="ball">
+                <span>🥎</span>
+                <strong>PLAY</strong>
+                <b>☆</b>
+              </div>
+
+              <div data-week9-pet-goal="bath">
+                <span>🛁</span>
+                <strong>BATH</strong>
+                <b>☆</b>
+              </div>
+            </div>
+
+            <button
+              id="week9PetAnimal"
+              class="week9-pet-animal"
+              type="button"
+              aria-label="Right-click the pet"
+            >
+              <span class="week9-pet-emoji">🐶</span>
+              <span id="week9PetReaction" class="week9-pet-reaction"></span>
+            </button>
+
+            <div id="week9PetMenu" class="week9-pet-menu" hidden>
+
+              <button type="button" data-week9-pet-choice="food">
+                <span>🍖</span>
+                <strong>FOOD</strong>
+              </button>
+
+              <button type="button" data-week9-pet-choice="brush">
+                <span>🪮</span>
+                <strong>BRUSH</strong>
+              </button>
+
+              <button type="button" data-week9-pet-choice="ball">
+                <span>🥎</span>
+                <strong>PLAY</strong>
+              </button>
+
+              <button type="button" data-week9-pet-choice="bath">
+                <span>🛁</span>
+                <strong>BATH</strong>
+              </button>
+
+            </div>
+
+            <div id="week9PetPop" class="week9-pet-pop" hidden>✨</div>
+          </div>
+
+          <div id="week9PetStatus" class="week9-pet-status" aria-live="polite">
+            <div class="week9-pet-status-mouse">
+              <i></i><b></b><span></span>
+            </div>
+            <strong>RIGHT-CLICK THE PET</strong>
+          </div>
+
+          <div id="week9PetComplete" class="week9-pet-complete" hidden>
+            <div>
+              <span>🐶 ❤️ ⭐</span>
+              <strong>HAPPY PET!</strong>
+              <b>PET CARE PRO!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week9-robot-repair") {
+      return `
+        <div id="week9RobotScreen" class="lesson-screen lesson-screen-week9-robot${isTeacher ? " week9-robot-teacher" : ""}">
+
+          <div class="week9-robot-heading">
+            <span>RIGHT-CLICK PRACTICE</span>
+            <h1>Robot Repair Shop!</h1>
+          </div>
+
+          <div class="week9-robot-instruction">
+            <strong>RIGHT-CLICK THE FLASHING PART</strong>
+            <span>➡️</span>
+            <strong>LEFT-CLICK THE RIGHT TOOL</strong>
+          </div>
+
+          <div id="week9RobotStage" class="week9-robot-stage">
+
+            <div class="week9-robot-progress">
+              <div data-week9-robot-progress="head">☆</div>
+              <div data-week9-robot-progress="arm">☆</div>
+              <div data-week9-robot-progress="chest">☆</div>
+              <div data-week9-robot-progress="wheel">☆</div>
+            </div>
+
+            <div id="week9RobotToolHint" class="week9-robot-tool-hint">
+              <span>🪛</span>
+              <strong>USE SCREWDRIVER</strong>
+            </div>
+
+            <div id="week9RobotMachine" class="week9-robot-machine">
+
+              <div class="week9-robot-main-emoji" aria-hidden="true">🤖</div>
+
+              <button
+                class="week9-robot-part week9-robot-head"
+                type="button"
+                data-week9-robot-part="head"
+                data-week9-robot-tool="screwdriver"
+                aria-label="Broken robot head"
+              >
+                <span>🤖</span>
+              </button>
+
+              <button
+                class="week9-robot-part week9-robot-arm"
+                type="button"
+                data-week9-robot-part="arm"
+                data-week9-robot-tool="wrench"
+                aria-label="Broken robot arm"
+              >
+                <span>🦾</span>
+              </button>
+
+              <button
+                class="week9-robot-part week9-robot-chest"
+                type="button"
+                data-week9-robot-part="chest"
+                data-week9-robot-tool="battery"
+                aria-label="Broken robot power box"
+              >
+                <span>🔋</span>
+              </button>
+
+              <button
+                class="week9-robot-part week9-robot-wheel"
+                type="button"
+                data-week9-robot-part="wheel"
+                data-week9-robot-tool="hammer"
+                aria-label="Broken robot wheel"
+              >
+                <span>⚙️</span>
+              </button>
+
+              <div class="week9-robot-body"></div>
+
+              <div id="week9RobotSparks" class="week9-robot-sparks" hidden>
+                ⚡✨⚡
+              </div>
+            </div>
+
+            <div id="week9RobotMenu" class="week9-robot-menu" hidden>
+
+              <button type="button" data-week9-robot-choice="wrench">
+                <span>🔧</span>
+                <strong>WRENCH</strong>
+              </button>
+
+              <button type="button" data-week9-robot-choice="screwdriver">
+                <span>🪛</span>
+                <strong>SCREWDRIVER</strong>
+              </button>
+
+              <button type="button" data-week9-robot-choice="battery">
+                <span>🔋</span>
+                <strong>BATTERY</strong>
+              </button>
+
+              <button type="button" data-week9-robot-choice="hammer">
+                <span>🛠️</span>
+                <strong>HAMMER</strong>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div id="week9RobotStatus" class="week9-robot-status" aria-live="polite">
+            <div class="week9-robot-status-mouse">
+              <i></i><b></b><span></span>
+            </div>
+            <strong>RIGHT-CLICK THE FLASHING ROBOT PART</strong>
+          </div>
+
+          <div id="week9RobotComplete" class="week9-robot-complete" hidden>
+            <div>
+              <span>🤖 ⚡ 🔧</span>
+              <strong>ROBOT REPAIRED!</strong>
+              <b>RIGHT-CLICK REPAIR PRO!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week9-treasure-map") {
+      return `
+        <div id="week9TreasureScreen" class="lesson-screen lesson-screen-week9-treasure${isTeacher ? " week9-treasure-teacher" : ""}">
+
+          <div class="week9-treasure-title">
+            <span>🏴‍☠️ TREASURE MAP SECRETS</span>
+            <strong>RIGHT-CLICK THE GLOWING CLUE</strong>
+          </div>
+
+          <div id="week9TreasureMap" class="week9-treasure-map">
+
+            <div class="week9-treasure-ocean ocean-left">≈ ≈ ≈</div>
+            <div class="week9-treasure-ocean ocean-right">≈ ≈ ≈</div>
+
+            <div class="week9-treasure-compass">
+              <span>N</span>
+              <strong>✦</strong>
+              <b>S</b>
+            </div>
+
+            <div class="week9-treasure-mountains">⛰️ ⛰️</div>
+            <div class="week9-treasure-palms">🌴 🌴</div>
+            <div class="week9-treasure-ship">⛵</div>
+
+            <div class="week9-treasure-path path-one">••••••••••</div>
+            <div class="week9-treasure-path path-two">••••••••</div>
+            <div class="week9-treasure-path path-three">•••••••••</div>
+
+            <button
+              class="week9-treasure-spot spot-sand"
+              type="button"
+              data-week9-treasure-spot="sand"
+              data-week9-treasure-action="dig"
+              aria-label="Treasure clue in the sand"
+            >
+              <span>❌</span>
+              <b>⛏️</b>
+            </button>
+
+            <button
+              class="week9-treasure-spot spot-cave"
+              type="button"
+              data-week9-treasure-spot="cave"
+              data-week9-treasure-action="inspect"
+              aria-label="Treasure clue at the cave"
+            >
+              <span>🪨</span>
+              <b>🔍</b>
+            </button>
+
+            <button
+              class="week9-treasure-spot spot-chest"
+              type="button"
+              data-week9-treasure-spot="chest"
+              data-week9-treasure-action="open"
+              aria-label="Treasure clue at the chest"
+            >
+              <span>🧰</span>
+              <b>🔑</b>
+            </button>
+
+            <button
+              class="week9-treasure-spot spot-ruins"
+              type="button"
+              data-week9-treasure-spot="ruins"
+              data-week9-treasure-action="inspect"
+              aria-label="Treasure clue at the ruins"
+            >
+              <span>🗿</span>
+              <b>🔍</b>
+            </button>
+
+            <div id="week9TreasureMenu" class="week9-treasure-menu" hidden>
+
+              <button type="button" data-week9-treasure-choice="dig">
+                <span>⛏️</span>
+                <strong>DIG</strong>
+              </button>
+
+              <button type="button" data-week9-treasure-choice="inspect">
+                <span>🔍</span>
+                <strong>INSPECT</strong>
+              </button>
+
+              <button type="button" data-week9-treasure-choice="open">
+                <span>🔑</span>
+                <strong>OPEN</strong>
+              </button>
+
+            </div>
+
+            <div id="week9TreasureBurst" class="week9-treasure-burst" hidden>
+              ✨💰✨
+            </div>
+
+            <div class="week9-treasure-piece-tray">
+              <span data-week9-treasure-piece="sand">🗺️</span>
+              <span data-week9-treasure-piece="cave">🗺️</span>
+              <span data-week9-treasure-piece="chest">🗺️</span>
+              <span data-week9-treasure-piece="ruins">🗺️</span>
+            </div>
+
+          </div>
+
+          <div id="week9TreasureStatus" class="week9-treasure-status" aria-live="polite">
+            <span>🏴‍☠️</span>
+            <strong>FIND THE GLOWING CLUE</strong>
+          </div>
+
+          <div id="week9TreasureComplete" class="week9-treasure-complete" hidden>
+            <div>
+              <span>🗺️ ❌ 💰</span>
+              <strong>TREASURE FOUND!</strong>
+              <b>MAP MASTER!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week9-silly-scene") {
+      return `
+        <div id="week9SillyScreen" class="lesson-screen lesson-screen-week9-silly${isTeacher ? " week9-silly-teacher" : ""}">
+
+          <div class="week9-silly-heading">
+            <span>🎨 SILLY SCENE STUDIO</span>
+            <strong>RIGHT-CLICK SOMETHING TO CHANGE IT!</strong>
+          </div>
+
+          <div id="week9SillyScene" class="week9-silly-scene">
+
+            <button
+              id="week9SillySky"
+              class="week9-silly-zone week9-silly-sky"
+              type="button"
+              data-week9-silly-target="sky"
+              aria-label="Right-click the sky"
+            >
+              <span class="week9-silly-sun">☀️</span>
+              <span class="week9-silly-cloud cloud-one">☁️</span>
+              <span class="week9-silly-cloud cloud-two">☁️</span>
+            </button>
+
+            <button
+              id="week9SillyGround"
+              class="week9-silly-zone week9-silly-ground"
+              type="button"
+              data-week9-silly-target="ground"
+              aria-label="Right-click the ground"
+            ></button>
+
+            <div class="week9-silly-house">
+              <span class="roof"></span>
+              <span class="house-body">
+                <i class="window-one"></i>
+                <i class="window-two"></i>
+                <b class="door"></b>
+              </span>
+            </div>
+
+            <button
+              id="week9SillyTree"
+              class="week9-silly-tree"
+              type="button"
+              data-week9-silly-target="tree"
+              aria-label="Right-click the tree"
+            >
+              <span class="week9-silly-tree-top">🌳</span>
+              <span
+                id="week9SillyTreeExtras"
+                class="week9-silly-tree-extras"
+              ></span>
+            </button>
+
+            <button
+              id="week9SillyCharacter"
+              class="week9-silly-character"
+              type="button"
+              data-week9-silly-target="character"
+              aria-label="Right-click the character"
+            >
+              <span
+                id="week9SillyCharacterEmoji"
+                class="week9-silly-character-emoji"
+              >🙂</span>
+
+              <span
+                id="week9SillyCharacterExtra"
+                class="week9-silly-character-extra"
+              ></span>
+            </button>
+
+            <div
+              id="week9SillySkyEffects"
+              class="week9-silly-sky-effects"
+            ></div>
+
+            <div
+              id="week9SillyGroundEffects"
+              class="week9-silly-ground-effects"
+            ></div>
+
+            <div
+              id="week9SillyConfetti"
+              class="week9-silly-confetti"
+              hidden
+            >
+              <span>🎉</span>
+              <span>✨</span>
+              <span>🎊</span>
+              <span>⭐</span>
+              <span>🌈</span>
+            </div>
+
+            <div
+              id="week9SillyFlash"
+              class="week9-silly-flash"
+              hidden
+            ></div>
+
+          </div>
+
+          <div
+            id="week9SillyTray"
+            class="week9-silly-tray"
+            hidden
+          >
+            <div class="week9-silly-tray-title">
+              <span id="week9SillyTrayIcon">🎨</span>
+              <strong id="week9SillyTrayTitle">PICK SOMETHING SILLY!</strong>
+            </div>
+
+            <div id="week9SillyChoices" class="week9-silly-choices"></div>
+          </div>
+
+          <div
+            id="week9SillyStatus"
+            class="week9-silly-status"
+            aria-live="polite"
+          >
+            <span>🖱️</span>
+            <strong>RIGHT-CLICK THE SKY, GROUND, TREE, OR CHARACTER</strong>
+          </div>
+
+          <div
+            id="week9SillyComplete"
+            class="week9-silly-complete"
+            hidden
+          >
+            <div>
+              <span>📸</span>
+              <strong>SILLY SCENE COMPLETE!</strong>
+              <b>MAKE IT EVEN SILLIER!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week9-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">
@@ -27899,6 +28395,9 @@ const status =
   function startWeek9MeetRightBehavior() {
     stopWeek9MeetRightBehavior();
     stopWeek9DressBehavior();
+    stopWeek9PetBehavior();
+    stopWeek9RobotBehavior();
+    stopWeek9TreasureBehavior();
     const screen = document.getElementById("week9RightScreen");
     const mouseCard = document.getElementById("week9RightMouseCard");
     const practice = document.getElementById("week9RightPractice");
@@ -27981,9 +28480,15 @@ const status =
           "week9-right-demo-cursor-click"
         );
 
+        play("/sounds/mouseclick.mp3");
+      }, 1080);
+
+      scheduleWeek9RightDemo(() => {
         menu.hidden = false;
         object.classList.add("week9-right-object-open");
-      }, 950);
+
+        play("/sounds/boom.mp3");
+      }, 1180);
 
       scheduleWeek9RightDemo(() => {
         menu.hidden = true;
@@ -28203,7 +28708,6 @@ const status =
     }
 
     function openMenu(event) {
-      stopWeek9RightDemo();
       event.preventDefault();
 
       if (finished) return;
@@ -28229,6 +28733,45 @@ const status =
         '<span>👆</span><strong>NOW LEFT-CLICK A PICTURE</strong><span>✨</span>';
 
       play("/sounds/boom.mp3", 0.55);
+    }
+    function showWeek9DressLeftClickReminder() {
+      if (week9DressTimer) {
+        clearTimeout(week9DressTimer);
+      }
+
+      status.className =
+        "week9-dress-status week9-dress-status-warning week9-dress-status-left-click";
+
+      status.innerHTML =
+        '<div class="week9-dress-status-mouse"><i></i><b></b><span></span></div><strong>REMEMBER: LEFT-CLICK TO SELECT</strong><span>👈</span>';
+
+      void status.offsetWidth;
+
+      play("/sounds/mouseclick.mp3", 0.58);
+
+      week9DressTimer = setTimeout(() => {
+        week9DressTimer = null;
+
+        if (!finished && menuOpen) {
+          status.className =
+            "week9-dress-status week9-dress-status-choose";
+
+          status.innerHTML =
+            '<span>👆</span><strong>NOW LEFT-CLICK A PICTURE</strong><span>✨</span>';
+        }
+      }, 1400);
+    }
+
+    function handleWeek9DressMenuRightClick(event) {
+      const choice =
+        event.target.closest("[data-week9-dress-choice]");
+
+      if (!choice || finished) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      showWeek9DressLeftClickReminder();
     }
 
     function chooseItem(event) {
@@ -28342,16 +28885,1952 @@ const status =
       }
     }
 
-    stage.addEventListener("contextmenu", openMenu);
+    character.addEventListener("contextmenu", openMenu);
+    menu.addEventListener("contextmenu", handleWeek9DressMenuRightClick);
     menu.addEventListener("click", chooseItem);
     stage.addEventListener("click", handleClick);
 
     removeWeek9DressBehavior = () => {
-      stage.removeEventListener("contextmenu", openMenu);
+      character.removeEventListener("contextmenu", openMenu);
+      menu.removeEventListener("contextmenu", handleWeek9DressMenuRightClick);
       menu.removeEventListener("click", chooseItem);
       stage.removeEventListener("click", handleClick);
     };
   }
+  let removeWeek9PetBehavior = null;
+  let week9PetTimer = null;
+  const week9PetSounds = new Set();
+
+  function stopWeek9PetBehavior() {
+    removeWeek9PetBehavior?.();
+    removeWeek9PetBehavior = null;
+
+    if (week9PetTimer) {
+      clearTimeout(week9PetTimer);
+      week9PetTimer = null;
+    }
+
+    week9PetSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week9PetSounds.clear();
+  }
+
+  function startWeek9PetBehavior() {
+    stopWeek9PetBehavior();
+
+    const screen =
+      document.getElementById("week9PetScreen");
+
+    const stage =
+      document.getElementById("week9PetStage");
+
+    const pet =
+      document.getElementById("week9PetAnimal");
+
+    const menu =
+      document.getElementById("week9PetMenu");
+
+    const reaction =
+      document.getElementById("week9PetReaction");
+
+    const pop =
+      document.getElementById("week9PetPop");
+
+    const status =
+      document.getElementById("week9PetStatus");
+
+    const complete =
+      document.getElementById("week9PetComplete");
+
+    if (
+      !screen ||
+      !stage ||
+      !pet ||
+      !menu ||
+      !reaction ||
+      !pop ||
+      !status ||
+      !complete
+    ) {
+      return;
+    }
+
+    const completed = new Set();
+
+    let menuOpen = false;
+    let finished = false;
+
+    function play(src, volume = 0.7) {
+      if (!soundEnabled) return;
+
+      const audio = new Audio(src);
+      audio.volume = volume;
+
+      week9PetSounds.add(audio);
+
+      audio.addEventListener(
+        "ended",
+        () => week9PetSounds.delete(audio),
+        { once: true }
+      );
+
+      audio.play().catch(() => {
+        week9PetSounds.delete(audio);
+      });
+    }
+
+    function clearPetTimer() {
+      if (week9PetTimer) {
+        clearTimeout(week9PetTimer);
+        week9PetTimer = null;
+      }
+    }
+
+    function closeMenu() {
+      menuOpen = false;
+      menu.hidden = true;
+
+      pet.classList.remove(
+        "week9-pet-animal-open"
+      );
+    }
+
+    function showRightClickReminder() {
+      clearPetTimer();
+      closeMenu();
+
+      status.className =
+        "week9-pet-status week9-pet-status-warning";
+
+      status.innerHTML =
+        '<div class="week9-pet-status-mouse"><i></i><b></b><span></span></div><strong>USE THE RIGHT BUTTON</strong><span>➡️</span>';
+
+      screen.classList.remove(
+        "week9-pet-wrong"
+      );
+
+      void screen.offsetWidth;
+
+      screen.classList.add(
+        "week9-pet-wrong"
+      );
+
+      play("/sounds/buzzer.mp3", 0.55);
+
+      week9PetTimer = setTimeout(() => {
+        week9PetTimer = null;
+
+        screen.classList.remove(
+          "week9-pet-wrong"
+        );
+
+        if (!finished && !menuOpen) {
+          status.className =
+            "week9-pet-status";
+
+          status.innerHTML =
+            '<div class="week9-pet-status-mouse"><i></i><b></b><span></span></div><strong>RIGHT-CLICK THE PET</strong>';
+        }
+      }, 1300);
+    }
+
+    function showLeftClickReminder() {
+      clearPetTimer();
+
+      status.className =
+        "week9-pet-status week9-pet-status-left-click";
+
+      status.innerHTML =
+        '<div class="week9-pet-status-mouse"><i></i><b></b><span></span></div><strong>REMEMBER: LEFT-CLICK TO SELECT</strong><span>👈</span>';
+
+      void status.offsetWidth;
+
+      play("/sounds/mouseclick.mp3", 0.55);
+
+      week9PetTimer = setTimeout(() => {
+        week9PetTimer = null;
+
+        if (!finished && menuOpen) {
+          status.className =
+            "week9-pet-status week9-pet-status-choose";
+
+          status.innerHTML =
+            '<span>👆</span><strong>LEFT-CLICK A PET CARE CHOICE</strong><span>✨</span>';
+        }
+      }, 1400);
+    }
+
+    function openMenu(event) {
+      event.preventDefault();
+
+      if (finished) return;
+
+      clearPetTimer();
+
+      play("/sounds/mouseclick.mp3", 0.5);
+
+      menuOpen = true;
+      menu.hidden = false;
+
+      pet.classList.add(
+        "week9-pet-animal-open"
+      );
+
+      status.className =
+        "week9-pet-status week9-pet-status-choose";
+
+      status.innerHTML =
+        '<span>👆</span><strong>LEFT-CLICK A PET CARE CHOICE</strong><span>✨</span>';
+
+      setTimeout(() => {
+        if (menuOpen && !finished) {
+          play("/sounds/boom.mp3", 0.52);
+        }
+      }, 100);
+    }
+
+    function showReaction(item) {
+      const reactions = {
+        food: "😋 YUM!",
+        brush: "✨ SO SOFT!",
+        ball: "🐶 WOOF!",
+        bath: "🫧 SPLASH!"
+      };
+
+      reaction.textContent =
+        reactions[item] || "❤️";
+
+      reaction.className =
+        "week9-pet-reaction week9-pet-reaction-show";
+
+      pet.classList.remove(
+        "week9-pet-food",
+        "week9-pet-brush",
+        "week9-pet-ball",
+        "week9-pet-bath"
+      );
+
+      void pet.offsetWidth;
+
+      pet.classList.add(
+        `week9-pet-${item}`
+      );
+
+      pop.hidden = false;
+      pop.classList.remove(
+        "week9-pet-pop-show"
+      );
+
+      void pop.offsetWidth;
+
+      pop.classList.add(
+        "week9-pet-pop-show"
+      );
+    }
+
+    function updateGoals() {
+      document
+        .querySelectorAll(
+          "[data-week9-pet-goal]"
+        )
+        .forEach(goal => {
+          const done = completed.has(
+            goal.dataset.week9PetGoal
+          );
+
+          goal.classList.toggle(
+            "week9-pet-goal-complete",
+            done
+          );
+
+          const star =
+            goal.querySelector("b");
+
+          if (star) {
+            star.textContent =
+              done ? "★" : "☆";
+          }
+        });
+    }
+
+    function chooseCare(event) {
+      const choice =
+        event.target.closest(
+          "[data-week9-pet-choice]"
+        );
+
+      if (!choice || finished) return;
+
+      event.preventDefault();
+
+      const item =
+        choice.dataset.week9PetChoice;
+
+      completed.add(item);
+
+      closeMenu();
+      updateGoals();
+      showReaction(item);
+
+      play("/sounds/correct.mp3", 0.65);
+
+      if (completed.size >= 4) {
+        finished = true;
+
+        status.className =
+          "week9-pet-status week9-pet-status-success";
+
+        status.innerHTML =
+          '<span>⭐</span><strong>YOUR PET IS HAPPY!</strong><span>❤️</span>';
+
+        week9PetTimer = setTimeout(() => {
+          week9PetTimer = null;
+          complete.hidden = false;
+
+          play(
+            "/sounds/complete.mp3",
+            0.78
+          );
+        }, 800);
+
+        return;
+      }
+
+      status.className =
+        "week9-pet-status week9-pet-status-success";
+
+      status.innerHTML =
+        '<span>✓</span><strong>GREAT! RIGHT-CLICK THE PET AGAIN</strong><span>🐶</span>';
+    }
+
+    function handleMenuRightClick(event) {
+      const choice =
+        event.target.closest(
+          "[data-week9-pet-choice]"
+        );
+
+      if (!choice || finished) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      showLeftClickReminder();
+    }
+
+    function handleStageClick(event) {
+      if (
+        event.target.closest(
+          "[data-week9-pet-choice]"
+        )
+      ) {
+        return;
+      }
+
+      if (
+        event.target.closest(
+          "#week9PetAnimal"
+        ) &&
+        !finished
+      ) {
+        event.preventDefault();
+
+        showRightClickReminder();
+        return;
+      }
+
+      if (
+        menuOpen &&
+        !event.target.closest(
+          "#week9PetMenu"
+        )
+      ) {
+        closeMenu();
+      }
+    }
+
+    pet.addEventListener(
+      "contextmenu",
+      openMenu
+    );
+
+    menu.addEventListener(
+      "contextmenu",
+      handleMenuRightClick
+    );
+
+    menu.addEventListener(
+      "click",
+      chooseCare
+    );
+
+    stage.addEventListener(
+      "click",
+      handleStageClick
+    );
+
+    removeWeek9PetBehavior = () => {
+      clearPetTimer();
+
+      pet.removeEventListener(
+        "contextmenu",
+        openMenu
+      );
+
+      menu.removeEventListener(
+        "contextmenu",
+        handleMenuRightClick
+      );
+
+      menu.removeEventListener(
+        "click",
+        chooseCare
+      );
+
+      stage.removeEventListener(
+        "click",
+        handleStageClick
+      );
+    };
+  }
+
+  let removeWeek9RobotBehavior = null;
+  const week9RobotTimers = new Set();
+  const week9RobotSounds = new Set();
+
+  function stopWeek9RobotBehavior() {
+    removeWeek9RobotBehavior?.();
+    removeWeek9RobotBehavior = null;
+
+    week9RobotTimers.forEach(clearTimeout);
+    week9RobotTimers.clear();
+
+    week9RobotSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week9RobotSounds.clear();
+  }
+
+  function startWeek9RobotBehavior() {
+    stopWeek9RobotBehavior();
+
+    const screen =
+      document.getElementById("week9RobotScreen");
+
+    const stage =
+      document.getElementById("week9RobotStage");
+
+    const machine =
+      document.getElementById("week9RobotMachine");
+
+    const menu =
+      document.getElementById("week9RobotMenu");
+
+    const sparks =
+      document.getElementById("week9RobotSparks");
+
+    const status =
+      document.getElementById("week9RobotStatus");
+
+    const complete =
+      document.getElementById("week9RobotComplete");
+
+    const toolHint =
+      document.getElementById("week9RobotToolHint");
+
+    const parts = Array.from(
+      document.querySelectorAll(
+        "[data-week9-robot-part]"
+      )
+    );
+
+    if (
+      !screen ||
+      !stage ||
+      !machine ||
+      !menu ||
+      !sparks ||
+      !status ||
+      !complete ||
+      !toolHint ||
+      !parts.length
+    ) {
+      return;
+    }
+
+    let currentIndex = 0;
+    let menuOpen = false;
+    let finished = false;
+    let selectedPart = null;
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week9RobotTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week9RobotTimers.add(timer);
+    }
+
+    function play(src, volume = 0.7) {
+      if (!soundEnabled) return;
+
+      const audio = new Audio(src);
+      audio.volume = volume;
+
+      week9RobotSounds.add(audio);
+
+      audio.addEventListener(
+        "ended",
+        () => week9RobotSounds.delete(audio),
+        { once: true }
+      );
+
+      audio.play().catch(() => {
+        week9RobotSounds.delete(audio);
+      });
+    }
+
+    function currentPart() {
+      return parts[currentIndex] || null;
+    }
+
+    const toolInfo = {
+      screwdriver: {
+        icon: "🪛",
+        label: "SCREWDRIVER"
+      },
+      wrench: {
+        icon: "🔧",
+        label: "WRENCH"
+      },
+      battery: {
+        icon: "🔋",
+        label: "BATTERY"
+      },
+      hammer: {
+        icon: "🛠️",
+        label: "HAMMER"
+      }
+    };
+
+    function updateActivePart() {
+      parts.forEach((part, index) => {
+        part.classList.toggle(
+          "week9-robot-part-active",
+          index === currentIndex && !finished
+        );
+      });
+
+      const part = currentPart();
+
+      if (part && !finished) {
+        const info =
+          toolInfo[part.dataset.week9RobotTool];
+
+        if (info) {
+          toolHint.hidden = false;
+
+          toolHint.innerHTML =
+            `<span>${info.icon}</span><strong>USE ${info.label}</strong>`;
+        }
+      } else {
+        toolHint.hidden = true;
+      }
+    }
+
+    function closeMenu() {
+      menuOpen = false;
+      menu.hidden = true;
+      selectedPart = null;
+    }
+
+    function showRightClickReminder() {
+      status.className =
+        "week9-robot-status week9-robot-status-warning";
+
+      status.innerHTML =
+        '<div class="week9-robot-status-mouse"><i></i><b></b><span></span></div><strong>USE THE RIGHT BUTTON</strong><span>➡️</span>';
+
+      play("/sounds/buzzer.mp3", 0.55);
+
+      schedule(() => {
+        if (!finished && !menuOpen) {
+          status.className =
+            "week9-robot-status";
+
+          status.innerHTML =
+            '<div class="week9-robot-status-mouse"><i></i><b></b><span></span></div><strong>RIGHT-CLICK THE FLASHING ROBOT PART</strong>';
+        }
+      }, 1300);
+    }
+
+    function showLeftClickReminder() {
+      status.className =
+        "week9-robot-status week9-robot-status-left-click";
+
+      status.innerHTML =
+        '<div class="week9-robot-status-mouse"><i></i><b></b><span></span></div><strong>REMEMBER: LEFT-CLICK TO SELECT</strong><span>👈</span>';
+
+      void status.offsetWidth;
+
+      play("/sounds/mouseclick.mp3", 0.55);
+
+      schedule(() => {
+        if (!finished && menuOpen) {
+          status.className =
+            "week9-robot-status week9-robot-status-choose";
+
+          status.innerHTML =
+            '<span>👆</span><strong>LEFT-CLICK THE TOOL SHOWN ABOVE</strong><span>🧰</span>';
+        }
+      }, 1400);
+    }
+
+    function openToolMenu(part) {
+      if (finished) return;
+
+      const active = currentPart();
+
+      if (part !== active) {
+        closeMenu();
+
+        status.className =
+          "week9-robot-status week9-robot-status-warning";
+
+        status.innerHTML =
+          '<span>⚡</span><strong>REPAIR THE FLASHING PART</strong><span>👀</span>';
+
+        play("/sounds/buzzer.mp3", 0.5);
+        return;
+      }
+
+      selectedPart = part;
+      menuOpen = true;
+      menu.hidden = false;
+
+      play("/sounds/mouseclick.mp3", 0.5);
+
+      status.className =
+        "week9-robot-status week9-robot-status-choose";
+
+      status.innerHTML =
+        '<span>👆</span><strong>LEFT-CLICK THE TOOL SHOWN ABOVE</strong><span>🧰</span>';
+
+      schedule(() => {
+        if (menuOpen && !finished) {
+          play("/sounds/boom.mp3", 0.5);
+        }
+      }, 100);
+    }
+
+    function handleStageRightClick(event) {
+      event.preventDefault();
+
+      const choice =
+        event.target.closest(
+          "[data-week9-robot-choice]"
+        );
+
+      if (choice) {
+        event.stopPropagation();
+        showLeftClickReminder();
+        return;
+      }
+
+      const part =
+        event.target.closest(
+          "[data-week9-robot-part]"
+        );
+
+      if (part) {
+        openToolMenu(part);
+      }
+    }
+
+    function showWrongTool() {
+      status.className =
+        "week9-robot-status week9-robot-status-warning";
+
+      status.innerHTML =
+        '<span>🧰</span><strong>TRY A DIFFERENT TOOL!</strong><span>🤔</span>';
+
+      play("/sounds/buzzer.mp3", 0.5);
+
+      schedule(() => {
+        if (!finished && menuOpen) {
+          status.className =
+            "week9-robot-status week9-robot-status-choose";
+
+          status.innerHTML =
+            '<span>👆</span><strong>LEFT-CLICK THE TOOL SHOWN ABOVE</strong><span>🧰</span>';
+        }
+      }, 1100);
+    }
+
+    function repairPart(part) {
+      const partName =
+        part.dataset.week9RobotPart;
+
+      closeMenu();
+
+      part.classList.remove(
+        "week9-robot-part-active"
+      );
+
+      part.classList.add(
+        "week9-robot-part-repaired"
+      );
+
+      const progress =
+        document.querySelector(
+          `[data-week9-robot-progress="${partName}"]`
+        );
+
+      if (progress) {
+        progress.textContent = "★";
+
+        progress.classList.add(
+          "week9-robot-progress-done"
+        );
+      }
+
+      sparks.hidden = false;
+
+      sparks.classList.remove(
+        "week9-robot-sparks-show"
+      );
+
+      void sparks.offsetWidth;
+
+      sparks.classList.add(
+        "week9-robot-sparks-show"
+      );
+
+      play("/sounds/correct.mp3", 0.7);
+
+      status.className =
+        "week9-robot-status week9-robot-status-success";
+
+      status.innerHTML =
+        '<span>⚡</span><strong>REPAIR COMPLETE!</strong><span>✓</span>';
+
+      currentIndex += 1;
+
+      if (currentIndex >= parts.length) {
+        finished = true;
+
+        parts.forEach(part => {
+          part.classList.remove(
+            "week9-robot-part-active"
+          );
+        });
+
+        schedule(() => {
+          status.className =
+            "week9-robot-status week9-robot-status-success";
+
+          status.innerHTML =
+            '<span>🤖</span><strong>ROBOT FULLY REPAIRED!</strong><span>⭐</span>';
+
+          complete.hidden = false;
+
+          play(
+            "/sounds/complete.mp3",
+            0.8
+          );
+        }, 900);
+
+        return;
+      }
+
+      schedule(() => {
+        sparks.hidden = true;
+
+        updateActivePart();
+
+        status.className =
+          "week9-robot-status";
+
+        status.innerHTML =
+          '<div class="week9-robot-status-mouse"><i></i><b></b><span></span></div><strong>RIGHT-CLICK THE NEXT FLASHING PART</strong>';
+      }, 850);
+    }
+
+    function chooseTool(event) {
+      const choice =
+        event.target.closest(
+          "[data-week9-robot-choice]"
+        );
+
+      if (
+        !choice ||
+        !menuOpen ||
+        !selectedPart ||
+        finished
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const selectedTool =
+        choice.dataset.week9RobotChoice;
+
+      const correctTool =
+        selectedPart.dataset.week9RobotTool;
+
+      if (selectedTool !== correctTool) {
+        showWrongTool();
+        return;
+      }
+
+      repairPart(selectedPart);
+    }
+
+    function handleStageClick(event) {
+      if (
+        event.target.closest(
+          "[data-week9-robot-choice]"
+        )
+      ) {
+        return;
+      }
+
+      const part =
+        event.target.closest(
+          "[data-week9-robot-part]"
+        );
+
+      if (part && !finished) {
+        event.preventDefault();
+        closeMenu();
+        showRightClickReminder();
+        return;
+      }
+
+      if (
+        menuOpen &&
+        !event.target.closest(
+          "#week9RobotMenu"
+        )
+      ) {
+        closeMenu();
+      }
+    }
+
+    updateActivePart();
+
+    stage.addEventListener(
+      "contextmenu",
+      handleStageRightClick
+    );
+
+    menu.addEventListener(
+      "click",
+      chooseTool
+    );
+
+    stage.addEventListener(
+      "click",
+      handleStageClick
+    );
+
+    removeWeek9RobotBehavior = () => {
+      week9RobotTimers.forEach(clearTimeout);
+      week9RobotTimers.clear();
+
+      stage.removeEventListener(
+        "contextmenu",
+        handleStageRightClick
+      );
+
+      menu.removeEventListener(
+        "click",
+        chooseTool
+      );
+
+      stage.removeEventListener(
+        "click",
+        handleStageClick
+      );
+    };
+  }
+
+  let removeWeek9TreasureBehavior = null;
+  const week9TreasureTimers = new Set();
+  const week9TreasureSounds = new Set();
+
+  function stopWeek9TreasureBehavior() {
+    removeWeek9TreasureBehavior?.();
+    removeWeek9TreasureBehavior = null;
+
+    week9TreasureTimers.forEach(clearTimeout);
+    week9TreasureTimers.clear();
+
+    week9TreasureSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week9TreasureSounds.clear();
+  }
+
+  function startWeek9TreasureBehavior() {
+    stopWeek9TreasureBehavior();
+
+    const screen =
+      document.getElementById("week9TreasureScreen");
+
+    const map =
+      document.getElementById("week9TreasureMap");
+
+    const menu =
+      document.getElementById("week9TreasureMenu");
+
+    const burst =
+      document.getElementById("week9TreasureBurst");
+
+    const status =
+      document.getElementById("week9TreasureStatus");
+
+    const complete =
+      document.getElementById("week9TreasureComplete");
+
+    const spots = Array.from(
+      document.querySelectorAll(
+        "[data-week9-treasure-spot]"
+      )
+    );
+
+    if (
+      !screen ||
+      !map ||
+      !menu ||
+      !burst ||
+      !status ||
+      !complete ||
+      !spots.length
+    ) {
+      return;
+    }
+
+    let currentIndex = 0;
+    let menuOpen = false;
+    let selectedSpot = null;
+    let finished = false;
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week9TreasureTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week9TreasureTimers.add(timer);
+    }
+
+    function play(src, volume = 0.7) {
+      if (!soundEnabled) return;
+
+      const audio = new Audio(src);
+      audio.volume = volume;
+
+      week9TreasureSounds.add(audio);
+
+      audio.addEventListener(
+        "ended",
+        () => week9TreasureSounds.delete(audio),
+        { once: true }
+      );
+
+      audio.play().catch(() => {
+        week9TreasureSounds.delete(audio);
+      });
+    }
+
+    function currentSpot() {
+      return spots[currentIndex] || null;
+    }
+
+    const treasureHints = {
+      sand: {
+        icon: "⛏️",
+        text: "THE X IS BURIED!"
+      },
+      cave: {
+        icon: "🔍",
+        text: "LOOK CLOSE AT THE CAVE!"
+      },
+      chest: {
+        icon: "🔑",
+        text: "THE CHEST IS LOCKED!"
+      },
+      ruins: {
+        icon: "🔍",
+        text: "CHECK THE STRANGE STATUE!"
+      }
+    };
+
+    function updateActiveSpot() {
+      spots.forEach((spot, index) => {
+        spot.classList.toggle(
+          "week9-treasure-spot-active",
+          index === currentIndex && !finished
+        );
+      });
+
+      const spot = currentSpot();
+
+      if (spot && !finished) {
+        const hint =
+          treasureHints[
+            spot.dataset.week9TreasureSpot
+          ];
+
+        if (hint) {
+          status.className =
+            "week9-treasure-status week9-treasure-status-clue";
+
+          status.innerHTML =
+            `<span>${hint.icon}</span><strong>${hint.text}</strong><span>🖱️ RIGHT-CLICK</span>`;
+        }
+      }
+    }
+
+    function closeMenu() {
+      menuOpen = false;
+      selectedSpot = null;
+      menu.hidden = true;
+    }
+
+    function positionMenuAroundSpot(spot) {
+      const mapRect =
+        map.getBoundingClientRect();
+
+      const spotRect =
+        spot.getBoundingClientRect();
+
+      let x =
+        spotRect.left -
+        mapRect.left +
+        spotRect.width / 2;
+
+      let y =
+        spotRect.top -
+        mapRect.top +
+        spotRect.height / 2;
+
+      x = Math.max(
+        120,
+        Math.min(
+          map.clientWidth - 120,
+          x
+        )
+      );
+
+      y = Math.max(
+        115,
+        Math.min(
+          map.clientHeight - 115,
+          y
+        )
+      );
+
+      menu.style.left = `${x}px`;
+      menu.style.top = `${y}px`;
+    }
+
+    function showRightClickReminder() {
+      status.className =
+        "week9-treasure-status week9-treasure-status-warning";
+
+      status.innerHTML =
+        '<span>🖱️</span><strong>RIGHT-CLICK THE GLOWING CLUE</strong><span>➡️</span>';
+
+      play("/sounds/buzzer.mp3", 0.5);
+
+      schedule(() => {
+        if (!finished && !menuOpen) {
+          status.className =
+            "week9-treasure-status";
+
+          status.innerHTML =
+            '<span>🏴‍☠️</span><strong>FIND THE GLOWING CLUE</strong>';
+        }
+      }, 1300);
+    }
+
+    function showLeftClickReminder() {
+      status.className =
+        "week9-treasure-status week9-treasure-status-left-click";
+
+      status.innerHTML =
+        '<span>👈</span><strong>REMEMBER: LEFT-CLICK TO SELECT</strong><span>🖱️</span>';
+
+      void status.offsetWidth;
+
+      play("/sounds/mouseclick.mp3", 0.55);
+
+      schedule(() => {
+        if (!finished && menuOpen) {
+          status.className =
+            "week9-treasure-status week9-treasure-status-choose";
+
+          status.innerHTML =
+            '<span>🏴‍☠️</span><strong>LEFT-CLICK AN ACTION</strong><span>✨</span>';
+        }
+      }, 1400);
+    }
+
+    function openTreasureMenu(spot) {
+      if (finished) return;
+
+      if (spot !== currentSpot()) {
+        closeMenu();
+
+        status.className =
+          "week9-treasure-status week9-treasure-status-warning";
+
+        status.innerHTML =
+          '<span>👀</span><strong>FOLLOW THE GLOWING CLUE!</strong><span>✨</span>';
+
+        play("/sounds/buzzer.mp3", 0.45);
+
+        schedule(() => {
+          if (!finished) {
+            status.className =
+              "week9-treasure-status";
+
+            status.innerHTML =
+              '<span>🏴‍☠️</span><strong>FIND THE GLOWING CLUE</strong>';
+          }
+        }, 1100);
+
+        return;
+      }
+
+      selectedSpot = spot;
+      menuOpen = true;
+
+      positionMenuAroundSpot(spot);
+
+      menu.hidden = false;
+
+      play("/sounds/mouseclick.mp3", 0.5);
+
+      status.className =
+        "week9-treasure-status week9-treasure-status-choose";
+
+      status.innerHTML =
+        '<span>🏴‍☠️</span><strong>LEFT-CLICK AN ACTION</strong><span>✨</span>';
+
+      schedule(() => {
+        if (menuOpen && !finished) {
+          play("/sounds/boom.mp3", 0.48);
+        }
+      }, 100);
+    }
+
+    function handleMapRightClick(event) {
+      event.preventDefault();
+
+      const choice =
+        event.target.closest(
+          "[data-week9-treasure-choice]"
+        );
+
+      if (choice) {
+        event.stopPropagation();
+
+        if (menuOpen) {
+          showLeftClickReminder();
+        }
+
+        return;
+      }
+
+      const spot =
+        event.target.closest(
+          "[data-week9-treasure-spot]"
+        );
+
+      if (spot) {
+        openTreasureMenu(spot);
+      }
+    }
+
+    function showWrongAction() {
+      status.className =
+        "week9-treasure-status week9-treasure-status-warning";
+
+      status.innerHTML =
+        '<span>🧭</span><strong>TRY ANOTHER ACTION!</strong><span>🤔</span>';
+
+      play("/sounds/buzzer.mp3", 0.48);
+
+      schedule(() => {
+        if (!finished && menuOpen) {
+          status.className =
+            "week9-treasure-status week9-treasure-status-choose";
+
+          status.innerHTML =
+            '<span>🏴‍☠️</span><strong>LEFT-CLICK AN ACTION</strong><span>✨</span>';
+        }
+      }, 1100);
+    }
+
+    function revealTreasure(spot) {
+      const id =
+        spot.dataset.week9TreasureSpot;
+
+      closeMenu();
+
+      spot.classList.remove(
+        "week9-treasure-spot-active"
+      );
+
+      spot.classList.add(
+        "week9-treasure-spot-found"
+      );
+
+      const piece =
+        document.querySelector(
+          `[data-week9-treasure-piece="${id}"]`
+        );
+
+      if (piece) {
+        piece.classList.add(
+          "week9-treasure-piece-found"
+        );
+      }
+
+      burst.hidden = false;
+
+      const mapRect =
+        map.getBoundingClientRect();
+
+      const spotRect =
+        spot.getBoundingClientRect();
+
+      burst.style.left =
+        `${
+          spotRect.left -
+          mapRect.left +
+          spotRect.width / 2
+        }px`;
+
+      burst.style.top =
+        `${
+          spotRect.top -
+          mapRect.top +
+          spotRect.height / 2
+        }px`;
+
+      burst.classList.remove(
+        "week9-treasure-burst-show"
+      );
+
+      void burst.offsetWidth;
+
+      burst.classList.add(
+        "week9-treasure-burst-show"
+      );
+
+      play("/sounds/correct.mp3", 0.68);
+
+      status.className =
+        "week9-treasure-status week9-treasure-status-success";
+
+      status.innerHTML =
+        '<span>🗺️</span><strong>MAP PIECE FOUND!</strong><span>✨</span>';
+
+      currentIndex += 1;
+
+      if (currentIndex >= spots.length) {
+        finished = true;
+
+        spots.forEach(spot => {
+          spot.classList.remove(
+            "week9-treasure-spot-active"
+          );
+        });
+
+        schedule(() => {
+          complete.hidden = false;
+
+          play(
+            "/sounds/complete.mp3",
+            0.8
+          );
+        }, 950);
+
+        return;
+      }
+
+      schedule(() => {
+        burst.hidden = true;
+
+        updateActiveSpot();
+
+        status.className =
+          "week9-treasure-status";
+
+        status.innerHTML =
+          '<span>🏴‍☠️</span><strong>FOLLOW THE NEXT GLOWING CLUE</strong>';
+      }, 900);
+    }
+
+    function chooseAction(event) {
+      const choice =
+        event.target.closest(
+          "[data-week9-treasure-choice]"
+        );
+
+      if (
+        !choice ||
+        !menuOpen ||
+        !selectedSpot ||
+        finished
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const selectedAction =
+        choice.dataset.week9TreasureChoice;
+
+      const correctAction =
+        selectedSpot.dataset.week9TreasureAction;
+
+      if (selectedAction !== correctAction) {
+        showWrongAction();
+        return;
+      }
+
+      revealTreasure(selectedSpot);
+    }
+
+    function handleMapClick(event) {
+      if (
+        event.target.closest(
+          "[data-week9-treasure-choice]"
+        )
+      ) {
+        return;
+      }
+
+      const spot =
+        event.target.closest(
+          "[data-week9-treasure-spot]"
+        );
+
+      if (spot && !finished) {
+        event.preventDefault();
+
+        closeMenu();
+        showRightClickReminder();
+        return;
+      }
+
+      if (
+        menuOpen &&
+        !event.target.closest(
+          "#week9TreasureMenu"
+        )
+      ) {
+        closeMenu();
+      }
+    }
+
+    updateActiveSpot();
+
+    map.addEventListener(
+      "contextmenu",
+      handleMapRightClick
+    );
+
+    menu.addEventListener(
+      "click",
+      chooseAction
+    );
+
+    map.addEventListener(
+      "click",
+      handleMapClick
+    );
+
+    removeWeek9TreasureBehavior = () => {
+      week9TreasureTimers.forEach(clearTimeout);
+      week9TreasureTimers.clear();
+
+      map.removeEventListener(
+        "contextmenu",
+        handleMapRightClick
+      );
+
+      menu.removeEventListener(
+        "click",
+        chooseAction
+      );
+
+      map.removeEventListener(
+        "click",
+        handleMapClick
+      );
+    };
+  }
+
+  let removeWeek9SillyBehavior = null;
+  const week9SillyTimers = new Set();
+  const week9SillySounds = new Set();
+
+  function stopWeek9SillyBehavior() {
+    removeWeek9SillyBehavior?.();
+    removeWeek9SillyBehavior = null;
+
+    week9SillyTimers.forEach(clearTimeout);
+    week9SillyTimers.clear();
+
+    week9SillySounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    week9SillySounds.clear();
+  }
+
+  function startWeek9SillyBehavior() {
+    stopWeek9SillyBehavior();
+
+    const scene =
+      document.getElementById("week9SillyScene");
+
+    const tray =
+      document.getElementById("week9SillyTray");
+
+    const trayIcon =
+      document.getElementById("week9SillyTrayIcon");
+
+    const trayTitle =
+      document.getElementById("week9SillyTrayTitle");
+
+    const choices =
+      document.getElementById("week9SillyChoices");
+
+    const sky =
+      document.getElementById("week9SillySky");
+
+    const ground =
+      document.getElementById("week9SillyGround");
+
+    const treeExtras =
+      document.getElementById("week9SillyTreeExtras");
+
+    const characterEmoji =
+      document.getElementById("week9SillyCharacterEmoji");
+
+    const characterExtra =
+      document.getElementById("week9SillyCharacterExtra");
+
+    const skyEffects =
+      document.getElementById("week9SillySkyEffects");
+
+    const groundEffects =
+      document.getElementById("week9SillyGroundEffects");
+
+    const confetti =
+      document.getElementById("week9SillyConfetti");
+
+    const flash =
+      document.getElementById("week9SillyFlash");
+
+    const status =
+      document.getElementById("week9SillyStatus");
+
+    const complete =
+      document.getElementById("week9SillyComplete");
+
+    if (
+      !scene ||
+      !tray ||
+      !trayIcon ||
+      !trayTitle ||
+      !choices ||
+      !sky ||
+      !ground ||
+      !treeExtras ||
+      !characterEmoji ||
+      !characterExtra ||
+      !skyEffects ||
+      !groundEffects ||
+      !confetti ||
+      !flash ||
+      !status ||
+      !complete
+    ) {
+      return;
+    }
+
+    let activeTarget = null;
+    let trayOpen = false;
+    let celebrated = false;
+
+    const changedTargets = new Set();
+
+    const sillyChoices = {
+      sky: {
+        icon: "🌤️",
+        title: "CHANGE THE SKY!",
+        choices: [
+          
+          { id: "night", icon: "🌙", label: "NIGHT" },
+          { id: "clouds", icon: "☁️", label: "CLOUD PARTY" },
+          { id: "space", icon: "🚀", label: "SPACE" }
+        ]
+      },
+
+      ground: {
+        icon: "🌱",
+        title: "CHANGE THE GROUND!",
+        choices: [
+          { id: "flowers", icon: "🌸", label: "FLOWERS" },
+          { id: "snow", icon: "❄️", label: "SNOW" },
+          { id: "candy", icon: "🍭", label: "CANDY LAND" },
+          { id: "lava", icon: "🌋", label: "LAVA" }
+        ]
+      },
+
+      tree: {
+        icon: "🌳",
+        title: "MAKE A SILLY TREE!",
+        choices: [
+          { id: "apples", icon: "🍎", label: "APPLES" },
+          { id: "donuts", icon: "🍩", label: "DONUTS" },
+          { id: "eyes", icon: "👀", label: "EYEBALLS" },
+          { id: "balloons", icon: "🎈", label: "BALLOONS" }
+        ]
+      },
+
+      character: {
+        icon: "🙂",
+        title: "DRESS UP THE CHARACTER!",
+        choices: [
+          { id: "cowboy", icon: "🤠", label: "COWBOY" },
+          { id: "royal", icon: "👑", label: "ROYAL" },
+          { id: "disguise", icon: "🥸", label: "DISGUISE" },
+          { id: "hero", icon: "🦸", label: "SUPERHERO" }
+        ]
+      }
+    };
+
+    function schedule(callback, delay) {
+      const timer = setTimeout(() => {
+        week9SillyTimers.delete(timer);
+        callback();
+      }, delay);
+
+      week9SillyTimers.add(timer);
+    }
+
+    function play(src, volume = 0.7) {
+      if (!soundEnabled) return;
+
+      const audio = new Audio(src);
+      audio.volume = volume;
+
+      week9SillySounds.add(audio);
+
+      audio.addEventListener(
+        "ended",
+        () => week9SillySounds.delete(audio),
+        { once: true }
+      );
+
+      audio.play().catch(() => {
+        week9SillySounds.delete(audio);
+      });
+    }
+
+    function closeTray() {
+      trayOpen = false;
+      activeTarget = null;
+      tray.hidden = true;
+
+      scene
+        .querySelectorAll("[data-week9-silly-target]")
+        .forEach(target => {
+          target.classList.remove(
+            "week9-silly-target-open"
+          );
+        });
+    }
+
+    function buildTray(targetName) {
+      const config = sillyChoices[targetName];
+
+      if (!config) return;
+
+      activeTarget = targetName;
+      trayOpen = true;
+
+      trayIcon.textContent = config.icon;
+      trayTitle.textContent = config.title;
+
+      choices.innerHTML =
+        config.choices
+          .map(choice => `
+            <button
+              type="button"
+              data-week9-silly-choice="${choice.id}"
+            >
+              <span>${choice.icon}</span>
+              <strong>${choice.label}</strong>
+            </button>
+          `)
+          .join("");
+
+      tray.hidden = false;
+
+      scene
+        .querySelectorAll("[data-week9-silly-target]")
+        .forEach(target => {
+          target.classList.toggle(
+            "week9-silly-target-open",
+            target.dataset.week9SillyTarget === targetName
+          );
+        });
+
+      status.className =
+        "week9-silly-status week9-silly-status-choose";
+
+      status.innerHTML =
+        '<span>👆</span><strong>LEFT-CLICK A SILLY CHOICE!</strong><span>🎨</span>';
+
+      play("/sounds/mouseclick.mp3", 0.5);
+
+      schedule(() => {
+        if (trayOpen) {
+          play("/sounds/boom.mp3", 0.48);
+        }
+      }, 100);
+    }
+
+    function showRightClickReminder() {
+      closeTray();
+
+      status.className =
+        "week9-silly-status week9-silly-status-warning";
+
+      status.innerHTML =
+        '<span>🖱️</span><strong>RIGHT-CLICK TO CHANGE IT!</strong><span>➡️</span>';
+
+      play("/sounds/buzzer.mp3", 0.5);
+
+      schedule(() => {
+        if (!trayOpen) {
+          status.className =
+            "week9-silly-status";
+
+          status.innerHTML =
+            '<span>🖱️</span><strong>RIGHT-CLICK THE SKY, GROUND, TREE, OR CHARACTER</strong>';
+        }
+      }, 1200);
+    }
+
+    function showLeftClickReminder() {
+      status.className =
+        "week9-silly-status week9-silly-status-left-click";
+
+      status.innerHTML =
+        '<span>🖱️</span><strong>REMEMBER: LEFT-CLICK TO SELECT</strong><span>👈</span>';
+
+      void status.offsetWidth;
+
+      play("/sounds/mouseclick.mp3", 0.55);
+
+      schedule(() => {
+        if (trayOpen) {
+          status.className =
+            "week9-silly-status week9-silly-status-choose";
+
+          status.innerHTML =
+            '<span>👆</span><strong>LEFT-CLICK A SILLY CHOICE!</strong><span>🎨</span>';
+        }
+      }, 1400);
+    }
+
+    function applySky(choice) {
+      sky.className =
+        `week9-silly-zone week9-silly-sky week9-silly-sky-${choice}`;
+
+      const effects = {
+        
+        night: "⭐ ✨ 🌙 ✨ ⭐",
+        clouds: "☁️ ☁️ ☁️ ☁️",
+        space: "🪐 ⭐ 🚀 ⭐ 🛸"
+      };
+
+      skyEffects.textContent =
+        effects[choice] || "";
+    }
+
+    function applyGround(choice) {
+      ground.className =
+        `week9-silly-zone week9-silly-ground week9-silly-ground-${choice}`;
+
+      const effects = {
+        flowers: "🌸 🌼 🌷 🌻 🌸 🌼",
+        snow: "⛄ ❄️ ❄️ ⛄ ❄️",
+        candy: "🍭 🍬 🧁 🍭 🍬",
+        lava: "🔥 🌋 🔥 🌋 🔥"
+      };
+
+      groundEffects.textContent =
+        effects[choice] || "";
+    }
+
+    function applyTree(choice) {
+      const effects = {
+        apples: ["🍎","🍎","🍎","🍎","🍎"],
+        donuts: ["🍩","🍩","🍩","🍩","🍩"],
+        eyes: ["👀","👀","👀","👀"],
+        balloons: ["🎈","🎈","🎈","🎈","🎈"]
+      };
+
+      const items =
+        effects[choice] || [];
+
+      treeExtras.innerHTML =
+        items
+          .map(item => `<span>${item}</span>`)
+          .join("");
+
+      treeExtras.className =
+        `week9-silly-tree-extras week9-silly-tree-${choice}`;
+    }
+
+    function applyCharacter(choice) {
+      const characters = {
+        cowboy: "🤠",
+        royal: "🤴",
+        disguise: "🥸",
+        hero: "🦸"
+      };
+
+      const extras = {
+        cowboy: "⭐",
+        royal: "👑",
+        disguise: "🕵️",
+        hero: "⚡"
+      };
+
+      characterEmoji.textContent =
+        characters[choice] || "🙂";
+
+      characterExtra.textContent =
+        extras[choice] || "";
+
+      characterEmoji.classList.remove(
+        "week9-silly-character-pop"
+      );
+
+      void characterEmoji.offsetWidth;
+
+      characterEmoji.classList.add(
+        "week9-silly-character-pop"
+      );
+    }
+
+    function celebrateScene() {
+      if (celebrated) return;
+
+      celebrated = true;
+
+      flash.hidden = false;
+      confetti.hidden = false;
+
+      flash.classList.remove(
+        "week9-silly-flash-show"
+      );
+
+      confetti.classList.remove(
+        "week9-silly-confetti-show"
+      );
+
+      void flash.offsetWidth;
+
+      flash.classList.add(
+        "week9-silly-flash-show"
+      );
+
+      confetti.classList.add(
+        "week9-silly-confetti-show"
+      );
+
+      play("/sounds/complete.mp3", 0.8);
+
+      schedule(() => {
+        complete.hidden = false;
+      }, 300);
+
+      schedule(() => {
+        flash.hidden = true;
+      }, 650);
+
+      schedule(() => {
+        complete.hidden = true;
+        confetti.hidden = true;
+
+        status.className =
+          "week9-silly-status week9-silly-status-success";
+
+        status.innerHTML =
+          '<span>🎨</span><strong>MAKE IT EVEN SILLIER!</strong><span>🖱️</span>';
+      }, 2100);
+    }
+
+    function applyChoice(choice) {
+      if (!activeTarget) return;
+
+      const target = activeTarget;
+
+      if (target === "sky") {
+        applySky(choice);
+      }
+
+      if (target === "ground") {
+        applyGround(choice);
+      }
+
+      if (target === "tree") {
+        applyTree(choice);
+      }
+
+      if (target === "character") {
+        applyCharacter(choice);
+      }
+
+      changedTargets.add(target);
+
+      closeTray();
+
+      play("/sounds/correct.mp3", 0.64);
+
+      status.className =
+        "week9-silly-status week9-silly-status-success";
+
+      status.innerHTML =
+        '<span>✨</span><strong>AWESOME! RIGHT-CLICK SOMETHING ELSE!</strong><span>😄</span>';
+
+      if (changedTargets.size >= 4) {
+        schedule(celebrateScene, 450);
+      }
+    }
+
+    function handleSceneRightClick(event) {
+      const target =
+        event.target.closest(
+          "[data-week9-silly-target]"
+        );
+
+      if (!target) return;
+
+      event.preventDefault();
+
+      buildTray(
+        target.dataset.week9SillyTarget
+      );
+    }
+
+    function handleSceneClick(event) {
+      const target =
+        event.target.closest(
+          "[data-week9-silly-target]"
+        );
+
+      if (!target) return;
+
+      event.preventDefault();
+      showRightClickReminder();
+    }
+
+    function handleTrayClick(event) {
+      const choice =
+        event.target.closest(
+          "[data-week9-silly-choice]"
+        );
+
+      if (!choice) return;
+
+      event.preventDefault();
+
+      applyChoice(
+        choice.dataset.week9SillyChoice
+      );
+    }
+
+    function handleTrayRightClick(event) {
+      const choice =
+        event.target.closest(
+          "[data-week9-silly-choice]"
+        );
+
+      if (!choice) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      showLeftClickReminder();
+    }
+
+    scene.addEventListener(
+      "contextmenu",
+      handleSceneRightClick
+    );
+
+    scene.addEventListener(
+      "click",
+      handleSceneClick
+    );
+
+    choices.addEventListener(
+      "click",
+      handleTrayClick
+    );
+
+    choices.addEventListener(
+      "contextmenu",
+      handleTrayRightClick
+    );
+
+    removeWeek9SillyBehavior = () => {
+      scene.removeEventListener(
+        "contextmenu",
+        handleSceneRightClick
+      );
+
+      scene.removeEventListener(
+        "click",
+        handleSceneClick
+      );
+
+      choices.removeEventListener(
+        "click",
+        handleTrayClick
+      );
+
+      choices.removeEventListener(
+        "contextmenu",
+        handleTrayRightClick
+      );
+    };
+  }
+
   let removeWeek8BossBehavior = null;
   let week8BossClickTimer = null;
   const week8BossTimers = new Set();
@@ -32513,6 +34992,10 @@ const status =
   function stopStepBehavior() {
     stopWeek9MeetRightBehavior();
     stopWeek9DressBehavior();
+    stopWeek9PetBehavior();
+    stopWeek9RobotBehavior();
+    stopWeek9TreasureBehavior();
+    stopWeek9SillyBehavior();
     /*
      * Universal audio cleanup.
      */
@@ -34440,6 +36923,30 @@ const status =
     }
 
     if (
+      step.id === "week9-pet-care"
+    ) {
+      startWeek9PetBehavior();
+    }
+
+    if (
+      step.id === "week9-robot-repair"
+    ) {
+      startWeek9RobotBehavior();
+    }
+
+    if (
+      step.id === "week9-treasure-map"
+    ) {
+      startWeek9TreasureBehavior();
+    }
+
+    if (
+      step.id === "week9-silly-scene"
+    ) {
+      startWeek9SillyBehavior();
+    }
+
+    if (
       step.id === "week8-computer-rescue"
     ) {
       startWeek8BossBehavior();
@@ -35023,6 +37530,34 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
