@@ -1,0 +1,1133 @@
+.lesson-screen-week10-monster {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 15px 20px 20px;
+  background:
+    linear-gradient(
+      180deg,
+      #582d76 0%,
+      #8b3a76 48%,
+      #f29a5b 49%,
+      #e47a4a 100%
+    );
+  color: #fff;
+}
+
+.week10-monster-heading {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.week10-monster-heading > span {
+  font-size: clamp(44px, 5vw, 66px);
+}
+
+.week10-monster-heading h1 {
+  margin: 0;
+  font-size: clamp(31px, 4vw, 50px);
+  line-height: 1;
+  text-shadow: 0 4px 0 rgba(0,0,0,.22);
+}
+
+.week10-monster-heading p {
+  margin: 7px 0 0;
+  color: #fff192;
+  font-size: clamp(15px, 1.7vw, 22px);
+  font-weight: 900;
+}
+
+.week10-monster-game {
+  position: relative;
+  width: min(1180px, 96%);
+  height: min(650px, 72vh);
+  min-height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 7px solid #fff0ba;
+  border-radius: 30px;
+  background: #f1b878;
+  box-shadow:
+    0 14px 0 #6c355e,
+    0 22px 35px rgba(0,0,0,.25);
+}
+
+.week10-monster-wall {
+  position: absolute;
+  inset: 0 0 42% 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 120px,
+      rgba(87,35,71,.09) 120px 126px
+    ),
+    linear-gradient(
+      180deg,
+      #c987c1,
+      #e4a5c6
+    );
+  border-bottom: 8px solid #824f6c;
+}
+
+.week10-monster-sign {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  padding: 10px 32px;
+  border: 6px solid #6b315e;
+  border-radius: 18px;
+  background: #fbdb55;
+  color: #613158;
+  font-size: 28px;
+  font-weight: 1000;
+  letter-spacing: 2px;
+  box-shadow: 0 6px 0 rgba(0,0,0,.15);
+}
+
+.week10-monster-window {
+  position: absolute;
+  right: 6%;
+  top: 92px;
+  width: 155px;
+  height: 115px;
+  overflow: hidden;
+  border: 8px solid #78486a;
+  border-radius: 22px;
+  background: #293263;
+}
+
+.week10-monster-window span {
+  position: absolute;
+}
+
+.week10-monster-window span:nth-child(1) {
+  left: 18px;
+  top: 22px;
+  font-size: 54px;
+}
+
+.week10-monster-window span:nth-child(2) {
+  right: 24px;
+  top: 15px;
+  font-size: 25px;
+}
+
+.week10-monster-window span:nth-child(3) {
+  right: 46px;
+  bottom: 15px;
+  font-size: 20px;
+}
+
+.week10-monster-menu-board {
+  position: absolute;
+  left: 5%;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  padding: 12px;
+  border: 7px solid #684130;
+  border-radius: 10px;
+  background: #315954;
+  box-shadow: 0 6px 0 rgba(0,0,0,.18);
+}
+
+.week10-monster-menu-board strong {
+  font-size: 23px;
+  color: #fff6bc;
+}
+
+.week10-monster-menu-board span {
+  margin-top: 8px;
+  font-size: 31px;
+}
+
+.week10-monster-order-card {
+  position: absolute;
+  z-index: 25;
+  left: 22px;
+  top: 22px;
+  width: 205px;
+  box-sizing: border-box;
+  padding: 13px;
+  border: 5px solid #fff;
+  border-radius: 22px;
+  background: #66305f;
+  text-align: center;
+  box-shadow: 0 7px 0 rgba(0,0,0,.22);
+}
+
+.week10-monster-order-title {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: #ffe05b;
+  color: #54284e;
+  font-size: 18px;
+  font-weight: 1000;
+}
+
+.week10-monster-order {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin: 11px 0 6px;
+}
+
+.week10-monster-order span {
+  font-size: 41px;
+}
+
+.week10-monster-order strong {
+  font-size: 27px;
+}
+
+.week10-monster-progress {
+  color: #ffe653;
+  font-size: 31px;
+}
+
+.week10-monster-floor {
+  position: absolute;
+  inset: 58% 0 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #f3a85f 0 90px,
+      #da8a49 90px 96px
+    );
+}
+
+.week10-monster-table {
+  position: absolute;
+  z-index: 7;
+  left: 51%;
+  top: -55px;
+  width: 330px;
+  height: 230px;
+  transform: translateX(-50%);
+}
+
+.week10-monster-table-top {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 330px;
+  height: 58px;
+  border: 7px solid #6e4031;
+  border-radius: 50%;
+  background: #e4a65a;
+}
+
+.week10-monster-table-leg {
+  position: absolute;
+  left: 145px;
+  top: 84px;
+  width: 40px;
+  height: 115px;
+  background: #81503b;
+}
+
+.week10-monster-plate {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 5px;
+  transform: translateX(-50%);
+  font-size: 65px;
+}
+
+.week10-monster {
+  position: absolute;
+  z-index: 15;
+  left: 50%;
+  top: -300px;
+  width: 300px;
+  height: 310px;
+  transform: translateX(-50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.week10-monster-body {
+  position: absolute;
+  left: 45px;
+  top: 45px;
+  width: 210px;
+  height: 215px;
+  border: 8px solid #503064;
+  border-radius: 46% 46% 40% 40%;
+  background:
+    radial-gradient(circle at 32% 30%, #c795ff 0 6px, transparent 7px),
+    radial-gradient(circle at 70% 25%, #c795ff 0 7px, transparent 8px),
+    linear-gradient(180deg, #8c56d8, #6338a4);
+  box-shadow:
+    inset 0 -17px 0 rgba(50,24,88,.18),
+    0 8px 0 rgba(0,0,0,.15);
+}
+
+.week10-monster-horn {
+  position: absolute;
+  z-index: 2;
+  top: 19px;
+  width: 47px;
+  height: 68px;
+  background: #ffe15c;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.week10-monster-horn.horn-left {
+  left: 65px;
+  transform: rotate(-19deg);
+}
+
+.week10-monster-horn.horn-right {
+  right: 65px;
+  transform: rotate(19deg);
+}
+
+.week10-monster-eye {
+  position: absolute;
+  top: 55px;
+  width: 57px;
+  height: 57px;
+  border: 6px solid #422858;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.week10-monster-eye.eye-left {
+  left: 36px;
+}
+
+.week10-monster-eye.eye-right {
+  right: 36px;
+}
+
+.week10-monster-eye i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #1e1b31;
+}
+
+.week10-monster-mouth {
+  position: absolute;
+  left: 50%;
+  top: 132px;
+  width: 105px;
+  height: 53px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 6px solid #41274f;
+  border-radius: 15px 15px 48px 48px;
+  background: #2a1832;
+  transition:
+    height .2s,
+    top .2s,
+    transform .2s;
+}
+
+.week10-monster-mouth .tooth {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 22px;
+  background: #fff7d9;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.week10-monster-mouth .tooth-one {
+  left: 15px;
+}
+
+.week10-monster-mouth .tooth-two {
+  left: 43px;
+}
+
+.week10-monster-mouth .tooth-three {
+  right: 15px;
+}
+
+.week10-monster-arm {
+  position: absolute;
+  top: 130px;
+  width: 80px;
+  height: 30px;
+  border-radius: 20px;
+  background: #7445bb;
+}
+
+.week10-monster-arm.arm-left {
+  left: -56px;
+  transform: rotate(22deg);
+}
+
+.week10-monster-arm.arm-right {
+  right: -56px;
+  transform: rotate(-22deg);
+}
+
+.week10-monster-foot {
+  position: absolute;
+  top: 246px;
+  width: 85px;
+  height: 45px;
+  border: 7px solid #503064;
+  border-radius: 50%;
+  background: #7040b0;
+}
+
+.week10-monster-foot.foot-left {
+  left: 45px;
+}
+
+.week10-monster-foot.foot-right {
+  right: 45px;
+}
+
+.week10-monster-ready-to-eat .week10-monster-mouth {
+  top: 122px;
+  height: 72px;
+  transform: translateX(-50%) scale(1.12);
+}
+
+.week10-monster-chomp .week10-monster-mouth {
+  animation:
+    week10-monster-mouth-chomp
+    .16s ease-in-out 4;
+}
+
+.week10-monster-happy {
+  animation:
+    week10-monster-happy
+    .4s ease-in-out infinite alternate;
+}
+
+.week10-monster-food-fly {
+  position: absolute;
+  z-index: 60;
+  left: 68%;
+  top: -100px;
+  font-size: 72px;
+  pointer-events: none;
+}
+
+.week10-monster-food-fly[hidden] {
+  display: none !important;
+}
+
+.week10-monster-food-eating {
+  animation:
+    week10-monster-food-fly
+    .85s ease-in forwards;
+}
+
+.week10-monster-food-menu {
+  position: absolute;
+  z-index: 50;
+  left: 64%;
+  top: -255px;
+  display: grid;
+  grid-template-columns: repeat(2, 118px);
+  gap: 8px;
+  padding: 12px;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  background: #67315f;
+  box-shadow: 0 9px 0 rgba(0,0,0,.25);
+}
+
+.week10-monster-food-menu[hidden] {
+  display: none !important;
+}
+
+.week10-monster-food-menu button {
+  min-height: 94px;
+  padding: 7px;
+  border: 4px solid #ef91c8;
+  border-radius: 15px;
+  background: #fff;
+  color: #59274f;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #a95f91;
+}
+
+.week10-monster-food-menu button:hover {
+  transform: translateY(-2px);
+  background: #fff3a6;
+}
+
+.week10-monster-food-menu button span {
+  display: block;
+  font-size: 39px;
+}
+
+.week10-monster-food-menu button strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.week10-monster-decor {
+  position: absolute;
+  top: 40px;
+  font-size: 78px;
+  opacity: .75;
+}
+
+.week10-monster-decor.decor-left {
+  left: 11%;
+}
+
+.week10-monster-decor.decor-right {
+  right: 11%;
+}
+
+.week10-monster-status {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 455px;
+  padding: 10px 24px;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  background: #66305f;
+  box-shadow: 0 6px 0 rgba(0,0,0,.2);
+}
+
+.week10-monster-status span {
+  font-size: 29px;
+}
+
+.week10-monster-status strong {
+  font-size: 21px;
+}
+
+.week10-monster-warning {
+  position: absolute;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(38,16,52,.82);
+}
+
+.week10-monster-warning[hidden] {
+  display: none !important;
+}
+
+.week10-monster-warning-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(620px, 85vw);
+  padding: 30px;
+  border: 8px solid #fff;
+  border-radius: 34px;
+  background: #ffe45b;
+  color: #47294d;
+  text-align: center;
+  box-shadow: 0 15px 0 rgba(0,0,0,.25);
+}
+
+.week10-monster-warning-card > strong {
+  margin-top: 18px;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.05;
+}
+
+.week10-monster-warning-card > strong b {
+  display: block;
+  color: #d6375a;
+}
+
+.week10-monster-warning-mouse {
+  position: relative;
+  width: 205px;
+  height: 140px;
+  border: 8px solid #3c4052;
+  border-radius: 90px 90px 60px 60px;
+  background: #f6f6f6;
+}
+
+.week10-monster-warning-mouse .demo-left,
+.week10-monster-warning-mouse .demo-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 64px;
+  border-bottom: 5px solid #3c4052;
+}
+
+.week10-monster-warning-mouse .demo-left {
+  left: 0;
+  border-right: 3px solid #3c4052;
+}
+
+.week10-monster-warning-mouse .demo-right {
+  right: 0;
+  border-left: 3px solid #3c4052;
+}
+
+.week10-monster-warning-mouse i {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 13px;
+  width: 18px;
+  height: 42px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background: #52576c;
+}
+
+.week10-monster-warning-mouse.right-demo .demo-right,
+.week10-monster-warning-mouse.left-demo .demo-left {
+  background: #67df79;
+  animation:
+    week10-monster-button
+    .5s ease-in-out infinite alternate;
+}
+
+.week10-monster-wrong {
+  animation:
+    week10-monster-wrong
+    .15s linear 5;
+}
+
+.week10-monster-complete {
+  position: absolute;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,235,111,.9),
+      rgba(100,40,101,.95) 62%
+    );
+}
+
+.week10-monster-complete[hidden] {
+  display: none !important;
+}
+
+.week10-monster-complete > div {
+  width: min(760px, 85%);
+  padding: 40px;
+  border: 9px solid #fff;
+  border-radius: 42px;
+  background: #713b87;
+  text-align: center;
+  box-shadow: 0 18px 0 rgba(0,0,0,.26);
+  animation:
+    week10-monster-complete-pop
+    .45s ease-out both;
+}
+
+.week10-monster-complete span,
+.week10-monster-complete strong,
+.week10-monster-complete b {
+  display: block;
+}
+
+.week10-monster-complete span {
+  font-size: clamp(50px, 7vw, 82px);
+}
+
+.week10-monster-complete strong {
+  margin-top: 12px;
+  color: #ffe660;
+  font-size: clamp(40px, 6vw, 68px);
+}
+
+.week10-monster-complete b {
+  margin-top: 12px;
+  font-size: clamp(22px, 3vw, 34px);
+}
+
+@keyframes week10-monster-food-fly {
+  0% {
+    left: 72%;
+    top: -90px;
+    transform: scale(1) rotate(0deg);
+  }
+
+  65% {
+    left: 53%;
+    top: -155px;
+    transform: scale(.8) rotate(-15deg);
+  }
+
+  100% {
+    left: 49%;
+    top: -170px;
+    transform: scale(.25) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes week10-monster-mouth-chomp {
+  0% {
+    height: 70px;
+  }
+
+  50% {
+    height: 25px;
+  }
+
+  100% {
+    height: 70px;
+  }
+}
+
+@keyframes week10-monster-happy {
+  from {
+    transform: translateX(-50%) translateY(0) rotate(-2deg);
+  }
+
+  to {
+    transform: translateX(-50%) translateY(-9px) rotate(2deg);
+  }
+}
+
+@keyframes week10-monster-wrong {
+  0% {
+    transform: translateX(-50%) translateX(-9px);
+  }
+
+  50% {
+    transform: translateX(-50%) translateX(9px);
+  }
+
+  100% {
+    transform: translateX(-50%) translateX(-9px);
+  }
+}
+
+@keyframes week10-monster-button {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(7px);
+  }
+}
+
+@keyframes week10-monster-complete-pop {
+  from {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* =========================================================
+   TEACHER PRESENTATION FIT
+   Student view remains unchanged.
+   ========================================================= */
+
+.week10-monster-teacher {
+  padding: 8px 14px 12px;
+}
+
+.week10-monster-teacher .week10-monster-heading {
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.week10-monster-teacher .week10-monster-heading h1 {
+  font-size: clamp(25px, 2.7vw, 36px);
+}
+
+.week10-monster-teacher .week10-monster-heading p {
+  margin-top: 4px;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+.week10-monster-teacher .week10-monster-heading > span {
+  font-size: clamp(34px, 4vw, 48px);
+}
+
+.week10-monster-teacher .week10-monster-game {
+  width: min(1020px, 92%);
+  height: min(515px, 64vh);
+  min-height: 405px;
+}
+
+.week10-monster-teacher .week10-monster-order-card {
+  transform: scale(.88);
+  transform-origin: top left;
+}
+
+.week10-monster-teacher .week10-monster-status {
+  transform: translateX(-50%) scale(.88);
+  transform-origin: bottom center;
+}
+
+@media (max-height: 760px) {
+  .week10-monster-heading h1 {
+    font-size: 34px;
+  }
+
+  .week10-monster-heading > span {
+    font-size: 42px;
+  }
+
+  .week10-monster-heading p {
+    font-size: 16px;
+  }
+
+  .week10-monster-game {
+    min-height: 470px;
+    height: 68vh;
+  }
+
+  .week10-monster-teacher .week10-monster-game {
+    min-height: 405px;
+    height: 64vh;
+  }
+}
+
+/* =========================================================
+   MONSTER RESTAURANT - TABLE / EATING REFINEMENT
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   TABLE
+   Wider and positioned in front of the monster.
+   --------------------------------------------------------- */
+
+.week10-monster-table {
+  z-index: 22;
+  left: 51%;
+  top: -28px;
+  width: 390px;
+  height: 225px;
+}
+
+.week10-monster-table-top {
+  left: 0;
+  top: 36px;
+  width: 390px;
+  height: 64px;
+  border-width: 7px;
+  background:
+    linear-gradient(
+      180deg,
+      #efb96c,
+      #d99349
+    );
+  box-shadow:
+    inset 0 7px 0 rgba(255,255,255,.2),
+    0 7px 0 rgba(86,47,35,.18);
+}
+
+.week10-monster-table-leg {
+  left: 176px;
+  top: 91px;
+  width: 42px;
+  height: 120px;
+}
+
+
+/* ---------------------------------------------------------
+   REAL PLATE
+   Replace the upright plate emoji with a flat tabletop plate.
+   --------------------------------------------------------- */
+
+.week10-monster-plate {
+  z-index: 25;
+  left: 50%;
+  top: 26px;
+  width: 120px;
+  height: 37px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transform: translateX(-50%);
+  border: 7px solid #d5d8e2;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse at center,
+      #ffffff 0%,
+      #f4f4f7 53%,
+      #d8dbe4 55%,
+      #ffffff 72%
+    );
+  box-shadow:
+    0 7px 5px rgba(63,36,39,.22);
+  color: transparent;
+  font-size: 0;
+}
+
+
+/* ---------------------------------------------------------
+   MONSTER
+   Smaller, behind the table, and lower so it feels seated.
+   --------------------------------------------------------- */
+
+.week10-monster {
+  z-index: 14;
+  left: 51%;
+  top: -275px;
+  width: 265px;
+  height: 285px;
+}
+
+.week10-monster-body {
+  left: 40px;
+  top: 48px;
+  width: 185px;
+  height: 192px;
+}
+
+.week10-monster-horn.horn-left {
+  left: 61px;
+}
+
+.week10-monster-horn.horn-right {
+  right: 61px;
+}
+
+.week10-monster-eye {
+  top: 48px;
+  width: 51px;
+  height: 51px;
+}
+
+.week10-monster-eye.eye-left {
+  left: 31px;
+}
+
+.week10-monster-eye.eye-right {
+  right: 31px;
+}
+
+.week10-monster-mouth {
+  top: 119px;
+  width: 96px;
+  height: 48px;
+}
+
+.week10-monster-arm {
+  top: 122px;
+  width: 72px;
+  height: 27px;
+}
+
+.week10-monster-arm.arm-left {
+  left: -49px;
+}
+
+.week10-monster-arm.arm-right {
+  right: -49px;
+}
+
+.week10-monster-foot {
+  top: 226px;
+  width: 76px;
+  height: 41px;
+}
+
+.week10-monster-foot.foot-left {
+  left: 39px;
+}
+
+.week10-monster-foot.foot-right {
+  right: 39px;
+}
+
+
+/* Table covers the lower monster body so it clearly sits
+   BEHIND the restaurant table. */
+.week10-monster-table {
+  pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   FOOD SERVING POSITION
+   Food appears directly on the plate first.
+   --------------------------------------------------------- */
+
+.week10-monster-food-fly {
+  z-index: 35;
+  left: 51%;
+  top: 1px;
+  font-size: 57px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.week10-monster-food-on-plate {
+  animation:
+    week10-monster-food-land
+    .42s ease-out both;
+}
+
+
+/* ---------------------------------------------------------
+   PICK-UP
+   Monster reaches toward the plate while the food moves
+   from the plate to its mouth.
+   --------------------------------------------------------- */
+
+.week10-monster-reaching .week10-monster-arm.arm-right {
+  z-index: 30;
+  transform-origin: right center;
+  animation:
+    week10-monster-arm-reach
+    .72s ease-in-out both;
+}
+
+.week10-monster-food-pickup {
+  animation:
+    week10-monster-food-pickup
+    .72s ease-in-out forwards;
+}
+
+
+/* Monster opens wider before the food arrives. */
+.week10-monster-ready-to-eat .week10-monster-mouth {
+  top: 111px;
+  height: 67px;
+  transform:
+    translateX(-50%)
+    scale(1.12);
+}
+
+
+/* ---------------------------------------------------------
+   NEW EATING ANIMATIONS
+   --------------------------------------------------------- */
+
+@keyframes week10-monster-food-land {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(-55px)
+      scale(.55)
+      rotate(-16deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(5px)
+      scale(1.08)
+      rotate(4deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1)
+      rotate(0deg);
+  }
+}
+
+@keyframes week10-monster-arm-reach {
+  0% {
+    transform:
+      rotate(-22deg)
+      translate(0, 0);
+  }
+
+  48% {
+    transform:
+      rotate(42deg)
+      translate(-25px, 52px);
+  }
+
+  72% {
+    transform:
+      rotate(22deg)
+      translate(-18px, 23px);
+  }
+
+  100% {
+    transform:
+      rotate(-22deg)
+      translate(0, 0);
+  }
+}
+
+@keyframes week10-monster-food-pickup {
+  0% {
+    left: 51%;
+    top: 1px;
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(1)
+      rotate(0deg);
+  }
+
+  35% {
+    left: 56%;
+    top: -43px;
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(.92)
+      rotate(13deg);
+  }
+
+  72% {
+    left: 52%;
+    top: -123px;
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      scale(.72)
+      rotate(-8deg);
+  }
+
+  100% {
+    left: 51%;
+    top: -151px;
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(.28)
+      rotate(4deg);
+  }
+}
+

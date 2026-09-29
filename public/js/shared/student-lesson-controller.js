@@ -29068,6 +29068,218 @@ const status =
       `;
     }
 
+    if (step.id === "week10-monster-restaurant") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-monster${isTeacher ? " week10-monster-teacher" : ""}">
+
+          <div class="week10-monster-heading">
+            <span>🍽️</span>
+
+            <div>
+              <h1>MONSTER RESTAURANT</h1>
+              <p>RIGHT-CLICK THE MONSTER → LEFT-CLICK ITS FOOD</p>
+            </div>
+
+            <span>👾</span>
+          </div>
+
+          <div class="week10-monster-game">
+
+            <div class="week10-monster-wall">
+
+              <div class="week10-monster-sign">
+                MONSTER MUNCH
+              </div>
+
+              <div class="week10-monster-window">
+                <span>🌙</span>
+                <span>⭐</span>
+                <span>⭐</span>
+              </div>
+
+              <div class="week10-monster-menu-board">
+                <strong>MENU</strong>
+                <span>🍕 🍎 🍦</span>
+              </div>
+
+            </div>
+
+            <div class="week10-monster-order-card">
+
+              <div class="week10-monster-order-title">
+                ORDER
+              </div>
+
+              <div class="week10-monster-order">
+                <span id="week10MonsterOrderIcon">🍕</span>
+                <strong id="week10MonsterOrderWord">PIZZA</strong>
+              </div>
+
+              <div class="week10-monster-progress">
+                <span data-week10-monster-star="0">☆</span>
+                <span data-week10-monster-star="1">☆</span>
+                <span data-week10-monster-star="2">☆</span>
+              </div>
+
+            </div>
+
+            <div class="week10-monster-floor">
+
+              <div class="week10-monster-table">
+
+                <div class="week10-monster-table-top"></div>
+                <div class="week10-monster-table-leg"></div>
+
+                <div class="week10-monster-plate">
+                  🍽️
+                </div>
+
+              </div>
+
+              <button type="button"
+                      id="week10Monster"
+                      class="week10-monster"
+                      aria-label="Hungry monster">
+
+                <span class="week10-monster-horn horn-left"></span>
+                <span class="week10-monster-horn horn-right"></span>
+
+                <span class="week10-monster-body">
+
+                  <span class="week10-monster-eye eye-left">
+                    <i></i>
+                  </span>
+
+                  <span class="week10-monster-eye eye-right">
+                    <i></i>
+                  </span>
+
+                  <span class="week10-monster-mouth">
+                    <i class="tooth tooth-one"></i>
+                    <i class="tooth tooth-two"></i>
+                    <i class="tooth tooth-three"></i>
+                  </span>
+
+                  <span class="week10-monster-arm arm-left"></span>
+                  <span class="week10-monster-arm arm-right"></span>
+
+                </span>
+
+                <span class="week10-monster-foot foot-left"></span>
+                <span class="week10-monster-foot foot-right"></span>
+
+              </button>
+
+              <div id="week10MonsterFoodFly"
+                   class="week10-monster-food-fly"
+                   hidden>
+              </div>
+
+              <div id="week10MonsterMenu"
+                   class="week10-monster-food-menu"
+                   hidden>
+
+                <button type="button"
+                        data-week10-monster-food="pizza">
+                  <span>🍕</span>
+                  <strong>PIZZA</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-monster-food="apple">
+                  <span>🍎</span>
+                  <strong>APPLE</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-monster-food="icecream">
+                  <span>🍦</span>
+                  <strong>ICE CREAM</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-monster-food="broccoli">
+                  <span>🥦</span>
+                  <strong>BROCCOLI</strong>
+                </button>
+
+              </div>
+
+              <div class="week10-monster-decor decor-left">
+                🪑
+              </div>
+
+              <div class="week10-monster-decor decor-right">
+                🪑
+              </div>
+
+            </div>
+
+            <div id="week10MonsterStatus"
+                 class="week10-monster-status">
+              <span>🖱️</span>
+              <strong>RIGHT-CLICK THE HUNGRY MONSTER</strong>
+            </div>
+
+          </div>
+
+          <div id="week10MonsterRightWarning"
+               class="week10-monster-warning"
+               hidden>
+
+            <div class="week10-monster-warning-card">
+
+              <div class="week10-monster-warning-mouse right-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                USE THE RIGHT<br>MOUSE BUTTON!
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div id="week10MonsterLeftWarning"
+               class="week10-monster-warning"
+               hidden>
+
+            <div class="week10-monster-warning-card">
+
+              <div class="week10-monster-warning-mouse left-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                <b>REMEMBER!</b>
+                LEFT-CLICK TO SELECT
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div id="week10MonsterComplete"
+               class="week10-monster-complete"
+               hidden>
+
+            <div>
+              <span>👾 🍕 ⭐ 🍎 ⭐ 🍦</span>
+              <strong>MONSTER FED!</strong>
+              <b>RESTAURANT SUPERSTAR!</b>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week10-")) {
       return `
         <div class="lesson-screen lesson-screen-week10-placeholder">
@@ -38352,6 +38564,7 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
 
 
 
