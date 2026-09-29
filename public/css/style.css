@@ -47367,3 +47367,4563 @@ button {
   right: 28px !important;
 }
 
+
+/* =========================================================
+   Week 10 Step 1 - Kindergarten Superstar Makeover
+   ========================================================= */
+
+.lesson-screen-week10-review {
+  position: relative !important;
+  min-height: 555px !important;
+  padding: 8px 18px 15px !important;
+  overflow: hidden !important;
+
+  background:
+    radial-gradient(circle at 8% 16%, rgba(96,165,250,.55), transparent 25%),
+    radial-gradient(circle at 92% 18%, rgba(244,114,182,.42), transparent 25%),
+    radial-gradient(circle at 13% 88%, rgba(74,222,128,.45), transparent 27%),
+    radial-gradient(circle at 88% 85%, rgba(250,204,21,.48), transparent 28%),
+    linear-gradient(
+      135deg,
+      #dbeafe 0%,
+      #f5d0fe 24%,
+      #fef3c7 49%,
+      #dcfce7 74%,
+      #dbeafe 100%
+    ) !important;
+}
+
+/* Floating decorations */
+
+.lesson-screen-week10-review::before {
+  position: absolute;
+  z-index: 1;
+  top: 66px;
+  left: 18px;
+
+  content: "⭐  ✨  🎉";
+
+  font-size: 35px;
+  letter-spacing: 13px;
+
+  animation:
+    week10SuperstarFloatLeft
+    2.2s ease-in-out infinite alternate;
+}
+
+.lesson-screen-week10-review::after {
+  position: absolute;
+  z-index: 1;
+  top: 72px;
+  right: 18px;
+
+  content: "🚀  ✨  ⭐";
+
+  font-size: 35px;
+  letter-spacing: 12px;
+
+  animation:
+    week10SuperstarFloatRight
+    2s ease-in-out infinite alternate;
+}
+
+/* Heading */
+
+.lesson-screen-week10-review .week10-review-heading {
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-heading > span {
+  padding: 6px 27px !important;
+
+  border: 5px solid #fff !important;
+  border-radius: 999px !important;
+
+  color: #fff !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7c3aed,
+      #ec4899,
+      #f97316
+    ) !important;
+
+  box-shadow:
+    0 6px 0 #5b21b6,
+    0 10px 18px rgba(91,33,182,.23) !important;
+
+  font-size: 17px !important;
+  font-weight: 1000 !important;
+  letter-spacing: 3px !important;
+
+  animation:
+    week10SuperstarBadge
+    .8s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-heading h1 {
+  margin: 9px 0 2px !important;
+
+  color: #312e81 !important;
+
+  font-size: 42px !important;
+  font-weight: 1000 !important;
+
+  text-shadow:
+    0 3px #fff,
+    0 6px #c4b5fd !important;
+
+  animation:
+    week10SuperstarTitle
+    1.1s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-heading p {
+  margin: 5px 0 12px !important;
+
+  color: #6d28d9 !important;
+
+  font-size: 21px !important;
+  font-weight: 1000 !important;
+}
+
+/* Main three-card area */
+
+.lesson-screen-week10-review
+.week10-review-mission {
+  position: relative !important;
+  z-index: 4 !important;
+
+  grid-template-columns:
+    minmax(225px,1fr)
+    58px
+    minmax(225px,1fr)
+    58px
+    minmax(225px,1fr) !important;
+
+  width: min(1130px,97%) !important;
+
+  gap: 8px !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-panel {
+  height: 292px !important;
+
+  padding: 14px 10px 10px !important;
+
+  border: 7px solid #fff !important;
+  border-radius: 34px !important;
+
+  box-shadow:
+    0 10px 0 rgba(30,64,175,.18),
+    0 17px 28px rgba(15,23,42,.16) !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-panel-one {
+  background:
+    linear-gradient(
+      145deg,
+      #dbeafe,
+      #93c5fd
+    ) !important;
+
+  animation:
+    week10CardOneFloat
+    1.7s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-panel-two {
+  background:
+    linear-gradient(
+      145deg,
+      #fef9c3,
+      #fde68a
+    ) !important;
+
+  animation:
+    week10CardTwoFloat
+    1.9s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-panel-three {
+  background:
+    linear-gradient(
+      145deg,
+      #dcfce7,
+      #86efac
+    ) !important;
+
+  animation:
+    week10CardThreeFloat
+    1.6s ease-in-out infinite alternate !important;
+}
+
+/* Bouncing numbered circles */
+
+.lesson-screen-week10-review
+.week10-review-number {
+  width: 58px !important;
+  height: 58px !important;
+
+  border-width: 5px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #8b5cf6,
+      #6d28d9
+    ) !important;
+
+  font-size: 31px !important;
+
+  animation:
+    week10NumberBounce
+    .8s ease-in-out infinite alternate !important;
+}
+
+/* Big labels */
+
+.lesson-screen-week10-review
+.week10-review-panel > strong {
+  padding: 7px 18px !important;
+
+  border: 4px solid #fff !important;
+
+  color: #fff !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      #1e3a8a,
+      #4338ca
+    ) !important;
+
+  box-shadow: 0 4px 0 #172554 !important;
+
+  font-size: 21px !important;
+}
+
+/* =========================================================
+   CARD 1 - Animated right-click mouse + hand
+   ========================================================= */
+
+.lesson-screen-week10-review
+.week10-review-mouse {
+  width: 128px !important;
+  height: 177px !important;
+
+  margin: 16px auto 7px !important;
+
+  border: 8px solid #334155 !important;
+
+  box-shadow:
+    0 8px 0 #94a3b8,
+    0 0 26px rgba(255,255,255,.85) !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-right-button {
+  background: #ef4444 !important;
+
+  animation:
+    week10BigRightButton
+    .65s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-right-glow {
+  border-color: #fde047 !important;
+
+  box-shadow:
+    0 0 15px #fff,
+    0 0 32px #fde047,
+    0 0 48px #facc15 !important;
+
+  animation:
+    week10BigRightGlow
+    .65s ease-in-out infinite alternate !important;
+}
+
+/* Full approved-style hand */
+
+.lesson-screen-week10-review
+.week10-review-hand {
+  position: absolute !important;
+  z-index: 15 !important;
+
+  top: 2px !important;
+  right: -10px !important;
+
+  width: 154px !important;
+  height: 211px !important;
+
+  transform: scale(.62) !important;
+  transform-origin: top right !important;
+
+  pointer-events: none !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand-palm {
+  position: absolute !important;
+  z-index: 2 !important;
+
+  right: 28px !important;
+  bottom: -2px !important;
+
+  width: 124px !important;
+  height: 118px !important;
+
+  border: 5px solid #b45309 !important;
+
+  border-radius:
+    48% 48% 42% 42% !important;
+
+  background: #fbbf24 !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand-finger {
+  position: absolute !important;
+  z-index: 5 !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 20px !important;
+
+  background: #fbbf24 !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand .finger-one {
+  top: 7px !important;
+  left: 31px !important;
+
+  width: 31px !important;
+  height: 121px !important;
+
+  transform: rotate(-3deg) !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand .finger-two {
+  top: 5px !important;
+  left: 91px !important;
+
+  width: 32px !important;
+  height: 123px !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10RightFingerPress
+    1.1s ease-in-out infinite !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand .finger-three {
+  top: 63px !important;
+  left: 118px !important;
+
+  width: 28px !important;
+  height: 78px !important;
+
+  transform: rotate(18deg) !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand .finger-four {
+  top: 91px !important;
+  left: 137px !important;
+
+  width: 24px !important;
+  height: 57px !important;
+
+  transform: rotate(23deg) !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-hand-thumb {
+  display: block !important;
+
+  position: absolute !important;
+  z-index: 4 !important;
+
+  top: 108px !important;
+  left: 21px !important;
+
+  width: 33px !important;
+  height: 64px !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 21px !important;
+
+  background: #fbbf24 !important;
+
+  transform: rotate(-48deg) !important;
+
+  transform-origin: center bottom !important;
+}
+
+/* =========================================================
+   CARD 2 - Popping picture menu
+   ========================================================= */
+
+.lesson-screen-week10-review
+.week10-review-menu-demo {
+  width: 186px !important;
+
+  margin: 36px auto 32px !important;
+  padding: 13px !important;
+
+  border: 6px solid #334155 !important;
+
+  border-radius: 22px !important;
+
+  box-shadow:
+    0 9px 0 #94a3b8,
+    0 0 22px #fff !important;
+
+  animation:
+    week10MenuWiggle
+    1.1s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-menu-demo button {
+  height: 72px !important;
+
+  border: 4px solid #fff !important;
+  border-radius: 15px !important;
+
+  font-size: 41px !important;
+
+  box-shadow: 0 4px 0 #93c5fd !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-menu-demo button:nth-child(1) {
+  background: #fef3c7 !important;
+
+  animation:
+    week10ChoicePop
+    .8s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-menu-demo button:nth-child(2) {
+  background: #fce7f3 !important;
+
+  animation:
+    week10ChoicePop
+    .8s .16s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-menu-demo button:nth-child(3) {
+  background: #dcfce7 !important;
+
+  animation:
+    week10ChoicePop
+    .8s .32s ease-in-out infinite alternate !important;
+}
+
+/* =========================================================
+   CARD 3 - Animated choice
+   ========================================================= */
+
+.lesson-screen-week10-review
+.week10-review-choice-demo {
+  margin-top: 14px !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-choice-demo > span {
+  animation:
+    week10StarBounce
+    .85s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-pointer {
+  animation:
+    week10HappyPointer
+    1.25s ease-in-out infinite !important;
+}
+
+/* arrows */
+
+.lesson-screen-week10-review
+.week10-review-arrow {
+  color: #7c3aed !important;
+
+  font-size: 59px !important;
+
+  text-shadow:
+    0 3px #fff,
+    0 6px #c4b5fd !important;
+
+  animation:
+    week10ArrowDance
+    .65s ease-in-out infinite alternate !important;
+}
+
+/* labels */
+
+.lesson-screen-week10-review
+.week10-review-small-label {
+  padding: 5px 14px !important;
+
+  border: 4px solid #fff !important;
+
+  background: #fff !important;
+
+  box-shadow: 0 4px 0 rgba(30,64,175,.17) !important;
+
+  font-size: 14px !important;
+  font-weight: 1000 !important;
+}
+
+/* Superstar bottom banner */
+
+.lesson-screen-week10-review
+.week10-review-ready {
+  position: relative !important;
+  z-index: 6 !important;
+
+  width: min(780px,91%) !important;
+  min-height: 67px !important;
+
+  margin: 15px auto 0 !important;
+
+  border: 6px solid #fff !important;
+
+  color: #312e81 !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7dd3fc,
+      #fde047,
+      #86efac,
+      #f9a8d4,
+      #c4b5fd
+    ) !important;
+
+  box-shadow:
+    0 8px 0 rgba(76,29,149,.25),
+    0 14px 25px rgba(15,23,42,.16) !important;
+
+  font-size: 21px !important;
+
+  animation:
+    week10ReadyGlow
+    .9s ease-in-out infinite alternate !important;
+}
+
+.lesson-screen-week10-review
+.week10-review-ready span {
+  font-size: 39px !important;
+
+  animation:
+    week10RocketLaunch
+    .7s ease-in-out infinite alternate !important;
+}
+
+/* =========================================================
+   Animations
+   ========================================================= */
+
+@keyframes week10SuperstarFloatLeft {
+  from {
+    transform: translateY(0) rotate(-5deg);
+  }
+  to {
+    transform: translateY(15px) rotate(6deg);
+  }
+}
+
+@keyframes week10SuperstarFloatRight {
+  from {
+    transform: translateY(11px) rotate(5deg);
+  }
+  to {
+    transform: translateY(-3px) rotate(-6deg);
+  }
+}
+
+@keyframes week10SuperstarBadge {
+  from {
+    transform: scale(.96) rotate(-1deg);
+  }
+  to {
+    transform: scale(1.05) rotate(1deg);
+  }
+}
+
+@keyframes week10SuperstarTitle {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  to {
+    transform: translateY(-4px) scale(1.025);
+  }
+}
+
+@keyframes week10CardOneFloat {
+  from {
+    transform: translateY(3px) rotate(-.5deg);
+  }
+  to {
+    transform: translateY(-5px) rotate(.5deg);
+  }
+}
+
+@keyframes week10CardTwoFloat {
+  from {
+    transform: translateY(-3px) rotate(.5deg);
+  }
+  to {
+    transform: translateY(5px) rotate(-.5deg);
+  }
+}
+
+@keyframes week10CardThreeFloat {
+  from {
+    transform: translateY(4px) rotate(.5deg);
+  }
+  to {
+    transform: translateY(-5px) rotate(-.5deg);
+  }
+}
+
+@keyframes week10NumberBounce {
+  from {
+    transform: translateY(0) scale(.95);
+  }
+  to {
+    transform: translateY(-7px) scale(1.08);
+  }
+}
+
+@keyframes week10BigRightButton {
+  from {
+    filter: brightness(1);
+  }
+  to {
+    filter: brightness(1.3);
+    box-shadow:
+      inset 0 0 0 6px #fff,
+      0 0 28px #ef4444;
+  }
+}
+
+@keyframes week10BigRightGlow {
+  from {
+    transform: scale(.9);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes week10RightFingerPress {
+  0%,
+  28%,
+  68%,
+  100% {
+    transform: translateY(0);
+  }
+
+  39%,
+  55% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes week10MenuWiggle {
+  from {
+    transform: rotate(-2deg) scale(.97);
+  }
+  to {
+    transform: rotate(2deg) scale(1.03);
+  }
+}
+
+@keyframes week10ChoicePop {
+  from {
+    transform: translateY(3px) scale(.94);
+  }
+  to {
+    transform: translateY(-7px) scale(1.08);
+  }
+}
+
+@keyframes week10StarBounce {
+  from {
+    transform: translateY(3px) scale(.96) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-7px) scale(1.07) rotate(3deg);
+  }
+}
+
+@keyframes week10HappyPointer {
+  0%,
+  30%,
+  70%,
+  100% {
+    transform:
+      translate(0,0)
+      rotate(-45deg)
+      scale(1);
+  }
+
+  43%,
+  57% {
+    transform:
+      translate(-25px,-28px)
+      rotate(-45deg)
+      scale(.86);
+  }
+}
+
+@keyframes week10ArrowDance {
+  from {
+    transform: translateX(-6px) scale(.93);
+  }
+  to {
+    transform: translateX(8px) scale(1.09);
+  }
+}
+
+@keyframes week10ReadyGlow {
+  from {
+    transform: scale(.985);
+  }
+  to {
+    transform: scale(1.015);
+  }
+}
+
+@keyframes week10RocketLaunch {
+  from {
+    transform: translateY(6px) rotate(-5deg);
+  }
+  to {
+    transform: translateY(-7px) rotate(5deg);
+  }
+}
+
+/* Teacher presentation fit */
+
+.week10-review-teacher
+.week10-review-heading h1 {
+  font-size: 34px !important;
+}
+
+.week10-review-teacher
+.week10-review-heading p {
+  margin-bottom: 7px !important;
+  font-size: 16px !important;
+}
+
+.week10-review-teacher
+.week10-review-panel {
+  height: 255px !important;
+}
+
+.week10-review-teacher
+.week10-review-mouse {
+  margin-top: 8px !important;
+
+  transform: scale(.76) !important;
+  transform-origin: top center !important;
+}
+
+.week10-review-teacher
+.week10-review-menu-demo {
+  margin-top: 23px !important;
+
+  transform: scale(.82) !important;
+}
+
+.week10-review-teacher
+.week10-review-choice-demo {
+  transform: scale(.82) !important;
+}
+
+.week10-review-teacher
+.week10-review-ready {
+  min-height: 52px !important;
+  margin-top: 7px !important;
+
+  font-size: 17px !important;
+}
+
+
+/* =========================================================
+   WEEK 10 STEP 1 - CLEAR RIGHT-CLICK STORY
+   ========================================================= */
+
+.lesson-screen-week10-review.week10-story-screen {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-height: 555px !important;
+  padding: 8px 20px 15px !important;
+  overflow: hidden !important;
+
+  background:
+    radial-gradient(circle at 9% 12%, rgba(96,165,250,.48), transparent 25%),
+    radial-gradient(circle at 91% 15%, rgba(244,114,182,.38), transparent 25%),
+    radial-gradient(circle at 13% 90%, rgba(74,222,128,.40), transparent 26%),
+    radial-gradient(circle at 88% 88%, rgba(250,204,21,.46), transparent 27%),
+    linear-gradient(135deg,#dbeafe,#f5d0fe,#fef3c7,#dcfce7) !important;
+}
+
+.week10-story-screen::before {
+  position: absolute;
+  top: 78px;
+  left: 28px;
+  content: "⭐ ✨ 🎉";
+  font-size: 34px;
+  letter-spacing: 13px;
+  animation: week10StoryFloatOne 1.9s ease-in-out infinite alternate;
+}
+
+.week10-story-screen::after {
+  position: absolute;
+  top: 80px;
+  right: 28px;
+  content: "🚀 ✨ ⭐";
+  font-size: 34px;
+  letter-spacing: 13px;
+  animation: week10StoryFloatTwo 2.1s ease-in-out infinite alternate;
+}
+
+.week10-story-heading {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.week10-story-heading > span {
+  display: inline-block;
+  padding: 5px 26px;
+  border: 5px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(90deg,#7c3aed,#ec4899,#f97316);
+  box-shadow: 0 5px 0 #5b21b6;
+  font-size: 16px;
+  font-weight: 1000;
+  letter-spacing: 3px;
+  animation: week10StoryBadge .8s ease-in-out infinite alternate;
+}
+
+.week10-story-heading h1 {
+  margin: 8px 0 2px;
+  color: #312e81;
+  font-size: 39px;
+  line-height: 1;
+  font-weight: 1000;
+  text-shadow: 0 3px #fff, 0 6px #c4b5fd;
+}
+
+.week10-story-heading p {
+  margin: 5px 0 10px;
+  color: #6d28d9;
+  font-size: 19px;
+  font-weight: 1000;
+}
+
+/* =========================================================
+   COMPUTER SCREEN
+   ========================================================= */
+
+.week10-story-computer {
+  position: relative;
+  z-index: 4;
+  width: min(830px, 83%);
+  height: 245px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 8px solid #334155;
+  border-radius: 27px;
+  background: #fff;
+  box-shadow:
+    0 10px 0 #94a3b8,
+    0 17px 28px rgba(15,23,42,.2);
+}
+
+.week10-story-screen-top {
+  display: flex;
+  height: 39px;
+  padding: 0 13px;
+  align-items: center;
+  gap: 7px;
+  color: #fff;
+  background: #334155;
+}
+
+.week10-story-screen-top span {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #f87171;
+}
+
+.week10-story-screen-top span:nth-child(2) {
+  background: #fde047;
+}
+
+.week10-story-screen-top span:nth-child(3) {
+  background: #4ade80;
+}
+
+.week10-story-screen-top strong {
+  margin-left: 12px;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+.week10-story-desktop {
+  position: relative;
+  height: 206px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.9),transparent 21%),
+    linear-gradient(145deg,#bae6fd,#c4b5fd);
+}
+
+/* OBJECT */
+
+.week10-story-object-area {
+  position: absolute;
+  top: 16px;
+  left: 115px;
+  width: 230px;
+  height: 178px;
+}
+
+.week10-story-object-label {
+  display: inline-block;
+  padding: 5px 14px;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: #2563eb;
+  box-shadow: 0 4px 0 #1e40af;
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+.week10-story-present {
+  position: absolute;
+  top: 47px;
+  left: 54px;
+  font-size: 103px;
+  line-height: 1;
+  filter: drop-shadow(0 8px 0 rgba(154,52,18,.18));
+  animation: week10StoryPresent 1.2s ease-in-out infinite alternate;
+}
+
+.week10-story-object-cursor {
+  position: absolute;
+  z-index: 12;
+  top: 121px;
+  left: 150px;
+  color: #111827;
+  font-size: 63px;
+  line-height: 1;
+  text-shadow: 2px 2px #fff;
+  transform: rotate(-44deg);
+  animation: week10StoryObjectCursor 4.8s ease-in-out infinite;
+}
+
+.week10-story-object-ring {
+  position: absolute;
+  z-index: 9;
+  top: 68px;
+  left: 65px;
+  width: 92px;
+  height: 92px;
+  border: 8px solid #fde047;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 18px #fff, 0 0 36px #facc15;
+  animation: week10StoryObjectRing 4.8s ease-out infinite;
+}
+
+/* POP-UP MENU */
+
+.week10-story-popup {
+  position: absolute;
+  z-index: 20;
+  top: 34px;
+  right: 77px;
+  display: grid;
+  width: 250px;
+  padding: 12px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 9px;
+  border: 7px solid #334155;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 10px 0 #94a3b8, 0 15px 28px rgba(15,23,42,.25);
+
+  transform-origin: left center;
+  animation: week10StoryMenuAppear 4.8s ease-in-out infinite;
+}
+
+.week10-story-popup::before {
+  position: absolute;
+  top: 68px;
+  left: -27px;
+  width: 0;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-right: 28px solid #334155;
+  border-bottom: 18px solid transparent;
+  content: "";
+}
+
+.week10-story-popup-title {
+  grid-column: 1 / -1;
+  color: #7c3aed;
+  font-size: 18px;
+  font-weight: 1000;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.week10-story-choice {
+  display: grid;
+  height: 75px;
+  padding: 0;
+  place-items: center;
+  border: 4px solid #bfdbfe;
+  border-radius: 15px;
+  background: #eff6ff;
+  font-size: 43px;
+}
+
+.week10-story-choice:first-of-type {
+  background: #fef3c7;
+  animation: week10StoryChosen 4.8s ease-in-out infinite;
+}
+
+.week10-story-choice:nth-of-type(2) {
+  background: #fce7f3;
+}
+
+.week10-story-choice:nth-of-type(3) {
+  background: #dcfce7;
+}
+
+.week10-story-choice-cursor {
+  position: absolute;
+  z-index: 30;
+  right: -7px;
+  bottom: -18px;
+  color: #111827;
+  font-size: 61px;
+  line-height: 1;
+  text-shadow: 2px 2px #fff;
+  transform: rotate(-44deg);
+  animation: week10StoryChoiceCursor 4.8s ease-in-out infinite;
+}
+
+.week10-story-result {
+  position: absolute;
+  z-index: 40;
+  top: 48px;
+  left: 278px;
+  font-size: 96px;
+  filter: drop-shadow(0 0 16px #fff);
+  animation: week10StoryResult 4.8s ease-out infinite;
+}
+
+/* =========================================================
+   MOUSE / RIGHT BUTTON
+   ========================================================= */
+
+.week10-story-mouse-row {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  width: min(960px,92%);
+  height: 119px;
+  margin: 12px auto 0;
+  align-items: center;
+  justify-content: center;
+  gap: 23px;
+}
+
+.week10-story-mouse-message,
+.week10-story-menu-message {
+  display: flex;
+  min-width: 225px;
+  min-height: 61px;
+  padding: 7px 15px;
+  align-items: center;
+  gap: 11px;
+  border: 5px solid #fff;
+  border-radius: 23px;
+  color: #172554;
+  background: #fff;
+  box-shadow: 0 6px 0 rgba(30,64,175,.18);
+}
+
+.week10-story-mouse-message b,
+.week10-story-menu-message b {
+  display: grid;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #7c3aed;
+  font-size: 24px;
+}
+
+.week10-story-mouse-message strong,
+.week10-story-menu-message strong {
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+/* clear mouse */
+
+.week10-story-mouse {
+  position: relative;
+  flex: 0 0 auto;
+  width: 95px;
+  height: 117px;
+  border: 7px solid #334155;
+  border-radius: 51px;
+  background: #fff;
+  box-shadow: 0 7px 0 #94a3b8;
+}
+
+.week10-story-mouse::after {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  left: 0;
+  height: 6px;
+  background: #334155;
+  content: "";
+}
+
+.week10-story-mouse-left,
+.week10-story-mouse-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 53px;
+}
+
+.week10-story-mouse-left {
+  left: 0;
+  border-radius: 43px 0 0 0;
+}
+
+.week10-story-mouse-right {
+  right: 0;
+  border-radius: 0 43px 0 0;
+  background: #ef4444;
+  box-shadow: inset 0 0 0 5px #fecaca;
+  animation: week10StoryRightGlow .65s ease-in-out infinite alternate;
+}
+
+.week10-story-wheel {
+  position: absolute;
+  z-index: 8;
+  top: 10px;
+  left: 39px;
+  width: 13px;
+  height: 29px;
+  border: 4px solid #334155;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+/* approved full hand, scaled onto mouse */
+
+.week10-story-hand {
+  position: absolute;
+  z-index: 15;
+  top: -3px;
+  right: -26px;
+  width: 154px;
+  height: 211px;
+  transform: scale(.48);
+  transform-origin: top right;
+  pointer-events: none;
+}
+
+.week10-story-hand-palm {
+  position: absolute;
+  z-index: 2;
+  right: 28px;
+  bottom: -2px;
+  width: 124px;
+  height: 118px;
+  border: 5px solid #b45309;
+  border-radius: 48% 48% 42% 42%;
+  background: #fbbf24;
+}
+
+.week10-story-hand > i {
+  position: absolute;
+  z-index: 5;
+  border: 5px solid #b45309;
+  border-radius: 20px;
+  background: #fbbf24;
+}
+
+.week10-story-hand .finger-one {
+  top: 7px;
+  left: 31px;
+  width: 31px;
+  height: 121px;
+  transform: rotate(-3deg);
+}
+
+.week10-story-hand .finger-two {
+  top: 5px;
+  left: 91px;
+  width: 32px;
+  height: 123px;
+  transform-origin: center bottom;
+  animation: week10StoryFingerPress 1.15s ease-in-out infinite;
+}
+
+.week10-story-hand .finger-three {
+  top: 63px;
+  left: 118px;
+  width: 28px;
+  height: 78px;
+  transform: rotate(18deg);
+}
+
+.week10-story-hand .finger-four {
+  top: 91px;
+  left: 137px;
+  width: 24px;
+  height: 57px;
+  transform: rotate(23deg);
+}
+
+.week10-story-hand > span {
+  position: absolute;
+  z-index: 4;
+  top: 108px;
+  left: 21px;
+  width: 33px;
+  height: 64px;
+  border: 5px solid #b45309;
+  border-radius: 21px;
+  background: #fbbf24;
+  transform: rotate(-48deg);
+}
+
+.week10-story-big-arrow {
+  color: #7c3aed;
+  font-size: 54px;
+  font-weight: 1000;
+  text-shadow: 0 3px #fff;
+  animation: week10StoryArrow .65s ease-in-out infinite alternate;
+}
+
+/* =========================================================
+   THE ACTUAL MEANING OF RIGHT CLICK
+   ========================================================= */
+
+.week10-story-rule {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  width: min(1090px,97%);
+  min-height: 64px;
+  margin: 9px auto 0;
+  padding: 6px 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  border: 6px solid #fff;
+  border-radius: 26px;
+  background: linear-gradient(90deg,#dbeafe,#fef3c7,#dcfce7,#fce7f3);
+  box-shadow: 0 7px 0 rgba(76,29,149,.17);
+}
+
+.week10-story-rule > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.week10-story-rule div > b {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #7c3aed;
+  font-size: 19px;
+}
+
+.week10-story-rule div > span {
+  font-size: 27px;
+}
+
+.week10-story-rule div > strong {
+  color: #172554;
+  font-size: 14px;
+  font-weight: 1000;
+}
+
+.week10-story-rule > i {
+  color: #7c3aed;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 1000;
+  animation: week10StoryArrow .65s ease-in-out infinite alternate;
+}
+
+/* =========================================================
+   ANIMATION STORY
+   ========================================================= */
+
+@keyframes week10StoryMenuAppear {
+  0%,25% {
+    opacity: 0;
+    transform: translateX(-70px) scale(.25);
+  }
+
+  33%,82% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  92%,100% {
+    opacity: 0;
+    transform: translateX(-30px) scale(.65);
+  }
+}
+
+@keyframes week10StoryObjectCursor {
+  0%,22%,100% {
+    transform: translate(0,0) rotate(-44deg) scale(1);
+  }
+
+  26%,31% {
+    transform: translate(-8px,-8px) rotate(-44deg) scale(.86);
+  }
+
+  36%,88% {
+    transform: translate(0,0) rotate(-44deg) scale(1);
+  }
+}
+
+@keyframes week10StoryObjectRing {
+  0%,22% {
+    opacity: 0;
+    transform: scale(.65);
+  }
+
+  27% {
+    opacity: 1;
+  }
+
+  39%,100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes week10StoryChoiceCursor {
+  0%,43% {
+    opacity: 0;
+    transform: translate(0,0) rotate(-44deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(0,0) rotate(-44deg);
+  }
+
+  65%,74% {
+    opacity: 1;
+    transform: translate(-158px,-43px) rotate(-44deg);
+  }
+
+  78%,100% {
+    opacity: 0;
+    transform: translate(-158px,-43px) rotate(-44deg);
+  }
+}
+
+@keyframes week10StoryChosen {
+  0%,58% {
+    transform: scale(1);
+  }
+
+  66%,74% {
+    transform: scale(1.15);
+    border-color: #22c55e;
+    box-shadow: 0 0 22px #22c55e;
+  }
+
+  82%,100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes week10StoryResult {
+  0%,69% {
+    opacity: 0;
+    transform: scale(.2) rotate(-25deg);
+  }
+
+  77%,88% {
+    opacity: 1;
+    transform: scale(1.2) rotate(8deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(.8);
+  }
+}
+
+@keyframes week10StoryFingerPress {
+  0%,28%,66%,100% {
+    transform: translateY(0);
+  }
+
+  39%,55% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes week10StoryRightGlow {
+  from {
+    filter: brightness(1);
+  }
+
+  to {
+    filter: brightness(1.35);
+    box-shadow:
+      inset 0 0 0 5px #fff,
+      0 0 28px #ef4444;
+  }
+}
+
+@keyframes week10StoryPresent {
+  from {
+    transform: translateY(4px) rotate(-2deg);
+  }
+
+  to {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+
+@keyframes week10StoryArrow {
+  from {
+    transform: translateX(-5px) scale(.94);
+  }
+
+  to {
+    transform: translateX(7px) scale(1.08);
+  }
+}
+
+@keyframes week10StoryFloatOne {
+  from {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  to {
+    transform: translateY(12px) rotate(5deg);
+  }
+}
+
+@keyframes week10StoryFloatTwo {
+  from {
+    transform: translateY(9px) rotate(5deg);
+  }
+
+  to {
+    transform: translateY(-4px) rotate(-5deg);
+  }
+}
+
+@keyframes week10StoryBadge {
+  from {
+    transform: scale(.96);
+  }
+
+  to {
+    transform: scale(1.05);
+  }
+}
+
+/* teacher presentation fit */
+
+.week10-story-teacher .week10-story-heading h1 {
+  font-size: 32px;
+}
+
+.week10-story-teacher .week10-story-heading p {
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.week10-story-teacher .week10-story-computer {
+  height: 210px;
+}
+
+.week10-story-teacher .week10-story-desktop {
+  height: 171px;
+}
+
+.week10-story-teacher .week10-story-object-area,
+.week10-story-teacher .week10-story-popup {
+  transform: scale(.82);
+  transform-origin: top center;
+}
+
+.week10-story-teacher .week10-story-mouse-row {
+  height: 93px;
+  margin-top: 6px;
+  transform: scale(.88);
+}
+
+.week10-story-teacher .week10-story-rule {
+  min-height: 52px;
+  margin-top: 3px;
+  transform: scale(.91);
+}
+
+
+/* =========================================================
+   Week 10 Step 1 - tighten right-click demonstration
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. Put the cursor directly onto the gift
+   --------------------------------------------------------- */
+
+.lesson-screen-week10-review
+.week10-story-object-cursor {
+  top: 103px !important;
+  left: 123px !important;
+
+  font-size: 62px !important;
+  animation:
+    week10StoryObjectCursorAligned
+    4.8s ease-in-out infinite !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-object-ring {
+  top: 62px !important;
+  left: 68px !important;
+
+  width: 96px !important;
+  height: 96px !important;
+}
+
+
+/* ---------------------------------------------------------
+   2. Bring the choice menu right beside the gift
+   --------------------------------------------------------- */
+
+.lesson-screen-week10-review
+.week10-story-popup {
+  top: 28px !important;
+
+  right: auto !important;
+  left: 365px !important;
+
+  width: 250px !important;
+
+  transform-origin: left center !important;
+
+  animation:
+    week10StoryMenuAppearClose
+    4.8s ease-in-out infinite !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-popup::before {
+  top: 72px !important;
+  left: -26px !important;
+}
+
+
+/* ---------------------------------------------------------
+   3. Make the mouse larger and use Week 9 approved hand fit
+   --------------------------------------------------------- */
+
+.lesson-screen-week10-review
+.week10-story-mouse-row {
+  height: 135px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-mouse {
+  width: 128px !important;
+  height: 164px !important;
+
+  border: 8px solid #334155 !important;
+  border-radius: 67px !important;
+
+  background: #fff !important;
+
+  box-shadow:
+    0 8px 0 #94a3b8,
+    0 0 18px rgba(255,255,255,.8) !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-mouse::after {
+  top: 68px !important;
+  height: 7px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-mouse-left,
+.lesson-screen-week10-review
+.week10-story-mouse-right {
+  height: 75px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-mouse-left {
+  border-radius: 58px 0 0 0 !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-mouse-right {
+  border-radius: 0 58px 0 0 !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-wheel {
+  top: 16px !important;
+  left: 53px !important;
+
+  width: 17px !important;
+  height: 39px !important;
+
+  border-width: 5px !important;
+}
+
+
+/* exact Week 9-style hand proportions */
+
+.lesson-screen-week10-review
+.week10-story-hand {
+  top: -8px !important;
+  right: -10px !important;
+
+  width: 154px !important;
+  height: 211px !important;
+
+  transform: scale(.72) !important;
+  transform-origin: top right !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-hand-palm {
+  right: 28px !important;
+  bottom: -2px !important;
+
+  width: 124px !important;
+  height: 118px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-one {
+  top: 7px !important;
+  left: 31px !important;
+
+  width: 31px !important;
+  height: 121px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-two {
+  top: 5px !important;
+  left: 91px !important;
+
+  width: 32px !important;
+  height: 123px !important;
+
+  animation:
+    week10StoryRightFingerPressAligned
+    1.15s ease-in-out infinite !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-three {
+  top: 63px !important;
+  left: 118px !important;
+
+  width: 28px !important;
+  height: 78px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-four {
+  top: 91px !important;
+  left: 137px !important;
+
+  width: 24px !important;
+  height: 57px !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-hand > span {
+  top: 108px !important;
+  left: 21px !important;
+
+  width: 33px !important;
+  height: 64px !important;
+}
+
+
+/* ---------------------------------------------------------
+   Updated animations
+   --------------------------------------------------------- */
+
+@keyframes week10StoryObjectCursorAligned {
+  0%,
+  22%,
+  100% {
+    transform:
+      translate(0,0)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  27%,
+  31% {
+    transform:
+      translate(-8px,-8px)
+      rotate(-44deg)
+      scale(.86);
+  }
+
+  36%,
+  88% {
+    transform:
+      translate(0,0)
+      rotate(-44deg)
+      scale(1);
+  }
+}
+
+@keyframes week10StoryMenuAppearClose {
+  0%,
+  25% {
+    opacity: 0;
+
+    transform:
+      translateX(-45px)
+      scale(.25);
+  }
+
+  33%,
+  82% {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      scale(1);
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translateX(-22px)
+      scale(.65);
+  }
+}
+
+@keyframes week10StoryRightFingerPressAligned {
+  0%,
+  28%,
+  68%,
+  100% {
+    transform: translateY(0);
+  }
+
+  39%,
+  55% {
+    transform: translateY(9px);
+  }
+}
+
+
+/* =========================================================
+   Week 10 Step 1 - final hand + single moving cursor story
+   ========================================================= */
+
+
+/* =========================================================
+   CLEANER HAND
+   ========================================================= */
+
+.lesson-screen-week10-review
+.week10-story-hand {
+  top: -7px !important;
+  right: -7px !important;
+
+  width: 154px !important;
+  height: 211px !important;
+
+  transform: scale(.72) !important;
+  transform-origin: top right !important;
+}
+
+/* Larger connected palm */
+
+.lesson-screen-week10-review
+.week10-story-hand-palm {
+  right: 22px !important;
+  bottom: -1px !important;
+
+  width: 130px !important;
+  height: 121px !important;
+
+  border-radius: 48% 48% 43% 43% !important;
+}
+
+/* INDEX - left side of wheel */
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-one {
+  top: 8px !important;
+  left: 34px !important;
+
+  width: 31px !important;
+  height: 119px !important;
+
+  transform: rotate(-2deg) !important;
+}
+
+/* MIDDLE - right button */
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-two {
+  top: 7px !important;
+  left: 88px !important;
+
+  width: 32px !important;
+  height: 120px !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10StorySingleRightPress
+    4.8s ease-in-out infinite !important;
+}
+
+/* Ring finger */
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-three {
+  top: 69px !important;
+  left: 116px !important;
+
+  width: 28px !important;
+  height: 70px !important;
+
+  transform: rotate(19deg) !important;
+}
+
+/* Pinky */
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-four {
+  top: 94px !important;
+  left: 134px !important;
+
+  width: 24px !important;
+  height: 52px !important;
+
+  transform: rotate(24deg) !important;
+}
+
+/* Thumb - pull it directly into palm */
+
+.lesson-screen-week10-review
+.week10-story-hand > span {
+  top: 116px !important;
+  left: 23px !important;
+
+  width: 34px !important;
+  height: 58px !important;
+
+  border-radius: 21px !important;
+
+  transform: rotate(-47deg) !important;
+}
+
+
+/* =========================================================
+   USE ONE CURSOR FOR THE ENTIRE DEMONSTRATION
+   ========================================================= */
+
+/* Hide the second cursor that used to live in the menu */
+
+.lesson-screen-week10-review
+.week10-story-choice-cursor {
+  display: none !important;
+}
+
+
+/* Start the main cursor BELOW the gift.
+   It will rise up, right-click, then travel to the menu. */
+
+.lesson-screen-week10-review
+.week10-story-object-cursor {
+  z-index: 80 !important;
+
+  top: 103px !important;
+  left: 123px !important;
+
+  font-size: 64px !important;
+
+  animation:
+    week10StoryOneCursor
+    4.8s ease-in-out infinite !important;
+}
+
+
+/* =========================================================
+   SYNCHRONIZE MENU WITH THE RIGHT CLICK
+   ========================================================= */
+
+.lesson-screen-week10-review
+.week10-story-popup {
+  animation:
+    week10StoryMenuSynced
+    4.8s ease-in-out infinite !important;
+}
+
+
+/* Highlight the star when the cursor gets there */
+
+.lesson-screen-week10-review
+.week10-story-choice:first-of-type {
+  animation:
+    week10StoryStarSelected
+    4.8s ease-in-out infinite !important;
+}
+
+
+/* Result appears only after the cursor selects the star */
+
+.lesson-screen-week10-review
+.week10-story-result {
+  animation:
+    week10StoryResultSynced
+    4.8s ease-out infinite !important;
+}
+
+
+/* =========================================================
+   ONE COMPLETE VISUAL STORY
+   ========================================================= */
+
+@keyframes week10StoryOneCursor {
+
+  /* Cursor begins below the present */
+  0%,
+  6% {
+    opacity: 1;
+
+    transform:
+      translate(-18px, 67px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Move UP and point directly at present */
+  20%,
+  29% {
+    opacity: 1;
+
+    transform:
+      translate(0, 0)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* RIGHT-CLICK */
+  33%,
+  37% {
+    transform:
+      translate(-4px, -4px)
+      rotate(-44deg)
+      scale(.82);
+  }
+
+  /* Release and menu appears */
+  40%,
+  49% {
+    transform:
+      translate(0, 0)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Travel from gift over to STAR in menu */
+  63%,
+  71% {
+    opacity: 1;
+
+    transform:
+      translate(252px, -8px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* LEFT-CLICK the star */
+  74%,
+  78% {
+    transform:
+      translate(248px, -12px)
+      rotate(-44deg)
+      scale(.82);
+  }
+
+  /* Hold briefly */
+  82%,
+  90% {
+    opacity: 1;
+
+    transform:
+      translate(252px, -8px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* disappear before restarting */
+  96%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(252px, -8px)
+      rotate(-44deg)
+      scale(1);
+  }
+}
+
+
+/* Middle finger presses ONLY when cursor right-clicks gift */
+
+@keyframes week10StorySingleRightPress {
+
+  0%,
+  29%,
+  41%,
+  100% {
+    transform: translateY(0);
+  }
+
+  33%,
+  37% {
+    transform: translateY(10px);
+  }
+}
+
+
+/* Menu grows directly out beside gift AFTER right click */
+
+@keyframes week10StoryMenuSynced {
+
+  0%,
+  34% {
+    opacity: 0;
+
+    transform:
+      translateX(-45px)
+      scale(.2);
+  }
+
+  41%,
+  89% {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      scale(1);
+  }
+
+  96%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translateX(-20px)
+      scale(.65);
+  }
+}
+
+
+/* Star glows as pointer reaches it */
+
+@keyframes week10StoryStarSelected {
+
+  0%,
+  69% {
+    transform: scale(1);
+
+    border-color: #bfdbfe;
+
+    box-shadow: none;
+  }
+
+  73% {
+    transform: scale(1.08);
+
+    border-color: #22c55e;
+
+    box-shadow:
+      0 0 18px #4ade80;
+  }
+
+  77%,
+  84% {
+    transform: scale(.94);
+
+    border-color: #16a34a;
+
+    box-shadow:
+      0 0 27px #22c55e;
+  }
+
+  90%,
+  100% {
+    transform: scale(1);
+
+    border-color: #bfdbfe;
+
+    box-shadow: none;
+  }
+}
+
+
+/* Star result pops only after the LEFT-click */
+
+@keyframes week10StoryResultSynced {
+
+  0%,
+  78% {
+    opacity: 0;
+
+    transform:
+      scale(.2)
+      rotate(-25deg);
+  }
+
+  83%,
+  91% {
+    opacity: 1;
+
+    transform:
+      scale(1.15)
+      rotate(7deg);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(.75);
+  }
+}
+
+
+/* =========================================================
+   Week 10 Step 1 - thumb + obvious cursor journey
+   ========================================================= */
+
+/* Move thumb upward so it connects naturally to the palm */
+
+.lesson-screen-week10-review
+.week10-story-hand > span {
+  top: 98px !important;
+  left: 25px !important;
+
+  width: 34px !important;
+  height: 60px !important;
+
+  transform: rotate(-47deg) !important;
+}
+
+
+/* Make the cursor movement VERY obvious */
+
+.lesson-screen-week10-review
+.week10-story-object-cursor {
+  top: 115px !important;
+  left: 145px !important;
+
+  z-index: 100 !important;
+
+  animation:
+    week10StoryCursorJourney
+    5.2s ease-in-out infinite !important;
+}
+
+
+/* Cursor:
+   1. starts low
+   2. moves onto gift
+   3. presses
+   4. travels to menu
+   5. presses choice
+*/
+
+@keyframes week10StoryCursorJourney {
+
+  0%,
+  7% {
+    opacity: 1;
+
+    transform:
+      translate(28px, 55px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  22%,
+  31% {
+    opacity: 1;
+
+    transform:
+      translate(-17px, -5px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  34%,
+  38% {
+    opacity: 1;
+
+    transform:
+      translate(-21px, -9px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  42%,
+  52% {
+    opacity: 1;
+
+    transform:
+      translate(-17px, -5px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  66%,
+  73% {
+    opacity: 1;
+
+    transform:
+      translate(245px, -8px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  76%,
+  80% {
+    opacity: 1;
+
+    transform:
+      translate(241px, -12px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  84%,
+  92% {
+    opacity: 1;
+
+    transform:
+      translate(245px, -8px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  97%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(245px, -8px)
+      rotate(-44deg)
+      scale(1);
+  }
+}
+
+
+/* Keep the hand's right-click press synchronized
+   with the cursor touching the present */
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-two {
+  animation:
+    week10StoryFingerJourneyPress
+    5.2s ease-in-out infinite !important;
+}
+
+@keyframes week10StoryFingerJourneyPress {
+
+  0%,
+  31%,
+  42%,
+  100% {
+    transform: translateY(0);
+  }
+
+  34%,
+  38% {
+    transform: translateY(10px);
+  }
+}
+
+
+/* =========================================================
+   Week 10 Step 1 - FIX moving cursor and thumb
+   ========================================================= */
+
+/* Pull thumb much farther out from the palm */
+
+.lesson-screen-week10-review
+.week10-story-hand > span {
+  top: 101px !important;
+  left: -9px !important;
+
+  width: 39px !important;
+  height: 69px !important;
+
+  border-radius: 22px !important;
+
+  transform: rotate(-50deg) !important;
+}
+
+
+/* Cursor must be free to animate its transform */
+
+.lesson-screen-week10-review
+.week10-story-object-cursor {
+  top: 115px !important;
+  left: 145px !important;
+
+  z-index: 100 !important;
+
+  animation:
+    week10StoryCursorActuallyMoves
+    5.4s ease-in-out infinite !important;
+
+  animation-play-state: running !important;
+
+  will-change: transform;
+}
+
+
+/* ONE ARROW:
+   comes up to gift
+   presses gift
+   moves to first menu choice
+   presses choice
+*/
+
+@keyframes week10StoryCursorActuallyMoves {
+
+  /* Start down below/right of the gift */
+  0%,
+  6% {
+    opacity: 1;
+
+    transform:
+      translate(38px, 62px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Clearly travel UP onto the gift */
+  22%,
+  30% {
+    opacity: 1;
+
+    transform:
+      translate(-28px, -14px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Press on gift */
+  33%,
+  38% {
+    opacity: 1;
+
+    transform:
+      translate(-32px, -18px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  /* Release */
+  42%,
+  51% {
+    opacity: 1;
+
+    transform:
+      translate(-28px, -14px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Travel over to STAR in popup menu */
+  66%,
+  74% {
+    opacity: 1;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Left-click star */
+  77%,
+  81% {
+    opacity: 1;
+
+    transform:
+      translate(146px, -47px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  /* Release */
+  85%,
+  92% {
+    opacity: 1;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Hide before restarting */
+  97%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+}
+
+
+/* Keep right-button finger synchronized with gift click */
+
+.lesson-screen-week10-review
+.week10-story-hand .finger-two {
+  animation:
+    week10StoryFingerPressFixed
+    5.4s ease-in-out infinite !important;
+}
+
+@keyframes week10StoryFingerPressFixed {
+
+  0%,
+  30%,
+  42%,
+  100% {
+    transform: translateY(0);
+  }
+
+  33%,
+  38% {
+    transform: translateY(10px);
+  }
+}
+
+
+/* =========================================================
+   Week 10 Step 1 - cursor target + popup layering fix
+   ========================================================= */
+
+/* Keep the animated cursor above EVERYTHING in the computer scene */
+
+.lesson-screen-week10-review
+.week10-story-object-area {
+  z-index: 60 !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-popup {
+  z-index: 40 !important;
+}
+
+.lesson-screen-week10-review
+.week10-story-object-cursor {
+  position: absolute !important;
+  z-index: 9999 !important;
+
+  animation:
+    week10StoryCursorFinalPath
+    5.4s ease-in-out infinite !important;
+}
+
+
+/* Updated path:
+   - hits higher on the present
+   - remains visibly ON TOP of popup
+   - moves onto the star choice
+*/
+
+@keyframes week10StoryCursorFinalPath {
+
+  /* Start below the present */
+  0%,
+  6% {
+    opacity: 1;
+
+    transform:
+      translate(38px, 62px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Move UP into the yellow target circle */
+  22%,
+  30% {
+    opacity: 1;
+
+    transform:
+      translate(-28px, -30px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Press the present */
+  33%,
+  38% {
+    opacity: 1;
+
+    transform:
+      translate(-32px, -34px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  /* Release */
+  42%,
+  51% {
+    opacity: 1;
+
+    transform:
+      translate(-28px, -30px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Travel visibly ACROSS the popup to the star */
+  66%,
+  74% {
+    opacity: 1;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* Left-click the star */
+  77%,
+  81% {
+    opacity: 1;
+
+    transform:
+      translate(146px, -47px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  /* Release */
+  85%,
+  92% {
+    opacity: 1;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  97%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+}
+
+
+/* Week 10 Step 1 - move gift cursor closer to center */
+
+.lesson-screen-week10-review
+.week10-story-object-cursor {
+  animation:
+    week10StoryCursorCenteredGift
+    5.4s ease-in-out infinite !important;
+}
+
+@keyframes week10StoryCursorCenteredGift {
+
+  0%,
+  6% {
+    opacity: 1;
+
+    transform:
+      translate(38px, 62px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  /* center the arrow more over the gift */
+  22%,
+  30% {
+    opacity: 1;
+
+    transform:
+      translate(-42px, -30px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  33%,
+  38% {
+    opacity: 1;
+
+    transform:
+      translate(-46px, -34px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  42%,
+  51% {
+    opacity: 1;
+
+    transform:
+      translate(-42px, -30px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  66%,
+  74% {
+    opacity: 1;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  77%,
+  81% {
+    opacity: 1;
+
+    transform:
+      translate(146px, -47px)
+      rotate(-44deg)
+      scale(.78);
+  }
+
+  85%,
+  92% {
+    opacity: 1;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+
+  97%,
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(150px, -43px)
+      rotate(-44deg)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   WEEK 10 STEP 2 - MAGIC POTION LAB
+   ========================================================= */
+
+.lesson-screen-week10-potion {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 555px;
+  padding: 8px 22px 15px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 13% 18%,rgba(168,85,247,.45),transparent 27%),
+    radial-gradient(circle at 88% 78%,rgba(34,211,238,.38),transparent 27%),
+    linear-gradient(145deg,#312e81,#581c87 55%,#164e63);
+
+  color: #fff;
+}
+
+.week10-potion-heading {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.week10-potion-heading > span {
+  display: inline-block;
+  padding: 5px 25px;
+  border: 5px solid #fff;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#7c3aed,#ec4899);
+  box-shadow: 0 5px 0 #4c1d95;
+  font-size: 16px;
+  font-weight: 1000;
+  letter-spacing: 3px;
+}
+
+.week10-potion-heading h1 {
+  margin: 8px 0 12px;
+  color: #fef08a;
+  font-size: 40px;
+  line-height: 1;
+  text-shadow: 0 4px #581c87;
+}
+
+.week10-potion-lab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 240px minmax(390px,1fr) 220px;
+  width: min(1040px,96%);
+  height: 365px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 24px;
+  border: 7px solid #fff;
+  border-radius: 35px;
+  background:
+    linear-gradient(180deg,#312e81 0 72%,#78350f 72% 77%,#92400e 77%);
+  box-shadow:
+    0 12px 0 rgba(15,23,42,.5),
+    0 20px 35px rgba(0,0,0,.3);
+}
+
+/* recipe book */
+
+.week10-potion-recipe {
+  display: grid;
+  width: 200px;
+  min-height: 275px;
+  margin-left: 20px;
+  padding: 15px 12px;
+  place-items: center;
+  border: 7px solid #92400e;
+  border-radius: 24px;
+  color: #172554;
+  background: #fef3c7;
+  box-shadow:
+    0 9px 0 #78350f,
+    0 0 25px #fde68a;
+  transform: rotate(-2deg);
+}
+
+.week10-potion-recipe-title {
+  padding: 5px 14px;
+  border-radius: 999px;
+  color: #fff;
+  background: #7c3aed;
+  font-size: 17px;
+  font-weight: 1000;
+}
+
+.week10-potion-recipe-word {
+  font-size: 17px;
+  font-weight: 1000;
+}
+
+.week10-potion-target {
+  font-size: 88px;
+  line-height: 1;
+  filter: drop-shadow(0 5px 0 rgba(0,0,0,.16));
+  animation: week10PotionTarget 800ms ease-in-out infinite alternate;
+}
+
+.week10-potion-recipe-arrow {
+  color: #7c3aed;
+  font-size: 37px;
+  font-weight: 1000;
+  animation: week10PotionArrow 650ms ease-in-out infinite alternate;
+}
+
+.week10-potion-recipe strong {
+  text-align: center;
+  font-size: 17px;
+}
+
+/* center */
+
+.week10-potion-center {
+  position: relative;
+  height: 345px;
+}
+
+.week10-potion-progress {
+  display: flex;
+  height: 47px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.week10-potion-progress span {
+  color: #fde047;
+  font-size: 38px;
+  line-height: 1;
+  text-shadow: 0 3px #92400e;
+}
+
+.week10-potion-star-earned {
+  animation: week10PotionStarEarned .55s ease-out;
+}
+
+.week10-potion-right-clue {
+  position: absolute;
+  z-index: 10;
+  top: 42px;
+  left: 50%;
+  padding: 6px 20px;
+  border: 5px solid #fff;
+  border-radius: 999px;
+  color: #312e81;
+  background: #fde047;
+  box-shadow: 0 5px 0 #ca8a04;
+  font-size: 16px;
+  font-weight: 1000;
+  transform: translateX(-50%);
+  animation: week10PotionClue 750ms ease-in-out infinite alternate;
+}
+
+/* cauldron */
+
+.week10-potion-cauldron {
+  position: absolute;
+  z-index: 8;
+  bottom: 12px;
+  left: 50%;
+  width: 270px;
+  height: 230px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+.week10-potion-pot {
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  left: 28px;
+  width: 214px;
+  height: 137px;
+  border: 8px solid #111827;
+  border-radius: 35% 35% 48% 48%;
+  background: linear-gradient(#334155,#111827);
+  box-shadow:
+    inset 0 -15px 0 rgba(0,0,0,.25),
+    0 12px 0 rgba(0,0,0,.3);
+}
+
+.week10-potion-pot::before,
+.week10-potion-pot::after {
+  position: absolute;
+  top: 30px;
+  width: 43px;
+  height: 54px;
+  border: 8px solid #111827;
+  border-radius: 50%;
+  content: "";
+}
+
+.week10-potion-pot::before {
+  left: -39px;
+}
+
+.week10-potion-pot::after {
+  right: -39px;
+}
+
+.week10-potion-brew {
+  position: absolute;
+  z-index: 7;
+  bottom: 111px;
+  left: 40px;
+  width: 190px;
+  height: 47px;
+  border: 7px solid #111827;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow:
+    inset 0 -10px 0 #22c55e,
+    0 0 27px #86efac;
+  animation: week10PotionBrew 850ms ease-in-out infinite alternate;
+}
+
+.week10-potion-cauldron > strong {
+  position: absolute;
+  z-index: 12;
+  bottom: 35px;
+  left: 104px;
+  font-size: 57px;
+  animation: week10PotionMagic 900ms ease-in-out infinite alternate;
+}
+
+/* bubbles */
+
+.week10-potion-bubble {
+  position: absolute;
+  z-index: 15;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #86efac;
+  box-shadow: 0 0 13px #4ade80;
+}
+
+.bubble-one {
+  top: 79px;
+  left: 83px;
+  width: 25px;
+  height: 25px;
+  animation: week10PotionBubble 1.5s linear infinite;
+}
+
+.bubble-two {
+  top: 64px;
+  left: 139px;
+  width: 18px;
+  height: 18px;
+  animation: week10PotionBubble 1.2s .3s linear infinite;
+}
+
+.bubble-three {
+  top: 91px;
+  left: 177px;
+  width: 30px;
+  height: 30px;
+  animation: week10PotionBubble 1.7s .15s linear infinite;
+}
+
+/* steam */
+
+.week10-potion-steam {
+  position: absolute;
+  z-index: 6;
+  top: 32px;
+  color: #c4b5fd;
+  font-size: 65px;
+  font-weight: 1000;
+  opacity: .75;
+}
+
+.steam-one {
+  left: 62px;
+  animation: week10PotionSteam 1.7s ease-in-out infinite;
+}
+
+.steam-two {
+  right: 61px;
+  animation: week10PotionSteam 1.7s .5s ease-in-out infinite;
+}
+
+/* picture choice popup */
+
+.week10-potion-menu {
+  position: absolute;
+  z-index: 50;
+  top: 74px;
+  left: 50%;
+  display: grid;
+  width: 360px;
+  padding: 12px;
+  grid-template-columns: repeat(4,1fr);
+  gap: 9px;
+  border: 7px solid #312e81;
+  border-radius: 25px;
+  background: #fff;
+  box-shadow:
+    0 10px 0 #1e1b4b,
+    0 0 35px #c4b5fd;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  animation: week10PotionMenuOpen .28s ease-out;
+}
+
+.week10-potion-menu[hidden] {
+  display: none;
+}
+
+.week10-potion-menu::after {
+  position: absolute;
+  bottom: -27px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-top: 28px solid #312e81;
+  border-right: 25px solid transparent;
+  border-left: 25px solid transparent;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.week10-potion-menu button {
+  display: grid;
+  height: 80px;
+  padding: 0;
+  place-items: center;
+  border: 5px solid #ddd6fe;
+  border-radius: 18px;
+  background: #faf5ff;
+  box-shadow: 0 5px 0 #c4b5fd;
+  font-size: 48px;
+  cursor: pointer;
+}
+
+.week10-potion-menu button:hover {
+  border-color: #7c3aed;
+  transform: scale(1.07);
+}
+
+.week10-potion-choice-wrong {
+  animation: week10PotionWrongChoice .35s ease-out 2 !important;
+}
+
+/* ingredient drops into cauldron */
+
+.week10-potion-ingredient-burst {
+  position: absolute;
+  z-index: 70;
+  top: 100px;
+  left: 50%;
+  font-size: 78px;
+  filter: drop-shadow(0 0 15px #fff);
+  transform: translateX(-50%);
+}
+
+.week10-potion-ingredient-burst[hidden] {
+  display: none;
+}
+
+.week10-potion-burst-go {
+  animation: week10PotionIngredientDrop .75s ease-in forwards;
+}
+
+.week10-potion-success {
+  animation: week10PotionCauldronSuccess .7s ease-out;
+}
+
+/* magic shelf */
+
+.week10-potion-shelf {
+  position: relative;
+  width: 190px;
+  height: 275px;
+  margin-right: 18px;
+  border: 6px solid #92400e;
+  border-radius: 24px;
+  background: linear-gradient(#4c1d95,#312e81);
+  box-shadow: 0 9px 0 #78350f;
+}
+
+.week10-potion-shelf-title {
+  margin: 13px auto;
+  width: fit-content;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #ec4899;
+  font-size: 15px;
+  font-weight: 1000;
+}
+
+.week10-potion-bottles {
+  display: grid;
+  padding: 16px;
+  grid-template-columns: repeat(2,1fr);
+  gap: 13px;
+  font-size: 49px;
+  text-align: center;
+}
+
+.week10-potion-bottles span {
+  animation: week10PotionBottle 1.2s ease-in-out infinite alternate;
+}
+
+.week10-potion-bottles span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.week10-potion-bottles span:nth-child(3) {
+  animation-delay: .4s;
+}
+
+.week10-potion-bottles span:nth-child(4) {
+  animation-delay: .6s;
+}
+
+.week10-potion-shelf-board {
+  position: absolute;
+  top: 139px;
+  right: -8px;
+  left: -8px;
+  height: 12px;
+  background: #92400e;
+}
+
+.week10-potion-sparkles {
+  position: absolute;
+  right: 0;
+  bottom: 13px;
+  left: 0;
+  color: #fde047;
+  font-size: 25px;
+  text-align: center;
+  animation: week10PotionSparkles 650ms ease-in-out infinite alternate;
+}
+
+/* status */
+
+.week10-potion-status {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  width: min(660px,88%);
+  min-height: 63px;
+  margin: 13px auto 0;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 6px solid #fff;
+  border-radius: 999px;
+  color: #172554;
+  background: #dbeafe;
+  box-shadow: 0 8px 0 rgba(15,23,42,.25);
+}
+
+.week10-potion-status span {
+  font-size: 31px;
+}
+
+.week10-potion-status strong {
+  font-size: 21px;
+  font-weight: 1000;
+}
+
+.week10-potion-status-warning {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.week10-potion-status-choose {
+  background: #fef9c3;
+  color: #713f12;
+}
+
+.week10-potion-status-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* completion */
+
+.week10-potion-complete {
+  position: absolute;
+  inset: 0;
+  z-index: 150;
+  display: grid;
+  place-items: center;
+  background: rgba(30,27,75,.82);
+}
+
+.week10-potion-complete[hidden] {
+  display: none;
+}
+
+.week10-potion-complete > div {
+  display: grid;
+  min-width: min(590px,84vw);
+  padding: 31px 45px;
+  gap: 12px;
+  place-items: center;
+  border: 8px solid #fff;
+  border-radius: 38px;
+  color: #312e81;
+  background: linear-gradient(145deg,#fef9c3,#e9d5ff,#cffafe);
+  box-shadow:
+    0 12px 0 #4c1d95,
+    0 0 60px #fde047;
+  animation: week10PotionComplete .42s ease-out;
+}
+
+.week10-potion-complete span {
+  font-size: 65px;
+}
+
+.week10-potion-complete strong {
+  font-size: 52px;
+  font-weight: 1000;
+}
+
+.week10-potion-complete b {
+  padding: 7px 22px;
+  border-radius: 999px;
+  color: #fff;
+  background: #7c3aed;
+  font-size: 21px;
+}
+
+/* animations */
+
+@keyframes week10PotionTarget {
+  from { transform: scale(.94) rotate(-3deg); }
+  to { transform: scale(1.08) rotate(3deg); }
+}
+
+@keyframes week10PotionArrow {
+  from { transform: translateX(-5px); }
+  to { transform: translateX(8px); }
+}
+
+@keyframes week10PotionClue {
+  from { transform: translateX(-50%) scale(.96); }
+  to { transform: translateX(-50%) scale(1.05); }
+}
+
+@keyframes week10PotionBrew {
+  from { filter: brightness(1); transform: scaleX(.96); }
+  to { filter: brightness(1.3); transform: scaleX(1.03); }
+}
+
+@keyframes week10PotionMagic {
+  from { transform: rotate(-8deg) scale(.9); }
+  to { transform: rotate(8deg) scale(1.08); }
+}
+
+@keyframes week10PotionBubble {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(.6);
+  }
+  35% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translateY(-63px) scale(1.2);
+  }
+}
+
+@keyframes week10PotionSteam {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(.8);
+  }
+  45% { opacity: .8; }
+  100% {
+    opacity: 0;
+    transform: translateY(-32px) scale(1.15);
+  }
+}
+
+@keyframes week10PotionBottle {
+  from { transform: translateY(3px) rotate(-4deg); }
+  to { transform: translateY(-6px) rotate(4deg); }
+}
+
+@keyframes week10PotionSparkles {
+  from { transform: scale(.9); opacity: .7; }
+  to { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes week10PotionMenuOpen {
+  from {
+    opacity: 0;
+    transform: translate(-50%,90px) scale(.25);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%,0) scale(1);
+  }
+}
+
+@keyframes week10PotionWrongChoice {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-5px); }
+}
+
+@keyframes week10PotionIngredientDrop {
+  0% {
+    opacity: 1;
+    transform: translate(-50%,-75px) scale(1.25) rotate(-12deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translate(-50%,73px) scale(.85) rotate(12deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%,100px) scale(.35);
+  }
+}
+
+@keyframes week10PotionCauldronSuccess {
+  0%,100% { transform: translateX(-50%) scale(1); }
+  35% { transform: translateX(-50%) scale(1.08) rotate(-3deg); }
+  65% { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+}
+
+@keyframes week10PotionStarEarned {
+  from { transform: scale(.2) rotate(-25deg); }
+  to { transform: scale(1) rotate(0); }
+}
+
+@keyframes week10PotionComplete {
+  from {
+    opacity: 0;
+    transform: scale(.55) rotate(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.week10-potion-wrong .week10-potion-cauldron {
+  animation: week10PotionWrongChoice .35s ease-out 2;
+}
+
+/* teacher view */
+
+.week10-potion-teacher {
+  min-height: 470px;
+  padding-top: 4px;
+}
+
+.week10-potion-teacher .week10-potion-heading h1 {
+  margin: 5px 0 7px;
+  font-size: 31px;
+}
+
+.week10-potion-teacher .week10-potion-lab {
+  height: 310px;
+  transform: scale(.88);
+  transform-origin: top center;
+}
+
+.week10-potion-teacher .week10-potion-status {
+  min-height: 51px;
+  margin-top: -24px;
+}
+
+
+/* =========================================================
+   Week 10 Potion Lab - BIG kindergarten left-click warning
+   ========================================================= */
+
+.week10-potion-left-click-reminder {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  background: rgba(15, 23, 42, .78) !important;
+
+  pointer-events: none !important;
+}
+
+.week10-potion-left-click-box {
+  display: grid !important;
+
+  width: min(820px, 88vw) !important;
+  min-height: 250px !important;
+
+  padding: 24px 35px !important;
+
+  grid-template-columns: 150px 1fr 120px !important;
+  align-items: center !important;
+  gap: 28px !important;
+
+  border: 10px solid #fff !important;
+  border-radius: 42px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fee2e2,
+      #fef9c3,
+      #dcfce7
+    ) !important;
+
+  box-shadow:
+    0 14px 0 #991b1b,
+    0 0 0 10px #ef4444,
+    0 0 70px #fde047 !important;
+
+  animation:
+    week10PotionBigReminderPop
+    .28s ease-out !important;
+}
+
+
+/* Giant center message */
+
+.week10-potion-left-click-box
+> div:nth-child(2) {
+  display: grid !important;
+  gap: 8px !important;
+
+  text-align: center !important;
+}
+
+.week10-potion-left-click-box
+> div:nth-child(2)
+> strong {
+  color: #dc2626 !important;
+
+  font-size: 42px !important;
+  line-height: 1 !important;
+
+  font-weight: 1000 !important;
+  letter-spacing: 3px !important;
+
+  text-shadow:
+    0 3px #fff,
+    0 6px #fecaca !important;
+
+  animation:
+    week10PotionRememberPulse
+    .55s ease-in-out infinite alternate !important;
+}
+
+.week10-potion-left-click-box
+> div:nth-child(2)
+> span {
+  display: block !important;
+
+  padding: 10px 18px !important;
+
+  border: 6px solid #fff !important;
+  border-radius: 22px !important;
+
+  color: #fff !important;
+
+  background: #dc2626 !important;
+
+  box-shadow:
+    0 6px 0 #991b1b !important;
+
+  font-size: 37px !important;
+  line-height: 1.05 !important;
+
+  font-weight: 1000 !important;
+}
+
+
+/* Much larger mouse */
+
+.week10-potion-left-click-mouse {
+  width: 125px !important;
+  height: 155px !important;
+
+  border: 9px solid #334155 !important;
+  border-radius: 68px !important;
+
+  background: #fff !important;
+
+  box-shadow:
+    0 9px 0 #94a3b8,
+    0 0 30px #fff !important;
+}
+
+.week10-potion-left-click-mouse::after {
+  top: 66px !important;
+
+  height: 8px !important;
+}
+
+.week10-potion-left-click-mouse i,
+.week10-potion-left-click-mouse b {
+  height: 73px !important;
+}
+
+.week10-potion-left-click-mouse i {
+  border-radius: 57px 0 0 0 !important;
+
+  background: #22c55e !important;
+
+  box-shadow:
+    inset 0 0 0 7px #bbf7d0,
+    0 0 35px #22c55e !important;
+
+  animation:
+    week10PotionHugeLeftGlow
+    .45s ease-in-out infinite alternate !important;
+}
+
+.week10-potion-left-click-mouse b {
+  border-radius: 0 57px 0 0 !important;
+}
+
+.week10-potion-left-click-mouse span {
+  top: 14px !important;
+  left: 50px !important;
+
+  width: 17px !important;
+  height: 42px !important;
+
+  border-width: 5px !important;
+}
+
+
+/* Giant pointing finger */
+
+.week10-potion-left-click-finger {
+  font-size: 92px !important;
+
+  filter:
+    drop-shadow(0 6px 0 rgba(0,0,0,.15)) !important;
+
+  animation:
+    week10PotionHugeFinger
+    .45s ease-in-out infinite alternate !important;
+}
+
+
+/* animations */
+
+@keyframes week10PotionBigReminderPop {
+  from {
+    opacity: 0;
+    transform: scale(.45) rotate(-3deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes week10PotionRememberPulse {
+  from {
+    transform: scale(.95);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes week10PotionHugeLeftGlow {
+  from {
+    filter: brightness(1);
+    transform: translateY(0);
+  }
+
+  to {
+    filter: brightness(1.35);
+    transform: translateY(7px);
+
+    box-shadow:
+      inset 0 0 0 7px #fff,
+      0 0 45px #22c55e !important;
+  }
+}
+
+@keyframes week10PotionHugeFinger {
+  from {
+    transform: translateY(9px) scale(.93);
+  }
+
+  to {
+    transform: translateY(-9px) scale(1.12);
+  }
+}
+
+
+/* =========================================================
+   Potion Lab warning - hand LEFT-clicking mouse
+   ========================================================= */
+
+.week10-potion-left-click-mouse {
+  overflow: visible !important;
+}
+
+.week10-potion-left-click-hand {
+  position: absolute !important;
+  z-index: 20 !important;
+
+  top: -13px !important;
+  right: -40px !important;
+
+  width: 154px !important;
+  height: 211px !important;
+
+  transform: scale(.67) !important;
+  transform-origin: top right !important;
+
+  pointer-events: none !important;
+}
+
+.week10-potion-left-hand-palm {
+  position: absolute !important;
+  z-index: 2 !important;
+
+  right: 24px !important;
+  bottom: -2px !important;
+
+  width: 128px !important;
+  height: 120px !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 48% 48% 42% 42% !important;
+
+  background: #fbbf24 !important;
+}
+
+.week10-potion-left-hand-finger {
+  position: absolute !important;
+  z-index: 5 !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 20px !important;
+
+  background: #fbbf24 !important;
+}
+
+/* INDEX finger sits on LEFT mouse button and presses */
+
+.week10-potion-left-click-hand .finger-one {
+  top: 8px !important;
+  left: 31px !important;
+
+  width: 31px !important;
+  height: 120px !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10PotionLeftFingerPress
+    .9s ease-in-out infinite !important;
+}
+
+/* Middle finger rests near wheel/right side */
+
+.week10-potion-left-click-hand .finger-two {
+  top: 8px !important;
+  left: 86px !important;
+
+  width: 31px !important;
+  height: 120px !important;
+
+  transform: none !important;
+}
+
+/* Ring finger */
+
+.week10-potion-left-click-hand .finger-three {
+  top: 66px !important;
+  left: 116px !important;
+
+  width: 28px !important;
+  height: 72px !important;
+
+  transform: rotate(18deg) !important;
+}
+
+/* Pinky */
+
+.week10-potion-left-click-hand .finger-four {
+  top: 93px !important;
+  left: 136px !important;
+
+  width: 24px !important;
+  height: 54px !important;
+
+  transform: rotate(24deg) !important;
+}
+
+/* Thumb */
+
+.week10-potion-left-hand-thumb {
+  position: absolute !important;
+  z-index: 4 !important;
+
+  top: 101px !important;
+  left: -3px !important;
+
+  width: 38px !important;
+  height: 67px !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 22px !important;
+
+  background: #fbbf24 !important;
+
+  transform: rotate(-50deg) !important;
+}
+
+/* Make LEFT button visibly press with the index finger */
+
+.week10-potion-left-click-mouse i {
+  transform-origin: center bottom !important;
+
+  animation:
+    week10PotionLeftMouseButtonPress
+    .9s ease-in-out infinite !important;
+}
+
+@keyframes week10PotionLeftFingerPress {
+  0%,
+  28%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40%,
+  57% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes week10PotionLeftMouseButtonPress {
+  0%,
+  28%,
+  70%,
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+
+  40%,
+  57% {
+    transform: translateY(6px);
+    filter: brightness(1.25);
+  }
+}
+
+
+/* =========================================================
+   Potion Lab LEFT-CLICK warning - isolate mouse from hand
+   Fixes missing hand + stray top-right shapes
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   MOUSE BODY
+   Only style the THREE direct mouse pieces.
+   Do not touch anything inside the hand.
+   --------------------------------------------------------- */
+
+.week10-potion-left-click-mouse {
+  position: relative !important;
+
+  width: 125px !important;
+  height: 155px !important;
+
+  overflow: visible !important;
+
+  border: 9px solid #334155 !important;
+  border-radius: 68px !important;
+
+  background: #fff !important;
+
+  box-shadow:
+    0 9px 0 #94a3b8,
+    0 0 30px #fff !important;
+}
+
+.week10-potion-left-click-mouse::after {
+  position: absolute !important;
+
+  top: 66px !important;
+  right: 0 !important;
+  left: 0 !important;
+
+  width: auto !important;
+  height: 8px !important;
+
+  background: #334155 !important;
+
+  content: "" !important;
+}
+
+
+/* LEFT BUTTON */
+
+.week10-potion-left-click-mouse > i {
+  position: absolute !important;
+
+  top: 0 !important;
+  left: 0 !important;
+
+  width: 50% !important;
+  height: 73px !important;
+
+  border: 0 !important;
+  border-radius: 57px 0 0 0 !important;
+
+  background: #22c55e !important;
+
+  box-shadow:
+    inset 0 0 0 7px #bbf7d0,
+    0 0 35px #22c55e !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10PotionLeftButtonCleanPress
+    .95s ease-in-out infinite !important;
+}
+
+
+/* RIGHT BUTTON */
+
+.week10-potion-left-click-mouse > b {
+  position: absolute !important;
+
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+
+  width: 50% !important;
+  height: 73px !important;
+
+  border: 0 !important;
+  border-radius: 0 57px 0 0 !important;
+
+  background: #fff !important;
+
+  box-shadow: none !important;
+
+  transform: none !important;
+  animation: none !important;
+}
+
+
+/* SCROLL WHEEL */
+
+.week10-potion-left-click-mouse > span {
+  position: absolute !important;
+  z-index: 8 !important;
+
+  top: 14px !important;
+  left: 50px !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  width: 17px !important;
+  height: 42px !important;
+
+  border: 5px solid #334155 !important;
+  border-radius: 999px !important;
+
+  background: #94a3b8 !important;
+
+  box-shadow: none !important;
+
+  transform: none !important;
+  animation: none !important;
+}
+
+
+/* =========================================================
+   CLEAN FIVE-FINGER HAND
+   ========================================================= */
+
+.week10-potion-left-click-hand {
+  position: absolute !important;
+  z-index: 30 !important;
+
+  top: -18px !important;
+  right: -27px !important;
+
+  width: 154px !important;
+  height: 211px !important;
+
+  transform: scale(.72) !important;
+  transform-origin: top right !important;
+
+  pointer-events: none !important;
+}
+
+
+/* PALM */
+
+.week10-potion-left-click-hand
+.week10-potion-left-hand-palm {
+  position: absolute !important;
+  z-index: 2 !important;
+
+  top: auto !important;
+  right: 25px !important;
+  bottom: -2px !important;
+  left: auto !important;
+
+  width: 128px !important;
+  height: 120px !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 48% 48% 42% 42% !important;
+
+  background: #fbbf24 !important;
+
+  box-shadow: none !important;
+
+  transform: none !important;
+  animation: none !important;
+}
+
+
+/* ALL FINGERS */
+
+.week10-potion-left-click-hand
+.week10-potion-left-hand-finger {
+  position: absolute !important;
+  z-index: 5 !important;
+
+  right: auto !important;
+  bottom: auto !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 20px !important;
+
+  background: #fbbf24 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* INDEX - presses LEFT mouse button */
+
+.week10-potion-left-click-hand
+.finger-one {
+  top: 7px !important;
+  left: 29px !important;
+
+  width: 31px !important;
+  height: 121px !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10PotionCleanLeftFingerPress
+    .95s ease-in-out infinite !important;
+}
+
+
+/* MIDDLE */
+
+.week10-potion-left-click-hand
+.finger-two {
+  top: 7px !important;
+  left: 82px !important;
+
+  width: 31px !important;
+  height: 120px !important;
+
+  transform: rotate(1deg) !important;
+
+  animation: none !important;
+}
+
+
+/* RING */
+
+.week10-potion-left-click-hand
+.finger-three {
+  top: 67px !important;
+  left: 113px !important;
+
+  width: 28px !important;
+  height: 71px !important;
+
+  transform: rotate(18deg) !important;
+
+  animation: none !important;
+}
+
+
+/* PINKY */
+
+.week10-potion-left-click-hand
+.finger-four {
+  top: 93px !important;
+  left: 133px !important;
+
+  width: 24px !important;
+  height: 54px !important;
+
+  transform: rotate(24deg) !important;
+
+  animation: none !important;
+}
+
+
+/* THUMB */
+
+.week10-potion-left-click-hand
+.week10-potion-left-hand-thumb {
+  position: absolute !important;
+  z-index: 4 !important;
+
+  top: 101px !important;
+  left: -5px !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  width: 39px !important;
+  height: 67px !important;
+
+  border: 5px solid #b45309 !important;
+  border-radius: 22px !important;
+
+  background: #fbbf24 !important;
+
+  box-shadow: none !important;
+
+  transform: rotate(-50deg) !important;
+
+  animation: none !important;
+}
+
+
+/* =========================================================
+   SYNCHRONIZED LEFT CLICK
+   ========================================================= */
+
+@keyframes week10PotionCleanLeftFingerPress {
+  0%,
+  27%,
+  68%,
+  100% {
+    transform: translateY(0);
+  }
+
+  39%,
+  55% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes week10PotionLeftButtonCleanPress {
+  0%,
+  27%,
+  68%,
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+
+  39%,
+  55% {
+    transform: translateY(6px);
+    filter: brightness(1.3);
+
+    box-shadow:
+      inset 0 0 0 7px #fff,
+      0 0 42px #22c55e;
+  }
+}
+
+
+/* =========================================================
+   POTION LAB LEFT-CLICK WARNING V2
+   Isolated from all older warning/mouse/hand CSS
+   ========================================================= */
+
+.week10-potion-click-warning-v2 {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 30000 !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  background: rgba(15,23,42,.82) !important;
+
+  pointer-events: none !important;
+}
+
+.week10-potion-click-warning-card-v2 {
+  display: grid !important;
+
+  width: min(900px,88vw) !important;
+  min-height: 285px !important;
+
+  padding: 26px 42px !important;
+
+  grid-template-columns: 280px 1fr !important;
+  align-items: center !important;
+  gap: 35px !important;
+
+  border: 11px solid #fff !important;
+  border-radius: 45px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fee2e2,
+      #fef9c3 52%,
+      #dcfce7
+    ) !important;
+
+  box-shadow:
+    0 15px 0 #991b1b,
+    0 0 0 11px #ef4444,
+    0 0 75px #fde047 !important;
+
+  animation:
+    week10PotionWarningV2Pop
+    .3s ease-out !important;
+}
+
+
+/* =========================================================
+   MOUSE + HAND DEMONSTRATION
+   ========================================================= */
+
+.week10-potion-demo-v2 {
+  display: grid !important;
+  place-items: center !important;
+  gap: 8px !important;
+}
+
+.week10-potion-demo-v2 > strong {
+  padding: 5px 17px !important;
+
+  border-radius: 999px !important;
+
+  color: #fff !important;
+  background: #16a34a !important;
+
+  font-size: 19px !important;
+  font-weight: 1000 !important;
+}
+
+
+/* Mouse */
+
+.week10-potion-demo-mouse-v2 {
+  position: relative !important;
+
+  width: 155px !important;
+  height: 195px !important;
+
+  overflow: visible !important;
+
+  border: 10px solid #334155 !important;
+  border-radius: 82px !important;
+
+  background: #fff !important;
+
+  box-shadow:
+    0 10px 0 #94a3b8,
+    0 0 30px rgba(255,255,255,.9) !important;
+}
+
+.week10-potion-demo-mouse-v2::after {
+  position: absolute !important;
+
+  top: 82px !important;
+  right: 0 !important;
+  left: 0 !important;
+
+  height: 8px !important;
+
+  background: #334155 !important;
+
+  content: "" !important;
+}
+
+
+/* LEFT mouse button */
+
+.week10-potion-demo-left-v2 {
+  position: absolute !important;
+  z-index: 3 !important;
+
+  top: 0 !important;
+  left: 0 !important;
+
+  width: 50% !important;
+  height: 89px !important;
+
+  border-radius: 70px 0 0 0 !important;
+
+  background: #22c55e !important;
+
+  box-shadow:
+    inset 0 0 0 7px #bbf7d0,
+    0 0 34px #22c55e !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10PotionLeftButtonV2
+    1s ease-in-out infinite !important;
+}
+
+
+/* RIGHT mouse button */
+
+.week10-potion-demo-right-v2 {
+  position: absolute !important;
+  z-index: 2 !important;
+
+  top: 0 !important;
+  right: 0 !important;
+
+  width: 50% !important;
+  height: 89px !important;
+
+  border-radius: 0 70px 0 0 !important;
+
+  background: #fff !important;
+}
+
+
+/* wheel */
+
+.week10-potion-demo-wheel-v2 {
+  position: absolute !important;
+  z-index: 15 !important;
+
+  top: 18px !important;
+  left: 65px !important;
+
+  width: 18px !important;
+  height: 46px !important;
+
+  border: 5px solid #334155 !important;
+  border-radius: 999px !important;
+
+  background: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   HAND
+   ========================================================= */
+
+.week10-potion-demo-hand-v2 {
+  position: absolute !important;
+  z-index: 20 !important;
+
+  top: -12px !important;
+  right: -36px !important;
+
+  width: 188px !important;
+  height: 235px !important;
+
+  pointer-events: none !important;
+}
+
+
+/* palm */
+
+.week10-potion-demo-palm-v2 {
+  position: absolute !important;
+  z-index: 3 !important;
+
+  left: 24px !important;
+  bottom: 5px !important;
+
+  width: 139px !important;
+  height: 132px !important;
+
+  border: 6px solid #b45309 !important;
+  border-radius: 50% 48% 43% 43% !important;
+
+  background: #fbbf24 !important;
+}
+
+
+/* index finger - LEFT CLICK */
+
+.week10-potion-demo-index-v2 {
+  position: absolute !important;
+  z-index: 8 !important;
+
+  top: 3px !important;
+  left: 30px !important;
+
+  width: 34px !important;
+  height: 139px !important;
+
+  border: 6px solid #b45309 !important;
+  border-radius: 22px !important;
+
+  background: #fbbf24 !important;
+
+  transform-origin: center bottom !important;
+
+  animation:
+    week10PotionIndexPressV2
+    1s ease-in-out infinite !important;
+}
+
+
+/* middle */
+
+.week10-potion-demo-middle-v2 {
+  position: absolute !important;
+  z-index: 7 !important;
+
+  top: 5px !important;
+  left: 91px !important;
+
+  width: 35px !important;
+  height: 137px !important;
+
+  border: 6px solid #b45309 !important;
+  border-radius: 22px !important;
+
+  background: #fbbf24 !important;
+}
+
+
+/* ring */
+
+.week10-potion-demo-ring-v2 {
+  position: absolute !important;
+  z-index: 6 !important;
+
+  top: 70px !important;
+  left: 124px !important;
+
+  width: 31px !important;
+  height: 82px !important;
+
+  border: 6px solid #b45309 !important;
+  border-radius: 22px !important;
+
+  background: #fbbf24 !important;
+
+  transform: rotate(18deg) !important;
+}
+
+
+/* pinky */
+
+.week10-potion-demo-pinky-v2 {
+  position: absolute !important;
+  z-index: 5 !important;
+
+  top: 99px !important;
+  left: 149px !important;
+
+  width: 27px !important;
+  height: 61px !important;
+
+  border: 6px solid #b45309 !important;
+  border-radius: 22px !important;
+
+  background: #fbbf24 !important;
+
+  transform: rotate(25deg) !important;
+}
+
+
+/* thumb */
+
+.week10-potion-demo-thumb-v2 {
+  position: absolute !important;
+  z-index: 6 !important;
+
+  top: 119px !important;
+  left: -13px !important;
+
+  width: 42px !important;
+  height: 77px !important;
+
+  border: 6px solid #b45309 !important;
+  border-radius: 24px !important;
+
+  background: #fbbf24 !important;
+
+  transform: rotate(-50deg) !important;
+}
+
+
+/* =========================================================
+   WORDS
+   ========================================================= */
+
+.week10-potion-warning-words-v2 {
+  display: grid !important;
+  gap: 14px !important;
+
+  text-align: center !important;
+}
+
+.week10-potion-warning-words-v2 > strong {
+  color: #dc2626 !important;
+
+  font-size: 49px !important;
+  line-height: 1 !important;
+
+  font-weight: 1000 !important;
+  letter-spacing: 3px !important;
+
+  text-shadow:
+    0 4px #fff,
+    0 8px #fecaca !important;
+
+  animation:
+    week10PotionRememberV2
+    .55s ease-in-out infinite alternate !important;
+}
+
+.week10-potion-warning-words-v2 > span {
+  display: block !important;
+
+  padding: 14px 23px !important;
+
+  border: 7px solid #fff !important;
+  border-radius: 25px !important;
+
+  color: #fff !important;
+
+  background: #dc2626 !important;
+
+  box-shadow:
+    0 8px 0 #991b1b !important;
+
+  font-size: 42px !important;
+  line-height: 1.02 !important;
+
+  font-weight: 1000 !important;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes week10PotionWarningV2Pop {
+  from {
+    opacity: 0;
+    transform: scale(.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes week10PotionRememberV2 {
+  from {
+    transform: scale(.96);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+
+/* Finger presses LEFT mouse button */
+
+@keyframes week10PotionIndexPressV2 {
+  0%,
+  27%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+
+  39%,
+  57% {
+    transform: translateY(11px);
+  }
+}
+
+
+/* Green left button presses at same time */
+
+@keyframes week10PotionLeftButtonV2 {
+  0%,
+  27%,
+  70%,
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+
+  39%,
+  57% {
+    transform: translateY(7px);
+    filter: brightness(1.3);
+
+    box-shadow:
+      inset 0 0 0 7px #fff,
+      0 0 45px #22c55e;
+  }
+}
+

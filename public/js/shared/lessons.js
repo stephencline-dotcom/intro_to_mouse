@@ -410,6 +410,53 @@ const mouseLessons = {
         type: "review"
       }
     ]
+  },
+
+  week10: {
+    id: "week10",
+    title: "Right-Click Adventures",
+    steps: [
+      {
+        id: "week10-right-click-review",
+        title: "Right-Click Review",
+        type: "review"
+      },
+      {
+        id: "week10-potion-lab",
+        title: "Magic Potion Lab",
+        type: "practice"
+      },
+      {
+        id: "week10-space-rover",
+        title: "Space Rover Commands",
+        type: "practice"
+      },
+      {
+        id: "week10-dinosaur-museum",
+        title: "Dinosaur Museum Rescue",
+        type: "practice"
+      },
+      {
+        id: "week10-monster-restaurant",
+        title: "Monster Restaurant",
+        type: "practice"
+      },
+      {
+        id: "week10-haunted-house",
+        title: "Haunted House Helpers",
+        type: "practice"
+      },
+      {
+        id: "week10-final-mission",
+        title: "Final Mouse Mission",
+        type: "challenge"
+      },
+      {
+        id: "week10-wrap-up",
+        title: "Mouse Skills Celebration",
+        type: "review"
+      }
+    ]
   }
 };
 

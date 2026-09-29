@@ -28372,6 +28372,313 @@ const status =
       `;
     }
 
+    if (step.id === "week10-right-click-review") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-review week10-story-screen${isTeacher ? " week10-story-teacher" : ""}">
+
+          <div class="week10-story-heading">
+            <span>WEEK 10 REVIEW</span>
+            <h1>RIGHT-CLICK TO SEE MORE CHOICES!</h1>
+            <p>Watch what happens when we right-click an object.</p>
+          </div>
+
+          <div class="week10-story-computer">
+
+            <div class="week10-story-screen-top">
+              <span></span>
+              <span></span>
+              <span></span>
+              <strong>MY COMPUTER</strong>
+            </div>
+
+            <div class="week10-story-desktop">
+
+              <div class="week10-story-object-area">
+
+                <div class="week10-story-object-label">
+                  POINT TO AN OBJECT
+                </div>
+
+                <div class="week10-story-present">
+                  🎁
+                </div>
+
+                <div class="week10-story-object-cursor">
+                  ➤
+                </div>
+
+                <div class="week10-story-object-ring"></div>
+
+              </div>
+
+              <div class="week10-story-popup">
+
+                <div class="week10-story-popup-title">
+                  CHOICES!
+                </div>
+
+                <button type="button" class="week10-story-choice">
+                  ⭐
+                </button>
+
+                <button type="button" class="week10-story-choice">
+                  🎨
+                </button>
+
+                <button type="button" class="week10-story-choice">
+                  🔑
+                </button>
+
+                <div class="week10-story-choice-cursor">
+                  ➤
+                </div>
+
+              </div>
+
+              <div class="week10-story-result">
+                ⭐
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="week10-story-mouse-row">
+
+            <div class="week10-story-mouse-message">
+              <b>2</b>
+              <strong>PRESS THE RIGHT BUTTON</strong>
+            </div>
+
+            <div class="week10-story-mouse">
+
+              <span class="week10-story-mouse-left"></span>
+              <span class="week10-story-mouse-right"></span>
+              <i class="week10-story-wheel"></i>
+
+              <div class="week10-story-hand">
+                <b class="week10-story-hand-palm"></b>
+                <i class="finger-one"></i>
+                <i class="finger-two"></i>
+                <i class="finger-three"></i>
+                <i class="finger-four"></i>
+                <span></span>
+              </div>
+
+            </div>
+
+            <div class="week10-story-big-arrow">
+              ➜
+            </div>
+
+            <div class="week10-story-menu-message">
+              <b>3</b>
+              <strong>THE MENU OPENS!</strong>
+            </div>
+
+          </div>
+
+          <div class="week10-story-rule">
+
+            <div>
+              <b>1</b>
+              <span>👆</span>
+              <strong>POINT TO AN OBJECT</strong>
+            </div>
+
+            <i>➜</i>
+
+            <div>
+              <b>2</b>
+              <span>🖱️</span>
+              <strong>RIGHT-CLICK</strong>
+            </div>
+
+            <i>➜</i>
+
+            <div>
+              <b>3</b>
+              <span>📋</span>
+              <strong>CHOICES APPEAR</strong>
+            </div>
+
+            <i>➜</i>
+
+            <div>
+              <b>4</b>
+              <span>👆</span>
+              <strong>LEFT-CLICK A CHOICE</strong>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week10-potion-lab") {
+      return `
+        <div id="week10PotionScreen"
+             class="lesson-screen lesson-screen-week10-potion${isTeacher ? " week10-potion-teacher" : ""}">
+
+          <div class="week10-potion-heading">
+            <span>MAGIC POTION LAB</span>
+            <h1>Mix the Magic Potion!</h1>
+          </div>
+
+          <div class="week10-potion-lab">
+
+            <div class="week10-potion-recipe">
+              <div class="week10-potion-recipe-title">
+                📖 RECIPE
+              </div>
+
+              <div class="week10-potion-recipe-word">
+                FIND THIS!
+              </div>
+
+              <div id="week10PotionTarget"
+                   class="week10-potion-target">
+                🍓
+              </div>
+
+              <div class="week10-potion-recipe-arrow">
+                ➜
+              </div>
+
+              <strong>PUT IT IN<br>THE POTION!</strong>
+            </div>
+
+            <div class="week10-potion-center">
+
+              <div class="week10-potion-progress">
+                <span data-week10-potion-star="0">☆</span>
+                <span data-week10-potion-star="1">☆</span>
+                <span data-week10-potion-star="2">☆</span>
+              </div>
+
+              <div class="week10-potion-right-clue">
+                🖱️ RIGHT-CLICK ME!
+              </div>
+
+              <button id="week10PotionCauldron"
+                      class="week10-potion-cauldron"
+                      type="button"
+                      aria-label="Right-click the magic cauldron">
+
+                <span class="week10-potion-steam steam-one">〰</span>
+                <span class="week10-potion-steam steam-two">〰</span>
+
+                <span class="week10-potion-bubble bubble-one"></span>
+                <span class="week10-potion-bubble bubble-two"></span>
+                <span class="week10-potion-bubble bubble-three"></span>
+
+                <span class="week10-potion-brew"></span>
+                <span class="week10-potion-pot"></span>
+
+                <strong>✨</strong>
+              </button>
+
+              <div id="week10PotionMenu"
+                   class="week10-potion-menu"
+                   hidden>
+
+                <button type="button"
+                        data-week10-potion-choice="berry"
+                        aria-label="Choose strawberry">
+                  🍓
+                </button>
+
+                <button type="button"
+                        data-week10-potion-choice="mushroom"
+                        aria-label="Choose mushroom">
+                  🍄
+                </button>
+
+                <button type="button"
+                        data-week10-potion-choice="moon"
+                        aria-label="Choose moon">
+                  🌙
+                </button>
+
+                <button type="button"
+                        data-week10-potion-choice="star"
+                        aria-label="Choose star">
+                  ⭐
+                </button>
+
+              </div>
+
+              <div id="week10PotionIngredientBurst"
+                   class="week10-potion-ingredient-burst"
+                   hidden>
+              </div>
+
+            </div>
+
+            <div class="week10-potion-shelf">
+              <div class="week10-potion-shelf-title">
+                MAGIC SHELF
+              </div>
+
+              <div class="week10-potion-bottles">
+                <span>🧪</span>
+                <span>🧴</span>
+                <span>🔮</span>
+                <span>🧪</span>
+                <span>✨</span>
+              </div>
+
+              <div class="week10-potion-shelf-board"></div>
+
+              <div class="week10-potion-sparkles">
+                ✨ ⭐ ✨
+              </div>
+            </div>
+
+          </div>
+
+          <div id="week10PotionStatus"
+               class="week10-potion-status"
+               aria-live="polite">
+            <span>🖱️</span>
+            <strong>RIGHT-CLICK THE CAULDRON</strong>
+          </div>
+
+          <div id="week10PotionComplete"
+               class="week10-potion-complete"
+               hidden>
+            <div>
+              <span>🧙‍♂️ 🧪 ✨</span>
+              <strong>POTION MASTER!</strong>
+              <b>3 MAGIC POTIONS COMPLETE!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+    if (step.id.startsWith("week10-")) {
+      return `
+        <div class="lesson-screen lesson-screen-week10-placeholder">
+
+          <div class="week10-placeholder-badge">
+            WEEK 10
+          </div>
+
+          <h1>${step.title}</h1>
+
+          <div class="week10-placeholder-icons">
+            🖱️ ✨ 🚀
+          </div>
+
+          <p>
+            Your final mouse adventure is ready to build!
+          </p>
+
+        </div>
+      `;
+    }
     if (step.id.startsWith("week9-")) {
       return `
         <div class="lesson-screen lesson-screen-week6-placeholder">

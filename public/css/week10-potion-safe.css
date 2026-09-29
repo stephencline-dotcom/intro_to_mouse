@@ -1,0 +1,362 @@
+/* Week 10 Potion Lab isolated LEFT-CLICK reminder */
+
+.w10-safe-left-warning {
+  position: absolute;
+  inset: 0;
+  z-index: 50000;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(15, 23, 42, .82);
+
+  pointer-events: none;
+}
+
+.w10-safe-warning-card {
+  display: grid;
+
+  width: min(850px, 88vw);
+  min-height: 275px;
+
+  padding: 28px 42px;
+
+  grid-template-columns: 280px 1fr;
+  align-items: center;
+  gap: 40px;
+
+  border: 11px solid #fff;
+  border-radius: 45px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fee2e2,
+      #fef9c3,
+      #dcfce7
+    );
+
+  box-shadow:
+    0 14px 0 #991b1b,
+    0 0 0 10px #ef4444,
+    0 0 75px #fde047;
+
+  animation:
+    w10SafeWarningPop .28s ease-out;
+}
+
+.w10-safe-warning-demo {
+  display: grid;
+  place-items: center;
+  gap: 9px;
+}
+
+.w10-safe-warning-demo > strong {
+  padding: 6px 18px;
+
+  border-radius: 999px;
+
+  color: #fff;
+  background: #16a34a;
+
+  font-size: 20px;
+  font-weight: 1000;
+}
+
+.w10-safe-warning-mouse {
+  position: relative;
+
+  width: 150px;
+  height: 190px;
+
+  border: 10px solid #334155;
+  border-radius: 80px;
+
+  background: #fff;
+
+  box-shadow:
+    0 10px 0 #94a3b8,
+    0 0 25px #fff;
+}
+
+.w10-safe-warning-mouse::after {
+  position: absolute;
+
+  top: 80px;
+  right: 0;
+  left: 0;
+
+  height: 8px;
+
+  background: #334155;
+
+  content: "";
+}
+
+.w10-safe-mouse-left {
+  position: absolute;
+  z-index: 3;
+
+  top: 0;
+  left: 0;
+
+  width: 50%;
+  height: 87px;
+
+  border-radius: 68px 0 0 0;
+
+  background: #22c55e;
+
+  box-shadow:
+    inset 0 0 0 7px #bbf7d0,
+    0 0 30px #22c55e;
+
+  animation:
+    w10SafeLeftButtonPress
+    .95s ease-in-out infinite;
+}
+
+.w10-safe-mouse-right {
+  position: absolute;
+  z-index: 2;
+
+  top: 0;
+  right: 0;
+
+  width: 50%;
+  height: 87px;
+
+  border-radius: 0 68px 0 0;
+
+  background: #fff;
+}
+
+.w10-safe-mouse-wheel {
+  position: absolute;
+  z-index: 25;
+
+  top: 18px;
+  left: 62px;
+
+  width: 18px;
+  height: 45px;
+
+  border: 5px solid #334155;
+  border-radius: 999px;
+
+  background: #94a3b8;
+}
+
+
+/* hand */
+
+.w10-safe-warning-hand {
+  position: absolute;
+  z-index: 20;
+
+  top: -8px;
+  right: -39px;
+
+  width: 185px;
+  height: 230px;
+}
+
+.w10-safe-hand-palm,
+.w10-safe-hand-index,
+.w10-safe-hand-middle,
+.w10-safe-hand-ring,
+.w10-safe-hand-pinky,
+.w10-safe-hand-thumb {
+  position: absolute;
+
+  border: 6px solid #b45309;
+
+  background: #fbbf24;
+}
+
+.w10-safe-hand-palm {
+  z-index: 3;
+
+  left: 25px;
+  bottom: 4px;
+
+  width: 137px;
+  height: 130px;
+
+  border-radius: 49% 48% 43% 43%;
+}
+
+.w10-safe-hand-index {
+  z-index: 8;
+
+  top: 3px;
+  left: 28px;
+
+  width: 34px;
+  height: 137px;
+
+  border-radius: 22px;
+
+  transform-origin: center bottom;
+
+  animation:
+    w10SafeIndexPress
+    .95s ease-in-out infinite;
+}
+
+.w10-safe-hand-middle {
+  z-index: 7;
+
+  top: 5px;
+  left: 89px;
+
+  width: 35px;
+  height: 135px;
+
+  border-radius: 22px;
+}
+
+.w10-safe-hand-ring {
+  z-index: 6;
+
+  top: 69px;
+  left: 122px;
+
+  width: 30px;
+  height: 81px;
+
+  border-radius: 21px;
+
+  transform: rotate(18deg);
+}
+
+.w10-safe-hand-pinky {
+  z-index: 5;
+
+  top: 97px;
+  left: 146px;
+
+  width: 27px;
+  height: 60px;
+
+  border-radius: 20px;
+
+  transform: rotate(24deg);
+}
+
+.w10-safe-hand-thumb {
+  z-index: 6;
+
+  top: 116px;
+  left: -14px;
+
+  width: 43px;
+  height: 76px;
+
+  border-radius: 23px;
+
+  transform: rotate(-50deg);
+}
+
+
+/* message */
+
+.w10-safe-warning-message {
+  display: grid;
+  gap: 15px;
+
+  text-align: center;
+}
+
+.w10-safe-warning-message > strong {
+  color: #dc2626;
+
+  font-size: 48px;
+  line-height: 1;
+
+  font-weight: 1000;
+
+  animation:
+    w10SafeRememberPulse
+    .55s ease-in-out infinite alternate;
+}
+
+.w10-safe-warning-message > span {
+  display: block;
+
+  padding: 14px 24px;
+
+  border: 7px solid #fff;
+  border-radius: 26px;
+
+  color: #fff;
+  background: #dc2626;
+
+  box-shadow:
+    0 8px 0 #991b1b;
+
+  font-size: 41px;
+  line-height: 1.02;
+
+  font-weight: 1000;
+}
+
+
+/* animations */
+
+@keyframes w10SafeWarningPop {
+  from {
+    opacity: 0;
+    transform: scale(.55);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes w10SafeRememberPulse {
+  from {
+    transform: scale(.96);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes w10SafeIndexPress {
+  0%,
+  28%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40%,
+  56% {
+    transform: translateY(11px);
+  }
+}
+
+@keyframes w10SafeLeftButtonPress {
+  0%,
+  28%,
+  70%,
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+
+  40%,
+  56% {
+    transform: translateY(7px);
+    filter: brightness(1.3);
+  }
+}
+/* Hide the unnecessary LEFT BUTTON label under the hand */
+.w10-safe-warning-demo > strong {
+  display: none !important;
+}
+
