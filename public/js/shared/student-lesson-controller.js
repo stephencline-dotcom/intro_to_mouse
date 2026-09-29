@@ -28658,6 +28658,416 @@ const status =
         </div>
       `;
     }
+    if (step.id === "week10-space-rover") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-rover${isTeacher ? " week10-rover-teacher" : ""}">
+
+          <div class="week10-rover-heading">
+            <span class="week10-rover-title-icon">🚀</span>
+            <div>
+              <h1>SPACE ROVER COMMANDS</h1>
+              <p>RIGHT-CLICK THE ROVER → LEFT-CLICK THE COMMAND</p>
+            </div>
+            <span class="week10-rover-title-icon">🪐</span>
+          </div>
+
+          <div class="week10-rover-game">
+
+            <div class="week10-rover-sky">
+              <span class="week10-rover-star star-a">✦</span>
+              <span class="week10-rover-star star-b">✦</span>
+              <span class="week10-rover-star star-c">✦</span>
+              <span class="week10-rover-star star-d">✦</span>
+              <span class="week10-rover-planet">🪐</span>
+              <span class="week10-rover-moon">🌙</span>
+            </div>
+
+            <div class="week10-rover-mission-card">
+              <div class="week10-rover-mission-label">
+                MISSION
+              </div>
+
+              <div id="week10RoverTarget"
+                   class="week10-rover-target">
+                <span id="week10RoverTargetIcon">⬆️</span>
+                <strong id="week10RoverTargetWord">GO</strong>
+              </div>
+
+              <div class="week10-rover-progress">
+                <span data-week10-rover-star="0">☆</span>
+                <span data-week10-rover-star="1">☆</span>
+                <span data-week10-rover-star="2">☆</span>
+              </div>
+            </div>
+
+            <div class="week10-rover-world">
+
+              <div class="week10-rover-crater crater-one"></div>
+              <div class="week10-rover-crater crater-two"></div>
+              <div class="week10-rover-crater crater-three"></div>
+
+              <div class="week10-rover-flag">
+                🚩
+              </div>
+
+              <div id="week10RoverCrystal"
+                   class="week10-rover-crystal">
+                <span>💎</span>
+                <b>MYSTERY!</b>
+              </div>
+
+              <button type="button"
+                      id="week10Rover"
+                      class="week10-rover-machine"
+                      aria-label="Space rover">
+
+                <span class="week10-rover-antenna">
+                  <i></i>
+                </span>
+
+                <span class="week10-rover-body">
+                  <b class="week10-rover-window">🤖</b>
+                  <i class="week10-rover-light light-one"></i>
+                  <i class="week10-rover-light light-two"></i>
+                </span>
+
+                <span class="week10-rover-arm">
+                  <i></i>
+                </span>
+
+                <span class="week10-rover-wheel wheel-one"></span>
+                <span class="week10-rover-wheel wheel-two"></span>
+                <span class="week10-rover-wheel wheel-three"></span>
+
+              </button>
+
+              <div id="week10RoverScanBeam"
+                   class="week10-rover-scan-beam"
+                   hidden>
+              </div>
+
+              <div id="week10RoverMenu"
+                   class="week10-rover-menu"
+                   hidden>
+
+                <button type="button"
+                        data-week10-rover-command="go">
+                  <span>⬆️</span>
+                  <strong>GO</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-rover-command="turn">
+                  <span>↪️</span>
+                  <strong>TURN</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-rover-command="scan">
+                  <span>🔎</span>
+                  <strong>SCAN</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-rover-command="stop">
+                  <span>🛑</span>
+                  <strong>STOP</strong>
+                </button>
+
+              </div>
+
+              <div class="week10-rover-ground">
+                <span>🪨</span>
+                <span>🪨</span>
+                <span>🌑</span>
+                <span>🪨</span>
+              </div>
+
+            </div>
+
+            <div id="week10RoverStatus"
+                 class="week10-rover-status">
+              <span>🖱️</span>
+              <strong>RIGHT-CLICK THE ROVER</strong>
+            </div>
+
+          </div>
+
+          <div id="week10RoverRightClickWarning"
+               class="week10-rover-warning week10-rover-right-warning"
+               hidden>
+
+            <div class="week10-rover-warning-card">
+              <div class="week10-rover-warning-mouse right-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i class="demo-wheel"></i>
+                <div class="demo-hand right-hand">
+                  <b></b>
+                  <span></span>
+                </div>
+              </div>
+
+              <strong>USE THE RIGHT<br>MOUSE BUTTON!</strong>
+            </div>
+
+          </div>
+
+          <div id="week10RoverLeftClickWarning"
+               class="week10-rover-warning week10-rover-left-warning"
+               hidden>
+
+            <div class="week10-rover-warning-card">
+              <div class="week10-rover-warning-mouse left-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i class="demo-wheel"></i>
+                <div class="demo-hand left-hand">
+                  <b></b>
+                  <span></span>
+                </div>
+              </div>
+
+              <strong>
+                <b>REMEMBER!</b>
+                LEFT-CLICK TO SELECT
+              </strong>
+            </div>
+
+          </div>
+
+          <div id="week10RoverComplete"
+               class="week10-rover-complete"
+               hidden>
+            <div>
+              <span>🚀 ⭐ 🤖 ⭐ 🪐</span>
+              <strong>MISSION COMPLETE!</strong>
+              <b>SPACE ROVER EXPERT!</b>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week10-dinosaur-museum") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-dino${isTeacher ? " week10-dino-teacher" : ""}">
+
+          <div class="week10-dino-heading">
+            <span>🏛️</span>
+
+            <div>
+              <h1>DINOSAUR MUSEUM RESCUE</h1>
+              <p>RIGHT-CLICK THE DINOSAUR → LEFT-CLICK THE TOOL</p>
+            </div>
+
+            <span>🦖</span>
+          </div>
+
+          <div class="week10-dino-game">
+
+            <div class="week10-dino-wall">
+
+              <div class="week10-dino-banner">
+                FOSSIL HALL
+              </div>
+
+              <div class="week10-dino-light light-left">💡</div>
+              <div class="week10-dino-light light-right">💡</div>
+
+              <div class="week10-dino-picture picture-one">
+                🦕
+              </div>
+
+              <div class="week10-dino-picture picture-two">
+                🌋
+              </div>
+
+            </div>
+
+            <div class="week10-dino-mission-card">
+
+              <div class="week10-dino-mission-title">
+                MUSEUM JOB
+              </div>
+
+              <div class="week10-dino-target">
+                <span id="week10DinoTargetIcon">🔧</span>
+                <strong id="week10DinoTargetWord">FIX</strong>
+              </div>
+
+              <div class="week10-dino-progress">
+                <span data-week10-dino-star="0">☆</span>
+                <span data-week10-dino-star="1">☆</span>
+                <span data-week10-dino-star="2">☆</span>
+              </div>
+
+            </div>
+
+            <div class="week10-dino-floor">
+
+              <div class="week10-dino-rope rope-left"></div>
+              <div class="week10-dino-rope rope-right"></div>
+
+              <div class="week10-dino-sign">
+                <span>🦖</span>
+                <strong>T. REX</strong>
+              </div>
+
+              <button type="button"
+                      id="week10DinoExhibit"
+                      class="week10-dino-exhibit"
+                      aria-label="Dinosaur fossil">
+
+                <div class="week10-dino-skeleton">
+
+                  <div class="week10-dino-skull">
+                    <span class="week10-dino-eye"></span>
+                    <span class="week10-dino-mouth"></span>
+                  </div>
+
+                  <div class="week10-dino-neck"></div>
+
+                  <div class="week10-dino-spine">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div class="week10-dino-ribs">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div class="week10-dino-tail">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div class="week10-dino-leg leg-left">
+                    <span></span>
+                  </div>
+
+                  <div class="week10-dino-leg leg-right">
+                    <span></span>
+                  </div>
+
+
+                  <div id="week10DinoDirt"
+                       class="week10-dino-dirt">
+                    <span>💨</span>
+                    <span>🟤</span>
+                    <span>🟤</span>
+                  </div>
+
+                </div>
+
+              </button>
+
+              <div id="week10DinoSpotlight"
+                   class="week10-dino-spotlight"
+                   hidden>
+              </div>
+
+              <div id="week10DinoMenu"
+                   class="week10-dino-menu"
+                   hidden>
+
+                <button type="button"
+                        data-week10-dino-command="fix">
+                  <span>🔧</span>
+                  <strong>FIX</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-dino-command="clean">
+                  <span>🧹</span>
+                  <strong>CLEAN</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-dino-command="light">
+                  <span>💡</span>
+                  <strong>LIGHT</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-dino-command="paint">
+                  <span>🎨</span>
+                  <strong>PAINT</strong>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div id="week10DinoStatus"
+                 class="week10-dino-status">
+              <span>🖱️</span>
+              <strong>RIGHT-CLICK THE DINOSAUR</strong>
+            </div>
+
+          </div>
+
+          <div id="week10DinoRightWarning"
+               class="week10-dino-warning"
+               hidden>
+
+            <div class="week10-dino-warning-card">
+              <div class="week10-dino-mouse-demo right-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>USE THE RIGHT<br>MOUSE BUTTON!</strong>
+            </div>
+
+          </div>
+
+          <div id="week10DinoLeftWarning"
+               class="week10-dino-warning"
+               hidden>
+
+            <div class="week10-dino-warning-card">
+
+              <div class="week10-dino-mouse-demo left-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                <b>REMEMBER!</b>
+                LEFT-CLICK TO SELECT
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div id="week10DinoComplete"
+               class="week10-dino-complete"
+               hidden>
+
+            <div>
+              <span>🏛️ ⭐ 🦖 ⭐ 🦴</span>
+              <strong>MUSEUM RESCUED!</strong>
+              <b>DINOSAUR EXPERT!</b>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week10-")) {
       return `
         <div class="lesson-screen lesson-screen-week10-placeholder">
@@ -37942,6 +38352,10 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
+
+
 
 
 

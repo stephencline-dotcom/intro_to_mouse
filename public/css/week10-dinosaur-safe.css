@@ -1,0 +1,857 @@
+.lesson-screen-week10-dino {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 15px 20px 20px;
+  background:
+    linear-gradient(
+      180deg,
+      #24415a 0%,
+      #315f6b 48%,
+      #c39a62 49%,
+      #a97949 100%
+    );
+  color: #fff;
+}
+
+.week10-dino-heading {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.week10-dino-heading > span {
+  font-size: clamp(44px, 5vw, 68px);
+}
+
+.week10-dino-heading h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 50px);
+  line-height: 1;
+  text-shadow: 0 4px 0 rgba(0,0,0,.24);
+}
+
+.week10-dino-heading p {
+  margin: 7px 0 0;
+  color: #fff0a8;
+  font-size: clamp(15px, 1.7vw, 22px);
+  font-weight: 900;
+}
+
+.week10-dino-game {
+  position: relative;
+  width: min(1180px, 96%);
+  height: min(650px, 72vh);
+  min-height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 7px solid #f5deb2;
+  border-radius: 30px;
+  background: #d8c19a;
+  box-shadow:
+    0 14px 0 #5d4438,
+    0 22px 35px rgba(0,0,0,.28);
+}
+
+.week10-dino-wall {
+  position: absolute;
+  inset: 0 0 36% 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 118px,
+      rgba(90,65,47,.09) 118px 123px
+    ),
+    linear-gradient(180deg, #ede0c3, #d6bb8c);
+  border-bottom: 7px solid #7a5a43;
+}
+
+.week10-dino-banner {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  transform: translateX(-50%);
+  padding: 10px 34px;
+  border: 5px solid #654532;
+  border-radius: 12px;
+  background: #8b3f35;
+  color: #fff4ca;
+  font-size: 27px;
+  font-weight: 1000;
+  letter-spacing: 2px;
+}
+
+.week10-dino-light {
+  position: absolute;
+  top: 84px;
+  font-size: 55px;
+  opacity: .35;
+  transition: opacity .4s, filter .4s;
+}
+
+.week10-dino-light.light-left {
+  left: 19%;
+}
+
+.week10-dino-light.light-right {
+  right: 19%;
+}
+
+.week10-dino-lights-on .week10-dino-light {
+  opacity: 1;
+  filter: drop-shadow(0 0 20px #fffbd2);
+}
+
+.week10-dino-picture {
+  position: absolute;
+  top: 135px;
+  display: grid;
+  place-items: center;
+  width: 95px;
+  height: 95px;
+  border: 9px solid #79573e;
+  background: #e8cf9d;
+  box-shadow: 0 5px 0 rgba(0,0,0,.15);
+  font-size: 58px;
+}
+
+.week10-dino-picture.picture-one {
+  left: 4%;
+}
+
+.week10-dino-picture.picture-two {
+  right: 4%;
+}
+
+.week10-dino-floor {
+  position: absolute;
+  inset: 64% 0 0 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #c69960 0 80px,
+      #b18451 80px 84px
+    );
+}
+
+.week10-dino-mission-card {
+  position: absolute;
+  z-index: 20;
+  left: 22px;
+  top: 22px;
+  width: 205px;
+  padding: 13px;
+  box-sizing: border-box;
+  border: 5px solid #fff;
+  border-radius: 22px;
+  background: #224f5f;
+  text-align: center;
+  box-shadow: 0 7px 0 rgba(0,0,0,.22);
+}
+
+.week10-dino-mission-title {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #ffdc55;
+  color: #463522;
+  font-size: 17px;
+  font-weight: 1000;
+}
+
+.week10-dino-target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 11px 0 5px;
+}
+
+.week10-dino-target span {
+  font-size: 39px;
+}
+
+.week10-dino-target strong {
+  font-size: 30px;
+}
+
+.week10-dino-progress {
+  color: #ffe453;
+  font-size: 31px;
+}
+
+.week10-dino-exhibit {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  top: 120px;
+  width: 650px;
+  height: 355px;
+  transform: translateX(-50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.week10-dino-skeleton {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  filter:
+    drop-shadow(0 5px 2px rgba(0,0,0,.25));
+}
+
+.week10-dino-skull {
+  position: absolute;
+  right: 40px;
+  top: 68px;
+  width: 125px;
+  height: 78px;
+  border: 8px solid #f0e5c7;
+  border-radius: 50% 58% 42% 45%;
+  background: #cfbe93;
+}
+
+.week10-dino-eye {
+  position: absolute;
+  right: 27px;
+  top: 18px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #443828;
+}
+
+.week10-dino-mouth {
+  position: absolute;
+  right: 5px;
+  bottom: 17px;
+  width: 78px;
+  height: 16px;
+  border-bottom: 6px solid #5b4c37;
+  transform: rotate(-3deg);
+}
+
+.week10-dino-neck {
+  position: absolute;
+  right: 144px;
+  top: 120px;
+  width: 110px;
+  height: 20px;
+  border-radius: 20px;
+  background: #eadcba;
+  transform: rotate(-18deg);
+}
+
+.week10-dino-spine {
+  position: absolute;
+  left: 190px;
+  top: 155px;
+  display: flex;
+  gap: 6px;
+  transform: rotate(-5deg);
+}
+
+.week10-dino-spine span {
+  width: 55px;
+  height: 24px;
+  border-radius: 14px;
+  background: #eadcba;
+}
+
+.week10-dino-ribs {
+  position: absolute;
+  left: 270px;
+  top: 175px;
+  display: flex;
+  gap: 20px;
+}
+
+.week10-dino-ribs span {
+  width: 54px;
+  height: 95px;
+  border: 10px solid #eadcba;
+  border-top: 0;
+  border-radius: 0 0 45px 45px;
+}
+
+.week10-dino-tail {
+  position: absolute;
+  left: 45px;
+  top: 160px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.week10-dino-tail span {
+  display: block;
+  width: 75px;
+  height: 26px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: #eadcba;
+}
+
+.week10-dino-tail span:nth-child(1) {
+  transform: rotate(9deg);
+}
+
+.week10-dino-tail span:nth-child(2) {
+  width: 65px;
+  transform: rotate(13deg);
+}
+
+.week10-dino-tail span:nth-child(3) {
+  width: 50px;
+  transform: rotate(18deg);
+}
+
+.week10-dino-leg {
+  position: absolute;
+  top: 248px;
+  width: 24px;
+  height: 90px;
+  border-radius: 14px;
+  background: #eadcba;
+}
+
+.week10-dino-leg::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 60px;
+  height: 18px;
+  border-radius: 15px;
+  background: #eadcba;
+}
+
+.week10-dino-leg.leg-left {
+  left: 275px;
+  transform: rotate(7deg);
+}
+
+.week10-dino-leg.leg-right {
+  left: 425px;
+  top: 238px;
+  transform: rotate(34deg);
+  transform-origin: top center;
+  transition:
+    top .65s ease,
+    transform .65s ease;
+}
+
+.week10-dino-bone-fixed .week10-dino-leg.leg-right {
+  top: 248px;
+  transform: rotate(-6deg);
+}
+
+
+.week10-dino-dirt {
+  position: absolute;
+  left: 225px;
+  top: 105px;
+  width: 260px;
+  height: 160px;
+  pointer-events: none;
+  transition: opacity .7s, transform .7s;
+}
+
+.week10-dino-dirt span {
+  position: absolute;
+  font-size: 48px;
+  opacity: .75;
+}
+
+.week10-dino-dirt span:nth-child(1) {
+  left: 20px;
+  top: 5px;
+}
+
+.week10-dino-dirt span:nth-child(2) {
+  left: 95px;
+  top: 52px;
+}
+
+.week10-dino-dirt span:nth-child(3) {
+  right: 30px;
+  top: 86px;
+}
+
+.week10-dino-dirt-cleaning {
+  animation:
+    week10-dino-dust
+    .18s linear 4;
+}
+
+.week10-dino-dirt-gone {
+  opacity: 0;
+  transform: translateX(100px) scale(.6);
+}
+
+.week10-dino-spotlight {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 0;
+  width: 610px;
+  height: 470px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  clip-path:
+    polygon(
+      35% 0,
+      65% 0,
+      100% 100%,
+      0 100%
+    );
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,198,.68),
+      rgba(255,250,171,.12)
+    );
+  filter: drop-shadow(0 0 20px #fff5a0);
+}
+
+.week10-dino-menu {
+  position: absolute;
+  z-index: 40;
+  left: 62%;
+  top: 210px;
+  display: grid;
+  grid-template-columns: repeat(2, 115px);
+  gap: 8px;
+  padding: 12px;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  background: #265668;
+  box-shadow: 0 9px 0 rgba(0,0,0,.25);
+}
+
+.week10-dino-menu[hidden] {
+  display: none !important;
+}
+
+.week10-dino-menu button {
+  min-height: 90px;
+  padding: 7px;
+  border: 4px solid #78c9c4;
+  border-radius: 15px;
+  background: #fff;
+  color: #244c54;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #4a8a87;
+}
+
+.week10-dino-menu button:hover {
+  transform: translateY(-2px);
+  background: #fff2a0;
+}
+
+.week10-dino-menu button span {
+  display: block;
+  font-size: 38px;
+}
+
+.week10-dino-menu button strong {
+  display: block;
+  font-size: 18px;
+}
+
+.week10-dino-sign {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 8px 23px;
+  border: 5px solid #6d4b35;
+  border-radius: 11px;
+  background: #f1daa9;
+  color: #503a2b;
+  font-size: 22px;
+}
+
+.week10-dino-rope {
+  position: absolute;
+  bottom: 65px;
+  width: 230px;
+  height: 15px;
+  border-radius: 20px;
+  background: #b7353b;
+}
+
+.week10-dino-rope.rope-left {
+  left: 3%;
+  transform: rotate(7deg);
+}
+
+.week10-dino-rope.rope-right {
+  right: 3%;
+  transform: rotate(-7deg);
+}
+
+.week10-dino-status {
+  position: absolute;
+  z-index: 25;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  min-width: 420px;
+  padding: 10px 24px;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  background: #225260;
+  box-shadow: 0 6px 0 rgba(0,0,0,.2);
+}
+
+.week10-dino-status span {
+  font-size: 28px;
+}
+
+.week10-dino-status strong {
+  font-size: 21px;
+}
+
+.week10-dino-warning {
+  position: absolute;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(12,25,30,.8);
+}
+
+.week10-dino-warning[hidden] {
+  display: none !important;
+}
+
+.week10-dino-warning-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(620px, 85vw);
+  padding: 30px;
+  border: 8px solid #fff;
+  border-radius: 34px;
+  background: #ffe45b;
+  color: #3a3021;
+  text-align: center;
+  box-shadow: 0 15px 0 rgba(0,0,0,.25);
+}
+
+.week10-dino-warning-card > strong {
+  margin-top: 18px;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.05;
+}
+
+.week10-dino-warning-card > strong b {
+  display: block;
+  color: #d63748;
+}
+
+.week10-dino-mouse-demo {
+  position: relative;
+  width: 205px;
+  height: 140px;
+  border: 8px solid #3c4052;
+  border-radius: 90px 90px 60px 60px;
+  background: #f6f6f6;
+}
+
+.week10-dino-mouse-demo .demo-left,
+.week10-dino-mouse-demo .demo-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 64px;
+  border-bottom: 5px solid #3c4052;
+}
+
+.week10-dino-mouse-demo .demo-left {
+  left: 0;
+  border-right: 3px solid #3c4052;
+}
+
+.week10-dino-mouse-demo .demo-right {
+  right: 0;
+  border-left: 3px solid #3c4052;
+}
+
+.week10-dino-mouse-demo i {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 13px;
+  width: 18px;
+  height: 42px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background: #52576c;
+}
+
+.week10-dino-mouse-demo.right-demo .demo-right,
+.week10-dino-mouse-demo.left-demo .demo-left {
+  background: #67df79;
+  animation:
+    week10-dino-button
+    .5s ease-in-out infinite alternate;
+}
+
+.week10-dino-complete {
+  position: absolute;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,245,139,.9),
+      rgba(27,83,88,.94) 60%
+    );
+}
+
+.week10-dino-complete[hidden] {
+  display: none !important;
+}
+
+.week10-dino-complete > div {
+  width: min(760px, 85%);
+  padding: 40px;
+  border: 9px solid #fff;
+  border-radius: 42px;
+  background: #23636c;
+  text-align: center;
+  box-shadow: 0 18px 0 rgba(0,0,0,.26);
+  animation:
+    week10-dino-complete-pop
+    .45s ease-out both;
+}
+
+.week10-dino-complete span,
+.week10-dino-complete strong,
+.week10-dino-complete b {
+  display: block;
+}
+
+.week10-dino-complete span {
+  font-size: clamp(54px, 7vw, 88px);
+}
+
+.week10-dino-complete strong {
+  margin-top: 12px;
+  color: #ffe55c;
+  font-size: clamp(40px, 6vw, 68px);
+}
+
+.week10-dino-complete b {
+  margin-top: 12px;
+  font-size: clamp(22px, 3vw, 34px);
+}
+
+.week10-dino-fixing {
+  animation:
+    week10-dino-fix-shake
+    .17s linear 4;
+}
+
+.week10-dino-cleaning {
+  animation:
+    week10-dino-clean-swish
+    .25s ease-in-out 3;
+}
+
+.week10-dino-lit {
+  filter:
+    brightness(1.25)
+    drop-shadow(0 0 18px rgba(255,246,177,.75));
+}
+
+.week10-dino-wrong {
+  animation:
+    week10-dino-wrong
+    .15s linear 5;
+}
+
+@keyframes week10-dino-loose {
+  from {
+    transform: rotate(28deg) translateY(0);
+  }
+
+  to {
+    transform: rotate(42deg) translateY(7px);
+  }
+}
+
+@keyframes week10-dino-fix-shake {
+  from {
+    transform: translateX(-50%) translateY(-4px);
+  }
+
+  to {
+    transform: translateX(-50%) translateY(4px);
+  }
+}
+
+@keyframes week10-dino-dust {
+  from {
+    transform: translateX(-8px);
+  }
+
+  to {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes week10-dino-clean-swish {
+  from {
+    transform: translateX(-50%) rotate(-1deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(1deg);
+  }
+}
+
+@keyframes week10-dino-button {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(7px);
+  }
+}
+
+@keyframes week10-dino-wrong {
+  0% {
+    transform: translateX(-50%) translateX(-9px);
+  }
+
+  50% {
+    transform: translateX(-50%) translateX(9px);
+  }
+
+  100% {
+    transform: translateX(-50%) translateX(-9px);
+  }
+}
+
+@keyframes week10-dino-complete-pop {
+  from {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-height: 760px) {
+  .week10-dino-heading h1 {
+    font-size: 34px;
+  }
+
+  .week10-dino-heading > span {
+    font-size: 42px;
+  }
+
+  .week10-dino-heading p {
+    font-size: 16px;
+  }
+
+  .week10-dino-game {
+    min-height: 470px;
+    height: 68vh;
+  }
+}
+
+/* =========================================================
+   DINOSAUR EXHIBIT POSITION CORRECTION
+   The exhibit lives inside the floor container, so pull the
+   museum display upward into the main visible exhibit area.
+   ========================================================= */
+
+.week10-dino-exhibit {
+  top: -295px;
+  width: 720px;
+  height: 390px;
+}
+
+.week10-dino-menu {
+  top: -205px;
+  left: 66%;
+}
+
+.week10-dino-spotlight {
+  top: -415px;
+  height: 485px;
+}
+
+
+
+/* =========================================================
+   TEACHER PRESENTATION FIT
+   Student view is intentionally unchanged.
+   ========================================================= */
+
+.week10-dino-teacher {
+  padding: 8px 14px 12px;
+}
+
+.week10-dino-teacher .week10-dino-heading {
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.week10-dino-teacher .week10-dino-heading h1 {
+  font-size: clamp(25px, 2.7vw, 36px);
+}
+
+.week10-dino-teacher .week10-dino-heading p {
+  margin-top: 4px;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+.week10-dino-teacher .week10-dino-heading > span {
+  font-size: clamp(34px, 4vw, 48px);
+}
+
+.week10-dino-teacher .week10-dino-game {
+  width: min(1020px, 92%);
+  height: min(515px, 64vh);
+  min-height: 405px;
+}
+
+.week10-dino-teacher .week10-dino-mission-card {
+  transform: scale(.88);
+  transform-origin: top left;
+}
+
+.week10-dino-teacher .week10-dino-status {
+  transform: translateX(-50%) scale(.88);
+  transform-origin: bottom center;
+}
+
+

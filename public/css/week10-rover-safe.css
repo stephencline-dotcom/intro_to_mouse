@@ -1,0 +1,1110 @@
+.lesson-screen-week10-rover {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 18px 22px 22px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 12%, rgba(255,255,255,.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 87% 31%, rgba(255,255,255,.75) 0 2px, transparent 3px),
+    linear-gradient(180deg, #171d69 0%, #442783 46%, #cf5f7a 47%, #f8a75e 100%);
+  color: #fff;
+}
+
+.week10-rover-heading {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.week10-rover-heading h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 0 rgba(0,0,0,.22);
+}
+
+.week10-rover-heading p {
+  margin: 8px 0 0;
+  font-size: clamp(15px, 1.8vw, 23px);
+  font-weight: 900;
+  color: #fff5a8;
+}
+
+.week10-rover-title-icon {
+  font-size: clamp(42px, 5vw, 68px);
+  filter: drop-shadow(0 5px 4px rgba(0,0,0,.24));
+}
+
+.week10-rover-game {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 96%);
+  height: min(650px, 72vh);
+  min-height: 510px;
+  margin: 0 auto;
+  border: 6px solid rgba(255,255,255,.84);
+  border-radius: 32px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #19275f 0%, #5d378e 54%, #b45f80 55%, #dc865c 100%);
+  box-shadow:
+    0 15px 0 rgba(52,22,75,.45),
+    0 22px 40px rgba(0,0,0,.24);
+}
+
+.week10-rover-sky {
+  position: absolute;
+  inset: 0 0 42% 0;
+  overflow: hidden;
+}
+
+.week10-rover-star {
+  position: absolute;
+  font-size: 26px;
+  animation: week10-rover-twinkle 1.4s ease-in-out infinite alternate;
+}
+
+.week10-rover-star.star-a {
+  left: 9%;
+  top: 16%;
+}
+
+.week10-rover-star.star-b {
+  left: 38%;
+  top: 8%;
+  animation-delay: .4s;
+}
+
+.week10-rover-star.star-c {
+  right: 28%;
+  top: 22%;
+  animation-delay: .7s;
+}
+
+.week10-rover-star.star-d {
+  right: 9%;
+  top: 7%;
+  animation-delay: 1s;
+}
+
+.week10-rover-planet {
+  position: absolute;
+  right: 9%;
+  top: 16%;
+  font-size: 88px;
+  transform: rotate(-10deg);
+}
+
+.week10-rover-moon {
+  position: absolute;
+  left: 25%;
+  top: 20%;
+  font-size: 48px;
+  opacity: .92;
+}
+
+.week10-rover-mission-card {
+  position: absolute;
+  z-index: 8;
+  top: 24px;
+  left: 24px;
+  width: 205px;
+  box-sizing: border-box;
+  padding: 13px;
+  text-align: center;
+  border: 5px solid #fff;
+  border-radius: 23px;
+  background: rgba(13,24,74,.88);
+  box-shadow: 0 8px 0 rgba(0,0,0,.22);
+}
+
+.week10-rover-mission-label {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 999px;
+  background: #ffe35c;
+  color: #342b58;
+  font-size: 18px;
+  font-weight: 1000;
+}
+
+.week10-rover-target {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin: 12px 0 7px;
+}
+
+.week10-rover-target span {
+  font-size: 40px;
+}
+
+.week10-rover-target strong {
+  font-size: 31px;
+  color: #fff;
+}
+
+.week10-rover-progress {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  color: #ffeb4f;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.week10-rover-world {
+  position: absolute;
+  inset: 35% 0 0 0;
+  background:
+    radial-gradient(ellipse at 13% 85%, rgba(70,24,45,.25) 0 7%, transparent 7.5%),
+    radial-gradient(ellipse at 78% 78%, rgba(70,24,45,.25) 0 8%, transparent 8.5%),
+    linear-gradient(180deg, #db7a67, #a94f63);
+  border-top: 6px solid rgba(255,220,176,.6);
+}
+
+.week10-rover-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  padding: 0 30px;
+  font-size: 44px;
+  opacity: .9;
+}
+
+.week10-rover-crater {
+  position: absolute;
+  border: 7px solid rgba(91,44,71,.36);
+  background: rgba(80,35,65,.18);
+  border-radius: 50%;
+  transform: scaleY(.42);
+}
+
+.week10-rover-crater.crater-one {
+  width: 130px;
+  height: 80px;
+  left: 10%;
+  bottom: 72px;
+}
+
+.week10-rover-crater.crater-two {
+  width: 190px;
+  height: 100px;
+  right: 15%;
+  bottom: 88px;
+}
+
+.week10-rover-crater.crater-three {
+  width: 90px;
+  height: 60px;
+  right: 42%;
+  bottom: 30px;
+}
+
+.week10-rover-flag {
+  position: absolute;
+  right: 14%;
+  bottom: 116px;
+  font-size: 70px;
+  filter: drop-shadow(0 5px 3px rgba(0,0,0,.22));
+}
+
+.week10-rover-machine {
+  position: absolute;
+  z-index: 10;
+  left: 44%;
+  bottom: 68px;
+  width: 230px;
+  height: 195px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform-origin: center bottom;
+  transition: filter .2s;
+}
+
+.week10-rover-machine:hover {
+  filter: brightness(1.08);
+}
+
+.week10-rover-body {
+  position: absolute;
+  left: 43px;
+  top: 54px;
+  width: 145px;
+  height: 90px;
+  border: 7px solid #263467;
+  border-radius: 26px 26px 20px 20px;
+  background: linear-gradient(180deg, #f8f4e9, #bcd8e9);
+  box-shadow: inset 0 -10px 0 rgba(70,100,140,.16);
+}
+
+.week10-rover-window {
+  position: absolute;
+  left: 38px;
+  top: 14px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 49px;
+  border: 5px solid #273a69;
+  border-radius: 13px;
+  background: #69d9ff;
+  font-size: 31px;
+}
+
+.week10-rover-light {
+  position: absolute;
+  bottom: 7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.week10-rover-light.light-one {
+  left: 20px;
+  background: #ff4f69;
+}
+
+.week10-rover-light.light-two {
+  right: 20px;
+  background: #ffe94d;
+}
+
+.week10-rover-antenna {
+  position: absolute;
+  left: 111px;
+  top: 6px;
+  width: 10px;
+  height: 55px;
+  border-radius: 10px;
+  background: #d5e2ed;
+  transform: rotate(8deg);
+}
+
+.week10-rover-antenna::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: -10px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #ffeb4d;
+  box-shadow: 0 0 16px #fff56d;
+}
+
+.week10-rover-wheel {
+  position: absolute;
+  bottom: 2px;
+  width: 62px;
+  height: 62px;
+  box-sizing: border-box;
+  border: 9px solid #20243e;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #9ea4b7 0 18%, #43495e 19% 45%, #1f2339 46%);
+}
+
+.week10-rover-wheel.wheel-one {
+  left: 28px;
+}
+
+.week10-rover-wheel.wheel-two {
+  left: 86px;
+}
+
+.week10-rover-wheel.wheel-three {
+  right: 22px;
+}
+
+.week10-rover-arm {
+  position: absolute;
+  right: 5px;
+  top: 88px;
+  width: 61px;
+  height: 12px;
+  border-radius: 10px;
+  background: #cbdce8;
+  transform: rotate(-21deg);
+  transform-origin: left center;
+}
+
+.week10-rover-arm::after {
+  content: "🔧";
+  position: absolute;
+  right: -27px;
+  top: -21px;
+  font-size: 37px;
+  transform: rotate(20deg);
+}
+
+.week10-rover-menu {
+  position: absolute;
+  z-index: 30;
+  left: calc(44% + 170px);
+  bottom: 165px;
+  display: grid;
+  grid-template-columns: repeat(2, 116px);
+  gap: 8px;
+  padding: 12px;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  background: #263369;
+  box-shadow: 0 10px 0 rgba(0,0,0,.28);
+}
+
+.week10-rover-menu[hidden] {
+  display: none !important;
+}
+
+.week10-rover-menu button {
+  min-height: 91px;
+  padding: 7px;
+  border: 4px solid #93dfff;
+  border-radius: 16px;
+  background: #fff;
+  color: #263369;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 5px 0 #5790b6;
+}
+
+.week10-rover-menu button:hover {
+  transform: translateY(-2px);
+  background: #fff7af;
+}
+
+.week10-rover-menu button span {
+  display: block;
+  font-size: 38px;
+  line-height: 1;
+}
+
+.week10-rover-menu button strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.week10-rover-scan-beam {
+  position: absolute;
+  z-index: 7;
+  left: calc(44% + 116px);
+  bottom: 134px;
+  width: 280px;
+  height: 135px;
+  background: linear-gradient(
+    90deg,
+    rgba(71,245,255,.55),
+    rgba(71,245,255,0)
+  );
+  clip-path: polygon(0 35%, 100% 0, 100% 100%, 0 65%);
+  filter: drop-shadow(0 0 15px #53f7ff);
+  animation: week10-rover-scan-pulse .35s linear infinite alternate;
+}
+
+.week10-rover-status {
+  position: absolute;
+  z-index: 15;
+  left: 50%;
+  bottom: 15px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 390px;
+  justify-content: center;
+  padding: 10px 25px;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  background: #272d6d;
+  box-shadow: 0 6px 0 rgba(0,0,0,.2);
+}
+
+.week10-rover-status span {
+  font-size: 30px;
+}
+
+.week10-rover-status strong {
+  font-size: 22px;
+  color: #fff;
+}
+
+.week10-rover-warning {
+  position: absolute;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(12,15,47,.78);
+  backdrop-filter: blur(3px);
+}
+
+.week10-rover-warning[hidden] {
+  display: none !important;
+}
+
+.week10-rover-warning-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: min(610px, 86vw);
+  padding: 28px 38px 35px;
+  border: 8px solid #fff;
+  border-radius: 34px;
+  background: #ffe95e;
+  color: #33265c;
+  text-align: center;
+  box-shadow: 0 16px 0 rgba(0,0,0,.25);
+}
+
+.week10-rover-warning-card > strong {
+  margin-top: 18px;
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1.05;
+}
+
+.week10-rover-warning-card > strong > b {
+  display: block;
+  margin-bottom: 8px;
+  color: #e33c61;
+}
+
+.week10-rover-warning-mouse {
+  position: relative;
+  width: 210px;
+  height: 145px;
+  border: 8px solid #3a3a58;
+  border-radius: 95px 95px 65px 65px;
+  background: #f7f7f7;
+  overflow: visible;
+}
+
+.week10-rover-warning-mouse .demo-left,
+.week10-rover-warning-mouse .demo-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 64px;
+  border-bottom: 5px solid #3a3a58;
+}
+
+.week10-rover-warning-mouse .demo-left {
+  left: 0;
+  border-right: 3px solid #3a3a58;
+  border-radius: 80px 0 0 0;
+}
+
+.week10-rover-warning-mouse .demo-right {
+  right: 0;
+  border-left: 3px solid #3a3a58;
+  border-radius: 0 80px 0 0;
+}
+
+.week10-rover-warning-mouse .demo-wheel {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 13px;
+  width: 18px;
+  height: 43px;
+  transform: translateX(-50%);
+  border-radius: 12px;
+  background: #555876;
+}
+
+.week10-rover-warning-mouse.left-demo .demo-left {
+  background: #67df79;
+  animation: week10-rover-button-press .5s ease-in-out infinite alternate;
+}
+
+.week10-rover-warning-mouse.right-demo .demo-right {
+  background: #67df79;
+  animation: week10-rover-button-press .5s ease-in-out infinite alternate;
+}
+
+.week10-rover-warning-mouse .demo-hand {
+  position: absolute;
+  z-index: 10;
+  top: -37px;
+  width: 116px;
+  height: 145px;
+  pointer-events: none;
+}
+
+.week10-rover-warning-mouse .demo-hand.left-hand {
+  left: 3px;
+  transform: rotate(8deg);
+}
+
+.week10-rover-warning-mouse .demo-hand.right-hand {
+  right: -1px;
+  transform: scaleX(-1) rotate(8deg);
+}
+
+.week10-rover-warning-mouse .demo-hand b {
+  position: absolute;
+  left: 41px;
+  top: 57px;
+  width: 67px;
+  height: 80px;
+  border: 5px solid #935b42;
+  border-radius: 38px 38px 32px 32px;
+  background: #d99b75;
+}
+
+.week10-rover-warning-mouse .demo-hand span {
+  position: absolute;
+  left: 22px;
+  top: 2px;
+  width: 31px;
+  height: 105px;
+  border: 5px solid #935b42;
+  border-radius: 20px;
+  background: #d99b75;
+  transform-origin: bottom center;
+  animation: week10-rover-finger-press .5s ease-in-out infinite alternate;
+}
+
+.week10-rover-complete {
+  position: absolute;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle, rgba(255,245,117,.8), rgba(62,41,121,.93) 55%);
+}
+
+.week10-rover-complete[hidden] {
+  display: none !important;
+}
+
+.week10-rover-complete > div {
+  width: min(760px, 85%);
+  padding: 40px;
+  border: 9px solid #fff;
+  border-radius: 42px;
+  background: linear-gradient(180deg, #33459d, #6b43a5);
+  text-align: center;
+  box-shadow: 0 18px 0 rgba(0,0,0,.26);
+  animation: week10-rover-complete-pop .45s ease-out both;
+}
+
+.week10-rover-complete span,
+.week10-rover-complete strong,
+.week10-rover-complete b {
+  display: block;
+}
+
+.week10-rover-complete span {
+  font-size: clamp(54px, 7vw, 90px);
+}
+
+.week10-rover-complete strong {
+  margin-top: 14px;
+  font-size: clamp(42px, 6vw, 72px);
+  color: #ffe65a;
+  text-shadow: 0 5px 0 rgba(0,0,0,.22);
+}
+
+.week10-rover-complete b {
+  margin-top: 12px;
+  font-size: clamp(22px, 3vw, 36px);
+}
+
+.week10-rover-action-go {
+  animation: week10-rover-go .9s ease-out forwards;
+}
+
+.week10-rover-position-forward {
+  left: 57%;
+}
+
+.week10-rover-action-turn {
+  animation: week10-rover-turn .9s ease-in-out forwards;
+}
+
+.week10-rover-position-forward.week10-rover-position-turned {
+  left: 72%;
+  bottom: 64px;
+  transform: none;
+}
+
+.week10-rover-action-scan {
+  animation: week10-rover-scan 1.05s ease-in-out;
+}
+
+.week10-rover-action-wrong {
+  animation: week10-rover-wrong .18s linear 4;
+}
+
+@keyframes week10-rover-twinkle {
+  from {
+    opacity: .35;
+    transform: scale(.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes week10-rover-go {
+  from {
+    left: 44%;
+  }
+
+  to {
+    left: 57%;
+  }
+}
+
+@keyframes week10-rover-turn {
+  0% {
+    left: 57%;
+    bottom: 68px;
+    transform: scale(1);
+  }
+
+  55% {
+    left: 68%;
+    bottom: 68px;
+    transform: scale(1);
+  }
+
+  72% {
+    left: 72%;
+    bottom: 64px;
+    transform: scaleX(.72);
+  }
+
+  100% {
+    left: 72%;
+    bottom: 64px;
+    transform: scale(1);
+  }
+}
+
+@keyframes week10-rover-scan {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter:
+      brightness(1.35)
+      drop-shadow(0 0 25px #64f8ff);
+  }
+}
+
+@keyframes week10-rover-scan-pulse {
+  from {
+    opacity: .35;
+  }
+  to {
+    opacity: .9;
+  }
+}
+
+@keyframes week10-rover-wrong {
+  0% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes week10-rover-button-press {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(7px);
+  }
+}
+
+@keyframes week10-rover-finger-press {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes week10-rover-complete-pop {
+  from {
+    opacity: 0;
+    transform: scale(.55) rotate(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@media (max-height: 760px) {
+  .lesson-screen-week10-rover {
+    padding-top: 10px;
+  }
+
+  .week10-rover-heading {
+    margin-bottom: 5px;
+  }
+
+  .week10-rover-heading h1 {
+    font-size: 34px;
+  }
+
+  .week10-rover-heading p {
+    margin-top: 4px;
+    font-size: 16px;
+  }
+
+  .week10-rover-title-icon {
+    font-size: 42px;
+  }
+
+  .week10-rover-game {
+    min-height: 470px;
+    height: 68vh;
+  }
+}
+
+/* ---------------------------------------------------------
+   WEEK 10 ROVER - MYSTERY CRYSTAL MISSION
+   --------------------------------------------------------- */
+
+.week10-rover-crystal {
+  position: absolute;
+  z-index: 8;
+  right: 7%;
+  bottom: 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform-origin: center bottom;
+}
+
+.week10-rover-crystal span {
+  display: block;
+  font-size: 76px;
+  filter:
+    drop-shadow(0 0 8px rgba(90,255,255,.8))
+    drop-shadow(0 8px 5px rgba(0,0,0,.2));
+  animation:
+    week10-rover-crystal-float
+    1.6s ease-in-out infinite alternate;
+}
+
+.week10-rover-crystal b {
+  padding: 4px 11px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  background: #482e78;
+  color: #fff7a8;
+  font-size: 14px;
+  letter-spacing: .5px;
+  box-shadow: 0 4px 0 rgba(0,0,0,.2);
+}
+
+.week10-rover-crystal-scanning span {
+  animation:
+    week10-rover-crystal-scan
+    .22s linear infinite alternate;
+}
+
+.week10-rover-crystal-scanning b {
+  background: #24aeb8;
+  color: #fff;
+}
+
+.week10-rover-crystal-found span {
+  filter:
+    drop-shadow(0 0 10px #fff)
+    drop-shadow(0 0 24px #58ffff)
+    drop-shadow(0 0 40px #bb7cff);
+}
+
+.week10-rover-crystal-found b {
+  background: #38b976;
+  color: #fff;
+}
+
+.week10-rover-crystal-found b::after {
+  content: " FOUND!";
+}
+
+.week10-rover-position-forward + .week10-rover-scan-beam,
+.week10-rover-position-forward ~ .week10-rover-scan-beam {
+  left: 68%;
+  bottom: 151px;
+  width: 250px;
+  height: 120px;
+}
+
+@keyframes week10-rover-crystal-float {
+  from {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  to {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+
+@keyframes week10-rover-crystal-scan {
+  from {
+    transform: scale(.92) rotate(-4deg);
+    filter:
+      brightness(1)
+      drop-shadow(0 0 10px #68ffff);
+  }
+
+  to {
+    transform: scale(1.13) rotate(4deg);
+    filter:
+      brightness(1.6)
+      drop-shadow(0 0 26px #fff)
+      drop-shadow(0 0 40px #62ffff);
+  }
+}
+
+
+/* =========================================================
+   ROVER REAR VIEW
+   After TURN, the rover is parked directly in front of the
+   crystal with its back facing the student.
+   ========================================================= */
+
+.week10-rover-position-turned .week10-rover-body {
+  left: 38px;
+  top: 47px;
+  width: 154px;
+  height: 102px;
+  border-radius: 25px 25px 18px 18px;
+  background:
+    linear-gradient(
+      180deg,
+      #e9edf2 0%,
+      #c1ccd8 58%,
+      #8f9dad 59%,
+      #aebbc7 100%
+    );
+}
+
+/* Hide the robot/front windshield once the rover turns away. */
+.week10-rover-position-turned .week10-rover-window {
+  font-size: 0;
+  left: 27px;
+  top: 20px;
+  width: 91px;
+  height: 45px;
+  border-color: #38445e;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #414b62 0 8px,
+      #667187 8px 15px
+    );
+}
+
+/* Rear equipment hatch. */
+.week10-rover-position-turned .week10-rover-window::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 25px;
+  height: 13px;
+  transform: translate(-50%, -50%);
+  border: 3px solid #20283b;
+  border-radius: 5px;
+  background: #ffd34f;
+}
+
+/* Rear lights make it obvious this is now the back. */
+.week10-rover-position-turned .week10-rover-light {
+  bottom: 12px;
+  width: 20px;
+  height: 17px;
+  border: 3px solid #78303d;
+  background: #ff405e;
+  box-shadow: 0 0 8px rgba(255,64,94,.8);
+}
+
+.week10-rover-position-turned .week10-rover-light.light-one {
+  left: 18px;
+}
+
+.week10-rover-position-turned .week10-rover-light.light-two {
+  right: 18px;
+  background: #ff405e;
+}
+
+/* The tool arm is on the far side once the rover faces the gem. */
+.week10-rover-position-turned .week10-rover-arm {
+  right: 44px;
+  top: 24px;
+  transform: rotate(-74deg);
+  opacity: .85;
+}
+
+.week10-rover-position-turned .week10-rover-arm::after {
+  transform: rotate(74deg);
+}
+
+/* Center the antenna for a clearer back view. */
+.week10-rover-position-turned .week10-rover-antenna {
+  left: 110px;
+  top: 1px;
+  transform: rotate(0);
+}
+
+/* Wheels become symmetrical when viewed from behind. */
+.week10-rover-position-turned .week10-rover-wheel.wheel-one {
+  left: 36px;
+}
+
+.week10-rover-position-turned .week10-rover-wheel.wheel-two {
+  left: 85px;
+}
+
+.week10-rover-position-turned .week10-rover-wheel.wheel-three {
+  right: 30px;
+}
+
+
+/* ---------------------------------------------------------
+   SCAN BEAM
+   Rover is below/in front of crystal. Beam fires away from
+   the student and up toward the crystal.
+   --------------------------------------------------------- */
+
+.week10-rover-position-forward.week10-rover-position-turned
+  ~ .week10-rover-scan-beam {
+  left: 75%;
+  bottom: 172px;
+  width: 175px;
+  height: 190px;
+
+  background:
+    linear-gradient(
+      25deg,
+      rgba(71,245,255,.08) 0%,
+      rgba(71,245,255,.72) 55%,
+      rgba(255,255,255,.92) 100%
+    );
+
+  clip-path:
+    polygon(
+      34% 100%,
+      66% 100%,
+      100% 0,
+      0 0
+    );
+
+  transform: rotate(13deg);
+  transform-origin: bottom center;
+
+  filter:
+    drop-shadow(0 0 11px #53f7ff)
+    drop-shadow(0 0 20px rgba(83,247,255,.65));
+}
+
+
+/* Make the crystal sit clearly ahead of the rover. */
+.week10-rover-crystal {
+  right: 10%;
+  bottom: 160px;
+}
+
+
+/* Small parking bounce when the rover finishes turning. */
+.week10-rover-position-turned {
+  animation:
+    week10-rover-park-settle
+    .28s ease-out;
+}
+
+@keyframes week10-rover-park-settle {
+  0% {
+    transform: translateY(-5px) scale(.97);
+  }
+
+  60% {
+    transform: translateY(3px) scale(1.02);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   TEACHER PRESENTATION FIT
+   Student view is intentionally unchanged.
+   ========================================================= */
+
+.week10-rover-teacher {
+  padding: 8px 14px 12px;
+}
+
+.week10-rover-teacher .week10-rover-heading {
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.week10-rover-teacher .week10-rover-heading h1 {
+  font-size: clamp(25px, 2.7vw, 36px);
+}
+
+.week10-rover-teacher .week10-rover-heading p {
+  margin-top: 4px;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+.week10-rover-teacher .week10-rover-title-icon {
+  font-size: clamp(34px, 4vw, 48px);
+}
+
+.week10-rover-teacher .week10-rover-game {
+  width: min(1020px, 92%);
+  height: min(515px, 64vh);
+  min-height: 405px;
+}
+
+.week10-rover-teacher .week10-rover-mission-card {
+  transform: scale(.88);
+  transform-origin: top left;
+}
+
+.week10-rover-teacher .week10-rover-status {
+  transform: translateX(-50%) scale(.88);
+  transform-origin: bottom center;
+}
+
+
