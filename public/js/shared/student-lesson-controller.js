@@ -29280,6 +29280,244 @@ const status =
       `;
     }
 
+    if (step.id === "week10-haunted-house") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-haunted${isTeacher ? " week10-haunted-teacher" : ""}">
+
+          <div class="week10-haunted-heading">
+            <span>🌙</span>
+
+            <div>
+              <h1>HAUNTED HOUSE HELPERS</h1>
+              <p>RIGHT-CLICK THE GLOWING OBJECT → LEFT-CLICK THE HELPER</p>
+            </div>
+
+            <span>🏚️</span>
+          </div>
+
+          <div class="week10-haunted-game">
+
+            <div class="week10-haunted-sky">
+              <span class="haunted-star star-one">✦</span>
+              <span class="haunted-star star-two">✦</span>
+              <span class="haunted-star star-three">✦</span>
+              <span class="haunted-moon">🌙</span>
+              <span class="haunted-cloud cloud-one">☁️</span>
+              <span class="haunted-cloud cloud-two">☁️</span>
+            </div>
+
+            <div class="week10-haunted-mission-card">
+
+              <div class="week10-haunted-mission-title">
+                HELP!
+              </div>
+
+              <div class="week10-haunted-target">
+                <span id="week10HauntedTargetIcon">👻</span>
+                <strong id="week10HauntedTargetWord">GHOST</strong>
+              </div>
+
+              <div class="week10-haunted-progress">
+                <span data-week10-haunted-star="0">☆</span>
+                <span data-week10-haunted-star="1">☆</span>
+                <span data-week10-haunted-star="2">☆</span>
+              </div>
+
+            </div>
+
+            <div class="week10-haunted-ground">
+
+              <div class="week10-haunted-tree tree-left">
+                🌳
+              </div>
+
+              <div class="week10-haunted-tree tree-right">
+                🌳
+              </div>
+
+              <div class="week10-haunted-house">
+
+                <div class="week10-haunted-roof"></div>
+
+                <div class="week10-haunted-house-body">
+
+                  <div class="week10-haunted-window window-left">
+                    <span>👀</span>
+                  </div>
+
+                  <div class="week10-haunted-window window-right">
+                    <span>👀</span>
+                  </div>
+
+                  <button type="button"
+                          id="week10HauntedDoor"
+                          class="week10-haunted-door haunted-target-object"
+                          data-haunted-object="door"
+                          aria-label="Haunted door">
+
+                    <span class="week10-haunted-door-knob"></span>
+                    <strong>🚪</strong>
+
+                  </button>
+
+                  <div class="week10-haunted-skeleton"
+                       aria-hidden="true">
+
+                    <div class="week10-haunted-skeleton-head">
+                      💀
+                    </div>
+
+                    <div class="week10-haunted-skeleton-spine"></div>
+
+                    <div class="week10-haunted-skeleton-ribs">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+
+                    <div class="week10-haunted-skeleton-arm arm-left"></div>
+                    <div class="week10-haunted-skeleton-arm arm-right"></div>
+
+                    <div class="week10-haunted-skeleton-pelvis"></div>
+
+                    <div class="week10-haunted-skeleton-leg leg-left"></div>
+                    <div class="week10-haunted-skeleton-leg leg-right"></div>
+
+                    <div class="week10-haunted-skeleton-foot foot-left"></div>
+                    <div class="week10-haunted-skeleton-foot foot-right"></div>
+
+                  </div>
+
+                  <button type="button"
+                          id="week10HauntedGhost"
+                          class="week10-haunted-ghost haunted-target-object"
+                          data-haunted-object="ghost"
+                          aria-label="Ghost">
+
+                    👻
+
+                  </button>
+
+                  <button type="button"
+                          id="week10HauntedWeb"
+                          class="week10-haunted-web haunted-target-object"
+                          data-haunted-object="web"
+                          aria-label="Spider web">
+
+                    🕸️
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              <div id="week10HauntedLightBeam"
+                   class="week10-haunted-light-beam"
+                   hidden>
+              </div>
+
+              <div id="week10HauntedMenu"
+                   class="week10-haunted-menu"
+                   hidden>
+
+                <button type="button"
+                        data-week10-haunted-helper="light">
+                  <span>🔦</span>
+                  <strong>LIGHT</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-haunted-helper="clean">
+                  <span>🧹</span>
+                  <strong>CLEAN</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-haunted-helper="unlock">
+                  <span>🔑</span>
+                  <strong>UNLOCK</strong>
+                </button>
+
+                <button type="button"
+                        data-week10-haunted-helper="paint">
+                  <span>🎨</span>
+                  <strong>PAINT</strong>
+                </button>
+
+              </div>
+
+              <div class="week10-haunted-pumpkins">
+                🎃 🎃
+              </div>
+
+            </div>
+
+            <div id="week10HauntedStatus"
+                 class="week10-haunted-status">
+              <span>🖱️</span>
+              <strong>RIGHT-CLICK THE GHOST</strong>
+            </div>
+
+          </div>
+
+          <div id="week10HauntedRightWarning"
+               class="week10-haunted-warning"
+               hidden>
+
+            <div class="week10-haunted-warning-card">
+
+              <div class="week10-haunted-warning-mouse right-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                USE THE RIGHT<br>MOUSE BUTTON!
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div id="week10HauntedLeftWarning"
+               class="week10-haunted-warning"
+               hidden>
+
+            <div class="week10-haunted-warning-card">
+
+              <div class="week10-haunted-warning-mouse left-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                <b>REMEMBER!</b>
+                LEFT-CLICK TO SELECT
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div id="week10HauntedComplete"
+               class="week10-haunted-complete"
+               hidden>
+
+            <div>
+              <span>🏚️ ✨ 👻 ✨ 🔑</span>
+              <strong>HOUSE RESCUED!</strong>
+              <b>HAUNTED HOUSE HELPER!</b>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week10-")) {
       return `
         <div class="lesson-screen lesson-screen-week10-placeholder">
@@ -38564,6 +38802,8 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
 
 
 
