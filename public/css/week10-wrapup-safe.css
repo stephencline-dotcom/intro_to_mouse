@@ -1,0 +1,520 @@
+.lesson-screen-week10-wrapup {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 14px 18px 20px;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #4b5bc7 0%,
+      #2b347f 48%,
+      #17215b 100%
+    );
+  color: #fff;
+}
+
+.week10-wrapup-heading {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.week10-wrapup-heading > span {
+  font-size: clamp(42px, 5vw, 64px);
+}
+
+.week10-wrapup-heading h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 49px);
+  line-height: 1;
+  text-shadow:
+    0 4px 0 rgba(0,0,0,.25);
+}
+
+.week10-wrapup-heading p {
+  margin: 6px 0 0;
+  color: #ffe969;
+  font-size: clamp(15px, 1.7vw, 21px);
+  font-weight: 900;
+}
+
+.week10-wrapup-game {
+  position: relative;
+  width: min(1180px, 96%);
+  height: min(650px, 72vh);
+  min-height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 7px solid #fff;
+  border-radius: 30px;
+  background:
+    linear-gradient(
+      180deg,
+      #6f79da 0%,
+      #8797ec 44%,
+      #f7c66b 45%,
+      #f0a65b 100%
+    );
+  box-shadow:
+    0 14px 0 rgba(13,23,65,.55),
+    0 22px 35px rgba(0,0,0,.28);
+}
+
+.week10-wrapup-track {
+  position: absolute;
+  inset: 20px 25px 105px;
+  display: grid;
+  grid-template-columns:
+    repeat(4, 1fr);
+  grid-template-rows:
+    repeat(3, 1fr);
+  gap: 12px;
+}
+
+.week10-wrapup-station {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    58px 1fr 46px;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 4px solid rgba(255,255,255,.72);
+  border-radius: 18px;
+  background:
+    rgba(35,42,106,.65);
+  box-shadow:
+    0 5px 0 rgba(0,0,0,.16);
+  opacity: .55;
+  transform: scale(.96);
+  transition:
+    opacity .25s,
+    transform .25s,
+    filter .25s,
+    background .25s;
+}
+
+.week10-wrapup-station > span {
+  font-size: 39px;
+  text-align: center;
+}
+
+.week10-wrapup-station strong {
+  font-size: 17px;
+  line-height: 1.05;
+}
+
+.week10-wrapup-station b {
+  font-size: 30px;
+  text-align: center;
+}
+
+.week10-wrapup-station-active {
+  opacity: 1;
+  transform: scale(1.06);
+  background:
+    #3647a5;
+  filter:
+    drop-shadow(
+      0 0 17px #fff36c
+    );
+  z-index: 4;
+}
+
+.week10-wrapup-station-complete {
+  opacity: 1;
+}
+
+.week10-wrapup-station-complete::after {
+  content: "⭐";
+  position: absolute;
+  right: 4px;
+  top: -9px;
+  font-size: 24px;
+  animation:
+    week10-wrapup-star-pop
+    .35s ease-out both;
+}
+
+.week10-wrapup-mouse {
+  position: absolute;
+  z-index: 20;
+  left: 50%;
+  bottom: 63px;
+  width: 150px;
+  height: 92px;
+  transform:
+    translateX(-50%);
+  transition:
+    left .7s ease,
+    bottom .7s ease;
+}
+
+.week10-wrapup-mouse-shell {
+  position: absolute;
+  left: 44px;
+  top: 4px;
+  width: 74px;
+  height: 90px;
+  border: 5px solid #343653;
+  border-radius:
+    42px 42px 34px 34px;
+  background: #f7f7f7;
+}
+
+.wrapup-mouse-left,
+.wrapup-mouse-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 37px;
+  border-bottom:
+    3px solid #343653;
+}
+
+.wrapup-mouse-left {
+  left: 0;
+  border-right:
+    2px solid #343653;
+}
+
+.wrapup-mouse-right {
+  right: 0;
+  border-left:
+    2px solid #343653;
+}
+
+.week10-wrapup-mouse-shell i {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 8px;
+  width: 9px;
+  height: 25px;
+  transform:
+    translateX(-50%);
+  border-radius: 7px;
+  background: #595c74;
+}
+
+.week10-wrapup-hand {
+  position: absolute;
+  left: 15px;
+  top: -7px;
+  width: 85px;
+  height: 100px;
+}
+
+.week10-wrapup-hand b {
+  position: absolute;
+  left: 35px;
+  top: 35px;
+  width: 48px;
+  height: 55px;
+  border: 4px solid #946044;
+  border-radius: 28px;
+  background: #d69a73;
+}
+
+.week10-wrapup-hand span {
+  position: absolute;
+  left: 22px;
+  top: 1px;
+  width: 21px;
+  height: 69px;
+  border: 4px solid #946044;
+  border-radius: 14px;
+  background: #d69a73;
+}
+
+.week10-wrapup-message {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  bottom: 12px;
+  transform:
+    translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 500px;
+  padding: 9px 24px;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  background: #293879;
+  box-shadow:
+    0 5px 0 rgba(0,0,0,.2);
+}
+
+.week10-wrapup-message span {
+  font-size: 28px;
+}
+
+.week10-wrapup-message strong {
+  font-size: 20px;
+}
+
+.week10-wrapup-complete {
+  position: absolute;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,241,105,.94),
+      rgba(38,44,128,.97) 61%
+    );
+}
+
+.week10-wrapup-complete[hidden] {
+  display: none !important;
+}
+
+.week10-wrapup-finale-card {
+  position: relative;
+  z-index: 3;
+  width: min(820px, 86%);
+  padding: 42px 35px;
+  border: 9px solid #fff;
+  border-radius: 44px;
+  background:
+    linear-gradient(
+      180deg,
+      #4256bd,
+      #723fa0
+    );
+  text-align: center;
+  box-shadow:
+    0 18px 0 rgba(0,0,0,.27);
+  animation:
+    week10-wrapup-finale-pop
+    .5s ease-out both;
+}
+
+.week10-wrapup-final-icons {
+  display: block;
+  font-size:
+    clamp(48px, 7vw, 83px);
+}
+
+.week10-wrapup-finale-card strong {
+  display: block;
+  margin-top: 12px;
+  color: #ffe862;
+  font-size:
+    clamp(40px, 6vw, 68px);
+  text-shadow:
+    0 5px 0 rgba(0,0,0,.2);
+}
+
+.week10-wrapup-finale-card b {
+  display: block;
+  margin-top: 12px;
+  font-size:
+    clamp(24px, 3.2vw, 37px);
+}
+
+.week10-wrapup-final-skills {
+  margin-top: 22px;
+  padding: 13px 18px;
+  border-radius: 18px;
+  background:
+    rgba(21,30,91,.45);
+  color: #fff;
+  font-size:
+    clamp(18px, 2vw, 25px);
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.week10-wrapup-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.week10-wrapup-confetti span {
+  position: absolute;
+  font-size: 58px;
+  animation:
+    week10-wrapup-confetti
+    1.8s ease-in-out infinite alternate;
+}
+
+.week10-wrapup-confetti span:nth-child(1) {
+  left: 8%;
+  top: 15%;
+}
+
+.week10-wrapup-confetti span:nth-child(2) {
+  right: 9%;
+  top: 18%;
+  animation-delay: .3s;
+}
+
+.week10-wrapup-confetti span:nth-child(3) {
+  left: 18%;
+  bottom: 14%;
+  animation-delay: .6s;
+}
+
+.week10-wrapup-confetti span:nth-child(4) {
+  right: 19%;
+  bottom: 12%;
+  animation-delay: .9s;
+}
+
+.week10-wrapup-confetti span:nth-child(5) {
+  left: 42%;
+  top: 8%;
+  animation-delay: .5s;
+}
+
+.week10-wrapup-confetti span:nth-child(6) {
+  right: 40%;
+  bottom: 5%;
+  animation-delay: .8s;
+}
+
+@keyframes week10-wrapup-star-pop {
+  from {
+    opacity: 0;
+    transform:
+      scale(.2)
+      rotate(-25deg);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      scale(1)
+      rotate(0);
+  }
+}
+
+@keyframes week10-wrapup-confetti {
+  from {
+    transform:
+      translateY(0)
+      rotate(-8deg)
+      scale(.9);
+  }
+
+  to {
+    transform:
+      translateY(-18px)
+      rotate(8deg)
+      scale(1.15);
+  }
+}
+
+@keyframes week10-wrapup-finale-pop {
+  from {
+    opacity: 0;
+    transform:
+      scale(.55);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   TEACHER VIEW
+   ========================================================= */
+
+.week10-wrapup-teacher {
+  padding: 8px 14px 12px;
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-heading {
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-heading h1 {
+  font-size:
+    clamp(25px, 2.7vw, 36px);
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-heading p {
+  margin-top: 4px;
+  font-size:
+    clamp(14px, 1.4vw, 18px);
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-heading > span {
+  font-size:
+    clamp(34px, 4vw, 48px);
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-game {
+  width:
+    min(1020px, 92%);
+  height:
+    min(515px, 64vh);
+  min-height: 405px;
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-track {
+  gap: 8px;
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-station {
+  transform: scale(.92);
+}
+
+.week10-wrapup-teacher
+.week10-wrapup-message {
+  transform:
+    translateX(-50%)
+    scale(.88);
+  transform-origin:
+    bottom center;
+}
+
+@media (max-height: 760px) {
+  .week10-wrapup-heading h1 {
+    font-size: 34px;
+  }
+
+  .week10-wrapup-heading > span {
+    font-size: 42px;
+  }
+
+  .week10-wrapup-heading p {
+    font-size: 16px;
+  }
+
+  .week10-wrapup-game {
+    min-height: 470px;
+    height: 68vh;
+  }
+
+  .week10-wrapup-teacher
+  .week10-wrapup-game {
+    min-height: 405px;
+    height: 64vh;
+  }
+}

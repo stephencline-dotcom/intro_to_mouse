@@ -29518,6 +29518,296 @@ const status =
       `;
     }
 
+    if (step.id === "week10-final-mission") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-final${isTeacher ? " week10-final-teacher" : ""}">
+
+          <div class="week10-final-heading">
+            <span>⚡</span>
+
+            <div>
+              <h1>RIGHT-CLICK RESCUE RUSH!</h1>
+              <p>FIND IT → RIGHT-CLICK → LEFT-CLICK THE ACTION</p>
+            </div>
+
+            <span>🏆</span>
+          </div>
+
+          <div class="week10-final-game">
+
+            <div class="week10-final-topbar">
+
+              <div class="week10-final-round">
+                ROUND
+                <strong id="week10FinalRound">1</strong>
+                / 6
+              </div>
+
+              <div class="week10-final-power-wrap">
+                <span>POWER</span>
+
+                <div class="week10-final-power-track">
+                  <div id="week10FinalPower"
+                       class="week10-final-power-fill">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="week10-final-mission-card">
+
+              <div class="week10-final-mission-label">
+                FIND
+              </div>
+
+              <div class="week10-final-mission-target">
+                <span id="week10FinalMissionIcon">🤖</span>
+                <strong id="week10FinalMissionWord">ROBOT</strong>
+              </div>
+
+            </div>
+
+            <div id="week10FinalArena"
+                 class="week10-final-arena">
+            </div>
+
+            <div id="week10FinalMenu"
+                 class="week10-final-menu"
+                 hidden>
+            </div>
+
+            <div id="week10FinalStatus"
+                 class="week10-final-status">
+              <span>👀</span>
+              <strong>FIND THE TARGET!</strong>
+            </div>
+
+          </div>
+
+          <div id="week10FinalRightWarning"
+               class="week10-final-warning"
+               hidden>
+
+            <div class="week10-final-warning-card">
+              <div class="week10-final-warning-mouse right-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                USE THE RIGHT<br>MOUSE BUTTON!
+              </strong>
+            </div>
+
+          </div>
+
+          <div id="week10FinalLeftWarning"
+               class="week10-final-warning"
+               hidden>
+
+            <div class="week10-final-warning-card">
+              <div class="week10-final-warning-mouse left-demo">
+                <span class="demo-left"></span>
+                <span class="demo-right"></span>
+                <i></i>
+              </div>
+
+              <strong>
+                <b>REMEMBER!</b>
+                LEFT-CLICK TO SELECT
+              </strong>
+            </div>
+
+          </div>
+
+          <div id="week10FinalComplete"
+               class="week10-final-complete"
+               hidden>
+
+            <div>
+              <span>🏆 ⭐ 🖱️ ⭐ ⚡</span>
+              <strong>MISSION COMPLETE!</strong>
+              <b>RIGHT-CLICK CHAMPION!</b>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
+    if (step.id === "week10-wrap-up") {
+      return `
+        <div class="lesson-screen lesson-screen-week10-wrapup${isTeacher ? " week10-wrapup-teacher" : ""}">
+
+          <div class="week10-wrapup-heading">
+            <span>🏆</span>
+
+            <div>
+              <h1>MOUSE SKILLS HALL OF FAME</h1>
+              <p>LOOK AT EVERYTHING YOU LEARNED!</p>
+            </div>
+
+            <span>🖱️</span>
+          </div>
+
+          <div class="week10-wrapup-game">
+
+            <div id="week10WrapupTrack"
+                 class="week10-wrapup-track">
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="0">
+                <span>🖱️</span>
+                <strong>MOVE</strong>
+                <b>↔️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="1">
+                <span>👆</span>
+                <strong>LEFT-CLICK</strong>
+                <b>🖱️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="2">
+                <span>✋</span>
+                <strong>PRESS & HOLD</strong>
+                <b>🖱️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="3">
+                <span>📦</span>
+                <strong>DRAG</strong>
+                <b>➡️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="4">
+                <span>🤲</span>
+                <strong>LET GO</strong>
+                <b>✅</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="5">
+                <span>⬇️</span>
+                <strong>SCROLL DOWN</strong>
+                <b>🖱️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="6">
+                <span>⬆️</span>
+                <strong>SCROLL UP</strong>
+                <b>🖱️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="7">
+                <span>🖱️</span>
+                <strong>SCROLL + CLICK</strong>
+                <b>⭐</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="8">
+                <span>📦</span>
+                <strong>SCROLL + DRAG</strong>
+                <b>↕️</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="9">
+                <span>👆👆</span>
+                <strong>DOUBLE-CLICK</strong>
+                <b>⚡</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="10">
+                <span>🖱️</span>
+                <strong>RIGHT-CLICK</strong>
+                <b>👉</b>
+              </div>
+
+              <div class="week10-wrapup-station"
+                   data-wrapup-station="11">
+                <span>📋</span>
+                <strong>MENU CHOICE</strong>
+                <b>👆</b>
+              </div>
+
+            </div>
+
+            <div id="week10WrapupMouse"
+                 class="week10-wrapup-mouse">
+
+              <div class="week10-wrapup-mouse-shell">
+                <span class="wrapup-mouse-left"></span>
+                <span class="wrapup-mouse-right"></span>
+                <i></i>
+              </div>
+
+              <div class="week10-wrapup-hand">
+                <span></span>
+                <b></b>
+              </div>
+
+            </div>
+
+            <div id="week10WrapupMessage"
+                 class="week10-wrapup-message">
+              <span>⭐</span>
+              <strong>YOU LEARNED TO MOVE THE MOUSE!</strong>
+            </div>
+
+          </div>
+
+          <div id="week10WrapupComplete"
+               class="week10-wrapup-complete"
+               hidden>
+
+            <div class="week10-wrapup-confetti">
+              <span>⭐</span>
+              <span>🎉</span>
+              <span>✨</span>
+              <span>🏆</span>
+              <span>🎊</span>
+              <span>⭐</span>
+            </div>
+
+            <div class="week10-wrapup-finale-card">
+
+              <span class="week10-wrapup-final-icons">
+                🖱️ ⭐ 🏆 ⭐ 🖱️
+              </span>
+
+              <strong>
+                YOU LEARNED THE MOUSE!
+              </strong>
+
+              <b>
+                MOUSE SKILLS SUPERSTAR!
+              </b>
+
+              <div class="week10-wrapup-final-skills">
+                MOVE • CLICK • DRAG • SCROLL<br>
+                DOUBLE-CLICK • RIGHT-CLICK
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+
     if (step.id.startsWith("week10-")) {
       return `
         <div class="lesson-screen lesson-screen-week10-placeholder">
@@ -38802,6 +39092,8 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
+
+
 
 
 
