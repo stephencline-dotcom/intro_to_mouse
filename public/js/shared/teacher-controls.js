@@ -112,6 +112,11 @@
     if (homePage) {
       homePage.hidden = false;
     }
+
+    // Navigate from standalone teacher pages.
+    if (!lessonMenu && !homePage) {
+      window.location.href = "/";
+    }
   });
 
   lessonControls.appendChild(homeButton);
