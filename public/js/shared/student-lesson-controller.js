@@ -21090,7 +21090,7 @@ const status =
               data-week5-review-step="move"
             >
               <strong>1</strong>
-              <span>MOVE</span>
+              <span>POINT</span>
             </div>
 
             <div
@@ -21098,7 +21098,7 @@ const status =
               data-week5-review-step="click"
             >
               <strong>2</strong>
-              <span>CLICK</span>
+              <span>PRESS</span>
             </div>
 
             <div
@@ -21114,7 +21114,7 @@ const status =
               data-week5-review-step="drag"
             >
               <strong>4</strong>
-              <span>DRAG</span>
+              <span>MOVE</span>
             </div>
 
             <div
