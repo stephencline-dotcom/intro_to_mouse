@@ -34,31 +34,43 @@
     lastTick = now;
   }
 
-  async function save(status = current?.completed ? "completed" : "started", keepalive = false) {
-    if (!current?.attemptId || !session) return;
-    tick();
-    const payload = {
-      status,
-      activeMs: Math.round(current.activeMs),
-      correctActions: current.correctActions,
-      wrongActions: current.wrongActions,
-      freezeCount: current.freezeCount,
-      frozenMs: Math.round(current.frozenMs)
-    };
-    try {
-      await fetch(`/api/mouse-data/attempts/${current.attemptId}`, {
-        method: "PUT",
-        headers: authHeaders(),
-        body: JSON.stringify(payload),
-        keepalive
-      });
-    } catch (error) {
-      console.error("Hands-On Mouse data save:", error);
-    }
+  // mouseTrackerReliableSaveV1: each attempt owns its start and ordered writes.
+  function persistAttempt(attempt, status, keepalive = false) {
+    if (!attempt || !attempt.studentSession) return Promise.resolve();
+    attempt.writeQueue = (attempt.writeQueue || Promise.resolve()).catch(() => {}).then(async () => {
+      await attempt.startPromise;
+      if (!attempt.attemptId) return;
+      if (current === attempt) tick();
+      const payload = {
+        status: attempt.completed ? "completed" : status,
+        activeMs: Math.round(attempt.activeMs),
+        correctActions: attempt.correctActions,
+        wrongActions: attempt.wrongActions,
+        freezeCount: attempt.freezeCount,
+        frozenMs: Math.round(attempt.frozenMs)
+      };
+      try {
+        const response = await fetch(`/api/mouse-data/attempts/${attempt.attemptId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${attempt.studentSession.token}` },
+          body: JSON.stringify(payload),
+          keepalive
+        });
+        if (!response.ok) console.error("Hands-On Mouse data save status:", response.status);
+      } catch (error) {
+        console.error("Hands-On Mouse data save:", error);
+      }
+    });
+    return attempt.writeQueue;
+  }
+
+  function save(status = current?.completed ? "completed" : "started", keepalive = false) {
+    return persistAttempt(current, status, keepalive);
   }
 
   function isCompletionElement(element) {
     if (!(element instanceof HTMLElement)) return false;
+    if (current?.lessonId === "week4" && current?.stepId === "week4-activities" && element.id === "week4ActivityCompleteOverlay") return false;
     const id = element.id || "";
     if (!/(Complete|CompleteOverlay|Completion)$/i.test(id)) return false;
     return !element.hidden && getComputedStyle(element).display !== "none" && getComputedStyle(element).visibility !== "hidden";
@@ -247,35 +259,34 @@
       freezeCount: 0,
       frozenMs: 0,
       completed: false,
-      attemptId: null
+      attemptId: null,
+      studentSession: session,
+      writeQueue: Promise.resolve(),
+      startPromise: null
     };
     current = next;
     lastTick = performance.now();
-
-    /*
-     * Start observing immediately so fast first mistakes
-     * are not missed while the server request finishes.
-     */
-    watchCompletion(
-      document.getElementById("studentLessonView") ||
-      document.body
-    );
-    try {
-      const response = await fetch("/api/mouse-data/attempts/start", {
-        method: "POST",
-        headers: authHeaders(),
-        body: JSON.stringify(meta)
-      });
-      const result = await response.json();
-      if (current !== next) return;
-      if (!response.ok) throw new Error(result.error || "Tracking could not start.");
-      if (!result.tracked) { current = null; return; }
-      current.attemptId = result.attempt.id;
-      watchCompletion(document.getElementById("studentLessonView") || document.body);
-    } catch (error) {
-      console.error("Hands-On Mouse data start:", error);
-      if (current === next) current = null;
-    }
+    watchCompletion(document.getElementById("studentLessonView") || document.body);
+    next.startPromise = (async () => {
+      try {
+        const response = await fetch("/api/mouse-data/attempts/start", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${next.studentSession.token}` },
+          body: JSON.stringify(meta)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Tracking could not start.");
+        if (!result.tracked) return;
+        next.attemptId = result.attempt.id;
+        if (current === next) {
+          watchCompletion(document.getElementById("studentLessonView") || document.body);
+        }
+      } catch (error) {
+        console.error("Hands-On Mouse data start:", error);
+      }
+    })();
+    await next.startPromise;
+    if (current === next && next.completed) await persistAttempt(next, "completed");
   }
 
   async function leaveStep() {
@@ -285,7 +296,7 @@
       leaving.frozenMs += performance.now() - frozenAt;
       frozenAt = null;
     }
-    await save(leaving.completed ? "completed" : "incomplete", true);
+    await persistAttempt(leaving, leaving.completed ? "completed" : "incomplete", true);
     if (current === leaving) current = null;
     observer?.disconnect();
   }

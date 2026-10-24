@@ -2,3 +2,12 @@ node_modules/
 .env
 .mouse-data-backups/
 public/js/shared/teacher-controls.js.home-backup
+mouse-test-report/
+mouse-week4-report/
+mouse-integration-report/
+test-results/
+mouse-positive-report/
+mouse-final-two-report/
+mouse-last-two-report/
+tests/*.before-*
+playwright.*.config.js.backup

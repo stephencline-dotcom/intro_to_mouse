@@ -1526,6 +1526,7 @@
 
     function finishChallenge() {
       finished = true;
+      window.HandsOnMouseData?.complete?.();
 
       stage.innerHTML = `
         <div class="week4-master-finish">
@@ -1849,6 +1850,7 @@
       }
 
       failedByObstacle = true;
+      window.HandsOnMouseData?.wrongEach?.(); // Week 4 obstacle collision
 
       obstacle.classList.add(
         "week4-master-obstacle-hit"
@@ -1905,6 +1907,7 @@
           advanceRound();
         } else {
           resetRoundObject();
+          window.HandsOnMouseData?.wrongEach?.(); // Incorrect challenge drop
         }
 
         return;
@@ -1924,6 +1927,7 @@
           advanceRound();
         } else {
           resetRoundObject();
+          window.HandsOnMouseData?.wrongEach?.(); // Incorrect challenge drop
         }
 
         return;
@@ -1943,6 +1947,7 @@
           advanceRound();
         } else {
           resetRoundObject();
+          window.HandsOnMouseData?.wrongEach?.(); // Incorrect challenge drop
         }
 
         return;
@@ -1962,6 +1967,7 @@
           advanceRound();
         } else {
           resetRoundObject();
+          window.HandsOnMouseData?.wrongEach?.(); // Incorrect challenge drop
 
           status.textContent =
             "Drive all the way to the fire.";
@@ -1981,6 +1987,7 @@
         advanceRound();
       } else {
         resetRoundObject();
+        window.HandsOnMouseData?.wrongEach?.(); // Incorrect challenge drop
       }
     }
 
@@ -2019,6 +2026,7 @@
           ) {
             status.textContent =
               "Stay on the road!";
+            window.HandsOnMouseData?.wrongEach?.(); // Firetruck left road
 
             stopDragging();
 
@@ -2193,6 +2201,7 @@
     }
 
     let activityCleanup = null;
+    const completedMiniGames = new Set();
 
     function stopCurrentActivity() {
       if (activityCleanup) {
@@ -2281,6 +2290,11 @@
 
       if (!shell) {
         return;
+      }
+      const completedId = ({ "Great Job!": "feed-animals", "Robot Complete!": "build-robot", "Pizza Ready!": "make-pizza" })[title];
+      if (completedId) {
+        completedMiniGames.add(completedId);
+        if (completedMiniGames.size === 3) window.HandsOnMouseData?.complete?.();
       }
 
       shell.appendChild(overlay);
@@ -2610,6 +2624,7 @@
             "Let go over an animal.";
         }
 
+        window.HandsOnMouseData?.wrongEach?.(); // Incorrect food drop
         returnFood(food);
       }
 
@@ -3151,6 +3166,7 @@
             "Let go inside a robot spot.";
         }
 
+        window.HandsOnMouseData?.wrongEach?.(); // Incorrect robot drop
         returnPart(part);
       }
 
@@ -3678,6 +3694,7 @@
           return;
         }
 
+        window.HandsOnMouseData?.wrongEach?.(); // Incorrect pizza drop
         topping.remove();
 
         status.textContent =
@@ -4584,6 +4601,7 @@
           rounds.length
         ) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           destination.style.animation =
             "none";
@@ -4625,6 +4643,7 @@
         return;
       }
 
+      window.HandsOnMouseData?.wrongEach?.(); // Incorrect moving-target drop
       resetObject();
 
       status.textContent =
@@ -4963,6 +4982,7 @@
           pieces.length
         ) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           progress.textContent =
             "4 of 4 ✓";
@@ -5033,6 +5053,7 @@
           "Let go inside a matching puzzle spot.";
       }
 
+      window.HandsOnMouseData?.wrongEach?.(); // Incorrect puzzle drop
       returnPiece(piece);
     }
 
@@ -5384,6 +5405,7 @@
           objects.length
         ) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           progress.textContent =
             "4 of 4 ✓";
@@ -5455,6 +5477,7 @@
           "Let go inside the correct spot.";
       }
 
+      window.HandsOnMouseData?.wrongEach?.(); // Incorrect clean-up drop
       returnObject(object);
     }
 
@@ -5804,6 +5827,7 @@
           objects.length
         ) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           progress.textContent =
             "6 of 6 ✓";
@@ -5874,6 +5898,7 @@
           "Let go inside one of the bins.";
       }
 
+      window.HandsOnMouseData?.wrongEach?.(); // Incorrect sort drop
       returnObject(object);
     }
 
@@ -6192,6 +6217,7 @@
       clearReady();
 
       if (!objectInsideBackpack(object)) {
+        window.HandsOnMouseData?.wrongEach?.(); // Early backpack release
         returnObject(object);
 
         status.textContent =
@@ -6237,6 +6263,7 @@
 
         if (packedCount >= objects.length) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           progress.textContent =
             "3 of 3 ✓";
