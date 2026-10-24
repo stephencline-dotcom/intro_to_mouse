@@ -22,6 +22,33 @@
       : String(lessonId || "");
   }
 
+  function gradeExplanation(week) {
+    const score = Number(week.score || 0);
+    const completion = Number(week.completion || 0);
+    const accuracy = Number(week.accuracy || 0);
+    const grade = Number(week.grade || 1);
+    const label = { 1: 'Low', 2: 'Needs Work', 3: 'On Level', 4: 'Above' }[grade];
+    const details = [`${week.completed}/${week.required} activities completed`, `${accuracy}% accuracy`, `activity score ${score}/100`];
+    let reason;
+    if (grade === 4) {
+      reason = 'Meets all Above requirements: activity score at least 90, completion at least 95%, and accuracy at least 90%.';
+    } else if (grade === 3) {
+      const missing = [];
+      if (score < 90) missing.push('activity score below 90');
+      if (completion < 95) missing.push('completion below 95%');
+      if (accuracy < 90) missing.push('accuracy below 90%');
+      reason = `Meets On Level requirements (75 score, 80% completion, 75% accuracy), but not Above: ${missing.join(', ')}.`;
+    } else if (grade === 2) {
+      const missing = [];
+      if (score < 75) missing.push('activity score below 75');
+      if (completion < 80) missing.push('completion below 80%');
+      if (accuracy < 75) missing.push('accuracy below 75%');
+      reason = `Does not meet all On Level requirements: ${missing.join(', ')}.`;
+    } else {
+      reason = 'Does not yet meet the Needs Work threshold (score at least 50 or completion at least 50%).';
+    }
+    return `${label} (${grade}): ${details.join('; ')}. ${reason}`;
+  }
   async function request(path, options = {}) {
     const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
     const result = await response.json().catch(() => ({}));
@@ -87,6 +114,7 @@
             <td>${week.freezes}</td>
             <td>${duration(week.frozenMs)}</td>
           </tr>
+          <tr class="week-grade-explanation"><td colspan="10"><details><summary>Why this grade?</summary><p>${escapeHtml(gradeExplanation(week))}</p></details></td></tr>
         `;
       }).join("");
 
@@ -117,7 +145,7 @@
         <div class="student-overall-grade">
           <small>Current Grade</small>
           <strong>${student.grade.grade || "–"}</strong>
-          <span>Score ${student.grade.score ?? "–"}</span>
+          <span>Activity Score ${student.grade.score ?? "–"} / 100</span>
         </div>
       </div>
 
@@ -127,6 +155,7 @@
       </p>
 
       <h4>Week-by-Week Results</h4>
+      <p class="score-help">Activity Score /100 = completion 60% + accuracy 30% + pace 10%. This is not a percentage grade; proficiency grades also require minimum accuracy and completion.</p>
 
       <div class="weekly-report-wrap">
         <table class="weekly-report-table">
@@ -134,14 +163,14 @@
             <tr>
               <th>Week</th>
               <th>Grade</th>
-              <th>Score</th>
+              <th title="Activity Score (0-100)">Score /100</th>
               <th>Complete</th>
               <th>Accuracy</th>
               <th>Wrong</th>
-              <th>Incomplete</th>
-              <th>Active Time</th>
+              <th>Missed</th>
+              <th>Time</th>
               <th>Freezes</th>
-              <th>Frozen Time</th>
+              <th>Frozen</th>
             </tr>
           </thead>
           <tbody>

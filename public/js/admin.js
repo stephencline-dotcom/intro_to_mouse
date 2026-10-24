@@ -98,7 +98,11 @@ teacherLogoutButton.addEventListener("click", async () => {
   window.location.replace("/pages/login.html");
 });
 
-const studentLink = window.location.origin + "/";
+const studentLink = window.location.origin + "/?student-signin=1";
+
+document.getElementById("openStudentLinkButton").addEventListener("click", () => {
+  window.open(studentLink, "_blank", "noopener,noreferrer");
+});
 const teacherLoginLink = window.location.origin + "/pages/login.html";
 
 document.getElementById("studentLink").textContent = studentLink;

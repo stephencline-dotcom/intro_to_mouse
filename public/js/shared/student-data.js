@@ -2,6 +2,7 @@
   const teacherSession = window.HandsOnMouseTeacherSession;
   const isTeacher = teacherSession?.isTeacherSession?.() === true;
   const STORAGE_KEY = "handsOnMouseStudentDataSession";
+  const forceStudentSignIn = new URLSearchParams(window.location.search).get("student-signin") === "1";
   let session = null;
   let current = null;
   let observer = null;
@@ -345,7 +346,7 @@
   }
 
   function buildSignIn() {
-    if (isTeacher || session) return;
+    if (isTeacher || (session && !forceStudentSignIn)) return;
     const overlay = document.createElement("div");
     overlay.id = "mouseStudentSignIn";
     overlay.innerHTML = `
@@ -372,9 +373,13 @@
         });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || "Could not join the class.");
+        if (current) await leaveStep();
         session = result;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
         overlay.remove();
+        if (forceStudentSignIn) {
+          window.history.replaceState(null, "", window.location.pathname);
+        }
         window.dispatchEvent(new CustomEvent("handsOnMouseStudentReady", { detail: result }));
       } catch (error) {
         status.textContent = error.message;

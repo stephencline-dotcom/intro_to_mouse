@@ -606,6 +606,7 @@
 
         if (roundIndex >= rounds.length) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           progress.textContent =
             "4 of 4 ✓";
@@ -675,6 +676,7 @@
       target.style.top =
         `${round.objectTop}%`;
 
+      window.HandsOnMouseData?.wrongEach?.();
       status.textContent =
         "Almost! Try again.";
     }
@@ -746,6 +748,7 @@
         }
 
         if (!pointerOnTarget()) {
+          window.HandsOnMouseData?.wrongEach?.();
           status.textContent =
             "Click the object first.";
 
@@ -1037,6 +1040,7 @@
           });
 
         if (!object) {
+          window.HandsOnMouseData?.wrongEach?.();
           status.textContent =
             "Move onto an object first.";
 
@@ -1174,6 +1178,7 @@
           completedCount ===
           objects.length
         ) {
+          window.HandsOnMouseData?.complete?.();
           status.textContent =
             "You matched them all! ✓";
 
@@ -1189,6 +1194,7 @@
 
       returnObject(object);
 
+      window.HandsOnMouseData?.wrongEach?.();
       status.textContent =
         "Try the matching place.";
     }
@@ -6629,6 +6635,7 @@
 
         if (roundIndex >= rounds.length) {
           finished = true;
+          window.HandsOnMouseData?.complete?.();
 
           progress.textContent =
             "3 of 3 ✓";
@@ -6663,6 +6670,7 @@
       dragging = false;
       releaseHand();
 
+      window.HandsOnMouseData?.wrongEach?.();
       status.textContent =
         "Let go inside the destination.";
 
@@ -6780,6 +6788,7 @@
         }
 
         if (!pointerOnTarget()) {
+          window.HandsOnMouseData?.wrongEach?.();
           status.textContent =
             "Move onto the object first.";
 
@@ -6945,6 +6954,7 @@
 
       if (targetInsideDestination()) {
         completed = true;
+        window.HandsOnMouseData?.complete?.();
 
         target.classList.add(
           "let-go-complete"
@@ -6981,6 +6991,7 @@
         return;
       }
 
+      window.HandsOnMouseData?.wrongEach?.();
       status.textContent =
         "Let go inside the green box.";
 
@@ -7085,6 +7096,7 @@
         }
 
         if (!pointerOnTarget()) {
+          window.HandsOnMouseData?.wrongEach?.();
           status.textContent =
             "Move onto the star first.";
           return;
@@ -7300,6 +7312,7 @@
 
           if (targetReachedDestination()) {
             completed = true;
+            window.HandsOnMouseData?.complete?.();
 
             target.classList.add(
               "hold-move-complete"
@@ -7350,6 +7363,7 @@
         }
 
         if (!pointerOnTarget()) {
+          window.HandsOnMouseData?.wrongEach?.();
           status.textContent =
             "Move onto the star first.";
 
@@ -7422,6 +7436,7 @@
          * Releasing before reaching the destination
          * means they need to try again.
          */
+        window.HandsOnMouseData?.wrongEach?.();
         status.textContent =
           "Oops! Keep holding while you move.";
 

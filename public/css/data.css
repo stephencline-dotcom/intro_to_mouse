@@ -90,3 +90,31 @@
     display: none;
   }
 }
+
+/* Compact teacher report, without removing metrics. */
+.data-page{gap:12px;padding:14px;grid-template-columns:minmax(240px,300px) minmax(0,1fr)}
+.data-card{padding:14px;border-radius:15px}
+.data-report{min-width:0}
+.data-card h2{font-size:23px}
+.data-card p{margin:7px 0 10px}
+.report-table-wrap{margin-top:10px}
+.report-table-wrap th,.report-table-wrap td{padding:7px 6px;font-size:13px}
+.grade-pill{width:30px;height:30px;font-size:16px}
+.student-detail{margin-top:12px;padding:12px;border-radius:12px;min-width:0}
+.student-detail-heading{gap:10px}
+.student-detail-heading h3{font-size:21px}
+.student-detail-heading span{font-size:10px}
+.student-overall-grade{min-width:105px;padding:7px 10px;border-radius:10px}
+.student-overall-grade strong{font-size:26px}
+.student-detail h4{margin:12px 0 6px;font-size:17px}
+.student-detail .score-help{font-size:12px;line-height:1.35;margin:5px 0 9px}
+.weekly-report-table{font-size:12px}
+.weekly-report-table th,.weekly-report-table td{padding:7px 6px}
+.weekly-report-wrap{border-width:1px;border-radius:10px}
+.week-grade-explanation td{text-align:left;padding:3px 8px 6px;white-space:normal;background:#f8fafc}
+.week-grade-explanation summary{font-size:12px;font-weight:700;color:#1d4ed8;cursor:pointer}
+.week-grade-explanation p{font-size:12px;margin:5px 0;line-height:1.4}
+.attempt-history{margin-top:10px}
+.attempt-history summary{padding:9px 12px}
+@media(max-width:900px){.data-page{grid-template-columns:1fr}.data-report{grid-column:auto}}
+@media print{.student-detail:not([hidden]){display:block!important}.week-grade-explanation details:not([open]) p{display:block!important}.week-grade-explanation details:not([open]) summary{display:none}.week-grade-explanation details:not([open]){display:block}}
