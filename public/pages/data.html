@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hands-On Mouse Student Data</title>
+  <link rel="stylesheet" href="../css/data.css?v=weekly-report-1">
+</head>
+<body>
+  <header class="data-header">
+    <div><span>HANDS-ON MOUSE</span><h1>Student Data</h1></div>
+    <nav><a href="/pages/admin.html">Settings</a><a href="/">Lessons</a><button id="printData" type="button">Print</button></nav>
+  </header>
+  <main class="data-page">
+    <section class="data-card data-create">
+      <div><h2>Create a Class</h2><p>Students type their names exactly as they appear on this roster.</p></div>
+      <form id="createClassForm">
+        <label>Class name<input name="className" placeholder="Kindergarten - Room 12" required></label>
+        <label>Student names<textarea name="students" rows="8" placeholder="One student per line" required></textarea></label>
+        <button type="submit">Create Class</button><p id="createStatus" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="data-card data-classes">
+      <div class="section-title"><div><h2>Classes</h2><p>Select a class to view its current grades.</p></div><button id="refreshData" type="button">Refresh</button></div>
+      <div id="classList" class="class-list"><p>Loading classes...</p></div>
+    </section>
+    <section id="reportSection" class="data-card data-report" hidden>
+      <div class="report-heading"><div><span id="reportCode"></span><h2 id="reportTitle">Class Report</h2><p id="reportWeeks"></p></div><div class="grade-key"><b>1 Low</b><b>2 Needs Work</b><b>3 On Level</b><b>4 Above</b></div></div>
+      <div class="report-table-wrap"><table><thead><tr><th>Student</th><th>Grade</th><th>Score</th><th>Complete</th><th>Accuracy</th><th>Wrong</th><th>Incomplete</th><th>Freezes</th><th>Frozen Time</th></tr></thead><tbody id="reportBody"></tbody></table></div>
+      <div id="studentDetail" class="student-detail" hidden></div>
+    </section>
+  </main>
+  <div id="teacherDataUnlock" class="data-unlock" hidden><form><h2>Teacher Sign-In</h2><p>Enter the teacher password to view student information.</p><input name="password" type="password" required><button type="submit">Open Student Data</button><p></p></form></div>
+  <script src="../js/shared/teacher-session.js?v=data1"></script>
+  <script src="../js/data.js?v=weekly-report-1"></script>
+</body>
+</html>

@@ -18065,6 +18065,10 @@ const status =
           Number(clicked.dataset.bubble);
 
         if (clickedIndex !== activeBubbleIndex) {
+          // week2ExactBubbleMiss
+          window.HandsOnMouseData
+            ?.wrongEach?.();
+
           clicked.classList.remove(
             "bubble-pop-wrong"
           );
@@ -18475,6 +18479,10 @@ const status =
          * Overlapping with the back of the cursor does not.
          */
         if (!pointerIsOnMouse()) {
+          // week2ExactSprintMiss
+          window.HandsOnMouseData
+            ?.wrongEach?.();
+
           status.textContent =
             "Miss! Keep tracking the mouse.";
           return;
@@ -38463,6 +38471,13 @@ const status =
       ${getStepContent(step, safeIndex)}
       ${independentControls}
     `;
+
+    window.HandsOnMouseData?.beginStep?.({
+      lessonId: lesson.id,
+      stepId: step.id,
+      stepTitle: step.title,
+      stepType: step.type
+    });
 
     if (step.id === "drag-quick-review") {
       startDragQuickReviewAnimation();

@@ -5,6 +5,7 @@ const path = require("path");
 const defaultSettings = require("./server/defaultSettings");
 const { normalizeSettings } = require("./server/settings");
 const supabase = require("./server/supabase");
+const { registerMouseDataRoutes, teacherToken } = require("./server/mouseDataRoutes");
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use(express.json());
 // Serve the student-facing app from /public
 app.use(express.static(path.join(__dirname, "public")));
 
+registerMouseDataRoutes(app, supabase);
+
 // Simple health check
 // Teacher login
 app.post("/api/teacher-login", (req, res) => {
@@ -53,7 +56,8 @@ app.post("/api/teacher-login", (req, res) => {
   }
 
   res.json({
-    success: true
+    success: true,
+    token: teacherToken()
   });
 });
 

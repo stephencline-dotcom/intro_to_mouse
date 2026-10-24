@@ -69,6 +69,7 @@
 
   function showOverlay() {
     overlay.dataset.active = "true";
+    window.HandsOnMouseData?.freezeStarted?.();
 
     document.body.classList.add(
       "student-screen-frozen"
@@ -78,6 +79,7 @@
 
   function hideOverlay() {
     overlay.dataset.active = "false";
+    window.HandsOnMouseData?.freezeEnded?.();
 
     document.body.classList.remove(
       "student-screen-frozen"

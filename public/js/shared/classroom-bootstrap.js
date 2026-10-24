@@ -16,13 +16,14 @@
 
   loadScript("/js/shared/mouse-input.js?v=2");
 
-  loadScript("/js/shared/student-lesson-controller.js?v=80");
+  loadScript("/js/shared/student-lesson-controller.js?v=week2-exact-misses-2");
 
   if (isTeacher) {
     loadScript("/js/shared/lesson-menu.js?v=40");
     loadScript("/js/shared/teacher-controls.js?v=80");
   } else {
-    loadScript("/js/shared/freeze-screen.js?v=6");
+    loadScript("/js/shared/freeze-screen.js?v=freeze-data-1");
     loadScript("/js/shared/training-pause.js?v=1");
   }
 })();
+

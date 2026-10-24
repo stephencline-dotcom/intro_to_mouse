@@ -1,2 +1,4 @@
 node_modules/
 .env
+.mouse-data-backups/
+public/js/shared/teacher-controls.js.home-backup

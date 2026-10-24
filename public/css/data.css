@@ -1,0 +1,92 @@
+:root{font-family:Arial,sans-serif;color:#172554;background:#eef4ff}*{box-sizing:border-box}body{margin:0}.data-header{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;color:#fff;background:linear-gradient(115deg,#172554,#1d4ed8)}.data-header span{font-size:13px;font-weight:900;letter-spacing:2px}.data-header h1{margin:3px 0 0;font-size:34px}.data-header nav{display:flex;gap:10px}.data-header a,.data-header button,.data-page button{padding:11px 17px;border:0;border-radius:12px;color:#fff;background:#2563eb;font-weight:900;text-decoration:none;cursor:pointer}.data-header nav>*{background:#ffffff22}.data-page{display:grid;grid-template-columns:minmax(280px,370px) 1fr;gap:20px;padding:24px}.data-card{padding:22px;border:2px solid #dbeafe;border-radius:24px;background:#fff;box-shadow:0 10px 25px #17255414}.data-card h2{margin:0 0 5px}.data-card p{color:#64748b}.data-create{grid-row:span 2}.data-create form,.data-create label{display:grid;gap:8px}.data-create form{gap:17px}.data-create label{font-weight:900}.data-create input,.data-create textarea{width:100%;padding:12px;border:3px solid #bfdbfe;border-radius:12px;font:inherit}.section-title,.report-heading{display:flex;align-items:center;justify-content:space-between;gap:15px}.class-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}.class-button{display:grid!important;padding:16px!important;text-align:left;background:#eff6ff!important;color:#172554!important;border:3px solid #bfdbfe!important}.class-button strong{font-size:19px}.class-button span{margin-top:7px;color:#475569}.class-code{letter-spacing:3px}.data-report{grid-column:2}.report-heading>div:first-child>span{display:inline-block;padding:6px 12px;border-radius:999px;color:#1e40af;background:#dbeafe;font-weight:900;letter-spacing:2px}.grade-key{display:flex;flex-wrap:wrap;gap:7px}.grade-key b{padding:6px 9px;border-radius:9px;background:#f1f5f9;font-size:12px}.report-table-wrap{overflow:auto;margin-top:18px}table{width:100%;border-collapse:collapse}th,td{padding:11px 9px;border-bottom:1px solid #e2e8f0;text-align:center;white-space:nowrap}th:first-child,td:first-child{text-align:left}tbody tr{cursor:pointer}tbody tr:hover{background:#eff6ff}.grade-pill{display:inline-grid;width:38px;height:38px;place-items:center;border-radius:50%;color:#fff;font-size:20px;font-weight:1000}.grade-1{background:#dc2626}.grade-2{background:#f59e0b}.grade-3{background:#16a34a}.grade-4{background:#2563eb}.grade-none{background:#94a3b8}.student-detail{margin-top:20px;padding:18px;border-radius:17px;background:#f8fafc}.attempt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:10px}.attempt-card{padding:12px;border:2px solid #e2e8f0;border-radius:13px;background:#fff}.attempt-card strong,.attempt-card span{display:block}.attempt-card span{margin-top:5px;color:#64748b}.data-unlock{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:#172554cc}.data-unlock[hidden]{display:none}.data-unlock form{display:grid;width:min(430px,90vw);padding:28px;gap:13px;border-radius:24px;background:#fff;text-align:center}.data-unlock input{padding:13px;border:3px solid #bfdbfe;border-radius:12px;font-size:20px}@media(max-width:900px){.data-page{grid-template-columns:1fr}.data-create{grid-row:auto}.data-report{grid-column:auto}}@media print{.data-header nav,.data-create,.data-classes,.student-detail{display:none!important}.data-page{display:block;padding:0}.data-card{box-shadow:none;border:0}.data-report{display:block!important}.data-header{padding:10px 0;color:#000;background:#fff}body{background:#fff}}
+
+
+/* Weekly student report */
+.student-detail-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.student-detail-heading span {
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.student-detail-heading h3 {
+  margin: 4px 0 0;
+  font-size: 28px;
+}
+
+.student-overall-grade {
+  display: grid;
+  min-width: 125px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  color: #fff;
+  background: #1d4ed8;
+  text-align: center;
+}
+
+.student-overall-grade small,
+.student-overall-grade span {
+  color: #dbeafe;
+  font-weight: 800;
+}
+
+.student-overall-grade strong {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.student-detail h4 {
+  margin: 22px 0 8px;
+  font-size: 20px;
+}
+
+.weekly-report-wrap {
+  overflow-x: auto;
+  border: 2px solid #dbeafe;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.weekly-report-table th {
+  color: #1e3a8a;
+  background: #eff6ff;
+}
+
+.weekly-report-table tbody tr {
+  cursor: default;
+}
+
+.attempt-history {
+  margin-top: 18px;
+}
+
+.attempt-history summary {
+  padding: 12px 15px;
+  border-radius: 12px;
+  color: #1e3a8a;
+  background: #dbeafe;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.attempt-history .attempt-grid {
+  margin-top: 12px;
+}
+
+@media print {
+  .student-detail:not([hidden]) {
+    display: block !important;
+    break-before: page;
+  }
+
+  .attempt-history {
+    display: none;
+  }
+}

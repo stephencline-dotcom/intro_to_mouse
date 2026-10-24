@@ -29,6 +29,9 @@ form.addEventListener("submit", async (event) => {
     }
 
     teacherSession.startTeacherSession();
+    if (result.token) {
+      sessionStorage.setItem("handsOnMouseTeacherDataToken", result.token);
+    }
 
     window.location.href = "/pages/admin.html";
   } catch (error) {
