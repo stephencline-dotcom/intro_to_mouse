@@ -8468,6 +8468,8 @@
     }
 
     function finishActivity() {
+      // week5-direct-completion-drag
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
       dragging = false;
@@ -8659,6 +8661,8 @@
           object.dataset.scrollDragObject !==
           round.id
         ) {
+          window.HandsOnMouseData?.wrongEach?.(); // week5-wrong-object
+
           object.classList.add(
             "week5-scroll-drag-wrong"
           );
@@ -8809,6 +8813,8 @@
           completeRound(object);
           return;
         }
+
+        window.HandsOnMouseData?.wrongEach?.(); // week5-wrong-drop
 
         object.classList.add(
           "week5-scroll-drag-wrong"
@@ -9202,6 +9208,8 @@
     }
 
     function finishActivity() {
+      // week5-direct-completion-click
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
 
@@ -9379,6 +9387,8 @@
           completeRound(object);
           return;
         }
+
+        window.HandsOnMouseData?.wrongEach?.(); // week5-wrong-click
 
         object.classList.add(
           "week5-scroll-click-wrong"
@@ -9614,6 +9624,8 @@
     }
 
     function finishActivity() {
+      // week5-direct-completion-stop
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
 
@@ -10068,6 +10080,8 @@
     }
 
     function finish() {
+      // week5-direct-completion-practice
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
 

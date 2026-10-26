@@ -11,3 +11,7 @@ mouse-final-two-report/
 mouse-last-two-report/
 tests/*.before-*
 playwright.*.config.js.backup
+mouse-week5-report/
+mouse-week5-expanded-report/
+mouse-week5-final-report/
+tests/*.backup-*
