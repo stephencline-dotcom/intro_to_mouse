@@ -16,7 +16,7 @@
 
   loadScript("/js/shared/mouse-input.js?v=2");
 
-  loadScript("/js/shared/student-lesson-controller.js?v=week5-direct-tracking-1");
+  loadScript("/js/shared/student-lesson-controller.js?v=weeks6-7-direct-tracking-1");
 
   if (isTeacher) {
     loadScript("/js/shared/lesson-menu.js?v=40");

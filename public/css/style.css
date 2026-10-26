@@ -51927,3 +51927,16 @@ button {
   }
 }
 
+
+
+/* Week 6 Quick Activities - celebration Home button repair */
+
+.week6-ocean-celebration {
+  pointer-events: none !important;
+}
+
+.week6-activity-home {
+  position: relative;
+  z-index: 300 !important;
+}
+

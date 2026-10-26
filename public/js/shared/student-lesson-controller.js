@@ -13436,6 +13436,8 @@
      * and display its completion star.
      */
     function completeActivity(activityId) {
+      // Each of the three real mini-games must finish.
+      if (completedActivities.has(activityId)) return;
       completedActivities.add(
         activityId
       );
@@ -13446,6 +13448,9 @@
       );
 
       updateStars();
+      if (completedActivities.size === 3) {
+        window.HandsOnMouseData?.complete?.();
+      }
     }
 
     const clickHandler = event => {
@@ -13512,22 +13517,6 @@
         return;
       }
 
-      /*
-       * Temporary test control. It will be
-       * removed as each real activity is built.
-       */
-      const testComplete =
-        event.target.closest(
-          "[data-week6-test-complete]"
-        );
-
-      if (testComplete) {
-        completeActivity(
-          testComplete.dataset.week6TestComplete
-        );
-
-        showHub();
-      }
     };
 
     screen.addEventListener(
@@ -13960,6 +13949,7 @@
     }
 
     function showWrong(object, message) {
+      window.HandsOnMouseData?.wrongEach?.(); // incorrect robot action
       object?.classList.add(
         "week6-mixed-wrong"
       );
@@ -13981,6 +13971,7 @@
     }
 
     function finishActivity() {
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
       dragging = false;
@@ -14896,6 +14887,7 @@
     }
 
     function finishActivity() {
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
       dragging = false;
@@ -15084,6 +15076,8 @@
           object.dataset.week6Delivery !==
           round.id
         ) {
+          window.HandsOnMouseData?.wrongEach?.(); // wrong delivery selection
+
           object.classList.add(
             "week6-delivery-wrong"
           );
@@ -15218,6 +15212,8 @@
           completeRound(object);
           return;
         }
+
+        window.HandsOnMouseData?.wrongEach?.(); // incorrect delivery drop
 
         object.classList.add(
           "week6-delivery-wrong"
@@ -15563,6 +15559,7 @@
     }
 
     function finishActivity() {
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
 
@@ -15732,6 +15729,8 @@
           completeRound(item);
           return;
         }
+
+        window.HandsOnMouseData?.wrongEach?.(); // wrong treasure click
 
         item.classList.add(
           "week6-treasure-wrong"
@@ -15998,6 +15997,7 @@ const status =
     }
 
     function finishActivity() {
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
 
@@ -16406,6 +16406,7 @@ const status =
 
 
     function finishActivity() {
+      window.HandsOnMouseData?.complete?.();
       finished = true;
       locked = true;
 
@@ -34733,6 +34734,7 @@ const status =
         setTimeout(() => {
           week7HatchEggsClickTimer = null;
 
+          window.HandsOnMouseData?.wrongEach?.(); // week7-hatch-too-slow
           showWarning(
             "TOO SLOW!",
             "week7-hatch-too-slow"
@@ -34772,6 +34774,7 @@ const status =
         screen.classList.add(
           "week7-hatch-complete"
         );
+        window.HandsOnMouseData?.complete?.();
 
         week7HatchEggsRoundTimer =
           setTimeout(() => {
@@ -34806,6 +34809,7 @@ const status =
       );
 
       if (distance > movementTolerance) {
+        window.HandsOnMouseData?.wrongEach?.(); // week7-hatch-moved
         showWarning(
           "KEEP MOUSE STILL!",
           "week7-hatch-moved"
@@ -34830,6 +34834,7 @@ const status =
         egg.dataset.week7HatchEgg;
 
       if (eggId !== currentEggId()) {
+        window.HandsOnMouseData?.wrongEach?.(); // wrong egg
         egg.classList.add(
           "week7-hatch-wrong"
         );
@@ -35167,6 +35172,7 @@ const status =
         setTimeout(() => {
           week7PictureGalleryClickTimer = null;
 
+          window.HandsOnMouseData?.wrongEach?.(); // week7-gallery-too-slow
           showWarning(
             "TOO SLOW!",
             "week7-gallery-too-slow"
@@ -35204,6 +35210,7 @@ const status =
         screen.classList.add(
           "week7-gallery-complete"
         );
+        window.HandsOnMouseData?.complete?.();
 
         week7PictureGalleryRoundTimer =
           setTimeout(() => {
@@ -35238,6 +35245,7 @@ const status =
       );
 
       if (distance > movementTolerance) {
+        window.HandsOnMouseData?.wrongEach?.(); // week7-gallery-moved
         showWarning(
           "KEEP MOUSE STILL!",
           "week7-gallery-moved"
@@ -35262,6 +35270,7 @@ const status =
         picture.dataset.week7GalleryPicture;
 
       if (pictureId !== currentRound().id) {
+        window.HandsOnMouseData?.wrongEach?.(); // wrong picture
         picture.classList.add(
           "week7-gallery-wrong"
         );
@@ -35583,6 +35592,7 @@ const status =
         setTimeout(() => {
           week7AnimalDoorsClickTimer = null;
 
+          window.HandsOnMouseData?.wrongEach?.(); // week7-animal-too-slow
           showWarning(
             "TOO SLOW!",
             "week7-animal-too-slow"
@@ -35626,6 +35636,7 @@ const status =
         screen.classList.add(
           "week7-animal-complete"
         );
+        window.HandsOnMouseData?.complete?.();
 
         completion.hidden = false;
         return;
@@ -35655,6 +35666,7 @@ const status =
       );
 
       if (distance > movementTolerance) {
+        window.HandsOnMouseData?.wrongEach?.(); // week7-animal-moved
         showWarning(
           "KEEP MOUSE STILL!",
           "week7-animal-moved"
@@ -35679,6 +35691,7 @@ const status =
         door.dataset.week7AnimalDoor;
 
       if (doorId !== currentRound().id) {
+        window.HandsOnMouseData?.wrongEach?.(); // wrong animal door
         door.classList.add(
           "week7-animal-door-wrong"
         );
@@ -36051,6 +36064,7 @@ const status =
         screen.classList.add(
           "week7-select-open-complete"
         );
+        window.HandsOnMouseData?.complete?.();
 
         completion.hidden = false;
         return;
@@ -36092,6 +36106,7 @@ const status =
             return;
           }
 
+          window.HandsOnMouseData?.wrongEach?.(); // week7-select-open-too-slow
           showWarning(
             "FASTER!",
             "week7-select-open-too-slow"
@@ -36115,6 +36130,7 @@ const status =
       );
 
       if (distance > movementTolerance) {
+        window.HandsOnMouseData?.wrongEach?.(); // week7-select-open-moved
         showWarning(
           "KEEP MOUSE STILL!",
           "week7-select-open-moved"
@@ -36140,6 +36156,7 @@ const status =
         icon.dataset.week7DesktopIcon;
 
       if (iconId !== round.target) {
+        window.HandsOnMouseData?.wrongEach?.(); // wrong desktop icon
         icon.classList.add(
           "week7-desktop-wrong"
         );
@@ -36187,6 +36204,7 @@ const status =
       }
 
       if (round.action === "select") {
+        window.HandsOnMouseData?.wrongEach?.(); // week7-select-open-one-click
         showWarning(
           "ONE CLICK!",
           "week7-select-open-one-click"
@@ -36446,6 +36464,7 @@ const status =
         setTimeout(() => {
           week7ClickRhythmTimer = null;
 
+          window.HandsOnMouseData?.wrongEach?.(); // week7-rhythm-too-slow
           showRhythmWarning(
             "TOO SLOW!",
             "week7-rhythm-too-slow"
@@ -36483,6 +36502,7 @@ const status =
         screen.classList.add(
           "week7-rhythm-complete"
         );
+        window.HandsOnMouseData?.complete?.();
 
         playRhythmSound(
           "complete.mp3",
@@ -36527,6 +36547,7 @@ const status =
       if (
         distanceMoved > movementTolerance
       ) {
+        window.HandsOnMouseData?.wrongEach?.(); // week7-rhythm-moved
         showRhythmWarning(
           "KEEP MOUSE STILL!",
           "week7-rhythm-moved"
