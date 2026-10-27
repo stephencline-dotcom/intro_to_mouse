@@ -30147,6 +30147,7 @@ const status =
     }
 
     function showRightReminder() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-meet-right-click
       clearTimer();
       mouseCard.classList.remove("week9-right-wrong-side");
       void mouseCard.offsetWidth;
@@ -30183,6 +30184,7 @@ const status =
       if (!choice || finished) return;
       event.preventDefault();
       finished = true;
+      window.HandsOnMouseData?.complete?.(); // tracking-week9-meet-right-click
       menuOpen = false;
       menu.hidden = true;
       const id = choice.dataset.week9RightChoice;
@@ -30306,6 +30308,7 @@ const status =
     }
 
     function showReminder() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-dress-character
       status.className =
         "week9-dress-status week9-dress-status-warning";
 
@@ -30412,6 +30415,7 @@ const status =
       const item = choice.dataset.week9DressChoice;
 
       if (item === "hat" && !worn.has("shirt")) {
+        window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-dress-character
         status.className =
           "week9-dress-status week9-dress-status-warning";
 
@@ -30461,6 +30465,7 @@ const status =
       play("/sounds/correct.mp3", 0.68);
 
       if (worn.size >= 4) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week9-dress-character
         finished = true;
 
         status.className =
@@ -30626,6 +30631,7 @@ const status =
     }
 
     function showRightClickReminder() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-pet-care
       clearPetTimer();
       closeMenu();
 
@@ -30805,6 +30811,7 @@ const status =
       play("/sounds/correct.mp3", 0.65);
 
       if (completed.size >= 4) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week9-pet-care
         finished = true;
 
         status.className =
@@ -31077,6 +31084,7 @@ const status =
     }
 
     function showRightClickReminder() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-robot-repair
       status.className =
         "week9-robot-status week9-robot-status-warning";
 
@@ -31180,6 +31188,7 @@ const status =
     }
 
     function showWrongTool() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-robot-repair
       status.className =
         "week9-robot-status week9-robot-status-warning";
 
@@ -31249,6 +31258,7 @@ const status =
       currentIndex += 1;
 
       if (currentIndex >= parts.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week9-robot-repair
         finished = true;
 
         parts.forEach(part => {
@@ -31572,6 +31582,7 @@ const status =
     }
 
     function showRightClickReminder() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-treasure-map
       status.className =
         "week9-treasure-status week9-treasure-status-warning";
 
@@ -31691,6 +31702,7 @@ const status =
     }
 
     function showWrongAction() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-treasure-map
       status.className =
         "week9-treasure-status week9-treasure-status-warning";
 
@@ -31778,6 +31790,7 @@ const status =
       currentIndex += 1;
 
       if (currentIndex >= spots.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week9-treasure-map
         finished = true;
 
         spots.forEach(spot => {
@@ -32148,6 +32161,7 @@ const status =
     }
 
     function showRightClickReminder() {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week9-silly-scene
       closeTray();
 
       status.className =
@@ -32277,6 +32291,7 @@ const status =
       if (celebrated) return;
 
       celebrated = true;
+      window.HandsOnMouseData?.complete?.(); // tracking-week9-silly-scene
 
       flash.hidden = false;
       confetti.hidden = false;
@@ -32593,6 +32608,7 @@ const status =
     }
 
     function warn(kind) {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week8-computer-rescue
       clearFirst();
       show(kind);
       play("/sounds/buzzer.mp3");
@@ -32625,6 +32641,7 @@ const status =
       }, 520);
 
       if (round >= missions.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week8-computer-rescue
         schedule(() => {
           monster.classList.add("week8-boss-monster-defeated");
           play("/sounds/complete.mp3");
@@ -32760,6 +32777,7 @@ const status =
       show("ready");
     }
     function warn(kind) {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week8-carnival
       clearFirst(); show(kind); sound("/sounds/buzzer.mp3");
       screen.classList.remove("week8-carnival-warning");
       void screen.offsetWidth;
@@ -32771,7 +32789,7 @@ const status =
       target.classList.add("week8-carnival-game-won");
       tickets[round]?.classList.add("week8-carnival-ticket-won");
       show("correct"); sound("/sounds/correct.mp3"); round += 1;
-      if (round >= missions.length) {
+      if (round >= missions.length) { window.HandsOnMouseData?.complete?.(); // tracking-week8-carnival
         schedule(() => { complete.hidden = false; sound("/sounds/complete.mp3"); }, 800);
       } else {
         schedule(() => { locked = false; setRound(); }, 700);
@@ -33003,6 +33021,7 @@ const status =
     }
 
     function warn(kind) {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week8-special-delivery
       clearFirstClick();
       showStatus(kind);
       playSound("/sounds/buzzer.mp3");
@@ -33053,6 +33072,7 @@ const status =
       }, 650);
 
       if (round >= missions.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week8-special-delivery
         schedule(() => {
           truck.classList.add(
             "week8-delivery-truck-driving"
@@ -33398,6 +33418,7 @@ const status =
     }
 
     function warn(kind) {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week8-museum
       clearFirstClick();
       showStatus(kind);
       playSound("/sounds/buzzer.mp3");
@@ -33427,6 +33448,7 @@ const status =
       round += 1;
 
       if (round >= missions.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week8-museum
         schedule(() => {
           reveal.hidden = true;
           complete.hidden = false;
@@ -33765,6 +33787,7 @@ const status =
     }
 
     function warn(kind) {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week8-space-launch
       clearFirstClick();
       showStatus(kind);
       playSound("/sounds/buzzer.mp3");
@@ -33830,6 +33853,7 @@ const status =
       round += 1;
 
       if (round >= missions.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week8-space-launch
         beginLaunch();
         return;
       }
@@ -34115,6 +34139,7 @@ const status =
     }
 
     function warn(kind) {
+      window.HandsOnMouseData?.wrongEach?.(); // tracking-week8-fireflies
       clearFirstClick();
       showStatus(kind);
       playSound("/sounds/buzzer.mp3");
@@ -34151,6 +34176,7 @@ const status =
       round += 1;
 
       if (round >= roundTargets.length) {
+        window.HandsOnMouseData?.complete?.(); // tracking-week8-fireflies
         week8FirefliesTimer = setTimeout(() => {
           week8FirefliesTimer = null;
           complete.hidden = false;
@@ -39184,84 +39210,3 @@ const status =
   syncLessonState();
   setInterval(syncLessonState, 1000);
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
