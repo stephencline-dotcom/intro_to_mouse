@@ -79,23 +79,50 @@ loadSettings();
 const teacherLogoutButton = document.getElementById("teacherLogoutButton");
 
 teacherLogoutButton.addEventListener("click", async () => {
+  if (teacherLogoutButton.disabled) {
+    return;
+  }
+
+  teacherLogoutButton.disabled = true;
+
   try {
-    await fetch("/api/classroom-state", {
+    const response = await fetch("/api/classroom-state", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         freezeScreenArmed: false,
+        unlockAllFrozenStudents: true,
         trainingPaused: false
       })
     });
-  } catch (error) {
-    console.error("Could not release Freeze Screen during logout:", error);
-  }
 
-  teacherSession.endTeacherSession();
-  window.location.replace("/pages/login.html");
+    if (!response.ok) {
+      throw new Error("Classroom release request failed.");
+    }
+
+    const state = await response.json();
+
+    if (
+      state.freezeScreenArmed !== false ||
+      state.trainingPaused !== false
+    ) {
+      throw new Error("Classroom release was not confirmed.");
+    }
+
+    teacherSession.endTeacherSession();
+    window.location.replace("/pages/login.html");
+  } catch (error) {
+    console.error("Could not safely log out:", error);
+
+    window.alert(
+      "Could not release the classroom. " +
+      "You are still signed in. Please try again."
+    );
+
+    teacherLogoutButton.disabled = false;
+  }
 });
 
 const studentLink = window.location.origin + "/?student-signin=1";

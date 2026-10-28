@@ -194,6 +194,121 @@ test("teacher logout releases Freeze before ending session", async ({ page }) =>
 
   expect(requests.some(
     body => body.freezeScreenArmed === false &&
-      body.trainingPaused === false
+      body.trainingPaused === false &&
+      body.unlockAllFrozenStudents === true
   )).toBe(true);
+});
+
+test("logout failure keeps teacher signed in", async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("handsOnMouseTeacherSession", "true");
+  });
+
+  await page.route("**/api/classroom-state", async route => {
+    if (route.request().method() === "PUT") {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "Test failure" })
+      });
+      return;
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        freezeScreenArmed: true,
+        freezeUnlockVersion: 0,
+        trainingPaused: false
+      })
+    });
+  });
+
+  await page.goto("/pages/admin.html");
+
+  page.once("dialog", dialog => dialog.accept());
+
+  await page.locator("#teacherLogoutButton").click();
+
+  await expect(page).toHaveURL(/admin\.html/);
+
+  expect(
+    await page.evaluate(() =>
+      window.HandsOnMouseTeacherSession.isTeacherSession()
+    )
+  ).toBe(true); // tracking-logout-session-verification
+
+  await expect(
+    page.locator("#teacherLogoutButton")
+  ).toBeEnabled();
+});
+
+test("network failure allows teacher to retry logout", async ({ page }) => {
+  let attempts = 0;
+
+  await page.route("**/api/classroom-state", async route => {
+    if (route.request().method() === "PUT") {
+      attempts++;
+
+      if (attempts === 1) {
+        await route.abort("failed");
+        return;
+      }
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          freezeScreenArmed: false,
+          trainingPaused: false
+        })
+      });
+      return;
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        freezeScreenArmed: true,
+        freezeUnlockVersion: 0,
+        trainingPaused: false
+      })
+    });
+  });
+
+  await page.goto("/pages/admin.html");
+
+  await page.evaluate(() => {
+    sessionStorage.setItem("handsOnMouseTeacherSession", "true");
+  });
+
+  page.once("dialog", dialog => dialog.accept());
+
+  await page.locator("#teacherLogoutButton").click();
+
+  await expect(page).toHaveURL(/admin\.html/);
+
+  expect(
+    await page.evaluate(() =>
+      window.HandsOnMouseTeacherSession.isTeacherSession()
+    )
+  ).toBe(true); // tracking-logout-session-verification
+
+  await expect(
+    page.locator("#teacherLogoutButton")
+  ).toBeEnabled();
+
+  await page.locator("#teacherLogoutButton").click();
+
+  await expect(page).toHaveURL(/login\.html/);
+
+  expect(
+    await page.evaluate(() =>
+      sessionStorage.getItem("handsOnMouseTeacherSession")
+    )
+  ).toBeNull();
+
+  expect(attempts).toBe(2);
 });
