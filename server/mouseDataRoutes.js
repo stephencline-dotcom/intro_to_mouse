@@ -185,8 +185,26 @@ function registerMouseDataRoutes(app, supabase) {
       updated_at: new Date().toISOString()
     };
     if (update.status === "completed") update.completed_at = new Date().toISOString();
-    const { error } = await supabase.from("mouse_attempts").update(update).eq("id", req.params.id).eq("student_id", req.mouseStudent.studentId);
-    if (error) return res.status(500).json({ error: "Could not save activity tracking." });
+    const { data, error } = await supabase
+      .from("mouse_attempts")
+      .update(update)
+      .eq("id", req.params.id)
+      .eq("student_id", req.mouseStudent.studentId)
+      .select("id")
+      .maybeSingle();
+
+    if (error) {
+      return res.status(500).json({
+        error: "Could not save activity tracking."
+      });
+    }
+
+    if (!data) {
+      return res.status(404).json({
+        error: "Activity attempt not found."
+      });
+    }
+
     res.json({ success: true });
   });
 
