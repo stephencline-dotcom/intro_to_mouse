@@ -291,6 +291,7 @@
     }
 
     function finishHouse() {
+      window.HandsOnMouseData?.complete?.(); // tracking-week10-haunted-house
       locked = true;
       closeMenu();
 
@@ -309,6 +310,7 @@
     }
 
     function correctHelper(helper) {
+      window.HandsOnMouseData?.correct?.(); // tracking-week10-haunted-correct
       locked = true;
       closeMenu();
 

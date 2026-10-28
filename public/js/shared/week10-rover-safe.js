@@ -255,6 +255,7 @@
     }
 
     function finishMission() {
+      window.HandsOnMouseData?.complete?.(); // tracking-week10-space-rover
       locked = true;
       closeMenu();
       clearActionClasses();
@@ -274,6 +275,7 @@
     }
 
     function correctCommand(command) {
+      window.HandsOnMouseData?.correct?.(); // tracking-week10-rover-correct
       locked = true;
       closeMenu();
 
@@ -319,6 +321,7 @@
         }
 
         closeMenu();
+        window.HandsOnMouseData?.wrongEach?.(); // tracking-week10-space-rover-left-click
         showWarning(rightWarning);
       }
     );

@@ -228,6 +228,7 @@
     }
 
     function finishMuseum() {
+      window.HandsOnMouseData?.complete?.(); // tracking-week10-dinosaur-museum
       locked = true;
       closeMenu();
 
@@ -246,6 +247,7 @@
     }
 
     function correctChoice(command) {
+      window.HandsOnMouseData?.correct?.(); // tracking-week10-dinosaur-correct
       locked = true;
       closeMenu();
 

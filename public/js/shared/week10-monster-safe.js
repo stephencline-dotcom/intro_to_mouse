@@ -249,6 +249,7 @@
         );
 
         stars[orderIndex].textContent = "★";
+        window.HandsOnMouseData?.correct?.(); // tracking-week10-monster-correct
 
         orderIndex += 1;
 
@@ -263,6 +264,7 @@
     }
 
     function finishRestaurant() {
+      window.HandsOnMouseData?.complete?.(); // tracking-week10-monster-restaurant
       locked = true;
       closeMenu();
 

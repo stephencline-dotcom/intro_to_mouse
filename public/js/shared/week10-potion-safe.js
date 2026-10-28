@@ -391,6 +391,7 @@
 
           if (round >= recipes.length) {
 
+            window.HandsOnMouseData?.complete?.(); // tracking-week10-potion-lab
             finished = true;
 
             window.setTimeout(() => {

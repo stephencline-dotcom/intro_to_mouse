@@ -601,6 +601,7 @@
     }
 
     function finishGame() {
+      window.HandsOnMouseData?.complete?.(); // tracking-week10-final-mission
       locked = true;
       closeMenu();
 
