@@ -254,3 +254,206 @@ test("print button invokes browser printing", async ({ page }) => {
     () => page.evaluate(() => window.__printCalled)
   ).toBe(true);
 });
+test("class management: cancel deletion makes no API request", async ({ page }) => {
+  let deletes = 0;
+
+  await page.route("**/api/mouse-data/classes/*", async route => {
+    if (route.request().method() === "DELETE") {
+      deletes++;
+      await route.fulfill({ status: 200, body: "{}" });
+      return;
+    }
+    await route.continue();
+  });
+
+  await setup(page);
+
+  page.once("dialog", dialog => dialog.dismiss());
+
+  await page.locator(`[data-delete-class="${classId}"]`).click();
+
+  await expect(
+    page.locator(`[data-class-id="${classId}"]`)
+  ).toBeVisible();
+
+  expect(deletes).toBe(0);
+});
+
+test("class management: confirmed deletion targets selected class once", async ({ page }) => {
+  const deleted = [];
+
+  await page.route("**/api/mouse-data/classes/*", async route => {
+    if (route.request().method() === "DELETE") {
+      deleted.push(route.request().url());
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          success: true,
+          deletedClassId: classId
+        })
+      });
+      return;
+    }
+    await route.continue();
+  });
+
+  await setup(page);
+
+  page.once("dialog", dialog => dialog.accept());
+
+  await page.locator(`[data-delete-class="${classId}"]`).click();
+
+  await expect.poll(() => deleted.length).toBe(1);
+
+  expect(new URL(deleted[0]).pathname).toBe(
+    `/api/mouse-data/classes/${classId}`
+  );
+});
+
+test("class management: deleting selected class clears report", async ({ page }) => {
+  await page.route("**/api/mouse-data/classes/*", async route => {
+    if (route.request().method() === "DELETE") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          success: true,
+          deletedClassId: classId
+        })
+      });
+      return;
+    }
+    await route.continue();
+  });
+
+  await setup(page);
+  await openReport(page);
+
+  await expect(page.locator("#reportSection")).toBeVisible();
+
+  page.once("dialog", dialog => dialog.accept());
+
+  await page.locator(`[data-delete-class="${classId}"]`).click();
+
+  await expect(page.locator("#reportSection")).toBeHidden();
+  await expect(page.locator("#studentDetail")).toBeHidden();
+});
+
+test("class management: rename preserves student identity and grades", async ({ page }) => {
+  const renamed = structuredClone(report);
+  renamed.students[0].name = "Mouse Test Alexandra";
+
+  let savedRequest = null;
+
+  await page.route("**/api/mouse-data/reports/**", async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(savedRequest ? renamed : report)
+    });
+  });
+
+  await page.route("**/api/mouse-data/classes/*/students/*", async route => {
+    savedRequest = {
+      method: route.request().method(),
+      path: new URL(route.request().url()).pathname,
+      body: route.request().postDataJSON()
+    };
+
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        success: true,
+        student: {
+          id: alphaId,
+          name: "Mouse Test Alexandra"
+        }
+      })
+    });
+  });
+
+  await setup(page);
+
+  // Override the default report mock after setup.
+  await page.route("**/api/mouse-data/reports/**", async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(savedRequest ? renamed : report)
+    });
+  });
+
+  await openReport(page);
+
+  await page.locator(`[data-student-id="${alphaId}"]`).click();
+
+  page.once("dialog", dialog => {
+    expect(dialog.type()).toBe("prompt");
+    dialog.accept("Mouse Test Alexandra");
+  });
+
+  await page.locator(`[data-edit-student="${alphaId}"]`).click();
+
+  await expect(
+    page.locator("#studentDetail")
+  ).toContainText("Mouse Test Alexandra");
+
+  expect(savedRequest).toEqual({
+    method: "PUT",
+    path: `/api/mouse-data/classes/${classId}/students/${alphaId}`,
+    body: { name: "Mouse Test Alexandra" }
+  });
+
+  const row = page.locator(`[data-student-id="${alphaId}"]`);
+
+  await expect(row).toContainText("Mouse Test Alexandra");
+  await expect(row).toContainText("5/6");
+  await expect(row).toContainText("82");
+
+  await expect(
+    page.locator("#studentDetail")
+  ).toContainText("Magic Potion Lab");
+});
+
+test("class management: duplicate name error preserves student", async ({ page }) => {
+  await page.route("**/api/mouse-data/classes/*/students/*", async route => {
+    await route.fulfill({
+      status: 409,
+      contentType: "application/json",
+      body: JSON.stringify({
+        error: "Another student already has that name."
+      })
+    });
+  });
+
+  await setup(page);
+  await openReport(page);
+
+  await page.locator(`[data-student-id="${alphaId}"]`).click();
+
+  const messages = [];
+
+  page.on("dialog", async dialog => {
+    if (dialog.type() === "prompt") {
+      await dialog.accept("Mouse Test Beta");
+    } else {
+      messages.push(dialog.message());
+      await dialog.accept();
+    }
+  });
+
+  await page.locator(`[data-edit-student="${alphaId}"]`).click();
+
+  await expect.poll(() => messages.length).toBe(1);
+
+  expect(messages[0]).toContain(
+    "Another student already has that name."
+  );
+
+  await expect(
+    page.locator(`[data-student-id="${alphaId}"]`)
+  ).toContainText("Mouse Test Alpha");
+});

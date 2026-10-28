@@ -230,6 +230,134 @@ function registerMouseDataRoutes(app, supabase) {
     res.json({ classroom });
   });
 
+  // Teacher-only class deletion.
+  app.delete("/api/mouse-data/classes/:classId", requireTeacher, async (req, res) => {
+    const classId = req.params.classId;
+
+    const { data: classroom, error: lookupError } = await supabase
+      .from("mouse_classes")
+      .select("id,name")
+      .eq("id", classId)
+      .maybeSingle();
+
+    if (lookupError) {
+      return res.status(500).json({ error: "Could not check class." });
+    }
+
+    if (!classroom) {
+      return res.status(404).json({ error: "Class not found." });
+    }
+
+    const { data: deleted, error } = await supabase
+      .from("mouse_classes")
+      .delete()
+      .eq("id", classId)
+      .select("id")
+      .maybeSingle();
+
+    if (error) {
+      return res.status(500).json({ error: "Could not delete class." });
+    }
+
+    if (!deleted) {
+      return res.status(404).json({ error: "Class not found." });
+    }
+
+    res.json({
+      success: true,
+      deletedClassId: deleted.id
+    });
+  }); // tracking-class-management-delete
+
+  // Teacher-only student name correction.
+  app.put("/api/mouse-data/classes/:classId/students/:studentId", requireTeacher, async (req, res) => {
+    const classId = req.params.classId;
+    const studentId = req.params.studentId;
+    const name = cleanName(req.body.name);
+    const normalized = normalizedName(name);
+
+    if (!name || !normalized) {
+      return res.status(400).json({
+        error: "Enter a valid student name."
+      });
+    }
+
+    const { data: student, error: lookupError } = await supabase
+      .from("mouse_students")
+      .select("id,class_id,display_name")
+      .eq("id", studentId)
+      .eq("class_id", classId)
+      .maybeSingle();
+
+    if (lookupError) {
+      return res.status(500).json({
+        error: "Could not check student."
+      });
+    }
+
+    if (!student) {
+      return res.status(404).json({
+        error: "Student not found in this class."
+      });
+    }
+
+    const { data: duplicate, error: duplicateError } = await supabase
+      .from("mouse_students")
+      .select("id")
+      .eq("class_id", classId)
+      .eq("normalized_name", normalized)
+      .neq("id", studentId)
+      .maybeSingle();
+
+    if (duplicateError) {
+      return res.status(500).json({
+        error: "Could not check duplicate names."
+      });
+    }
+
+    if (duplicate) {
+      return res.status(409).json({
+        error: "Another student already has that name."
+      });
+    }
+
+    const { data: updated, error } = await supabase
+      .from("mouse_students")
+      .update({
+        display_name: name,
+        normalized_name: normalized
+      })
+      .eq("id", studentId)
+      .eq("class_id", classId)
+      .select("id,display_name")
+      .maybeSingle();
+
+    if (error?.code === "23505") {
+      return res.status(409).json({
+        error: "Another student already has that name."
+      });
+    }
+
+    if (error) {
+      return res.status(500).json({
+        error: "Could not update student name."
+      });
+    }
+
+    if (!updated) {
+      return res.status(404).json({
+        error: "Student not found."
+      });
+    }
+
+    res.json({
+      success: true,
+      student: {
+        id: updated.id,
+        name: updated.display_name
+      }
+    });
+  });
   app.get("/api/mouse-data/reports/:classId", requireTeacher, async (req, res) => {
     const { data: classroom, error: classError } = await supabase.from("mouse_classes").select("id,name,join_code").eq("id", req.params.classId).single();
     if (classError) return res.status(404).json({ error: "Class not found." });

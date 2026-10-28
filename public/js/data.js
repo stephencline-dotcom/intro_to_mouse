@@ -2,6 +2,8 @@
   const TOKEN_KEY = "handsOnMouseTeacherDataToken";
   let token = sessionStorage.getItem(TOKEN_KEY) || "";
   let currentReport = null;
+  let selectedClassId = null;
+  let classManagementBusy = false;
   const classList = document.getElementById("classList");
   const reportSection = document.getElementById("reportSection");
   const unlock = document.getElementById("teacherDataUnlock");
@@ -69,11 +71,25 @@
     try {
       const result = await request("/api/mouse-data/classes");
       if (!result.classes.length) { classList.innerHTML = "<p>No classes yet. Create your first class.</p>"; return; }
-      classList.innerHTML = result.classes.map(item => `<button class="class-button" data-class-id="${item.id}"><strong>${escapeHtml(item.name)}</strong><span class="class-code">CODE: ${escapeHtml(item.join_code)}</span><span>${item.mouse_students?.filter(s => s.active).length || 0} students</span></button>`).join("");
+      classList.innerHTML = result.classes.map(item => `
+        <div class="managed-class">
+          <button class="class-button" data-class-id="${item.id}">
+            <strong>${escapeHtml(item.name)}</strong>
+            <span class="class-code">CODE: ${escapeHtml(item.join_code)}</span>
+            <span>${item.mouse_students?.filter(s => s.active).length || 0} students</span>
+          </button>
+          <button
+            type="button"
+            class="class-delete-button"
+            data-delete-class="${item.id}"
+            data-class-name="${escapeHtml(item.name).replace(/"/g, "&quot;")}"
+          >Delete Class</button>
+        </div>
+      `).join("");
     } catch (error) { classList.innerHTML = `<p>${escapeHtml(error.message)}</p>`; }
   }
   async function loadReport(classId) {
-    const result = await request(`/api/mouse-data/reports/${classId}`); currentReport = result; reportSection.hidden = false;
+    const result = await request(`/api/mouse-data/reports/${classId}`); currentReport = result; selectedClassId = classId; reportSection.hidden = false;
     document.getElementById("reportTitle").textContent = result.classroom.name;
     document.getElementById("reportCode").textContent = `CLASS CODE ${result.classroom.join_code}`;
     document.getElementById("reportWeeks").textContent = result.assignedLessons.length ? `Current average includes: ${result.assignedLessons.map(x => lessonLabel(x.lesson_id)).join(", ")}` : "No graded weeks have started yet.";
@@ -140,6 +156,11 @@
         <div>
           <span>STUDENT REPORT</span>
           <h3>${escapeHtml(student.name)}</h3>
+          <button
+            type="button"
+            class="student-edit-name-button"
+            data-edit-student="${student.id}"
+          >Edit Name</button>
         </div>
 
         <div class="student-overall-grade">
@@ -198,7 +219,108 @@
     try { const result = await request("/api/mouse-data/classes", { method: "POST", body: JSON.stringify({ name: form.get("className"), students: String(form.get("students") || "").split(/\r?\n/).map(x => x.trim()).filter(Boolean) }) }); status.textContent = `Class created. Student code: ${result.classroom.join_code}`; event.target.reset(); await loadClasses(); }
     catch (error) { status.textContent = error.message; }
   });
-  classList.addEventListener("click", event => { const button = event.target.closest("[data-class-id]"); if (button) loadReport(button.dataset.classId).catch(error => alert(error.message)); });
+  // tracking-mouse-class-management-ui
+  classList.addEventListener("click", async event => {
+    const deleteButton = event.target.closest("[data-delete-class]");
+
+    if (deleteButton) {
+      if (classManagementBusy) return;
+
+      const classId = deleteButton.dataset.deleteClass;
+      const className = deleteButton.dataset.className;
+
+      if (!window.confirm(
+        `Delete "${className}" and permanently remove its students, grades, and activity history?`
+      )) {
+        return;
+      }
+
+      classManagementBusy = true;
+      deleteButton.disabled = true;
+
+      try {
+        await request(
+          `/api/mouse-data/classes/${encodeURIComponent(classId)}`,
+          { method: "DELETE" }
+        );
+
+        if (selectedClassId === classId) {
+          selectedClassId = null;
+          currentReport = null;
+          reportSection.hidden = true;
+          document.getElementById("studentDetail").hidden = true;
+        }
+
+        await loadClasses();
+      } catch (error) {
+        window.alert(error.message);
+      } finally {
+        classManagementBusy = false;
+        deleteButton.disabled = false;
+      }
+
+      return;
+    }
+
+    const button = event.target.closest("[data-class-id]");
+
+    if (button && !classManagementBusy) {
+      loadReport(button.dataset.classId)
+        .catch(error => window.alert(error.message));
+    }
+  });
+
+  document.getElementById("studentDetail").addEventListener("click", async event => {
+    const editButton = event.target.closest("[data-edit-student]");
+    if (!editButton || !currentReport || !selectedClassId || classManagementBusy) return;
+
+    const student = currentReport.students.find(
+      item => item.id === editButton.dataset.editStudent
+    );
+
+    if (!student) return;
+
+    const newName = window.prompt(
+      "Correct student name:",
+      student.name
+    );
+
+    if (newName === null) return;
+
+    const cleaned = newName.trim().replace(/\s+/g, " ");
+
+    if (!cleaned) {
+      window.alert("Enter a valid student name.");
+      return;
+    }
+
+    if (cleaned === student.name) return;
+
+    classManagementBusy = true;
+    editButton.disabled = true;
+
+    try {
+      await request(
+        `/api/mouse-data/classes/${encodeURIComponent(selectedClassId)}/students/${encodeURIComponent(student.id)}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ name: cleaned })
+        }
+      );
+
+      const studentId = student.id;
+      const classId = selectedClassId;
+
+      await loadReport(classId);
+      showStudent(studentId);
+      await loadClasses();
+    } catch (error) {
+      window.alert(error.message);
+    } finally {
+      classManagementBusy = false;
+      editButton.disabled = false;
+    }
+  });
   document.getElementById("reportBody").addEventListener("click", event => { const row = event.target.closest("[data-student-id]"); if (row) showStudent(row.dataset.studentId); });
   document.getElementById("refreshData").addEventListener("click", loadClasses);
   document.getElementById("printData").addEventListener("click", () => window.print());
